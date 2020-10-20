@@ -1,0 +1,33 @@
+  FIELD bx_correg LIKE punto_envase.bx_correg VALIDATE ~
+  FIELD c_fecha LIKE punto_envase.c_fecha VALIDATE ~
+  FIELD c_hora LIKE punto_envase.c_hora VALIDATE ~
+  FIELD c_usuario LIKE punto_envase.c_usuario VALIDATE ~
+  FIELD id_empresa_proceso LIKE punto_envase.id_empresa_proceso VALIDATE ~
+  FIELD id_punto_envase LIKE punto_envase.id_punto_envase VALIDATE ~
+  FIELD id_sucursal LIKE punto_envase.id_sucursal VALIDATE ~
+  FIELD id_sucursal_proceso LIKE punto_envase.id_sucursal_proceso VALIDATE ~
+  FIELD id_tipotambor_proceso LIKE punto_envase.id_tipotambor_proceso VALIDATE ~
+  FIELD litros LIKE punto_envase.litros VALIDATE ~
+  FIELD nromov_proceso LIKE punto_envase.nromov_proceso VALIDATE ~
+  FIELD solido_soluble LIKE punto_envase.solido_soluble VALIDATE ~
+  FIELD sol_totales LIKE punto_envase.sol_totales VALIDATE ~
+  FIELD id_empresa LIKE punto_envase.id_empresa VALIDATE ~
+  FIELD id_sucursal_punto_envase LIKE punto_envase.id_sucursal_punto_envase VALIDATE ~
+  FIELD id_tipotambor LIKE punto_envase.id_tipotambor VALIDATE ~
+  FIELD nromov LIKE punto_envase.nromov VALIDATE ~
+  FIELD Anio LIKE punto_envase.Anio VALIDATE ~
+  FIELD cantidad_tambores LIKE punto_envase.cantidad_tambores VALIDATE ~
+  FIELD Fecha LIKE punto_envase.Fecha VALIDATE ~
+  FIELD id_articulo LIKE punto_envase.id_articulo VALIDATE ~
+  FIELD id_calidad LIKE punto_envase.id_calidad VALIDATE ~
+  FIELD id_envase LIKE punto_envase.id_envase VALIDATE ~
+  FIELD id_lote LIKE punto_envase.id_lote VALIDATE ~
+  FIELD tambor_desde LIKE punto_envase.tambor_desde VALIDATE ~
+  FIELD tambor_hasta LIKE punto_envase.tambor_hasta VALIDATE ~
+  FIELD kilos_tambor LIKE punto_envase.kilos_tambor VALIDATE ~
+  FIELD Acidez_w_v LIKE punto_envase.Acidez_w_v VALIDATE ~
+  FIELD Acidez_w_w LIKE punto_envase.Acidez_w_w VALIDATE ~
+  FIELD Bx_20_20 LIKE punto_envase.Bx_20_20 VALIDATE ~
+  FIELD Ratio LIKE punto_envase.Ratio VALIDATE ~
+  FIELD cant_2 LIKE punto_envase.cantidad_tambores_2 VALIDATE  LABEL "cant_2"~
+  FIELD id_envase_2 LIKE punto_envase.id_envase_2 VALIDATE 

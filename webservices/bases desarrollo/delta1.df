@@ -1,0 +1,125 @@
+UPDATE FIELD "peso_envases_salida" OF "a_balanza_pesadas"
+  DECIMALS 2
+
+UPDATE FIELD "cant_env_entrada" OF "a_balanza_tickets"
+  DECIMALS 3
+
+UPDATE FIELD "peso_envases_entrada" OF "a_balanza_tickets"
+  DECIMALS 3
+
+UPDATE FIELD "peso_neto_ticket" OF "a_balanza_tickets"
+  DECIMALS 3
+
+UPDATE FIELD "peso_descarte" OF "a_balanza_tickets"
+  DECIMALS 3
+
+ADD FIELD "especieSap" OF "a_balanza_tickets" AS character
+  FORMAT "x(10)"
+  POSITION 68
+  INITIAL ""
+  LABEL "Especie Sap"
+  COLUMN-LABEL "Esp.Sap"
+  ORDER 670
+  MAX-WIDTH 20
+
+ADD FIELD "variedadSap" OF "a_balanza_tickets" AS character
+  FORMAT "x(10)"
+  POSITION 69
+  INITIAL ""
+  LABEL "Variedad Sap"
+  COLUMN-LABEL "Var.Sap"
+  ORDER 680
+  MAX-WIDTH 20
+
+ADD FIELD "loteagricolasap" OF "a_balanza_tickets" AS character
+  FORMAT "x(10)"
+  POSITION 70
+  INITIAL ""
+  LABEL "Lote Agricola SAP"
+  COLUMN-LABEL "Lot.Agr.Sap"
+  ORDER 660
+  MAX-WIDTH 20
+
+ADD FIELD "fincaSap" OF "a_balanza_tickets" AS character
+  FORMAT "x(10)"
+  POSITION 71
+  INITIAL ""
+  LABEL "Finca Sap"
+  COLUMN-LABEL "Finca Sap"
+  ORDER 690
+  MAX-WIDTH 20
+
+UPDATE FIELD "peso_envases_entrada" OF "balanza_pesadas"
+  DECIMALS 2
+
+UPDATE FIELD "peso_neto" OF "balanza_pesadas"
+  DECIMALS 0
+
+UPDATE FIELD "peso_envases_salida" OF "balanza_pesadas"
+  DECIMALS 2
+
+UPDATE FIELD "id_pesada" OF "balanza_pesadas"
+  FORMAT ">>>,>>>,>>9"
+
+UPDATE FIELD "peso_entrada" OF "balanza_pesadas"
+  DECIMALS 0
+
+UPDATE FIELD "peso_salida" OF "balanza_pesadas"
+  DECIMALS 0
+
+UPDATE FIELD "peso_descarte" OF "balanza_pesadas"
+  DECIMALS 0
+
+UPDATE FIELD "id_pesada" OF "balanza_tickets"
+  FORMAT ">>>,>>>,>>9"
+
+UPDATE FIELD "cant_env_entrada" OF "balanza_tickets"
+  DECIMALS 2
+
+UPDATE FIELD "peso_envases_entrada" OF "balanza_tickets"
+  DECIMALS 0
+
+UPDATE FIELD "peso_neto_ticket" OF "balanza_tickets"
+  DECIMALS 0
+
+ADD FIELD "especieSap" OF "balanza_tickets" AS character
+  FORMAT "x(10)"
+  POSITION 71
+  INITIAL ""
+  LABEL "Especie Sap"
+  COLUMN-LABEL "Esp.Sap"
+  ORDER 700
+  MAX-WIDTH 20
+
+ADD FIELD "variedadSap" OF "balanza_tickets" AS character
+  FORMAT "x(10)"
+  POSITION 72
+  INITIAL ""
+  LABEL "Variedad Sap"
+  COLUMN-LABEL "Var.Sap"
+  ORDER 710
+  MAX-WIDTH 20
+
+ADD FIELD "fincaSap" OF "balanza_tickets" AS character
+  FORMAT "x(10)"
+  POSITION 73
+  INITIAL ""
+  LABEL "Finca Sap"
+  COLUMN-LABEL "Finca Sap"
+  ORDER 720
+  MAX-WIDTH 20
+
+ADD FIELD "loteagricolasap" OF "balanza_tickets" AS character
+  FORMAT "x(10)"
+  POSITION 74
+  INITIAL ""
+  LABEL "Lote Agricola SAP"
+  COLUMN-LABEL "Lot.Agr.Sap"
+  ORDER 690
+  MAX-WIDTH 20
+
+.
+PSC
+cpstream=ISO8859-1
+.
+0000002653

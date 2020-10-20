@@ -1,0 +1,2 @@
+<?xml version="1.0" ?>
+<soapenv:Envelope><soapenv:Header/><soapenv:Body><pp1:MT_Request><pp1:MT_Request><SYSID>DEV130</SYSID><momento1><sucursal>1700</sucursal><partida>10000000</partida><material_sap>&apos;LIMON001          &apos;</material_sap><lote_sap>15FF001111</lote_sap><peso>2000</peso><UM>KG</UM><almacen>1800</almacen></momento1><momento2><documentoMaterial>?</documentoMaterial><ejercicio>?</ejercicio><fechaContabilizacion>?</fechaContabilizacion></momento2></pp1:MT_Request></pp1:MT_Request></soapenv:Body></soapenv:Envelope>

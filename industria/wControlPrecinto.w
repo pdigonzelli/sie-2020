@@ -1,0 +1,724 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER AB_v9r12 GUI ADM2
+&ANALYZE-RESUME
+&Scoped-define WINDOW-NAME wWin
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS wWin 
+/*------------------------------------------------------------------------
+
+  File: 
+
+  Description: from cntnrwin.w - ADM SmartWindow Template
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+  History: New V9 Version - January 15, 1998
+          
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress AB.              */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+
+DEFINE VARIABLE hLibTam AS HANDLE     NO-UNDO.
+
+DEFINE VARIABLE cQry AS CHARACTER  NO-UNDO.
+
+DEFINE VAR queryText1   AS CHARACTER INITIAL " "NO-UNDO.
+DEFINE VAR querysort1   AS CHARACTER INITIAL " "NO-UNDO.
+DEFINE VAR qh           AS HANDLE NO-UNDO.
+
+DEFINE VAR iOldPage     AS INTEGER INITIAL 0.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartWindow
+&Scoped-define DB-AWARE no
+
+&Scoped-define ADM-CONTAINER WINDOW
+
+&Scoped-define ADM-SUPPORTED-LINKS Data-Target,Data-Source,Page-Target,Update-Source,Update-Target,Filter-target,Filter-Source
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME fMain
+
+/* Standard List Definitions                                            */
+&Scoped-Define ENABLED-OBJECTS btnTip optTipoPrecinto BUTTON-1 fiPatron ~
+fiDesde fiHasta fiDesde-2 fiHasta-2 RECT-1 RECT-2 RECT-3 
+&Scoped-Define DISPLAYED-OBJECTS optTipoPrecinto fiPatron fiDesde fiHasta ~
+fiDesde-2 fiHasta-2 
+
+/* Custom List Definitions                                              */
+/* List-1,List-2,List-3,List-4,List-5,List-6                            */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* ************************  Function Prototypes ********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD queryName wWin 
+FUNCTION queryName RETURNS CHARACTER
+  ( /* parameter-definitions */ )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* ***********************  Control Definitions  ********************** */
+
+/* Define the widget handle for the window                              */
+DEFINE VAR wWin AS WIDGET-HANDLE NO-UNDO.
+
+/* Menu Definitions                                                     */
+DEFINE MENU POPUP-MENU-fMain 
+       MENU-ITEM m_Query_Constructor LABEL "Query Constructor".
+
+
+/* Definitions of handles for SmartObjects                              */
+DEFINE VARIABLE h_btamboresprecinto AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dtamboresindustria AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynfilter AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dyntoolbar AS HANDLE NO-UNDO.
+
+/* Definitions of the field level widgets                               */
+DEFINE BUTTON btnTip 
+     LABEL "Aplicar" 
+     SIZE 19 BY 1.14.
+
+DEFINE BUTTON BUTTON-1 
+     IMAGE-UP FILE "adm2/image/saverec.bmp":U NO-FOCUS FLAT-BUTTON
+     LABEL "Grabar" 
+     SIZE 19 BY 2.62 TOOLTIP "Grabar".
+
+DEFINE VARIABLE fiDesde AS INTEGER FORMAT ">,>>>,>>9":U INITIAL ? 
+     LABEL "Desde" 
+     VIEW-AS FILL-IN 
+     SIZE 14 BY 1 NO-UNDO.
+
+DEFINE VARIABLE fiDesde-2 AS INTEGER FORMAT ">,>>>,>>9":U INITIAL ? 
+     LABEL "Desde" 
+     VIEW-AS FILL-IN 
+     SIZE 14 BY 1 NO-UNDO.
+
+DEFINE VARIABLE fiHasta AS INTEGER FORMAT ">,>>>,>>9":U INITIAL ? 
+     LABEL "Hasta" 
+     VIEW-AS FILL-IN 
+     SIZE 14 BY 1 NO-UNDO.
+
+DEFINE VARIABLE fiHasta-2 AS INTEGER FORMAT ">,>>>,>>9":U INITIAL ? 
+     LABEL "Hasta" 
+     VIEW-AS FILL-IN 
+     SIZE 14 BY 1 NO-UNDO.
+
+DEFINE VARIABLE fiPatron AS CHARACTER FORMAT "X(256)":U 
+     LABEL "Patron de Nro" 
+     VIEW-AS FILL-IN 
+     SIZE 40 BY 1 NO-UNDO.
+
+DEFINE VARIABLE optTipoPrecinto AS INTEGER INITIAL 1 
+     VIEW-AS RADIO-SET VERTICAL
+     RADIO-BUTTONS 
+          "Plastico", 1,
+"Metal", 2,
+"Plomo", 3
+     SIZE 16 BY 4.52 NO-UNDO.
+
+DEFINE RECTANGLE RECT-1
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 118 BY 6.19.
+
+DEFINE RECTANGLE RECT-2
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 56 BY 5.71.
+
+DEFINE RECTANGLE RECT-3
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 61 BY 5.71.
+
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME fMain
+     btnTip AT ROW 22.91 COL 36
+     optTipoPrecinto AT ROW 19.57 COL 18 NO-LABEL
+     BUTTON-1 AT ROW 21.24 COL 96
+     fiPatron AT ROW 19.81 COL 75 COLON-ALIGNED
+     fiDesde AT ROW 21.24 COL 75 COLON-ALIGNED
+     fiHasta AT ROW 22.67 COL 75 COLON-ALIGNED
+     fiDesde-2 AT ROW 19.81 COL 39 COLON-ALIGNED
+     fiHasta-2 AT ROW 21.24 COL 39 COLON-ALIGNED
+     RECT-1 AT ROW 2.43 COL 1
+     RECT-2 AT ROW 18.86 COL 1
+     RECT-3 AT ROW 18.86 COL 58
+     "Tipo Precinto" VIEW-AS TEXT
+          SIZE 14 BY .62 AT ROW 19.81 COL 2
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY 
+         SIDE-LABELS NO-UNDERLINE THREE-D 
+         AT COL 1 ROW 1
+         SIZE 118.2 BY 23.76.
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartWindow
+   Allow: Basic,Browse,DB-Fields,Query,Smart,Window
+   Container Links: Data-Target,Data-Source,Page-Target,Update-Source,Update-Target,Filter-target,Filter-Source
+   Other Settings: COMPILE
+ */
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+IF SESSION:DISPLAY-TYPE = "GUI":U THEN
+  CREATE WINDOW wWin ASSIGN
+         HIDDEN             = YES
+         TITLE              = "Control Precintos"
+         HEIGHT             = 23.76
+         WIDTH              = 118.2
+         MAX-HEIGHT         = 28.81
+         MAX-WIDTH          = 146.2
+         VIRTUAL-HEIGHT     = 28.81
+         VIRTUAL-WIDTH      = 146.2
+         RESIZE             = no
+         SCROLL-BARS        = no
+         STATUS-AREA        = no
+         BGCOLOR            = ?
+         FGCOLOR            = ?
+         THREE-D            = yes
+         MESSAGE-AREA       = no
+         SENSITIVE          = yes.
+ELSE {&WINDOW-NAME} = CURRENT-WINDOW.
+/* END WINDOW DEFINITION                                                */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB wWin 
+/* ************************* Included-Libraries *********************** */
+
+{src/adm2/containr.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR FRAME fMain
+   Custom                                                               */
+ASSIGN 
+       FRAME fMain:POPUP-MENU       = MENU POPUP-MENU-fMain:HANDLE.
+
+IF SESSION:DISPLAY-TYPE = "GUI":U AND VALID-HANDLE(wWin)
+THEN wWin:HIDDEN = yes.
+
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+ 
+
+
+
+/* ************************  Control Triggers  ************************ */
+
+&Scoped-define SELF-NAME wWin
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL wWin wWin
+ON END-ERROR OF wWin /* Control Precintos */
+OR ENDKEY OF {&WINDOW-NAME} ANYWHERE DO:
+  /* This case occurs when the user presses the "Esc" key.
+     In a persistently run window, just ignore this.  If we did not, the
+     application would exit. */
+  IF THIS-PROCEDURE:PERSISTENT THEN RETURN NO-APPLY.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL wWin wWin
+ON WINDOW-CLOSE OF wWin /* Control Precintos */
+DO:
+  /* This ADM code must be left here in order for the SmartWindow
+     and its descendents to terminate properly on exit. */
+  APPLY "CLOSE":U TO THIS-PROCEDURE.
+  RETURN NO-APPLY.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME btnTip
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL btnTip wWin
+ON CHOOSE OF btnTip IN FRAME fMain /* Aplicar */
+DO:
+  
+  RUN setTipoPrecinto IN h_dTamboresIndustria(DYNAMIC-FUNCTION('columnValue' IN h_dTamboresIndustria, 'id_empresa'),
+                                              DYNAMIC-FUNCTION('columnValue' IN h_dTamboresIndustria, 'id_sucursal'),
+                                              DYNAMIC-FUNCTION('columnValue' IN h_dTamboresIndustria, 'id_tipotambor'),
+                                              DYNAMIC-FUNCTION('columnValue' IN h_dTamboresIndustria, 'nromov'),
+                                              INTEGER(fiDesde-2:SCREEN-VALUE),
+                                              INTEGER(fiHasta-2:SCREEN-VALUE),
+                                              INTEGER(optTipoPrecinto:SCREEN-VALUE)).
+  
+  DYNAMIC-FUNCTION('openQuery' IN h_dTamboresIndustria).
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-1
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-1 wWin
+ON CHOOSE OF BUTTON-1 IN FRAME fMain /* Grabar */
+DO:                                           
+  RUN setNroPrecinto IN h_dTamboresIndustria(DYNAMIC-FUNCTION('columnValue' IN h_dTamboresIndustria, 'id_empresa'),
+                                             DYNAMIC-FUNCTION('columnValue' IN h_dTamboresIndustria, 'id_sucursal'),
+                                             DYNAMIC-FUNCTION('columnValue' IN h_dTamboresIndustria, 'id_tipotambor'),
+                                             DYNAMIC-FUNCTION('columnValue' IN h_dTamboresIndustria, 'nromov'),
+                                             INTEGER(fiDesde:SCREEN-VALUE),
+                                             INTEGER(fiHasta:SCREEN-VALUE),
+                                             fiPatron:SCREEN-VALUE).
+  
+  DYNAMIC-FUNCTION('openQuery' IN h_dTamboresIndustria).
+    
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME m_Query_Constructor
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL m_Query_Constructor wWin
+ON CHOOSE OF MENU-ITEM m_Query_Constructor /* Query Constructor */
+DO:
+    DEFINE VAR xSDOS        AS CHARACTER    NO-UNDO.
+    DEFINE VAR i            AS INTEGER      NO-UNDO.
+    DEFINE VAR iPage        AS INTEGER      NO-UNDO.
+    DEFINE VAR iActualPage  AS INTEGER      NO-UNDO.
+    DEFINE VAR xDataSource  AS CHARACTER    NO-UNDO.
+    DEFINE VAR hDataSource  AS HANDLE       NO-UNDO.
+
+    xSDOS = DYNAMIC-FUNCTION ('getSDO').
+    {get CurrentPage iActualPage}.
+
+    DO i = 1 TO NUM-ENTRIES(xSDOS):
+        qh = WIDGET-HANDLE(ENTRY(i,xSDOS)).
+        {get ObjectPage iPage qh}.
+        {get DataSource xDataSource qh}.
+        hDataSource = WIDGET-HANDLE(xDataSource).
+        IF ( iPage = iActualPage OR iPage = 0 ) AND NOT valid-handle(hDataSource)THEN
+            RUN adm2/support/wquery.w ( INPUT qh ).
+        ELSE
+            MESSAGE 'No puede ejecutar consulta en el detalle' VIEW-AS ALERT-BOX WARNING.
+
+    END.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&UNDEFINE SELF-NAME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK wWin 
+
+
+/* ***************************  Main Block  *************************** */
+
+/* Include custom  Main Block code for SmartWindows. */
+{src/adm2/windowmn.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-create-objects wWin  _ADM-CREATE-OBJECTS
+PROCEDURE adm-create-objects :
+/*------------------------------------------------------------------------------
+  Purpose:     Create handles for all SmartObjects used in this procedure.
+               After SmartObjects are initialized, then SmartLinks are added.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE currentPage  AS INTEGER NO-UNDO.
+
+  ASSIGN currentPage = getCurrentPage().
+
+  CASE currentPage: 
+
+    WHEN 0 THEN DO:
+       RUN constructObject (
+             INPUT  'dtamboresindustria.wDB-AWARE':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedtamboresindustriaUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dtamboresindustria ).
+       RUN repositionObject IN h_dtamboresindustria ( 21.95 , 60.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.86 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'btamboresprecinto.w':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'ScrollRemotenoNumDown0CalcWidthnoMaxWidth80FetchOnReposToEndyesDataSourceNamesUpdateTargetNamesLogicalObjectNameHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_btamboresprecinto ).
+       RUN repositionObject IN h_btamboresprecinto ( 8.62 , 1.00 ) NO-ERROR.
+       RUN resizeObject IN h_btamboresprecinto ( 10.00 , 118.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'adm2/dynfilter.w':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'DisplayedFieldsid_lote,Anio,id_sucursal,id_articuloOperatorStyleImplicitOperatorViewAsCombo-boxOperator=UseBeginsyesUseContainsyesDefaultWidth16DefaultCharWidth20DefaultEditorLines1ViewAsFieldsFieldOperatorStylesFieldFormatsFieldWidthsFieldLabelsFieldToolTipsFieldHelpIdsDesignDataObjectFieldColumn20HideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynfilter ).
+       RUN repositionObject IN h_dynfilter ( 2.67 , 2.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynfilter ( 5.57 , 116.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'adm2/dyntoolbar.w':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'FlatButtonsyesMenunoShowBorderyesToolbaryesActionGroupsTableio,Navigation,Banda1SubModulesTableIOTypeSaveSupportedLinksNavigation-source,Tableio-sourceToolbarBandsToolbarParentMenuToolbarAutoSizenoToolbarDrawDirectionHorizontalToolbarInitialStateLogicalObjectNameAutoResizeDisabledActionsHiddenActionsUpdateHiddenToolbarBandsHiddenMenuBandsMenuMergeOrder0EdgePixels2PanelTypeToolbarDeactivateTargetOnHidenoDisabledActionsNavigationTargetNameHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dyntoolbar ).
+       RUN repositionObject IN h_dyntoolbar ( 1.00 , 1.00 ) NO-ERROR.
+       RUN resizeObject IN h_dyntoolbar ( 1.24 , 118.00 ) NO-ERROR.
+
+       /* Links to SmartDataObject h_dtamboresindustria. */
+       RUN addLink ( h_dynfilter , 'Filter':U , h_dtamboresindustria ).
+       RUN addLink ( h_dyntoolbar , 'Navigation':U , h_dtamboresindustria ).
+
+       /* Links to SmartDataBrowser h_btamboresprecinto. */
+       RUN addLink ( h_dtamboresindustria , 'Data':U , h_btamboresprecinto ).
+       RUN addLink ( h_btamboresprecinto , 'Update':U , h_dtamboresindustria ).
+       RUN addLink ( h_dyntoolbar , 'TableIo':U , h_btamboresprecinto ).
+
+       /* Adjust the tab order of the smart objects. */
+       RUN adjustTabOrder ( h_btamboresprecinto ,
+             btnTip:HANDLE IN FRAME fMain , 'AFTER':U ).
+       RUN adjustTabOrder ( h_dynfilter ,
+             h_btamboresprecinto , 'AFTER':U ).
+       RUN adjustTabOrder ( h_dyntoolbar ,
+             h_dynfilter , 'AFTER':U ).
+    END. /* Page 0 */
+
+  END CASE.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE changePage wWin 
+PROCEDURE changePage :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+  {adm2/support/changePage.i}.  
+  
+  RUN SUPER.
+
+  /* Code placed here will execute AFTER standard behavior.    */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI wWin  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Delete the WINDOW we created */
+  IF SESSION:DISPLAY-TYPE = "GUI":U AND VALID-HANDLE(wWin)
+  THEN DELETE WIDGET wWin.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE enable_UI wWin  _DEFAULT-ENABLE
+PROCEDURE enable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     ENABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we display/view/enable the widgets in the
+               user-interface.  In addition, OPEN all queries
+               associated with each FRAME and BROWSE.
+               These statements here are based on the "Other 
+               Settings" section of the widget Property Sheets.
+------------------------------------------------------------------------------*/
+  DISPLAY optTipoPrecinto fiPatron fiDesde fiHasta fiDesde-2 fiHasta-2 
+      WITH FRAME fMain IN WINDOW wWin.
+  ENABLE btnTip optTipoPrecinto BUTTON-1 fiPatron fiDesde fiHasta fiDesde-2 
+         fiHasta-2 RECT-1 RECT-2 RECT-3 
+      WITH FRAME fMain IN WINDOW wWin.
+  {&OPEN-BROWSERS-IN-QUERY-fMain}
+  VIEW wWin.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE exitObject wWin 
+PROCEDURE exitObject :
+/*------------------------------------------------------------------------------
+  Purpose:  Window-specific override of this procedure which destroys 
+            its contents and itself.
+    Notes:  
+------------------------------------------------------------------------------*/
+
+  APPLY "CLOSE":U TO THIS-PROCEDURE.
+  RETURN.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE getQuery wWin 
+PROCEDURE getQuery :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE OUTPUT PARAMETER queryText AS CHARACTER NO-UNDO.
+    queryText = queryText1.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE getSort wWin 
+PROCEDURE getSort :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE OUTPUT PARAMETER querySort AS CHARACTER NO-UNDO.
+    querySort = querySort1.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE initializeObject wWin 
+PROCEDURE initializeObject :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE cQry AS CHARACTER  NO-UNDO.
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  DYNAMIC-FUNCTION('enableActions' IN h_dyntoolbar, "exitAction").  
+  SUBSCRIBE TO "tlbExit" IN h_dyntoolbar.
+
+  DYNAMIC-FUNCTION('enableActions' IN h_dyntoolbar, "printAction").  
+  SUBSCRIBE TO "tlbPrint" IN h_dyntoolbar.
+
+  RUN initQuery.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE initQuery wWin 
+PROCEDURE initQuery :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  RUN readParamsFile.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE readParamsFile wWin 
+PROCEDURE readParamsFile :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE cFile AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cLine AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cKey  AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cQry  AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cCol  AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cVal  AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cOps  AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE iPos  AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE iSuc  AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE iTip  AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE iNro  AS INTEGER    NO-UNDO.
+  
+  RUN libTamboresIndustria.p PERSISTENT SET hLibTam.
+
+  cKey = DYNAMIC-FUNCTION('getParamsFile' IN hLibTam).
+
+  IF LENGTH(cKey) > 0 THEN DO:
+    ASSIGN iSuc = INTEGER(ENTRY(1, cKey, CHR(1)))
+           iTip = INTEGER(ENTRY(2, cKey, CHR(1)))
+           iNro = INTEGER(ENTRY(3, cKey, CHR(1))).
+  END.
+
+                                                       
+  IF iNro <> 0 THEN DO:
+    cCol = "id_sucursal_remito,id_tipo_movsto,nro_remito".
+    cOps = "=,=,=".
+    cVal = STRING(iSuc) + CHR(1) +
+           STRING(iTip) + CHR(1) + 
+           STRING(iNro).
+
+    DYNAMIC-FUNCTION('assignQuerySelection' IN h_dTamboresIndustria, cCol, cVal, cOps).
+    DYNAMIC-FUNCTION('openQuery' IN h_dTamboresIndustria).    
+    RUN deleteParamsFile IN hLibTam.
+  END.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE setSort wWin 
+PROCEDURE setSort :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE INPUT PARAMETER xSort AS CHARACTER NO-UNDO.
+
+querySort1 = xSort.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE tlbExit wWin 
+PROCEDURE tlbExit :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  APPLY "CLOSE":U TO THIS-PROCEDURE.
+  RETURN NO-APPLY.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE tlbPrint wWin 
+PROCEDURE tlbPrint :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE cFiltro AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE RB-MEMO-FILE AS CHARACTER  NO-UNDO.
+
+  cFiltro = DYNAMIC-FUNCTION('getQueryWhere' IN h_dTamboresIndustria).
+  cFiltro = REPLACE(cFiltro, "INDEXED-REPOSITION", "").
+  cFiltro = REPLACE(cFiltro, "'", "").
+  cFiltro = REPLACE(cFiltro, "FOR EACH tambores_industria WHERE", "").
+  cFiltro = REPLACE(cFiltro, "NO-LOCK", "").
+  cFiltro = REPLACE(cFiltro, "BY tambores_industria.id_lote", "").
+  cFiltro = REPLACE(cFiltro, "BY tambores_industria.id_tambor", "").
+
+                    
+  RUN  aderb\_prntrb2("..\industria\reports_9.prl", /* RB-REPORT-LIBRARY */
+                        "control_precintos",                    /* RB-REPORT-NAME */
+                        "",                             /* RB-DB-CONNECTION */
+                        "O",                             /* RB-INCLUDE-RECORDS */
+                        cFiltro,                              /* RB-FILTER */
+                        RB-MEMO-FILE,                              /* RB-MEMO-FILE */
+                        "D",                             /* RB-PRINT-DESTINATION */
+                        "?",                              /* RB-PRINTER-NAME */
+                        "",                              /* RB-PRINTER-PORT */
+                        "",                              /* RB-OUTPUT-FILE */
+                        1,                              /* RB-NUMBER-COPIES  - zero */                  
+                        0,                              /* RB-BEGIN-PAGE - zero */
+                        0,                              /* RB-END-PAGE - zero */
+                        no,                              /* RB-TEST-PATTERN */
+                        "Reporte de Stock",         /* RB-WINDOW-TITLE */
+                        yes,                           /* RB-DISPLAY-ERRORS */
+                        yes,                           /* RB-DISPLAY-STATUS */
+                        no,                              /* RB-NO-WAIT */
+                        "" /* RB-OTHER-PARAMETERS */,
+                        "").   
+
+  
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+/* ************************  Function Implementations ***************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION queryName wWin 
+FUNCTION queryName RETURNS CHARACTER
+  ( /* parameter-definitions */ ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+
+  RETURN "".   /* Function return value. */
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+

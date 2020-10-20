@@ -1,0 +1,49 @@
+
+/*------------------------------------------------------------------------
+    File        : declaraPallet.p
+    Purpose     : 
+
+    Syntax      :
+
+    Description : 
+
+    Author(s)   : pdigonzelli
+    Created     : Tue Mar 22 16:44:49 ACT 2016
+    Notes       :
+  ----------------------------------------------------------------------*/
+
+/* ***************************  Definitions  ************************** */
+DEFINE INPUT PARAMETER VSUC AS INTEGER NO-UNDO.
+DEFINE INPUT PARAMETER VPALLET AS INTEGER NO-UNDO.
+DEFINE INPUT PARAMETER VPEDIDO AS INTEGER NO-UNDO.
+DEFINE INPUT PARAMETER VENTORNO AS CHARACTER NO-UNDO.
+
+DEFINE VAR hAppSrv AS HANDLE NO-UNDO.
+DEFINE VAR RET AS LOGICAL NO-UNDO.
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+/* ***************************  Main Block  *************************** */
+
+    
+CREATE SERVER hAppSrv.
+
+VENTORNO = 'PRD'.
+
+IF VENTORNO = 'PRD' THEN
+    ret = hAppSrv:CONNECT("-H samiprogdesa -S 5162 -AppService sap2").
+ELSE
+    ret = hAppSrv:CONNECT("-H samiprogdesa -S 5162 -AppService sap3").
+
+RUN  CAMBIOPEDIDO.P ON hAppSrv  TRANSACTION DISTINCT (VSUC, VPALLET, VPEDIDO ) NO-ERROR.
+IF ERROR-STATUS:ERROR THEN  RETURN ERROR NEW Progress.Lang.AppError(RETURN-VALUE , 550).
+
+CATCH EX AS Progress.Lang.Error :
+    RETURN ERROR NEW Progress.Lang.AppError(EX:GETMESSAGE(1) , 550).
+END CATCH. 
+FINALLY.
+    IF hAppSrv:CONNECTED () THEN
+        ret = hAppSrv:DISCONNECT().
+    DELETE OBJECT hAppSrv.
+END FINALLY.
+

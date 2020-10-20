@@ -1,0 +1,3 @@
+TRIGGER PROCEDURE FOR REPLICATION-WRITE OF cond_pagos_clientes.
+
+

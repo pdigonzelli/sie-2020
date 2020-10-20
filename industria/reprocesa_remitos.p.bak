@@ -1,0 +1,24 @@
+    find remitos where 
+    remitos.id_sucursal = 96 and
+    remitos.id_tipo_movsto = 123 and
+    remitos.nro = 8370
+    no-lock no-error.
+    if available remitos then do:
+    for each items_factura of remitos:
+    display items_factura.item
+            id_articulo
+            desde_lote
+            hasta_lote
+            remitos.nro 
+            fecha_proceso 
+            remitos.c_hora 
+            remitos.c_usuario
+    with scrollable.
+    run n:/industria/y_gstkrem.p (input remitos.id_sucursal,
+                             input remitos.id_tipo_movsto,
+                             input remitos.nro,
+                             input items_factura.item,
+                             input 3)
+                                 "items_factura".
+    end.
+    end.

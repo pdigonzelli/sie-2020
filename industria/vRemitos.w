@@ -1,0 +1,782 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER AB_v9r12 GUI ADM2
+&ANALYZE-RESUME
+/* Connected Databases 
+          general          PROGRESS
+          general         PROGRESS
+          general         PROGRESS
+*/
+&Scoped-define WINDOW-NAME CURRENT-WINDOW
+
+/* Temp-Table and Buffer definitions                                    */
+DEFINE TEMP-TABLE RowObject
+       {"dRemitos.i"}.
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS vTableWin 
+/*------------------------------------------------------------------------
+
+  File:
+
+  Description: from viewer.w - Template for SmartDataViewer objects
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress AppBuilder.      */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+DEFINE VARIABLE hLib AS HANDLE     NO-UNDO.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartDataViewer
+&Scoped-define DB-AWARE no
+
+&Scoped-define ADM-CONTAINER FRAME
+
+&Scoped-define ADM-SUPPORTED-LINKS Data-Target,Update-Source,TableIO-Target,GroupAssign-Source,GroupAssign-Target
+
+/* Include file with RowObject temp-table definition */
+&Scoped-define DATA-FIELD-DEFS "dRemitos.i"
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME F-Main
+
+/* Standard List Definitions                                            */
+&Scoped-Define ENABLED-FIELDS RowObject.id_sucursal ~
+RowObject.id_tipo_movsto RowObject.fecha RowObject.mercado ~
+RowObject.id_orden_entrega RowObject.item_oe RowObject.nro_orden_fab ~
+RowObject.Peso_bruto RowObject.Peso_neto RowObject.bultos ~
+RowObject.pat_chasis RowObject.Pat_acopla RowObject.nro_ord_carga ~
+RowObject.nro_per_embarque RowObject.chofer RowObject.anio_produccion ~
+RowObject.Valor_declarado RowObject.nro_iascav RowObject.nro_contenedor ~
+RowObject.nro_precinto RowObject.observaciones RowObject.fecha_salida ~
+RowObject.hora_salida RowObject.temp_salida RowObject.fecha_llegada ~
+RowObject.hora_llegada RowObject.temp_llegada 
+&Scoped-define ENABLED-TABLES RowObject
+&Scoped-define FIRST-ENABLED-TABLE RowObject
+&Scoped-Define ENABLED-OBJECTS RECT-1 RECT-2 RECT-3 RECT-30 RECT-31 RECT-4 
+&Scoped-Define DISPLAYED-FIELDS RowObject.id_sucursal ~
+RowObject.id_tipo_movsto RowObject.nro RowObject.id_punto_venta ~
+RowObject.nro_comprobante RowObject.fecha RowObject.mercado ~
+RowObject.id_orden_entrega RowObject.item_oe RowObject.nro_orden_fab ~
+RowObject.Peso_bruto RowObject.Peso_neto RowObject.bultos ~
+RowObject.pat_chasis RowObject.Pat_acopla RowObject.nro_ord_carga ~
+RowObject.nro_per_embarque RowObject.chofer RowObject.anio_produccion ~
+RowObject.Valor_declarado RowObject.nro_iascav RowObject.nro_contenedor ~
+RowObject.nro_precinto RowObject.observaciones RowObject.fecha_salida ~
+RowObject.hora_salida RowObject.temp_salida RowObject.fecha_llegada ~
+RowObject.hora_llegada RowObject.temp_llegada RowObject.c_usuario ~
+RowObject.c_fecha RowObject.c_hora RowObject.fecha_proceso 
+&Scoped-define DISPLAYED-TABLES RowObject
+&Scoped-define FIRST-DISPLAYED-TABLE RowObject
+
+
+/* Custom List Definitions                                              */
+/* ADM-ASSIGN-FIELDS,List-2,List-3,List-4,List-5,List-6                 */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+/* ***********************  Control Definitions  ********************** */
+
+
+/* Definitions of handles for SmartObjects                              */
+DEFINE VARIABLE h_dlugardescargas AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dqciaseg AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dqclientes AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dqdestinos AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dqproveedores AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dvapores AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect-2 AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect-3 AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect-4 AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect-5 AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect-6 AS HANDLE NO-UNDO.
+
+/* Definitions of the field level widgets                               */
+DEFINE RECTANGLE RECT-1
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 36 BY 6.67.
+
+DEFINE RECTANGLE RECT-2
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 59 BY 7.86.
+
+DEFINE RECTANGLE RECT-3
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 82 BY 6.67.
+
+DEFINE RECTANGLE RECT-30
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 29 BY 6.67.
+
+DEFINE RECTANGLE RECT-31
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 28 BY 7.86.
+
+DEFINE RECTANGLE RECT-4
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 60 BY 7.86.
+
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME F-Main
+     RowObject.id_sucursal AT ROW 1.19 COL 13.6 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 6.2 BY 1
+     RowObject.id_tipo_movsto AT ROW 2.24 COL 13.6 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 6.2 BY 1
+     RowObject.nro AT ROW 3.29 COL 13.6 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 15.4 BY 1 TOOLTIP "122: Manual, 123: Automatico"
+     RowObject.id_punto_venta AT ROW 4.33 COL 13.6 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 7.6 BY 1
+     RowObject.nro_comprobante AT ROW 5.38 COL 13.6 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 20.2 BY 1
+     RowObject.fecha AT ROW 6.43 COL 13.6 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 13.2 BY 1
+     RowObject.mercado AT ROW 7.91 COL 15 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 3.4 BY 1
+     RowObject.id_orden_entrega AT ROW 8.95 COL 15 COLON-ALIGNED
+          LABEL "OE"
+          VIEW-AS FILL-IN 
+          SIZE 10.4 BY 1
+     RowObject.item_oe AT ROW 10 COL 15 COLON-ALIGNED
+          LABEL "Parte OE"
+          VIEW-AS FILL-IN 
+          SIZE 7.6 BY 1
+     RowObject.nro_orden_fab AT ROW 11.05 COL 15 COLON-ALIGNED
+          LABEL "OF"
+          VIEW-AS FILL-IN 
+          SIZE 13.6 BY 1
+     RowObject.Peso_bruto AT ROW 4.43 COL 48 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 18.8 BY 1
+     RowObject.Peso_neto AT ROW 5.48 COL 48 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 18.8 BY 1
+     RowObject.bultos AT ROW 6.52 COL 48 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 14.6 BY 1
+     RowObject.pat_chasis AT ROW 1.24 COL 100.4 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 15.6 BY 1
+     RowObject.Pat_acopla AT ROW 2.29 COL 100.4 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 15.6 BY 1
+     RowObject.nro_ord_carga AT ROW 3.38 COL 100.4 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 15.6 BY 1
+     RowObject.nro_per_embarque AT ROW 4.43 COL 100.4 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 15.6 BY 1
+     RowObject.chofer AT ROW 5.48 COL 84 COLON-ALIGNED
+          LABEL "Chofer"
+          VIEW-AS FILL-IN 
+          SIZE 32 BY 1
+     RowObject.anio_produccion AT ROW 7.91 COL 72 COLON-ALIGNED
+          LABEL "Año Prod"
+          VIEW-AS FILL-IN 
+          SIZE 7.6 BY 1
+     RowObject.Valor_declarado AT ROW 7.91 COL 97 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 20 BY 1
+     RowObject.nro_iascav AT ROW 9 COL 69 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 11 BY 1
+     RowObject.nro_contenedor AT ROW 9 COL 97 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 20 BY 1
+     RowObject.nro_precinto AT ROW 10.29 COL 76 NO-LABEL
+          VIEW-AS EDITOR
+          SIZE 43 BY 2.38
+     RowObject.observaciones AT ROW 12.91 COL 76 NO-LABEL
+          VIEW-AS EDITOR
+          SIZE 43 BY 2.38
+     RowObject.fecha_salida AT ROW 1.24 COL 133 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 12.6 BY 1
+     RowObject.hora_salida AT ROW 2.29 COL 133 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 12.6 BY 1
+     RowObject.temp_salida AT ROW 3.38 COL 138 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 7.6 BY 1
+     RowObject.fecha_llegada AT ROW 4.43 COL 133 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 12.2 BY 1
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY USE-DICT-EXPS 
+         SIDE-LABELS NO-UNDERLINE THREE-D NO-AUTO-VALIDATE 
+         AT COL 1 ROW 1
+         SIZE 147 BY 14.57.
+
+/* DEFINE FRAME statement is approaching 4K Bytes.  Breaking it up   */
+DEFINE FRAME F-Main
+     RowObject.hora_llegada AT ROW 5.48 COL 133 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 12.2 BY 1
+     RowObject.temp_llegada AT ROW 6.52 COL 138 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 7.6 BY 1
+     RowObject.c_usuario AT ROW 7.91 COL 127 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 18 BY 1
+     RowObject.c_fecha AT ROW 8.95 COL 131.8 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 13.2 BY 1
+     RowObject.c_hora AT ROW 10 COL 131.4 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 13.6 BY 1
+     RowObject.fecha_proceso AT ROW 11.1 COL 131.8 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 13.2 BY 1
+     RECT-1 AT ROW 1 COL 1
+     RECT-2 AT ROW 7.67 COL 1
+     RECT-3 AT ROW 1 COL 37
+     RECT-30 AT ROW 1 COL 119
+     RECT-31 AT ROW 7.67 COL 120
+     RECT-4 AT ROW 7.67 COL 60
+     "Precintos:" VIEW-AS TEXT
+          SIZE 11 BY .62 AT ROW 10.38 COL 61
+     "Observaciones:" VIEW-AS TEXT
+          SIZE 15 BY .62 AT ROW 12.95 COL 61
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY USE-DICT-EXPS 
+         SIDE-LABELS NO-UNDERLINE THREE-D NO-AUTO-VALIDATE 
+         AT COL 1 ROW 1
+         SIZE 147 BY 14.57.
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartDataViewer
+   Data Source: "dRemitos.w"
+   Allow: Basic,DB-Fields,Smart
+   Container Links: Data-Target,Update-Source,TableIO-Target,GroupAssign-Source,GroupAssign-Target
+   Frames: 1
+   Add Fields to: Neither
+   Other Settings: PERSISTENT-ONLY COMPILE
+   Temp-Tables and Buffers:
+      TABLE: RowObject D "?" ?  
+      ADDITIONAL-FIELDS:
+          {dRemitos.i}
+      END-FIELDS.
+   END-TABLES.
+ */
+
+/* This procedure should always be RUN PERSISTENT.  Report the error,  */
+/* then cleanup and return.                                            */
+IF NOT THIS-PROCEDURE:PERSISTENT THEN DO:
+  MESSAGE "{&FILE-NAME} should only be RUN PERSISTENT.":U
+          VIEW-AS ALERT-BOX ERROR BUTTONS OK.
+  RETURN.
+END.
+
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+/* DESIGN Window definition (used by the UIB) 
+  CREATE WINDOW vTableWin ASSIGN
+         HEIGHT             = 14.57
+         WIDTH              = 147.
+/* END WINDOW DEFINITION */
+                                                                        */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB vTableWin 
+/* ************************* Included-Libraries *********************** */
+
+{src/adm2/viewer.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR WINDOW vTableWin
+  VISIBLE,,RUN-PERSISTENT                                               */
+/* SETTINGS FOR FRAME F-Main
+   NOT-VISIBLE Custom                                                   */
+ASSIGN 
+       FRAME F-Main:HIDDEN           = TRUE.
+
+/* SETTINGS FOR FILL-IN RowObject.anio_produccion IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.chofer IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.c_fecha IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN RowObject.c_hora IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN RowObject.c_usuario IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN RowObject.fecha_proceso IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN RowObject.id_orden_entrega IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.id_punto_venta IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN RowObject.item_oe IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.nro IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN RowObject.nro_comprobante IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN RowObject.nro_orden_fab IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+
+/* Setting information for Queries and Browse Widgets fields            */
+
+&ANALYZE-SUSPEND _QUERY-BLOCK FRAME F-Main
+/* Query rebuild information for FRAME F-Main
+     _Options          = "NO-LOCK"
+     _Query            is NOT OPENED
+*/  /* FRAME F-Main */
+&ANALYZE-RESUME
+
+ 
+
+
+
+/* ************************  Control Triggers  ************************ */
+
+&Scoped-define SELF-NAME RowObject.fecha
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL RowObject.fecha vTableWin
+ON LEAVE OF RowObject.fecha IN FRAME F-Main /* Fecha */
+DO:
+  rowObject.fecha_salida:SCREEN-VALUE = SELF:SCREEN-VALUE.
+  rowObject.hora_salida:SCREEN-VALUE  = STRING(TIME, "HH:MM").
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME RowObject.id_tipo_movsto
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL RowObject.id_tipo_movsto vTableWin
+ON LEAVE OF RowObject.id_tipo_movsto IN FRAME F-Main /* T/Movsto */
+DO:
+
+
+  rowObject.nro:SCREEN-VALUE = DYNAMIC-FUNCTION('getNextNroRemito' IN hLib, INTEGER(rowObject.id_sucursal:SCREEN-VALUE), 
+                                                                            INTEGER(rowObject.id_tipo_movsto:SCREEN-VALUE)).
+
+ 
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME RowObject.item_oe
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL RowObject.item_oe vTableWin
+ON LEAVE OF RowObject.item_oe IN FRAME F-Main /* Parte OE */
+DO:
+  DEFINE VARIABLE cRet AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cQry AS CHARACTER  NO-UNDO.
+
+  RETURN.
+  
+  IF rowObject.id_orden_entrega:SCREEN-VALUE = "0" THEN
+    RETURN.
+
+  cRet = DYNAMIC-FUNCTION('getDatosOE' IN hLib, INTEGER(rowObject.id_orden_entrega:SCREEN-VALUE), 
+                                                INTEGER(rowObject.ITEM_oe:SCREEN-VALUE)).
+  
+
+  /*destinos*/
+  RUN refreshSdo ("destinos", 
+                  "destinos.id_destino = " + ENTRY(1, cRet, CHR(1)), 
+                  h_dqDestinos).
+  RUN refreshSds (DYNAMIC-FUNCTION('columnValue' IN h_dqDestinos, 'id_destino'), 
+                  h_dynselect-6).
+  RUN disableField IN h_dynselect-6.
+
+  /*lugar_descarga*/
+  RUN refreshSdo ("lugar_descarga", 
+                  "lugar_descarga.id_lugdes = " + ENTRY(2, cRet, CHR(1)), 
+                  h_dLugarDescargas).
+  RUN refreshSds (DYNAMIC-FUNCTION('columnValue' IN h_dLugarDescargas, 'id_lugdes'), 
+                  h_dynselect-4).
+  RUN disableField IN h_dynselect-4.
+  
+  /*vapores*/
+  RUN refreshSdo ("vapores", 
+                  "vapores.id_vapor = " + ENTRY(3, cRet, CHR(1)), 
+                  h_dVapores).
+  RUN refreshSds (DYNAMIC-FUNCTION('columnValue' IN h_dVapores, 'id_vapor'), 
+                  h_dynselect-3).
+  RUN disableField IN h_dynselect-3.
+
+  /*clientes*/
+  RUN refreshSdo ("clientes", 
+                  "clientes.id_cliente = " + ENTRY(4, cRet, CHR(1)), 
+                  h_dqClientes).
+  RUN refreshSds (DYNAMIC-FUNCTION('columnValue' IN h_dqClientes, 'id_cliente'), 
+                  h_dynselect).
+  RUN disableField IN h_dynselect.
+
+  rowObject.nro_orden_fab:SCREEN-VALUE = ENTRY(5, cRet, CHR(1)).
+  rowObject.nro_orden_fab:SENSITIVE = FALSE.
+
+
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&UNDEFINE SELF-NAME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK vTableWin 
+
+
+/* ***************************  Main Block  *************************** */
+  {adm2/support/viewTrg.i}.  
+  &IF DEFINED(UIB_IS_RUNNING) <> 0 &THEN          
+    RUN initializeObject.
+  &ENDIF         
+  
+  /************************ INTERNAL PROCEDURES ********************/
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE addRecord vTableWin 
+PROCEDURE addRecord :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  rowObject.fecha:SCREEN-VALUE IN FRAME F-Main           = STRING(TODAY).
+  rowObject.anio_produccion:SCREEN-VALUE IN FRAME F-Main = STRING(YEAR(TODAY)).
+
+  DYNAMIC-FUNCTION('setDataValue' IN h_dynselect-5, "17").
+  RUN valueChanged IN h_dynselect-5.
+
+  DYNAMIC-FUNCTION('setQuerySort' IN h_dqClientes, 'BY clientes.razon_social').
+  DYNAMIC-FUNCTION('openQuery' IN h_dqClientes).
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-create-objects vTableWin  _ADM-CREATE-OBJECTS
+PROCEDURE adm-create-objects :
+/*------------------------------------------------------------------------------
+  Purpose:     Create handles for all SmartObjects used in this procedure.
+               After SmartObjects are initialized, then SmartLinks are added.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE currentPage  AS INTEGER NO-UNDO.
+
+  ASSIGN currentPage = getCurrentPage().
+
+  CASE currentPage: 
+
+    WHEN 0 THEN DO:
+       RUN constructObject (
+             INPUT  'dqdestinos.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedqdestinosUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dqdestinos ).
+       RUN repositionObject IN h_dqdestinos ( 6.48 , 39.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.86 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventDisplayedFielddescripcionKeyFieldid_destinoDataSourceFilterNumRows20OptionalnoOptionalString':U + '<none>' + 'LabelDestinoSortyesViewAsBrowserToolTipFormatHelpId0BrowseTitleDestinosBrowseFieldsDestino,id_destinoExitBrowseOnActionyesCancelBrowseOnExityesRepositionDataSourcenoDefineAnyKeyTriggeryesStartBrowseKeysNEXT-FRAMEFieldNameid_destinoDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect-6 ).
+       RUN repositionObject IN h_dynselect-6 ( 12.10 , 17.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect-6 ( 1.00 , 42.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'dqproveedores.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposyesServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedqproveedoresUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dqproveedores ).
+       RUN repositionObject IN h_dqproveedores ( 6.48 , 27.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.86 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventDisplayedFieldrazon_socialKeyFieldid_proveedorDataSourceFilterNumRows20OptionalnoOptionalString':U + '<none>' + 'LabelTransporteSortyesViewAsBrowserToolTipFormatHelpId0BrowseTitleTransportesBrowseFieldsrazon_social,id_proveedor,TipoTransExitBrowseOnActionyesCancelBrowseOnExityesRepositionDataSourcenoDefineAnyKeyTriggeryesStartBrowseKeysHELPFieldNameid_proveedorDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect-2 ).
+       RUN repositionObject IN h_dynselect-2 ( 2.33 , 50.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect-2 ( 1.00 , 33.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'dlugardescargas.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedlugardescargasUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dlugardescargas ).
+       RUN repositionObject IN h_dlugardescargas ( 8.14 , 27.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.86 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventDisplayedFielddescripcionKeyFieldid_lugdesDataSourceFilterNumRows20OptionalnoOptionalString':U + '<none>' + 'LabelLug. DescargaSortyesViewAsBrowserToolTipFormatHelpId0BrowseTitleBrowseFieldsdescripcion,id_lugdesExitBrowseOnActionyesCancelBrowseOnExityesRepositionDataSourceyesDefineAnyKeyTriggeryesStartBrowseKeysFieldNameid_lugdesDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect-4 ).
+       RUN repositionObject IN h_dynselect-4 ( 13.14 , 17.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect-4 ( 1.00 , 42.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'dqclientes.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedqclientesUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dqclientes ).
+       RUN repositionObject IN h_dqclientes ( 8.14 , 38.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.86 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventDisplayedFieldrazon_socialKeyFieldid_clienteDataSourceFilterNumRows20OptionalnoOptionalString':U + '<none>' + 'LabelClienteSortyesViewAsBrowserToolTipFormatHelpId0BrowseTitleClientesBrowseFieldsrazon_social,id_clienteExitBrowseOnActionyesCancelBrowseOnExityesRepositionDataSourcenoDefineAnyKeyTriggeryesStartBrowseKeysNEXT-FRAMEFieldNameid_clienteDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect ).
+       RUN repositionObject IN h_dynselect ( 14.19 , 17.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect ( 1.00 , 42.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'dvapores.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedvaporesUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dvapores ).
+       RUN repositionObject IN h_dvapores ( 8.14 , 48.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.86 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventDisplayedFielddescripcionKeyFieldid_vaporDataSourceFilterNumRows20OptionalnoOptionalString':U + '<none>' + 'LabelVaporSortyesViewAsBrowserToolTipFormatHelpId0BrowseTitleVaporesBrowseFieldsdescripcion,id_vaporExitBrowseOnActionyesCancelBrowseOnExityesRepositionDataSourcenoDefineAnyKeyTriggeryesStartBrowseKeysNEXT-FRAMEFieldNameid_vaporDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect-3 ).
+       RUN repositionObject IN h_dynselect-3 ( 1.29 , 50.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect-3 ( 1.00 , 33.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'dqciaseg.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedqciasegUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dqciaseg ).
+       RUN repositionObject IN h_dqciaseg ( 9.81 , 37.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.86 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventDisplayedFielddescripcionKeyFieldid_ciasegDataSourceFilterNumRows20OptionalnoOptionalString':U + '<none>' + 'LabelCia SeguroSortyesViewAsBrowserToolTipFormatHelpId0BrowseTitleInsurance BrokersBrowseFieldsdescripcion,id_ciasegExitBrowseOnActionyesCancelBrowseOnExityesRepositionDataSourcenoDefineAnyKeyTriggeryesStartBrowseKeysNEXT-FRAMEFieldNameid_ciasegDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect-5 ).
+       RUN repositionObject IN h_dynselect-5 ( 3.38 , 50.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect-5 ( 1.00 , 33.00 ) NO-ERROR.
+
+       /* Links to SmartDataField h_dynselect-6. */
+       RUN addLink ( h_dqdestinos , 'Data':U , h_dynselect-6 ).
+
+       /* Links to SmartDataField h_dynselect-2. */
+       RUN addLink ( h_dqproveedores , 'Data':U , h_dynselect-2 ).
+
+       /* Links to SmartDataField h_dynselect-4. */
+       RUN addLink ( h_dlugardescargas , 'Data':U , h_dynselect-4 ).
+
+       /* Links to SmartDataField h_dynselect. */
+       RUN addLink ( h_dqclientes , 'Data':U , h_dynselect ).
+
+       /* Links to SmartDataField h_dynselect-3. */
+       RUN addLink ( h_dvapores , 'Data':U , h_dynselect-3 ).
+
+       /* Links to SmartDataField h_dynselect-5. */
+       RUN addLink ( h_dqciaseg , 'Data':U , h_dynselect-5 ).
+
+       /* Adjust the tab order of the smart objects. */
+       RUN adjustTabOrder ( h_dynselect-6 ,
+             RowObject.nro_orden_fab:HANDLE IN FRAME F-Main , 'AFTER':U ).
+       RUN adjustTabOrder ( h_dynselect-4 ,
+             h_dynselect-6 , 'AFTER':U ).
+       RUN adjustTabOrder ( h_dynselect ,
+             h_dynselect-4 , 'AFTER':U ).
+       RUN adjustTabOrder ( h_dynselect-3 ,
+             h_dynselect , 'AFTER':U ).
+       RUN adjustTabOrder ( h_dynselect-2 ,
+             h_dynselect-3 , 'AFTER':U ).
+       RUN adjustTabOrder ( h_dynselect-5 ,
+             h_dynselect-2 , 'AFTER':U ).
+    END. /* Page 0 */
+
+  END CASE.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI vTableWin  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Hide all frames. */
+  HIDE FRAME F-Main.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE initializeObject vTableWin 
+PROCEDURE initializeObject :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  DEFINE VARIABLE hLibCom AS HANDLE.
+  RUN libCommonFunctions.p PERSISTENT SET hLibCom.
+  hLib = DYNAMIC-FUNCTION('getPersistentLib' IN hLibCom, 'libRemitos.p').
+  DELETE OBJECT hLibCom.
+
+  DYNAMIC-FUNCTION('setQuerySort' IN h_dqClientes, 'BY clientes.razon_social').
+  DYNAMIC-FUNCTION('openQuery' IN h_dqClientes).
+  
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE refreshSdo vTableWin 
+PROCEDURE refreshSdo :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER pcTable AS CHARACTER  NO-UNDO.
+  DEFINE INPUT  PARAMETER pcWhere AS CHARACTER  NO-UNDO.
+  DEFINE INPUT  PARAMETER phSdo   AS HANDLE     NO-UNDO.
+
+  DEFINE VARIABLE cQry AS CHARACTER  NO-UNDO.
+
+  cQry = "FOR EACH " + pcTable + " WHERE " + pcWhere.
+
+  DYNAMIC-FUNCTION('setQueryWhere' IN phSdo, cQry).
+  DYNAMIC-FUNCTION('openQuery' IN phSdo).
+
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE refreshSds vTableWin 
+PROCEDURE refreshSds :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/  
+  DEFINE INPUT  PARAMETER pcValue AS CHARACTER  NO-UNDO.
+  DEFINE INPUT  PARAMETER phSds   AS HANDLE     NO-UNDO.
+
+  DYNAMIC-FUNCTION('setDataValue' IN phSds, pcValue).
+  RUN valueChanged IN phSds.
+
+
+  
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE updateMode vTableWin 
+PROCEDURE updateMode :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  DEFINE INPUT PARAMETER pcMode AS CHARACTER NO-UNDO.
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER( INPUT pcMode).
+
+  DEFINE VARIABLE lPar AS LOGICAL    NO-UNDO.
+
+  IF rowObject.fecha_proceso:SCREEN-VALUE IN FRAME {&FRAME-NAME} <> "" THEN DO:
+   
+    RUN disableFields ('ALL').
+    RUN applyEntry IN TARGET-PROCEDURE (?).
+   
+  END.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+

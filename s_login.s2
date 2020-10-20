@@ -1,0 +1,45 @@
+path = "".
+for each xxx_grupos where xxx_grupos.agrega_propath = yes and xxx_grupos.letra_inicial <> par_grupos.letra_inicial no-lock:
+  path = path + 
+         vlc_dir_objetos + "especificos/" + lc(xxx_grupos.nombre_grupo) + c-sep + lc(xxx_grupos.nombre_grupo) + ".pl," +
+         vlc_dir_objetos + "especificos/" + lc(xxx_grupos.nombre_grupo) + ",".
+         vlc_dir_objetos + lc(xxx_grupos.nombre_grupo) + c-sep + lc(xxx_grupos.nombre_grupo) + ".pl," +
+         vlc_dir_objetos + lc(xxx_grupos.nombre_grupo) + ",".
+end.
+if path <> "" then
+  path = (if substring(path,length(path),1) = "," then substring(path,1,length(path) - 1) else path).
+if opsys = "UNIX" or opsys = "WIN32" then
+  if defpropath <> ? and defpropath <> "" then
+    propath = vlc_dir_objetos + "especificos" + c-sep + "especificos.pl," +
+              vlc_dir_objetos + "especificos," +
+              vlc_dir_objetos + "especificos/supervisor" + c-sep + "supervisor.pl," +
+              vlc_dir_objetos + "especificos/supervisor," +
+              vlc_dir_objetos + "especificos/" + lc(vlc_grupo) + c-sep + lc(vlc_grupo) + ".pl," +
+              vlc_dir_objetos + "especificos/" + lc(vlc_grupo) + "," +
+              vlc_dir_objetos + "supervisor" + c-sep + "supervisor.pl," +
+              vlc_dir_objetos + "supervisor," +
+              vlc_dir_objetos + lc(vlc_grupo) + c-sep + lc(vlc_grupo) + ".pl," +
+              vlc_dir_objetos + lc(vlc_grupo) + "," +
+              &IF "{&SISTEMA}" = "contacto" OR "{&SISTEMA}" = "core" &THEN
+                vlc_dir_objetos + "contacto" + c-sep + "contacto.pl," +
+                vlc_dir_objetos + "contacto," +
+              &ENDIF
+              (if path <> "" then path + "," else "") +
+              defpropath.
+  else
+    propath = vlc_dir_objetos + "especificos" + c-sep + "especificos.pl," +
+              vlc_dir_objetos + "especificos," +
+              vlc_dir_objetos + "especificos/supervisor" + c-sep + "supervisor.pl," +
+              vlc_dir_objetos + "especificos/supervisor," +
+              vlc_dir_objetos + "especificos/" + lc(vlc_grupo) + c-sep + lc(vlc_grupo) + ".pl," +
+              vlc_dir_objetos + "especificos/" + lc(vlc_grupo) + "," +
+              vlc_dir_objetos + "supervisor" + c-sep + "supervisor.pl," +
+              vlc_dir_objetos + "supervisor," +
+              vlc_dir_objetos + lc(vlc_grupo) + c-sep + lc(vlc_grupo) + ".pl," +
+              vlc_dir_objetos + lc(vlc_grupo) +
+              &IF "{&SISTEMA}" = "contacto" OR "{&SISTEMA}" = "core" &THEN
+                "," + vlc_dir_objetos + "contacto" + c-sep + "contacto.pl," +
+                vlc_dir_objetos + "contacto" +
+              &ENDIF
+              (if path <> "" then "," + path else "")
+              .

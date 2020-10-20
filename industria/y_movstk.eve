@@ -1,0 +1,36 @@
+/*
+/* EVENTO DE BUSQUEDA */
+ON F6 OF _B-BROWSE IN FRAME _TRABAJO
+    DO:                         /* BUSCA */
+/*        HIDE MESSAGE.
+        DEFINE VARIABLE x-cod LIKE aux_arqueo.id_mediop.
+        DEFINE VARIABLE y-cod LIKE aux_arqueo.id_codigo.
+        UPDATE x-cod HELP "Ingrese el Tipo a Buscar"
+               y-cod HELP "Ingrese el Medio a Buscar" 
+               WITH FRAME oo OVERLAY ROW 19 CENTERED SIDE-LABELS.
+        CURR-RECORD = ROWID(aux_arqueo).
+        FIND FIRST aux_arqueo 
+             WHERE aux_arqueo.id_mediop >= INPUT x-cod AND
+                   aux_arqueo.id_codigo GE INPUT y-cod
+             NO-LOCK NO-ERROR. 
+        IF AVAILABLE aux_arqueo THEN CURR-RECORD = ROWID(aux_arqueo).
+        REPOSITION _Q-QUERY TO ROWID CURR-RECORD.
+        HIDE FRAME oo.
+        RUN MENSAJE. 
+ */
+    END.
+*/
+ON F12 OF _B-BROWSE IN FRAME _TRABAJO
+   DO:
+      apply "f4" to _b-browse.
+   END.
+/*   
+ON F3 OF auxi.id_sucursal_destino DO:
+   assign auxi.id_sucursal_destino.
+    run x_sucdsp.p (input-output auxi.id_sucursal_destino).
+    find sucursales where sucursales.id_sucursal = auxi.id_sucursal_destino
+    no-lock no-error.
+    display auxi.id_sucursal_destino sucursales.nombre no-label
+    with frame _m-altmod.
+   END.
+  */ 

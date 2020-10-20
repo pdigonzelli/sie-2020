@@ -1,0 +1,1055 @@
+ADD TABLE "drums"
+  AREA "Schema Area"
+  DUMP-NAME "drums"
+
+ADD FIELD "id_lote_prod" OF "drums" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "NroLoteProd"
+  POSITION 2
+  SQL-WIDTH 4
+  COLUMN-LABEL "NroLoteProd"
+  ORDER 10
+
+ADD FIELD "id_tambor" OF "drums" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Tambo"
+  POSITION 3
+  SQL-WIDTH 4
+  COLUMN-LABEL "Tambor"
+  ORDER 20
+
+ADD FIELD "kilos" OF "drums" AS decimal 
+  FORMAT ">>,>>9.99"
+  INITIAL "0"
+  LABEL "Kilos"
+  POSITION 4
+  SQL-WIDTH 17
+  COLUMN-LABEL "Kilos"
+  DECIMALS 2
+  ORDER 30
+
+ADD FIELD "id_sucursal_ubicacion" OF "drums" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idSucUbi"
+  POSITION 5
+  SQL-WIDTH 4
+  COLUMN-LABEL "idSucUbi"
+  ORDER 40
+
+ADD FIELD "id_articulo" OF "drums" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idArticulo"
+  POSITION 6
+  SQL-WIDTH 4
+  COLUMN-LABEL "idArticulo"
+  ORDER 50
+
+ADD FIELD "id_calidad" OF "drums" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idCalidad"
+  POSITION 7
+  SQL-WIDTH 4
+  COLUMN-LABEL "idCalidad"
+  ORDER 60
+
+ADD FIELD "id_envase" OF "drums" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idEnvase"
+  POSITION 8
+  SQL-WIDTH 4
+  COLUMN-LABEL "idEnvase"
+  ORDER 70
+
+ADD FIELD "brix" OF "drums" AS decimal 
+  FORMAT ">>,>>9.99"
+  INITIAL "0"
+  LABEL "Brix"
+  POSITION 9
+  SQL-WIDTH 17
+  COLUMN-LABEL "Brix"
+  DECIMALS 2
+  ORDER 100
+
+ADD FIELD "id_locacion_ubicacion" OF "drums" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idLocUbi"
+  POSITION 10
+  SQL-WIDTH 4
+  COLUMN-LABEL "idLocUbi"
+  ORDER 80
+
+ADD FIELD "id_empresa" OF "drums" AS integer 
+  FORMAT ">>>>9"
+  INITIAL "0"
+  LABEL "idEmpresa"
+  POSITION 11
+  SQL-WIDTH 4
+  COLUMN-LABEL "idEmpresa"
+  ORDER 1
+
+ADD FIELD "id_sucursal" OF "drums" AS integer 
+  FORMAT ">>>>>>9"
+  INITIAL "0"
+  LABEL "idSucursal"
+  POSITION 12
+  SQL-WIDTH 4
+  COLUMN-LABEL "idSucursal"
+  ORDER 2
+
+ADD FIELD "id_tipotambor" OF "drums" AS integer 
+  FORMAT ">>>>9"
+  INITIAL "0"
+  LABEL "idTipoTambor"
+  POSITION 13
+  SQL-WIDTH 4
+  COLUMN-LABEL "idTipoTambor"
+  ORDER 3
+
+ADD FIELD "nromov" OF "drums" AS integer 
+  FORMAT ">>>>>>9"
+  INITIAL "0"
+  LABEL "NroMov"
+  POSITION 14
+  SQL-WIDTH 4
+  COLUMN-LABEL "NroMov"
+  ORDER 4
+
+ADD FIELD "fecha" OF "drums" AS date 
+  FORMAT "99/99/9999"
+  INITIAL ?
+  LABEL "Fecha"
+  POSITION 15
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  ORDER 90
+
+ADD FIELD "sodio" OF "drums" AS decimal 
+  FORMAT ">>,>>9.99"
+  INITIAL "0"
+  LABEL "Sodio"
+  POSITION 16
+  SQL-WIDTH 17
+  COLUMN-LABEL "Sodio"
+  DECIMALS 2
+  ORDER 110
+
+ADD FIELD "acidez" OF "drums" AS decimal 
+  FORMAT ">>,>>9.99"
+  INITIAL "0"
+  LABEL "Acidez"
+  POSITION 17
+  SQL-WIDTH 17
+  COLUMN-LABEL "Acidez"
+  DECIMALS 2
+  ORDER 120
+
+ADD FIELD "litros_tambor" OF "drums" AS decimal 
+  FORMAT ">>>>9.99"
+  INITIAL "0"
+  LABEL "Litros"
+  POSITION 19
+  SQL-WIDTH 17
+  COLUMN-LABEL "Litros"
+  DECIMALS 2
+  ORDER 130
+
+ADD FIELD "articulo" OF "drums" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Articulo"
+  POSITION 20
+  SQL-WIDTH 40
+  COLUMN-LABEL "Articulo"
+  ORDER 140
+
+ADD TABLE "oildrums"
+  AREA "Schema Area"
+  DUMP-NAME "oildrums"
+
+ADD FIELD "id_empresa" OF "oildrums" AS integer 
+  FORMAT ">>>>9"
+  INITIAL "0"
+  LABEL "idEmpresa"
+  POSITION 2
+  SQL-WIDTH 4
+  COLUMN-LABEL "idEmpresa"
+  ORDER 1
+
+ADD FIELD "id_sucursal" OF "oildrums" AS integer 
+  FORMAT ">>>>>>9"
+  INITIAL "0"
+  LABEL "idSucursal"
+  POSITION 3
+  SQL-WIDTH 4
+  COLUMN-LABEL "idSucursal"
+  ORDER 2
+
+ADD FIELD "id_tipotambor" OF "oildrums" AS integer 
+  FORMAT ">>>>9"
+  INITIAL "0"
+  LABEL "idTipoTambor"
+  POSITION 4
+  SQL-WIDTH 4
+  COLUMN-LABEL "idTipoTambor"
+  ORDER 3
+
+ADD FIELD "nromov" OF "oildrums" AS integer 
+  FORMAT ">>>>>>9"
+  INITIAL "0"
+  LABEL "NroMov"
+  POSITION 5
+  SQL-WIDTH 4
+  COLUMN-LABEL "NroMov"
+  ORDER 4
+
+ADD FIELD "id_lote_prod" OF "oildrums" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "NroLoteProd"
+  POSITION 6
+  SQL-WIDTH 4
+  COLUMN-LABEL "NroLoteProd"
+  ORDER 10
+
+ADD FIELD "id_tambor" OF "oildrums" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Tambo"
+  POSITION 7
+  SQL-WIDTH 4
+  COLUMN-LABEL "Tambor"
+  ORDER 20
+
+ADD FIELD "kilos" OF "oildrums" AS decimal 
+  FORMAT ">>,>>9.99"
+  INITIAL "0"
+  LABEL "Kilos"
+  POSITION 8
+  SQL-WIDTH 17
+  COLUMN-LABEL "Kilos"
+  DECIMALS 2
+  ORDER 30
+
+ADD FIELD "id_sucursal_ubicacion" OF "oildrums" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idSucUbi"
+  POSITION 9
+  SQL-WIDTH 4
+  COLUMN-LABEL "idSucUbi"
+  ORDER 40
+
+ADD FIELD "id_articulo" OF "oildrums" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idArticulo"
+  POSITION 10
+  SQL-WIDTH 4
+  COLUMN-LABEL "idArticulo"
+  ORDER 50
+
+ADD FIELD "id_calidad" OF "oildrums" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idCalidad"
+  POSITION 11
+  SQL-WIDTH 4
+  COLUMN-LABEL "idCalidad"
+  ORDER 60
+
+ADD FIELD "id_envase" OF "oildrums" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idEnvase"
+  POSITION 12
+  SQL-WIDTH 4
+  COLUMN-LABEL "idEnvase"
+  ORDER 70
+
+ADD FIELD "id_locacion_ubicacion" OF "oildrums" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idLocUbi"
+  POSITION 13
+  SQL-WIDTH 4
+  COLUMN-LABEL "idLocUbi"
+  ORDER 80
+
+ADD FIELD "fecha" OF "oildrums" AS date 
+  FORMAT "99/99/9999"
+  INITIAL ?
+  LABEL "Fecha"
+  POSITION 14
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  ORDER 90
+
+ADD FIELD "brix" OF "oildrums" AS decimal 
+  FORMAT ">>,>>9.99"
+  INITIAL "0"
+  LABEL "Brix"
+  POSITION 15
+  SQL-WIDTH 17
+  COLUMN-LABEL "Brix"
+  DECIMALS 2
+  ORDER 100
+
+ADD FIELD "sodio" OF "oildrums" AS decimal 
+  FORMAT ">>,>>9.99"
+  INITIAL "0"
+  LABEL "Sodio"
+  POSITION 16
+  SQL-WIDTH 17
+  COLUMN-LABEL "Sodio"
+  DECIMALS 2
+  ORDER 110
+
+ADD FIELD "acidez" OF "oildrums" AS decimal 
+  FORMAT ">>,>>9.99"
+  INITIAL "0"
+  LABEL "Acidez"
+  POSITION 17
+  SQL-WIDTH 17
+  COLUMN-LABEL "Acidez"
+  DECIMALS 2
+  ORDER 120
+
+ADD FIELD "litros_tambor" OF "oildrums" AS decimal 
+  FORMAT ">>>>9.99"
+  INITIAL "0"
+  LABEL "Litros"
+  POSITION 18
+  SQL-WIDTH 17
+  COLUMN-LABEL "Litros"
+  DECIMALS 2
+  ORDER 130
+
+ADD FIELD "articulo" OF "oildrums" AS character 
+  FORMAT "X(25)"
+  INITIAL ""
+  LABEL "Articulo"
+  POSITION 19
+  SQL-WIDTH 50
+  COLUMN-LABEL "Articulo"
+  ORDER 140
+
+ADD FIELD "calidad" OF "oildrums" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Calidad"
+  POSITION 20
+  SQL-WIDTH 40
+  COLUMN-LABEL "Calidad"
+  ORDER 150
+
+ADD FIELD "envase" OF "oildrums" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Envase"
+  POSITION 21
+  SQL-WIDTH 40
+  COLUMN-LABEL "Envase"
+  ORDER 160
+
+ADD FIELD "anio" OF "oildrums" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Anio"
+  POSITION 22
+  SQL-WIDTH 4
+  COLUMN-LABEL "Anio"
+  ORDER 170
+
+ADD TABLE "lotesdepext"
+  AREA "Schema Area"
+  DUMP-NAME "lotesdep"
+
+ADD FIELD "lote" OF "lotesdepext" AS character 
+  FORMAT "X(10)"
+  INITIAL ""
+  LABEL "LoteSami"
+  POSITION 2
+  SQL-WIDTH 20
+  COLUMN-LABEL "LoteSami"
+  ORDER 10
+
+ADD FIELD "id_lote_deposito" OF "lotesdepext" AS character 
+  FORMAT "X(15)"
+  INITIAL ""
+  LABEL "LoteDeposito"
+  POSITION 3
+  SQL-WIDTH 30
+  COLUMN-LABEL "LoteDeposito"
+  ORDER 20
+
+ADD FIELD "cantidad" OF "lotesdepext" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Cantidad"
+  POSITION 4
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cantidad"
+  ORDER 30
+
+ADD FIELD "articulo" OF "lotesdepext" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Articulo"
+  POSITION 5
+  SQL-WIDTH 40
+  COLUMN-LABEL "Articulo"
+  ORDER 40
+
+ADD FIELD "calidad" OF "lotesdepext" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Calidad"
+  POSITION 6
+  SQL-WIDTH 40
+  COLUMN-LABEL "Calidad"
+  ORDER 50
+
+ADD FIELD "envase" OF "lotesdepext" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Envase"
+  POSITION 7
+  SQL-WIDTH 40
+  COLUMN-LABEL "Envase"
+  ORDER 60
+
+ADD FIELD "id_lote" OF "lotesdepext" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_lote"
+  POSITION 8
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_lote"
+  ORDER 70
+
+ADD FIELD "id_empresa" OF "lotesdepext" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_empresa"
+  POSITION 9
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_empresa"
+  ORDER 80
+
+ADD FIELD "id_sucursal" OF "lotesdepext" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_sucursal"
+  POSITION 10
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_sucursal"
+  ORDER 90
+
+ADD FIELD "id_tipotambor" OF "lotesdepext" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_tipotambor"
+  POSITION 11
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_tipotambor"
+  ORDER 100
+
+ADD FIELD "nromov" OF "lotesdepext" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "nromov"
+  POSITION 12
+  SQL-WIDTH 4
+  COLUMN-LABEL "nromov"
+  ORDER 110
+
+ADD FIELD "id_sucursal_ubicacion" OF "lotesdepext" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_sucursal_ubicacion"
+  POSITION 13
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_sucursal_ubicacion"
+  ORDER 120
+
+ADD FIELD "show" OF "lotesdepext" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "show"
+  POSITION 14
+  SQL-WIDTH 4
+  COLUMN-LABEL "show"
+  ORDER 130
+
+ADD FIELD "tambor_desde" OF "lotesdepext" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "TamborDesde"
+  POSITION 15
+  SQL-WIDTH 4
+  COLUMN-LABEL "TamborDesde"
+  ORDER 140
+
+ADD FIELD "tambor_hasta" OF "lotesdepext" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "TamborHasta"
+  POSITION 16
+  SQL-WIDTH 4
+  COLUMN-LABEL "TamborHasta"
+  ORDER 150
+
+ADD TABLE "gastosexternos"
+  AREA "Schema Area"
+  DUMP-NAME "gastosex"
+
+ADD FIELD "id_gasto" OF "gastosexternos" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "CodGasto"
+  POSITION 2
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodGasto"
+  ORDER 10
+
+ADD FIELD "id_release_delivery" OF "gastosexternos" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "IdRelease"
+  POSITION 3
+  SQL-WIDTH 4
+  COLUMN-LABEL "IdRelease"
+  ORDER 20
+
+ADD FIELD "item_release_delivey" OF "gastosexternos" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Item"
+  POSITION 4
+  SQL-WIDTH 4
+  COLUMN-LABEL "Item"
+  ORDER 30
+
+ADD FIELD "id_grupo_gasto" OF "gastosexternos" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "IdGrupo"
+  POSITION 5
+  SQL-WIDTH 4
+  COLUMN-LABEL "IdGrupo"
+  ORDER 40
+
+ADD FIELD "descripcion" OF "gastosexternos" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Gasto"
+  POSITION 6
+  SQL-WIDTH 40
+  COLUMN-LABEL "Gasto"
+  ORDER 50
+
+ADD FIELD "importe_unidad_venta" OF "gastosexternos" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "ImporteVenta"
+  POSITION 7
+  SQL-WIDTH 17
+  COLUMN-LABEL "ImporteVenta"
+  DECIMALS 2
+  ORDER 60
+
+ADD FIELD "importe_por_tonelada" OF "gastosexternos" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "ImporteTonelada"
+  POSITION 8
+  SQL-WIDTH 17
+  COLUMN-LABEL "ImporteTonelada"
+  DECIMALS 2
+  ORDER 70
+
+ADD FIELD "importe" OF "gastosexternos" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Importe"
+  POSITION 9
+  SQL-WIDTH 17
+  COLUMN-LABEL "Importe"
+  DECIMALS 2
+  ORDER 80
+
+ADD FIELD "importe_total" OF "gastosexternos" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Total"
+  POSITION 10
+  SQL-WIDTH 17
+  COLUMN-LABEL "Total"
+  DECIMALS 2
+  ORDER 90
+
+ADD FIELD "tipo_calculo" OF "gastosexternos" AS logical 
+  FORMAT "automatico/manual"
+  INITIAL "automatico"
+  LABEL "TipoCalculo"
+  POSITION 11
+  SQL-WIDTH 1
+  COLUMN-LABEL "TipoCalculo"
+  ORDER 100
+
+ADD TABLE "ubicaciontambores"
+  AREA "Schema Area"
+  DUMP-NAME "ttubicac"
+
+ADD FIELD "id_empresa" OF "ubicaciontambores" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_empresa"
+  POSITION 2
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_empresa"
+  ORDER 80
+
+ADD FIELD "id_sucursal" OF "ubicaciontambores" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_sucursal"
+  POSITION 3
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_sucursal"
+  ORDER 90
+
+ADD FIELD "id_tipotambor" OF "ubicaciontambores" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_tipotambor"
+  POSITION 4
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_tipotambor"
+  ORDER 100
+
+ADD FIELD "nromov" OF "ubicaciontambores" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "nromov"
+  POSITION 5
+  SQL-WIDTH 4
+  COLUMN-LABEL "nromov"
+  ORDER 110
+
+ADD FIELD "id_sucursal_ubicacion" OF "ubicaciontambores" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_sucursal_ubicacion"
+  POSITION 6
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_sucursal_ubicacion"
+  ORDER 120
+
+ADD FIELD "id_lote_deposito" OF "ubicaciontambores" AS character 
+  FORMAT "X(15)"
+  INITIAL ""
+  LABEL "LoteDeposito"
+  POSITION 7
+  SQL-WIDTH 30
+  COLUMN-LABEL "LoteDeposito"
+  ORDER 130
+
+ADD FIELD "cantidad" OF "ubicaciontambores" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Cantidad"
+  POSITION 8
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cantidad"
+  ORDER 140
+
+ADD FIELD "articulo" OF "ubicaciontambores" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Articulo"
+  POSITION 9
+  SQL-WIDTH 40
+  COLUMN-LABEL "Articulo"
+  ORDER 150
+
+ADD FIELD "calidad" OF "ubicaciontambores" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Calidad"
+  POSITION 10
+  SQL-WIDTH 40
+  COLUMN-LABEL "Calidad"
+  ORDER 160
+
+ADD FIELD "envase" OF "ubicaciontambores" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Envase"
+  POSITION 11
+  SQL-WIDTH 40
+  COLUMN-LABEL "Envase"
+  ORDER 170
+
+ADD FIELD "id_lote" OF "ubicaciontambores" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_lote"
+  POSITION 12
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_lote"
+  ORDER 180
+
+ADD FIELD "anio" OF "ubicaciontambores" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Anio"
+  POSITION 13
+  SQL-WIDTH 4
+  COLUMN-LABEL "Anio"
+  ORDER 190
+
+ADD FIELD "id_articulo" OF "ubicaciontambores" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idArticulo"
+  POSITION 14
+  SQL-WIDTH 4
+  COLUMN-LABEL "idArticulo"
+  ORDER 200
+
+ADD FIELD "kilos" OF "ubicaciontambores" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Kilos"
+  POSITION 15
+  SQL-WIDTH 17
+  COLUMN-LABEL "Kilos"
+  DECIMALS 2
+  ORDER 210
+
+ADD FIELD "fecha" OF "ubicaciontambores" AS date 
+  FORMAT "99/99/9999"
+  INITIAL ?
+  LABEL "Fecha"
+  POSITION 16
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  ORDER 220
+
+ADD FIELD "id_empresa_destino" OF "ubicaciontambores" AS integer 
+  FORMAT ">>>>9"
+  INITIAL "0"
+  LABEL "idEmpresa Destino"
+  POSITION 17
+  SQL-WIDTH 4
+  COLUMN-LABEL "idEmpresa Destino"
+  ORDER 230
+
+ADD FIELD "id_sucursal_destino" OF "ubicaciontambores" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_sucursal"
+  POSITION 18
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_sucursal"
+  ORDER 240
+
+ADD FIELD "id_tipotambor_destino" OF "ubicaciontambores" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_tipotambor"
+  POSITION 19
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_tipotambor"
+  ORDER 250
+
+ADD FIELD "nromov_destino" OF "ubicaciontambores" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "nromov"
+  POSITION 20
+  SQL-WIDTH 4
+  COLUMN-LABEL "nromov"
+  ORDER 260
+
+ADD TABLE "turnos"
+  AREA "Schema Area"
+  DUMP-NAME "turnos"
+
+ADD FIELD "id_turno" OF "turnos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Id Turno"
+  POSITION 2
+  SQL-WIDTH 4
+  COLUMN-LABEL "Id Turno"
+  ORDER 10
+
+ADD FIELD "descripcion" OF "turnos" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Descripcion"
+  POSITION 3
+  SQL-WIDTH 60
+  COLUMN-LABEL "Descripcion"
+  ORDER 20
+
+ADD TABLE "origenesmovcamara"
+  AREA "Schema Area"
+  DUMP-NAME "origenes"
+
+ADD FIELD "id_origen" OF "origenesmovcamara" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Id Origen"
+  POSITION 2
+  SQL-WIDTH 4
+  COLUMN-LABEL "Id Origen"
+  ORDER 10
+
+ADD FIELD "descripcion" OF "origenesmovcamara" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Descripcion"
+  POSITION 3
+  SQL-WIDTH 60
+  COLUMN-LABEL "Descripcion"
+  ORDER 20
+
+ADD TABLE "tipomovcamara"
+  AREA "Schema Area"
+  DUMP-NAME "tipomovc"
+
+ADD FIELD "id_tipo_movimiento" OF "tipomovcamara" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Id Movimiento"
+  POSITION 2
+  SQL-WIDTH 4
+  COLUMN-LABEL "Id Movimiento"
+  ORDER 10
+
+ADD FIELD "descripcion" OF "tipomovcamara" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Descripcion"
+  POSITION 3
+  SQL-WIDTH 60
+  COLUMN-LABEL "Descripcion"
+  ORDER 20
+
+ADD TABLE "ubicacioncamara"
+  AREA "Schema Area"
+  DUMP-NAME "ubicacio"
+
+ADD FIELD "id_empresa" OF "ubicacioncamara" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_empresa"
+  POSITION 2
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_empresa"
+  ORDER 80
+
+ADD FIELD "id_sucursal" OF "ubicacioncamara" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_sucursal"
+  POSITION 3
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_sucursal"
+  ORDER 90
+
+ADD FIELD "id_tipotambor" OF "ubicacioncamara" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_tipotambor"
+  POSITION 4
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_tipotambor"
+  ORDER 100
+
+ADD FIELD "nromov" OF "ubicacioncamara" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "nromov"
+  POSITION 5
+  SQL-WIDTH 4
+  COLUMN-LABEL "nromov"
+  ORDER 110
+
+ADD FIELD "id_sucursal_ubicacion" OF "ubicacioncamara" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_sucursal_ubicacion"
+  POSITION 6
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_sucursal_ubicacion"
+  ORDER 120
+
+ADD FIELD "id_tambor" OF "ubicacioncamara" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Tambo"
+  POSITION 7
+  SQL-WIDTH 4
+  COLUMN-LABEL "Tambor"
+  ORDER 130
+
+ADD FIELD "id_empresa_camara" OF "ubicacioncamara" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_empresa_camara"
+  POSITION 8
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_empresa_camara"
+  ORDER 140
+
+ADD FIELD "id_sucursal_camara" OF "ubicacioncamara" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_sucursal_camara"
+  POSITION 9
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_sucursal_camara"
+  ORDER 150
+
+ADD FIELD "id_camara" OF "ubicacioncamara" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Id Camara"
+  POSITION 10
+  SQL-WIDTH 4
+  COLUMN-LABEL "Id Camara"
+  ORDER 160
+
+ADD FIELD "nro_fila" OF "ubicacioncamara" AS character 
+  FORMAT "X(10)"
+  INITIAL ""
+  LABEL "Nro Fila"
+  POSITION 11
+  SQL-WIDTH 20
+  COLUMN-LABEL "Nro Fila"
+  ORDER 170
+
+ADD FIELD "nro_columna" OF "ubicacioncamara" AS character 
+  FORMAT "X(10)"
+  INITIAL ""
+  LABEL "Nro Columna"
+  POSITION 12
+  SQL-WIDTH 20
+  COLUMN-LABEL "Nro Columna"
+  ORDER 180
+
+ADD FIELD "ubicacion" OF "ubicacioncamara" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "ubicacion"
+  POSITION 13
+  SQL-WIDTH 40
+  COLUMN-LABEL "ubicacion"
+  ORDER 190
+
+ADD FIELD "camara" OF "ubicacioncamara" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Camara"
+  POSITION 14
+  SQL-WIDTH 40
+  COLUMN-LABEL "Camara"
+  ORDER 200
+
+ADD FIELD "obs" OF "ubicacioncamara" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "obs"
+  POSITION 15
+  SQL-WIDTH 60
+  COLUMN-LABEL "obs"
+  ORDER 210
+
+ADD FIELD "id_lote" OF "ubicacioncamara" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "id_lote"
+  POSITION 16
+  SQL-WIDTH 4
+  COLUMN-LABEL "id_lote"
+  ORDER 220
+
+ADD FIELD "anio" OF "ubicacioncamara" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Anio"
+  POSITION 17
+  SQL-WIDTH 4
+  COLUMN-LABEL "Anio"
+  ORDER 230
+
+ADD FIELD "id_articulo" OF "ubicacioncamara" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idArticulo"
+  POSITION 18
+  SQL-WIDTH 4
+  COLUMN-LABEL "idArticulo"
+  ORDER 240
+
+ADD FIELD "id_calidad" OF "ubicacioncamara" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idCalidad"
+  POSITION 19
+  SQL-WIDTH 4
+  COLUMN-LABEL "idCalidad"
+  ORDER 250
+
+ADD FIELD "id_envase" OF "ubicacioncamara" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "idEnvase"
+  POSITION 20
+  SQL-WIDTH 4
+  COLUMN-LABEL "idEnvase"
+  ORDER 260
+
+ADD FIELD "articulo" OF "ubicacioncamara" AS character 
+  FORMAT "X(25)"
+  INITIAL ""
+  LABEL "Articulo"
+  POSITION 21
+  SQL-WIDTH 50
+  COLUMN-LABEL "Articulo"
+  ORDER 270
+
+ADD FIELD "calidad" OF "ubicacioncamara" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Calidad"
+  POSITION 22
+  SQL-WIDTH 40
+  COLUMN-LABEL "Calidad"
+  ORDER 280
+
+ADD FIELD "envase" OF "ubicacioncamara" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Envase"
+  POSITION 23
+  SQL-WIDTH 40
+  COLUMN-LABEL "Envase"
+  ORDER 290
+
+.
+PSC
+cpstream=ISO8859-1
+.
+0000021145

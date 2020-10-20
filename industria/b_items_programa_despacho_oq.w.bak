@@ -1,0 +1,896 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER UIB_v8r12 GUI
+&ANALYZE-RESUME
+/* Connected Databases 
+          general          PROGRESS
+*/
+&Scoped-define WINDOW-NAME CURRENT-WINDOW
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS B-table-Win 
+/*------------------------------------------------------------------------
+
+  File:  
+
+  Description: from BROWSER.W - Basic SmartBrowser Object Template
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress UIB.             */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+
+define var i as integer no-undo.
+define var nombre-item as character no-undo.
+DEFINE TEMP-TABLE tt_items
+    FIELD id_programa_despacho AS INTEGER
+    FIELD ITEM AS INTEGER
+    FIELD id_cliente AS INTEGER
+    FIELD cliente AS CHAR
+    FIELD id_articulo AS INTEGER
+    FIELD articulo AS CHAR
+    FIELD id_marca AS INTEGER
+    FIELD marca AS CHAR
+    FIELD id_calidad AS INTEGER
+    FIELD calidad AS CHAR
+    FIELD id_envase AS INTEGER
+    FIELD envase AS CHAR
+    FIELD pallets AS DECIMAL
+    FIELD cajas_por_pallets AS DECIMAL
+    FIELD kilos_por_cajas AS DECIMAL
+    FIELD importe_final AS DECIMAL
+    FIELD id_moneda AS INTEGER
+    FIELD moneda AS CHAR
+    FIELD id_tipo_unidad_venta AS INTEGER
+    FIELD tipo_unidad_venta AS CHAR.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE csmartbrowser
+&Scoped-define DB-AWARE no
+
+&Scoped-define ADM-SUPPORTED-LINKS Record-Target,TableIO-Target,Consulta-Target,Navigation-Target,record-Source
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME F-Main
+&Scoped-define BROWSE-NAME br_table
+
+/* Internal Tables (found by Frame, Query & Browse Queries)             */
+&Scoped-define INTERNAL-TABLES tt_items
+
+/* Define KEY-PHRASE in case it is used by any query. */
+&Scoped-define KEY-PHRASE TRUE
+
+/* Definitions for BROWSE br_table                                      */
+&Scoped-define FIELDS-IN-QUERY-br_table tt_items.item tt_items.marca tt_items.calidad tt_items.id_envase tt_items.envase tt_items.pallets tt_items.cajas_por_pallets tt_items.kilos_por_cajas tt_items.importe_final   
+&Scoped-define ENABLED-FIELDS-IN-QUERY-br_table   
+&Scoped-define SELF-NAME br_table
+&Scoped-define OPEN-QUERY-br_table RUN calculo_principal. OPEN QUERY {&SELF-NAME} FOR EACH tt_items NO-LOCK.
+&Scoped-define TABLES-IN-QUERY-br_table tt_items
+&Scoped-define FIRST-TABLE-IN-QUERY-br_table tt_items
+
+
+/* Definitions for FRAME F-Main                                         */
+&Scoped-define OPEN-BROWSERS-IN-QUERY-F-Main ~
+    ~{&OPEN-QUERY-br_table}
+
+/* Standard List Definitions                                            */
+&Scoped-Define ENABLED-OBJECTS br_table 
+
+/* Custom List Definitions                                              */
+/* List-1,List-2,List-3,List-4,List-5,List-6                            */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "Foreign Keys" B-table-Win _INLINE
+/* Actions: ? adm/support/keyedit.w ? ? ? */
+/* STRUCTURED-DATA
+<KEY-OBJECT>
+&BROWSE-NAME
+</KEY-OBJECT>
+<FOREIGN-KEYS>
+id_calidad||y|produccion.items_programa_despacho.id_calidad
+id_envase||y|produccion.items_programa_despacho.id_envase
+id_marca||y|produccion.items_programa_despacho.id_marca
+id_articulo||y|produccion.items_programa_despacho.id_articulo
+id_programa_despacho||y|produccion.items_programa_despacho.id_programa_despacho
+id_tipo_pallet||y|produccion.items_programa_despacho.id_tipo_pallet
+id_variedad||y|produccion.items_programa_despacho.id_variedad
+</FOREIGN-KEYS> 
+<EXECUTING-CODE>
+**************************
+* Set attributes related to FOREIGN KEYS
+*/
+RUN set-attribute-list (
+    'Keys-Accepted = ,
+     Keys-Supplied = "id_calidad,id_envase,id_marca,id_articulo,id_programa_despacho,id_tipo_pallet,id_variedad"':U).
+
+/* Tell the ADM to use the OPEN-QUERY-CASES. */
+&Scoped-define OPEN-QUERY-CASES RUN dispatch ('open-query-cases':U).
+/**************************
+</EXECUTING-CODE> */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "Advanced Query Options" B-table-Win _INLINE
+/* Actions: ? adm/support/advqedit.w ? ? ? */
+/* STRUCTURED-DATA
+<KEY-OBJECT>
+&BROWSE-NAME
+</KEY-OBJECT>
+<SORTBY-OPTIONS>
+</SORTBY-OPTIONS>
+<SORTBY-RUN-CODE>
+************************
+* Set attributes related to SORTBY-OPTIONS */
+RUN set-attribute-list (
+    'SortBy-Options = ""':U).
+/************************
+</SORTBY-RUN-CODE>
+<FILTER-ATTRIBUTES>
+</FILTER-ATTRIBUTES> */   
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "Menues" B-table-Win _INLINE
+/* Actions: ? custom/support/cusbmen.p ? ? ? */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "con parametros" B-table-Win _INLINE
+/* Actions: ? custom/support/con-parametros.p ? ? ? */
+/* SmartWindow,uib,49271
+Destroy on next read */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "Cabecera" B-table-Win _INLINE
+/* Actions: ? custom/support/set-cabecera.p ? ? ? */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "Detalle" B-table-Win _INLINE
+/* Actions: ? custom/support/set-detalle.p ? ? ? */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "Items" B-table-Win _INLINE
+/* Actions: ? custom/support/set-items.p ? ? ? */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "Modalidad de Insercion Browser" B-table-Win _INLINE
+/* Actions: ? custom/support/bmodins.p ? ? ? */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "Relaciones" B-table-Win _INLINE
+/* Actions: ? custom/support/keyeditb.w ? ? ? */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+/* ************************  Function Prototypes ********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD valida B-table-Win 
+FUNCTION valida RETURNS LOGICAL
+  (input nombre as character, input valor as character , output mensaje as character )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* ***********************  Control Definitions  ********************** */
+
+
+/* Definitions of the field level widgets                               */
+/* Query definitions                                                    */
+&ANALYZE-SUSPEND
+DEFINE QUERY br_table FOR 
+      tt_items SCROLLING.
+&ANALYZE-RESUME
+
+/* Browse definitions                                                   */
+DEFINE BROWSE br_table
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _DISPLAY-FIELDS br_table B-table-Win _FREEFORM
+  QUERY br_table NO-LOCK DISPLAY
+      tt_items.item FORMAT ">>>9":U WIDTH 7.2
+      tt_items.marca COLUMN-LABEL "Marca" FORMAT "X(20)":U WIDTH 12
+      tt_items.calidad COLUMN-LABEL "Calidad" FORMAT "X(20)":U WIDTH 12
+      tt_items.id_envase COLUMN-LABEL "CodEnv" FORMAT ">>>9" WIDTH 5
+      tt_items.envase COLUMN-LABEL "Envase" FORMAT "x(20)":U  WIDTH 20
+      tt_items.pallets COLUMN-LABEL "Pallets" FORMAT "->>>>>>>9.99":U
+      tt_items.cajas_por_pallets COLUMN-LABEL "Cajas x pallets" FORMAT "->>>>>>9.99":U WIDTH 21
+      tt_items.kilos_por_cajas COLUMN-LABEL "kilos x Envase" FORMAT "->>>>>>9.99":U WIDTH 22.2
+      tt_items.importe_final COLUMN-LABEL "Precio" FORMAT ">>>>9.99":U WIDTH 15
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+    WITH NO-ASSIGN SEPARATORS SIZE 144 BY 6.71
+         BGCOLOR 15 FONT 0.
+
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME F-Main
+     br_table AT ROW 1 COL 1
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY 
+         SIDE-LABELS NO-UNDERLINE THREE-D 
+         AT COL 1 ROW 1 SCROLLABLE 
+         BGCOLOR 8 FGCOLOR 0 .
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: csmartbrowser
+   Allow: Basic,Browse
+   Frames: 1
+   Add Fields to: External-Tables
+   Other Settings: PERSISTENT-ONLY
+ */
+
+/* This procedure should always be RUN PERSISTENT.  Report the error,  */
+/* then cleanup and return.                                            */
+IF NOT THIS-PROCEDURE:PERSISTENT THEN DO:
+  MESSAGE "{&FILE-NAME} should only be RUN PERSISTENT.":U
+          VIEW-AS ALERT-BOX ERROR BUTTONS OK.
+  RETURN.
+END.
+
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+/* DESIGN Window definition (used by the UIB) 
+  CREATE WINDOW B-table-Win ASSIGN
+         HEIGHT             = 6.86
+         WIDTH              = 144.
+/* END WINDOW DEFINITION */
+                                                                        */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB B-table-Win 
+/* ************************* Included-Libraries *********************** */
+
+{custom/method/cbrowser.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR WINDOW B-table-Win
+  NOT-VISIBLE,,RUN-PERSISTENT                                           */
+/* SETTINGS FOR FRAME F-Main
+   NOT-VISIBLE Size-to-Fit                                              */
+/* BROWSE-TAB br_table 1 F-Main */
+ASSIGN 
+       FRAME F-Main:SCROLLABLE       = FALSE
+       FRAME F-Main:HIDDEN           = TRUE.
+
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+
+/* Setting information for Queries and Browse Widgets fields            */
+
+&ANALYZE-SUSPEND _QUERY-BLOCK BROWSE br_table
+/* Query rebuild information for BROWSE br_table
+     _START_FREEFORM
+RUN calculo_principal.
+OPEN QUERY {&SELF-NAME} FOR EACH tt_items NO-LOCK.
+     _END_FREEFORM
+     _Options          = "NO-LOCK KEY-PHRASE"
+     _TblOptList       = ",,,,"
+     _OrdList          = "general.items_programa_despacho.id_envase|yes"
+     _Query            is OPENED
+*/  /* BROWSE br_table */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _QUERY-BLOCK FRAME F-Main
+/* Query rebuild information for FRAME F-Main
+     _Options          = "NO-LOCK"
+     _Query            is NOT OPENED
+*/  /* FRAME F-Main */
+&ANALYZE-RESUME
+
+ 
+
+
+
+/* ************************  Control Triggers  ************************ */
+
+&Scoped-define BROWSE-NAME br_table
+&Scoped-define SELF-NAME br_table
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL br_table B-table-Win
+ON F3 OF br_table IN FRAME F-Main
+DO:
+  run buscar.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL br_table B-table-Win
+ON MOUSE-SELECT-DBLCLICK OF br_table IN FRAME F-Main
+DO:
+  define var r as rowid no-undo.
+  define var c as character no-undo.
+  define var h as handle no-undo.
+  run get-link-handle in adm-broker-hdl ( input this-procedure , input 'Consulta-SOURCE' , output c).
+  h=widget-handle(c).
+  if valid-handle(h) then
+    run dispatch in h ('busca-rowid').  
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL br_table B-table-Win
+ON ROW-ENTRY OF br_table IN FRAME F-Main
+DO:
+  /* This code displays initial values for newly added or copied rows. */
+  {src/adm/template/brsentry.i}  
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL br_table B-table-Win
+ON ROW-LEAVE OF br_table IN FRAME F-Main
+DO:
+     /* Do not disable this code or no updates will take place except
+     by pressing the Save button on an Update SmartPanel. */
+   {src/adm/template/brsleave.i}
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL br_table B-table-Win
+ON VALUE-CHANGED OF br_table IN FRAME F-Main
+DO:
+   /* This ADM trigger code must be preserved in order to notify other
+     objects when the browser's current row changes. */
+  {src/adm/template/brschnge.i}
+
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&UNDEFINE SELF-NAME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK B-table-Win 
+
+
+/* ***************************  Main Block  *************************** */
+
+&IF DEFINED(UIB_IS_RUNNING) <> 0 &THEN          
+RUN dispatch IN THIS-PROCEDURE ('initialize':U).        
+&ENDIF
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-open-query-cases B-table-Win  adm/support/_adm-opn.p
+PROCEDURE adm-open-query-cases :
+/*------------------------------------------------------------------------------
+  Purpose:     Opens different cases of the query based on attributes
+               such as the 'Key-Name', or 'SortBy-Case'
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+
+  /* No Foreign keys are accepted by this SmartObject. */
+
+  {&OPEN-QUERY-{&BROWSE-NAME}}
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-post-create B-table-Win 
+PROCEDURE adm-post-create :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-post-delete B-table-Win 
+PROCEDURE adm-post-delete :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-post-update B-table-Win 
+PROCEDURE adm-post-update :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-pre-create B-table-Win 
+PROCEDURE adm-pre-create :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-pre-delete B-table-Win 
+PROCEDURE adm-pre-delete :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-pre-update B-table-Win 
+PROCEDURE adm-pre-update :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-row-available B-table-Win  _ADM-ROW-AVAILABLE
+PROCEDURE adm-row-available :
+/*------------------------------------------------------------------------------
+  Purpose:     Dispatched to this procedure when the Record-
+               Source has a new row available.  This procedure
+               tries to get the new row (or foriegn keys) from
+               the Record-Source and process it.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+
+  /* Define variables needed by this internal procedure.             */
+  {src/adm/template/row-head.i}
+
+  /* Process the newly available records (i.e. display fields,
+     open queries, and/or pass records on to any RECORD-TARGETS).    */
+  {src/adm/template/row-end.i}
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE asigna-parametros B-table-Win 
+PROCEDURE asigna-parametros :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter lista-parametros as character no-undo.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE busca-registro B-table-Win 
+PROCEDURE busca-registro :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE buscar B-table-Win 
+PROCEDURE buscar :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+&IF "{&FIELDS-IN-QUERY-{&BROWSE-NAME}}" <> "" &THEN
+define var valor as character.
+define var r as rowid no-undo.
+define var p as character no-undo.
+define var q as character no-undo.
+
+run get-attribute('busca').
+p= return-value.
+
+if p <> "yes" Then
+return.
+
+run get-attribute('orden').
+p= return-value.
+
+run get-attribute('titulo').
+q= return-value.
+
+{&BROWSE-NAME}:set-repositioned-row(3,"always") in frame {&FRAME-NAME}.
+
+run custom/support/fbusca.w  ( input p , input q, output valor) .
+
+if valor <> "" then
+do:
+    run busca-registro (input p , input valor).
+    if available {&FIRST-TABLE-IN-QUERY-{&BROWSE-NAME}} then
+    do:
+        r=rowid({&FIRST-TABLE-IN-QUERY-{&BROWSE-NAME}}).
+        reposition {&BROWSE-NAME} to rowid r.
+        apply 'value-changed' to self.
+    end.
+end.    
+&ENDIF
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE calculo_principal B-table-Win 
+PROCEDURE calculo_principal :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:      
+------------------------------------------------------------------------------*/
+DEFINE VAR r_prog AS ROWID.
+DEFINE VAR hcon AS HANDLE.
+DEFINE VAR v_pallets AS DECIMAL.
+DEFINE VAR v_cajas_por_pallets AS DECIMAL.
+DEFINE VAR v_kilos_por_cajas AS DECIMAL.
+DEFINE VAR v_item AS INTEGER INITIAL 1.
+
+FOR EACH tt_items.
+    DELETE tt_items.
+END.
+
+RUN GET-container (OUTPUT hcon).
+RUN dame-rowid-programa IN hcon (OUTPUT r_prog).
+FIND FIRST programa_despacho WHERE ROWID(programa_despacho) = r_prog NO-LOCK NO-ERROR.
+IF AVAILABLE programa_despacho THEN DO:
+    FOR EACH items_programa_despacho OF programa_despacho
+                                    GROUP BY items_programa_despacho.id_envase.
+        
+        v_pallets            = v_pallets + items_programa_despacho.cantidad.
+        v_cajas_por_pallets  = v_cajas_por_pallets + items_programa_despacho.cajas_por_pallets.
+        v_kilos_por_cajas    = v_kilos_por_cajas + items_programa_despacho.kilos_por_envase.
+        
+        IF LAST-OF(items_programa_despacho.id_envase) THEN DO:
+            FIND FIRST clientes OF items_programa_despacho NO-LOCK NO-ERROR.
+            FIND FIRST productos_terminados OF items_programa_despacho NO-LOCK NO-ERROR.
+            FIND FIRST marcas_prod OF items_programa_despacho NO-LOCK NO-ERROR.
+            FIND FIRST calidades OF items_programa_despacho NO-LOCK NO-ERROR.
+            FIND FIRST envases_prod OF items_programa_despacho NO-LOCK NO-ERROR.
+            FIND FIRST tipo_moneda OF items_programa_despacho NO-LOCK NO-ERROR.
+            FIND FIRST tipo_unidad_venta WHERE tipo_unidad_venta.id_tipo_unidad_venta =
+                                               items_programa_despacho.id_tipo_unidad_venta NO-LOCK NO-ERROR.
+
+            CREATE tt_items.
+            ASSIGN tt_items.id_programa_despacho = items_programa_despacho.id_programa_despacho
+                   tt_items.ITEM = v_item
+                   tt_items.id_cliente      = items_programa_despacho.id_cliente
+                   tt_items.cliente         = IF AVAILABLE clientes THEN clientes.nombre ELSE "None"
+                   tt_items.id_articulo     = items_programa_despacho.id_articulo
+                   tt_items.articulo        = IF AVAILABLE productos_terminados THEN productos_terminados.abreviatura ELSE "None"
+                   tt_items.id_marca        = items_programa_despacho.id_marca
+                   tt_items.marca           = IF AVAILABLE marcas_prod THEN marcas_prod.abreviatura ELSE "None"
+                   tt_items.id_calidad      = items_programa_despacho.id_calidad
+                   tt_items.calidad         = IF AVAILABLE calidades THEN calidades.abreviatura ELSE "None"
+                   tt_items.id_envase       = items_programa_despacho.id_envase
+                   tt_items.envase          = IF AVAILABLE envases_prod THEN envases_prod.abreviatura ELSE "None"
+                   tt_items.pallets             = v_pallets
+                   tt_items.cajas_por_pallets   = v_cajas_por_pallets
+                   tt_items.kilos_por_cajas     = v_kilos_por_cajas
+                   tt_items.importe_final       = items_programa_despacho.importe_final
+                   tt_items.id_moneda           = items_programa_despacho.id_moneda
+                   tt_items.moneda              = IF AVAILABLE tipo_moneda THEN tipo_moneda.descripcion ELSE "NONE"
+                   tt_items.id_tipo_unidad_venta= items_programa_despacho.id_tipo_unidad_venta
+                   tt_items.tipo_unidad_venta   = IF AVAILABLE tipo_unidad_venta THEN tipo_unidad_venta.descripcion ELSE "NONE".
+
+
+            v_pallets            = 0.
+            v_cajas_por_pallets  = 0.
+            v_kilos_por_cajas    = 0.
+        END.
+
+    END.
+END.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE devuelve-datos-programa B-table-Win 
+PROCEDURE devuelve-datos-programa :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE OUTPUT PARAMETER v_id_programa_despacho AS INTEGER.
+DEFINE OUTPUT PARAMETER v_id_cliente AS INTEGER.
+DEFINE OUTPUT PARAMETER v_cliente AS CHAR.
+DEFINE OUTPUT PARAMETER v_id_articulo AS INTEGER.
+DEFINE OUTPUT PARAMETER v_articulo AS CHAR.
+DEFINE OUTPUT PARAMETER v_id_marca AS INTEGER.
+DEFINE OUTPUT PARAMETER v_marca AS CHAR.
+DEFINE OUTPUT PARAMETER v_id_calidad AS INTEGER.
+DEFINE OUTPUT PARAMETER v_calidad AS CHAR.
+DEFINE OUTPUT PARAMETER v_id_envase AS INTEGER.
+DEFINE OUTPUT PARAMETER v_envase AS CHAR.
+DEFINE OUTPUT PARAMETER v_pallets AS DECIMAL.
+DEFINE OUTPUT PARAMETER v_cajas_por_pallets AS DECIMAL.
+DEFINE OUTPUT PARAMETER v_kilos_por_cajas AS DECIMAL.
+DEFINE OUTPUT PARAMETER v_importe_final AS DECIMAL.
+DEFINE OUTPUT PARAMETER v_id_moneda AS INTEGER.
+DEFINE OUTPUT PARAMETER v_id_tipo_unidad_venta AS INTEGER.
+
+
+BROWSE {&BROWSE-NAME}:FETCH-SELECTED-ROW(1).
+
+v_id_programa_despacho        = tt_items.id_programa_despacho.
+v_id_cliente        = tt_items.id_cliente.
+v_cliente           = tt_items.cliente.
+v_id_articulo       = tt_items.id_articulo.
+v_articulo          = tt_items.articulo.
+v_id_marca          = tt_items.id_marca.
+v_marca             = tt_items.marca.
+v_id_calidad        = tt_items.id_calidad.
+v_calidad           = tt_items.calidad.
+v_id_envase         = tt_items.id_envase.
+v_envase            = tt_items.envase.
+v_pallets           = tt_items.pallets.
+v_cajas_por_pallets = tt_items.cajas_por_pallets.
+v_kilos_por_cajas   = tt_items.kilos_por_cajas.
+v_importe_final     = tt_items.importe_final.
+v_id_moneda         = tt_items.id_moneda.
+v_id_tipo_unidad_venta   = tt_items.id_tipo_unidad_venta.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE devuelve-rowid B-table-Win 
+PROCEDURE devuelve-rowid :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define output parameter r as rowid no-undo.
+r=?.
+&IF "{&FIELDS-IN-QUERY-{&BROWSE-NAME}}" <> "" &THEN
+get current {&BROWSE-NAME}.
+if available ({&FIRST-TABLE-IN-QUERY-{&BROWSE-NAME}}) then
+    r=rowid({&FIRST-TABLE-IN-QUERY-{&BROWSE-NAME}}).
+else
+    r=?.    
+&ENDIF
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI B-table-Win  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Hide all frames. */
+  HIDE FRAME F-Main.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE local-initialize B-table-Win 
+PROCEDURE local-initialize :
+/*------------------------------------------------------------------------------
+  Purpose:     Override standard ADM method
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  /* Dispatch standard ADM method.                             */
+  RUN dispatch IN THIS-PROCEDURE ( INPUT 'initialize':U ) .
+
+  /* Code placed here will execute AFTER standard behavior.    */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE local-row-available B-table-Win 
+PROCEDURE local-row-available :
+/*------------------------------------------------------------------------------
+  Purpose:     Override standard ADM method
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+{custom/support/crow-available.i}
+  /* Dispatch standard ADM method.                             */
+  RUN dispatch IN THIS-PROCEDURE ( INPUT 'row-available':U ) .
+
+  /* Code placed here will execute AFTER standard behavior.    */
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE send-key B-table-Win  adm/support/_key-snd.p
+PROCEDURE send-key :
+/*------------------------------------------------------------------------------
+  Purpose:     Sends a requested KEY value back to the calling
+               SmartObject.
+  Parameters:  <see adm/template/sndkytop.i>
+------------------------------------------------------------------------------*/
+
+  /* Define variables needed by this internal procedure.             */
+  {src/adm/template/sndkytop.i}
+
+  /* Return the key value associated with each key case.             */
+  {src/adm/template/sndkycas.i "id_calidad" "items_programa_despacho" "id_calidad"}
+  {src/adm/template/sndkycas.i "id_envase" "items_programa_despacho" "id_envase"}
+  {src/adm/template/sndkycas.i "id_marca" "items_programa_despacho" "id_marca"}
+  {src/adm/template/sndkycas.i "id_articulo" "items_programa_despacho" "id_articulo"}
+  {src/adm/template/sndkycas.i "id_programa_despacho" "items_programa_despacho" "id_programa_despacho"}
+  {src/adm/template/sndkycas.i "id_tipo_pallet" "items_programa_despacho" "id_tipo_pallet"}
+  {src/adm/template/sndkycas.i "id_variedad" "items_programa_despacho" "id_variedad"}
+
+  /* Close the CASE statement and end the procedure.                 */
+  {src/adm/template/sndkyend.i}
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE send-records B-table-Win  _ADM-SEND-RECORDS
+PROCEDURE send-records :
+/*------------------------------------------------------------------------------
+  Purpose:     Send record ROWID's for all tables used by
+               this file.
+  Parameters:  see template/snd-head.i
+------------------------------------------------------------------------------*/
+
+  /* Define variables needed by this internal procedure.               */
+  {src/adm/template/snd-head.i}
+
+  /* For each requested table, put it's ROWID in the output list.      */
+  {src/adm/template/snd-list.i "tt_items"}
+
+  /* Deal with any unexpected table requests before closing.           */
+  {src/adm/template/snd-end.i}
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE state-changed B-table-Win 
+PROCEDURE state-changed :
+/* -----------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+-------------------------------------------------------------*/
+  DEFINE INPUT PARAMETER p-issuer-hdl AS HANDLE    NO-UNDO.
+  DEFINE INPUT PARAMETER p-state      AS CHARACTER NO-UNDO.
+
+  CASE p-state:
+      /* Object instance CASEs can go here to replace standard behavior
+         or add new cases. */
+      {src/adm/template/bstates.i}
+  END CASE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+/* ************************  Function Implementations ***************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION valida B-table-Win 
+FUNCTION valida RETURNS LOGICAL
+  (input nombre as character, input valor as character , output mensaje as character ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+  case nombre:
+    when "id_sucursal" then
+        if integer(valor) = 0 then 
+        do:
+            mensaje = "error".
+            return false.
+         end.
+    end case.
+  RETURN true.   /* Function return value. */
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+

@@ -1,0 +1,63 @@
+
+**  ProxyGen, Progress Version 10.2B
+
+** Checking for existence of .r files ...
+
+** Processing non-persistent procedures ...
+
+** Processing: C:\webservices\ordProd.r ...
+   -- Parsing r-code ...
+       MAIN C:\webservices\ordProd.p 
+          INPUT SORDEN CHARACTER
+          INPUT SDOCUMENTOVENTA CHARACTER
+          INPUT SSOLICITANTE CHARACTER
+          INPUT SNOMBRE CHARACTER
+          INPUT SPOSICIONDOCUMENTOVENTA CHARACTER
+          INPUT SMATERIAL CHARACTER
+          INPUT SESPECIE CHARACTER
+          INPUT SVARIEDAD CHARACTER
+          INPUT SCANTIDAD CHARACTER
+          INPUT SUNIDAD CHARACTER
+          INPUT SCALIDAD CHARACTER
+          INPUT SCATEGORIA CHARACTER
+          INPUT STIPOPALLET CHARACTER
+          INPUT STIPOESQUINERO CHARACTER
+          INPUT SPUERTOLLEGADA CHARACTER
+          INPUT SDESCRIPCIONPUERTOLELGADA CHARACTER
+          INPUT SDESTINO CHARACTER
+          INPUT SDESCRIPCIONDESTINO CHARACTER
+          INPUT SFECHADOCUMENTO CHARACTER
+          INPUT SVAPOR CHARACTER
+          INPUT SDESCRIPCIONVAPOR CHARACTER
+          INPUT SLUGARDESCARGA CHARACTER
+          INPUT SPUERTOORIGEN CHARACTER
+          INPUT SDESCRIPCIONPUERTOORIGEN CHARACTER
+          INPUT SMERCADO CHARACTER
+          INPUT SCONTRAMARCA CHARACTER
+          INPUT SAGENCIA CHARACTER
+          INPUT SDESCRIPCIONAGENCIA CHARACTER
+          INPUT SFECHAREPARTO CHARACTER
+          INPUT POSICIONES TABLE
+       TABLE: POSICIONES
+          PDOCVENTAS character
+          PPOSICIONDOCVENTAS character
+          PMATERIAL character
+          PENVASE character
+          PCALIBRESTD character
+          PCALIBREEQU character
+          PCANTIDAD character
+          PUNIDAD character
+          PORDER character
+   -- No customizations; Validation not necessary
+
+** Processing persistent procedures ...
+
+** Checking method and parameter names ...
+
+** Generating Web Services files ...
+   Creating wsm file ...
+   Generation of wsm file complete ...
+   Creating test wsdl file ...
+   Generation of test wsdl file complete ...
+
+** Generation complete

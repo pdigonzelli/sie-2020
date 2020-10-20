@@ -1,0 +1,15 @@
+  FIELD acidez_w_w LIKE tamboresrepro.acidez_w_w~
+  FIELD anio LIKE tamboresrepro.anio~
+  FIELD brix_20_20 LIKE tamboresrepro.brix_20_20~
+  FIELD cantidad LIKE tamboresrepro.cantidad~
+  FIELD id_articulo LIKE tamboresrepro.id_articulo~
+  FIELD id_empresa LIKE tamboresrepro.id_empresa~
+  FIELD id_lote LIKE tamboresrepro.id_lote~
+  FIELD id_sucursal LIKE tamboresrepro.id_sucursal~
+  FIELD id_tipotambor LIKE tamboresrepro.id_tipotambor~
+  FIELD kilos LIKE tamboresrepro.kilos~
+  FIELD kilos400 LIKE tamboresrepro.kilos400~
+  FIELD nromov LIKE tamboresrepro.nromov~
+  FIELD tipo_tambor LIKE tamboresrepro.tipo_tambor~
+  FIELD litros LIKE tamboresrepro.litros~
+  FIELD solidos LIKE tamboresrepro.solidos

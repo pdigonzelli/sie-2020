@@ -1,0 +1,76 @@
+!SESSION 2016-02-10 09:10:20.863 -----------------------------------------------
+eclipse.buildId=M20090211-1700
+java.version=1.5.0_11
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=es_AR
+Framework arguments:  -showlocation
+Command-line arguments:  -os win32 -ws win32 -arch x86 -showlocation
+
+!ENTRY org.eclipse.update.configurator 4 0 2016-02-10 09:10:30.943
+!MESSAGE Cannot backup current configuration
+
+!ENTRY org.eclipse.update.configurator 4 0 2016-02-10 09:10:31.023
+!MESSAGE Could not rename configuration temp file
+
+!ENTRY org.eclipse.ui.workbench.texteditor 4 0 2016-02-10 09:11:10.425
+!MESSAGE The 'org.eclipse.wst.jsdt.web.ui.internal.hyperlink.script.JSPJavaHyperlinkDetector' extension from plug-in 'org.eclipse.wst.jsdt.web.ui' to the 'org.eclipse.ui.workbench.texteditor.hyperlinkDetectors' extension point will be ignored because it contains invalid attributes.
+
+!ENTRY org.eclipse.ui.workbench.texteditor 4 0 2016-02-10 09:11:10.426
+!MESSAGE The 'org.eclipse.wst.jsdt.web.ui.internal.hyperlink.script.event.JSPJavaHyperlinkDetector' extension from plug-in 'org.eclipse.wst.jsdt.web.ui' to the 'org.eclipse.ui.workbench.texteditor.hyperlinkDetectors' extension point will be ignored because it contains invalid attributes.
+!SESSION 2016-02-16 09:49:56.882 -----------------------------------------------
+eclipse.buildId=M20090211-1700
+java.version=1.5.0_11
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=es_AR
+Framework arguments:  -showlocation
+Command-line arguments:  -os win32 -ws win32 -arch x86 -showlocation
+
+!ENTRY org.eclipse.update.configurator 4 0 2016-02-16 09:49:59.258
+!MESSAGE Cannot backup current configuration
+
+!ENTRY org.eclipse.update.configurator 4 0 2016-02-16 09:49:59.283
+!MESSAGE Could not rename configuration temp file
+
+!ENTRY org.eclipse.ui.workbench.texteditor 4 0 2016-02-16 09:50:12.956
+!MESSAGE The 'org.eclipse.wst.jsdt.web.ui.internal.hyperlink.script.JSPJavaHyperlinkDetector' extension from plug-in 'org.eclipse.wst.jsdt.web.ui' to the 'org.eclipse.ui.workbench.texteditor.hyperlinkDetectors' extension point will be ignored because it contains invalid attributes.
+
+!ENTRY org.eclipse.ui.workbench.texteditor 4 0 2016-02-16 09:50:12.957
+!MESSAGE The 'org.eclipse.wst.jsdt.web.ui.internal.hyperlink.script.event.JSPJavaHyperlinkDetector' extension from plug-in 'org.eclipse.wst.jsdt.web.ui' to the 'org.eclipse.ui.workbench.texteditor.hyperlinkDetectors' extension point will be ignored because it contains invalid attributes.
+!SESSION 2016-03-16 18:03:11.623 -----------------------------------------------
+eclipse.buildId=M20090211-1700
+java.version=1.5.0_11
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=es_AR
+Framework arguments:  -showlocation
+Command-line arguments:  -data D:\desarrollos\webservices -os win32 -ws win32 -arch x86 -showlocation
+
+!ENTRY org.eclipse.update.configurator 4 0 2016-03-16 18:03:28.132
+!MESSAGE Cannot backup current configuration
+
+!ENTRY org.eclipse.update.configurator 4 0 2016-03-16 18:03:28.265
+!MESSAGE Could not rename configuration temp file
+
+!ENTRY org.eclipse.ui.workbench.texteditor 4 0 2016-03-16 18:03:40.701
+!MESSAGE The 'org.eclipse.wst.jsdt.web.ui.internal.hyperlink.script.JSPJavaHyperlinkDetector' extension from plug-in 'org.eclipse.wst.jsdt.web.ui' to the 'org.eclipse.ui.workbench.texteditor.hyperlinkDetectors' extension point will be ignored because it contains invalid attributes.
+
+!ENTRY org.eclipse.ui.workbench.texteditor 4 0 2016-03-16 18:03:40.708
+!MESSAGE The 'org.eclipse.wst.jsdt.web.ui.internal.hyperlink.script.event.JSPJavaHyperlinkDetector' extension from plug-in 'org.eclipse.wst.jsdt.web.ui' to the 'org.eclipse.ui.workbench.texteditor.hyperlinkDetectors' extension point will be ignored because it contains invalid attributes.
+!SESSION 2016-03-16 18:04:20.123 -----------------------------------------------
+eclipse.buildId=M20090211-1700
+java.version=1.5.0_11
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=es_AR
+Framework arguments:  -showlocation
+Command-line arguments:  -os win32 -ws win32 -arch x86 -showlocation
+
+!ENTRY org.eclipse.update.configurator 4 0 2016-03-16 18:04:23.052
+!MESSAGE Cannot backup current configuration
+
+!ENTRY org.eclipse.update.configurator 4 0 2016-03-16 18:04:23.089
+!MESSAGE Could not rename configuration temp file
+
+!ENTRY org.eclipse.ui.workbench.texteditor 4 0 2016-03-16 18:04:31.412
+!MESSAGE The 'org.eclipse.wst.jsdt.web.ui.internal.hyperlink.script.JSPJavaHyperlinkDetector' extension from plug-in 'org.eclipse.wst.jsdt.web.ui' to the 'org.eclipse.ui.workbench.texteditor.hyperlinkDetectors' extension point will be ignored because it contains invalid attributes.
+
+!ENTRY org.eclipse.ui.workbench.texteditor 4 0 2016-03-16 18:04:31.417
+!MESSAGE The 'org.eclipse.wst.jsdt.web.ui.internal.hyperlink.script.event.JSPJavaHyperlinkDetector' extension from plug-in 'org.eclipse.wst.jsdt.web.ui' to the 'org.eclipse.ui.workbench.texteditor.hyperlinkDetectors' extension point will be ignored because it contains invalid attributes.

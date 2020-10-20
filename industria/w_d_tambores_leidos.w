@@ -1,0 +1,928 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER UIB_v8r12 GUI
+&ANALYZE-RESUME
+/* Connected Databases 
+*/
+&Scoped-define WINDOW-NAME W-Win
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS W-Win 
+/*------------------------------------------------------------------------
+
+  File: 
+
+  Description: from cntnrwin.w - ADM SmartWindow Template
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+  History: 
+          
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress UIB.             */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+
+
+define temp-table p1 
+    field id_sucursal       as integer
+    field id_etiqueta       as integer
+    field id_lote           as integer
+    field id_tambor         as integer
+    FIELD orden_fabricacion AS LOGICAL
+    FIELD cliente           AS CHAR FORMAT "x(30)"
+    FIELD semana            AS INTEGER FORMAT ">>9"
+    FIELD nro               AS integer 
+    FIELD anio              AS INTEGER.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartWindow
+
+&Scoped-define ADM-CONTAINER WINDOW
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME F-Main
+&Scoped-define BROWSE-NAME BROWSE-1
+
+/* Internal Tables (found by Frame, Query & Browse Queries)             */
+&Scoped-define INTERNAL-TABLES p1
+
+/* Definitions for BROWSE BROWSE-1                                      */
+&Scoped-define FIELDS-IN-QUERY-BROWSE-1 p1.id_sucursal p1.id_etiqueta p1.id_lote p1.id_tambor p1.orden_fabricacion p1.nro p1.anio p1.cliente p1.semana   
+&Scoped-define ENABLED-FIELDS-IN-QUERY-BROWSE-1   
+&Scoped-define FIELD-PAIRS-IN-QUERY-BROWSE-1
+&Scoped-define SELF-NAME BROWSE-1
+&Scoped-define OPEN-QUERY-BROWSE-1 OPEN QUERY {&SELF-NAME} FOR EACH p1 NO-LOCK.
+&Scoped-define TABLES-IN-QUERY-BROWSE-1 p1
+&Scoped-define FIRST-TABLE-IN-QUERY-BROWSE-1 p1
+
+
+/* Definitions for FRAME F-Main                                         */
+&Scoped-define OPEN-BROWSERS-IN-QUERY-F-Main ~
+    ~{&OPEN-QUERY-BROWSE-1}
+
+/* Standard List Definitions                                            */
+&Scoped-Define ENABLED-OBJECTS RECT-11 BROWSE-1 RECT-9 RECT-10 BUTTON-10 ~
+etiqueta BUTTON-12 BUTTON-13 BUTTON-9 BUTTON-8 
+&Scoped-Define DISPLAYED-OBJECTS etiqueta_seleccionada total_tambores ~
+etiqueta FILL-IN-5 FILL-IN-1 FILL-IN-4 FILL-IN-2 FILL-IN-3 
+
+/* Custom List Definitions                                              */
+/* List-1,List-2,List-3,List-4,List-5,List-6                            */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+/* ***********************  Control Definitions  ********************** */
+
+/* Define the widget handle for the window                              */
+DEFINE VAR W-Win AS WIDGET-HANDLE NO-UNDO.
+
+/* Definitions of handles for OCX Containers                            */
+DEFINE VARIABLE CtrlFrame AS WIDGET-HANDLE NO-UNDO.
+DEFINE VARIABLE chCtrlFrame AS COMPONENT-HANDLE NO-UNDO.
+
+/* Definitions of the field level widgets                               */
+DEFINE BUTTON BUTTON-10 
+     IMAGE-UP FILE "adeicon\check":U
+     LABEL "Tambor seleccionado" 
+     SIZE 6 BY .95.
+
+DEFINE BUTTON BUTTON-12 
+     LABEL "Jugo" 
+     SIZE 15 BY .95.
+
+DEFINE BUTTON BUTTON-13 
+     LABEL "Aceite" 
+     SIZE 15 BY .95.
+
+DEFINE BUTTON BUTTON-8 
+     LABEL "Borrar Tambor" 
+     SIZE 17 BY .95.
+
+DEFINE BUTTON BUTTON-9 
+     IMAGE-UP FILE "adeicon\check":U
+     LABEL "Asignación de O.F. a Todos los tambores" 
+     SIZE 6 BY .95.
+
+DEFINE VARIABLE etiqueta AS INTEGER FORMAT "9999999":U INITIAL 0 
+     LABEL "Etiqueta:" 
+     VIEW-AS FILL-IN 
+     SIZE 11 BY .95 NO-UNDO.
+
+DEFINE VARIABLE etiqueta_seleccionada AS CHARACTER FORMAT "X(256)":U 
+     LABEL "Tambor Seleccionado" 
+     VIEW-AS FILL-IN 
+     SIZE 14 BY 1
+     BGCOLOR 14 FGCOLOR 0  NO-UNDO.
+
+DEFINE VARIABLE FILL-IN-1 AS CHARACTER FORMAT "X(256)":U INITIAL "Asignación de O.F." 
+      VIEW-AS TEXT 
+     SIZE 31 BY .62
+     BGCOLOR 1 FGCOLOR 15  NO-UNDO.
+
+DEFINE VARIABLE FILL-IN-2 AS CHARACTER FORMAT "X(256)":U INITIAL "Tambor Seleccionado" 
+      VIEW-AS TEXT 
+     SIZE 22 BY .62
+     BGCOLOR 8 FGCOLOR 0  NO-UNDO.
+
+DEFINE VARIABLE FILL-IN-3 AS CHARACTER FORMAT "X(256)":U INITIAL "Todos los Tambores" 
+      VIEW-AS TEXT 
+     SIZE 21 BY .62
+     BGCOLOR 8 FGCOLOR 0  NO-UNDO.
+
+DEFINE VARIABLE FILL-IN-4 AS CHARACTER FORMAT "X(256)":U INITIAL "Asignación Manual de Tambores" 
+      VIEW-AS TEXT 
+     SIZE 32 BY .62
+     BGCOLOR 3 FGCOLOR 15  NO-UNDO.
+
+DEFINE VARIABLE FILL-IN-5 AS CHARACTER FORMAT "X(256)":U INITIAL "Despacho de Lotes Completos" 
+      VIEW-AS TEXT 
+     SIZE 39 BY .62
+     BGCOLOR 2 FGCOLOR 15  NO-UNDO.
+
+DEFINE VARIABLE total_tambores AS INTEGER FORMAT ">>9":U INITIAL 0 
+     LABEL "Total" 
+     VIEW-AS FILL-IN NATIVE 
+     SIZE 13 BY .95
+     BGCOLOR 10 FONT 0 NO-UNDO.
+
+DEFINE RECTANGLE RECT-10
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 34 BY 3.57.
+
+DEFINE RECTANGLE RECT-11
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 42 BY 3.57.
+
+DEFINE RECTANGLE RECT-9
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 33 BY 3.57.
+
+/* Query definitions                                                    */
+&ANALYZE-SUSPEND
+DEFINE QUERY BROWSE-1 FOR 
+      p1 SCROLLING.
+&ANALYZE-RESUME
+
+/* Browse definitions                                                   */
+DEFINE BROWSE BROWSE-1
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _DISPLAY-FIELDS BROWSE-1 W-Win _FREEFORM
+  QUERY BROWSE-1 NO-LOCK DISPLAY
+      p1.id_sucursal        COLUMN-LABEL "Sucursal"     FORMAT ">99"
+      p1.id_etiqueta        COLUMN-LABEL "Etiqueta"     FORMAT "9999999"
+      p1.id_lote            COLUMN-LABEL "Lote"         FORMAT ">999"
+      p1.id_tambor          COLUMN-LABEL "Tambor"       FORMAT "99"
+      p1.orden_fabricacion  COLUMN-LABEL "O.F."         FORMAT "SI/NO"
+      p1.nro                COLUMN-LABEL "Nro.Ped."   FORMAT ">99"
+      p1.anio               COLUMN-LABEL "Año"          FORMAT "9999"
+      p1.cliente            COLUMN-LABEL "Cliente"
+      p1.semana             COLUMN-LABEL "Semana"
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+    WITH NO-ROW-MARKERS SEPARATORS SIZE 125 BY 20
+         BGCOLOR 10 FONT 0.
+
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME F-Main
+     BROWSE-1 AT ROW 1 COL 1
+     etiqueta_seleccionada AT ROW 21.24 COL 87 COLON-ALIGNED
+     total_tambores AT ROW 21.24 COL 110 COLON-ALIGNED
+     BUTTON-10 AT ROW 23.62 COL 77
+     etiqueta AT ROW 23.62 COL 104 COLON-ALIGNED
+     BUTTON-12 AT ROW 23.86 COL 6
+     BUTTON-13 AT ROW 23.86 COL 24
+     BUTTON-9 AT ROW 24.81 COL 77
+     BUTTON-8 AT ROW 24.81 COL 100
+     FILL-IN-5 AT ROW 22.67 COL 3 NO-LABEL
+     FILL-IN-1 AT ROW 22.67 COL 52 COLON-ALIGNED NO-LABEL
+     FILL-IN-4 AT ROW 22.67 COL 91 COLON-ALIGNED NO-LABEL
+     FILL-IN-2 AT ROW 23.86 COL 53 COLON-ALIGNED NO-LABEL
+     FILL-IN-3 AT ROW 24.81 COL 53 COLON-ALIGNED NO-LABEL
+     RECT-11 AT ROW 22.43 COL 2
+     RECT-9 AT ROW 22.43 COL 53
+     RECT-10 AT ROW 22.43 COL 92
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY 
+         SIDE-LABELS NO-UNDERLINE THREE-D 
+         AT COL 1 ROW 1
+         SIZE 125.8 BY 25.19.
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartWindow
+   Allow: Basic,Browse,DB-Fields,Query,Smart,Window
+ */
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+IF SESSION:DISPLAY-TYPE = "GUI":U THEN
+  CREATE WINDOW W-Win ASSIGN
+         HIDDEN             = YES
+         TITLE              = "LECTURA DE PALLETS"
+         HEIGHT             = 25.19
+         WIDTH              = 125.4
+         MAX-HEIGHT         = 27.67
+         MAX-WIDTH          = 160
+         VIRTUAL-HEIGHT     = 27.67
+         VIRTUAL-WIDTH      = 160
+         RESIZE             = no
+         SCROLL-BARS        = no
+         STATUS-AREA        = no
+         BGCOLOR            = ?
+         FGCOLOR            = ?
+         THREE-D            = yes
+         FONT               = 8
+         MESSAGE-AREA       = no
+         SENSITIVE          = yes.
+ELSE {&WINDOW-NAME} = CURRENT-WINDOW.
+/* END WINDOW DEFINITION                                                */
+&ANALYZE-RESUME
+
+
+/* ***************  Runtime Attributes and UIB Settings  ************** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR WINDOW W-Win
+  VISIBLE,,RUN-PERSISTENT                                               */
+/* SETTINGS FOR FRAME F-Main
+                                                                        */
+/* BROWSE-TAB BROWSE-1 RECT-11 F-Main */
+/* SETTINGS FOR FILL-IN etiqueta_seleccionada IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN FILL-IN-1 IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN FILL-IN-2 IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN FILL-IN-3 IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN FILL-IN-4 IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN FILL-IN-5 IN FRAME F-Main
+   NO-ENABLE ALIGN-L                                                    */
+/* SETTINGS FOR FILL-IN total_tambores IN FRAME F-Main
+   NO-ENABLE                                                            */
+IF SESSION:DISPLAY-TYPE = "GUI":U AND VALID-HANDLE(W-Win)
+THEN W-Win:HIDDEN = yes.
+
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+
+/* Setting information for Queries and Browse Widgets fields            */
+
+&ANALYZE-SUSPEND _QUERY-BLOCK BROWSE BROWSE-1
+/* Query rebuild information for BROWSE BROWSE-1
+     _START_FREEFORM
+OPEN QUERY {&SELF-NAME} FOR EACH p1 NO-LOCK.
+     _END_FREEFORM
+     _Options          = "NO-LOCK"
+     _Query            is OPENED
+*/  /* BROWSE BROWSE-1 */
+&ANALYZE-RESUME
+
+ 
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB W-Win 
+/* ************************* Included-Libraries *********************** */
+
+{src/adm/method/containr.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+/* **********************  Create OCX Containers  ********************** */
+
+&ANALYZE-SUSPEND _CREATE-DYNAMIC
+
+&IF "{&OPSYS}" = "WIN32":U AND "{&WINDOW-SYSTEM}" NE "TTY":U &THEN
+
+CREATE CONTROL-FRAME CtrlFrame ASSIGN
+       FRAME        = FRAME F-Main:HANDLE
+       ROW          = 15.05
+       COLUMN       = 117
+       HEIGHT       = 1.33
+       WIDTH        = 5.6
+       HIDDEN       = yes
+       SENSITIVE    = yes.
+
+PROCEDURE adm-create-controls:
+      CtrlFrame:NAME = "CtrlFrame":U .
+/* CtrlFrame OCXINFO:CREATE-CONTROL from: {F0B88A90-F5DA-11CF-B545-0020AF6ED35A} type: PSTimer */
+      CtrlFrame:MOVE-AFTER(BROWSE-1:HANDLE IN FRAME F-Main).
+
+END PROCEDURE.
+
+&ENDIF
+
+&ANALYZE-RESUME /* End of _CREATE-DYNAMIC */
+
+
+/* ************************  Control Triggers  ************************ */
+
+&Scoped-define SELF-NAME W-Win
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL W-Win W-Win
+ON END-ERROR OF W-Win /* LECTURA DE PALLETS */
+OR ENDKEY OF {&WINDOW-NAME} ANYWHERE DO:
+  /* This case occurs when the user presses the "Esc" key.
+     In a persistently run window, just ignore this.  If we did not, the
+     application would exit. */
+  IF THIS-PROCEDURE:PERSISTENT THEN RETURN NO-APPLY.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL W-Win W-Win
+ON WINDOW-CLOSE OF W-Win /* LECTURA DE PALLETS */
+DO:
+  /* This ADM code must be left here in order for the SmartWindow
+     and its descendents to terminate properly on exit. */
+  APPLY "CLOSE":U TO THIS-PROCEDURE.
+  RETURN NO-APPLY.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define BROWSE-NAME BROWSE-1
+&Scoped-define SELF-NAME BROWSE-1
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BROWSE-1 W-Win
+ON MOUSE-SELECT-CLICK OF BROWSE-1 IN FRAME F-Main
+DO:
+  etiqueta_seleccionada:SCREEN-VALUE IN FRAME F-Main = p1.id_etiqueta:SCREEN-VALUE IN BROWSE Browse-1.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-10
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-10 W-Win
+ON CHOOSE OF BUTTON-10 IN FRAME F-Main /* Tambor seleccionado */
+DO:
+  DEFINE VAR r AS ROWID.
+  DEFINE VAR h_con AS HANDLE.
+  DEFINE VAR v_etiqueta AS INTEGER.
+
+  v_etiqueta = INTEGER(etiqueta_seleccionada:SCREEN-VALUE IN FRAME F-Main).
+  RUN wc_items_contratos.w (OUTPUT r).
+  
+  IF NOT r = ? THEN
+  DO:
+  
+      FIND items_contratos WHERE ROWID(items_contratos) = r NO-LOCK NO-ERROR.
+      IF AVAILABLE items_contratos THEN
+      DO:
+         
+         FIND tambores_industria WHERE tambores_industria.id_etiqueta = v_etiqueta NO-ERROR.
+         IF AVAILABLE tambores_industria THEN
+         DO:
+            ASSIGN tambores_industria.id_contrato_of = items_contratos.id_contrato
+                   tambores_industria.id_tipocontrato_of = items_contratos.id_tipo_contrato
+                   tambores_industria.anio_of = items_contratos.anio
+                   tambores_industria.item_of = items_contratos.ITEM.
+            MESSAGE "El tambor " v_etiqueta " se ha actualizado satisfactoriamente." VIEW-AS ALERT-BOX.   
+         END.
+         ELSE MESSAGE "No se encontró tambor con la etiqueta " v_etiqueta VIEW-AS ALERT-BOX.
+      END.
+      ELSE MESSAGE "No se seleccionó nunguna fecha de envio de O.F." VIEW-AS ALERT-BOX.
+
+  END.
+  ELSE MESSAGE "La selección es nula, por favor avise a Sistemas" VIEW-AS ALERT-BOX.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-12
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-12 W-Win
+ON CHOOSE OF BUTTON-12 IN FRAME F-Main /* Jugo */
+DO:
+  define var r as rowid.
+  define var v_res as logical initial false.
+  
+  run wc_lotes_jugo.w (output r).
+  
+  find lotes_jugo where rowid(lotes_jugo) = r no-lock no-error.
+  if available lotes_jugo then
+    do:
+        
+        MESSAGE "Esta seguro que desea despachar los tambores del lote " lotes_jugo.id_lote 
+                " año " year(lotes_jugo.fecha) " ?"
+                VIEW-AS ALERT-BOX QUESTION BUTTONS YES-NO-CANCEL TITLE "" UPDATE choice AS LOGICAL.
+        if choice then
+            do:
+                for each tambores_industria of lotes_jugo:
+                    run agrego_tambores_transporte (input tambores_industria.id_etiqueta,output v_res).
+                    if not v_res then message "Se ha producido un error con el tambor " tambores_industria.id_tambor.
+                end.
+                message "Están listo para despachar los tambores del lote seleccionado.".
+            end.
+    end.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-13
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-13 W-Win
+ON CHOOSE OF BUTTON-13 IN FRAME F-Main /* Aceite */
+DO:
+  define var r as rowid.
+  define var v_res as logical initial false.
+  
+  run wc_lotes_aceite.w (output r).
+  
+  find lotes_aceite where rowid(lotes_aceite) = r no-lock no-error.
+  if available lotes_aceite then
+    do:
+        
+        MESSAGE "Esta seguro que desea despachar los tambores del lote " lotes_aceite.id_lote 
+                " año " year(lotes_aceite.fecha) " ?"
+                VIEW-AS ALERT-BOX QUESTION BUTTONS YES-NO-CANCEL TITLE "" UPDATE choice AS LOGICAL.
+        if choice then
+            do:
+                for each tambores_industria of lotes_aceite:
+                    run agrego_tambores_transporte (input tambores_industria.id_etiqueta,output v_res).
+                    if not v_res then message "Se ha producido un error con el tambor " tambores_industria.id_tambor.
+                end.
+                message "Están listo para despachar los tambores del lote seleccionado.".
+            end.
+    end.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-8
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-8 W-Win
+ON CHOOSE OF BUTTON-8 IN FRAME F-Main /* Borrar Tambor */
+DO:
+    DEFINE VAR v_etiqueta AS INTEGER.
+    v_etiqueta = INTEGER(etiqueta_seleccionada:SCREEN-VALUE IN FRAME F-Main).
+    MESSAGE "Está seguro que desea quitar el tambor " v_etiqueta " de la lista de despacho?"
+        VIEW-AS ALERT-BOX QUESTION BUTTONS YES-NO-CANCEL UPDATE choice AS LOGICAL.
+
+      CASE choice:
+         WHEN TRUE THEN /* Yes */
+          DO:
+            FIND tambores_transporte WHERE tambores_transporte.id_etiqueta = v_etiqueta NO-ERROR.
+            IF AVAILABLE tambores_transporte THEN
+                DELETE tambores_transporte.
+            ELSE MESSAGE "No existe el tambor con el numero " v_etiqueta VIEW-AS ALERT-BOX INFORMATION.
+            
+            FIND tambores_industria WHERE tambores_industria.id_etiqueta = v_etiqueta NO-ERROR.
+            IF AVAILABLE tambores_industria THEN
+                assign tambores_industria.id_contrato_of = ""
+                       tambores_industria.id_tipocontrato_of = 0
+                       tambores_industria.anio_of = 0
+                       tambores_industria.item_of = 0.
+            ELSE MESSAGE "No existe el tambor con el numero " v_etiqueta VIEW-AS ALERT-BOX INFORMATION.
+            
+          END.
+         WHEN FALSE THEN /* No */
+          DO:
+             MESSAGE "Eliminación cancelada."
+                    VIEW-AS ALERT-BOX INFORMATION BUTTONS OK.
+                    RETURN NO-APPLY.
+          END.
+
+         OTHERWISE /* Cancel */
+             STOP.
+         END CASE.
+
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-9
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-9 W-Win
+ON CHOOSE OF BUTTON-9 IN FRAME F-Main /* Asignación de O.F. a Todos los tambores */
+DO:
+  DEFINE VAR r AS ROWID.
+  DEFINE VAR h_con AS HANDLE.
+  DEFINE VAR v_etiqueta AS INTEGER.
+
+  v_etiqueta = INTEGER(etiqueta_seleccionada:SCREEN-VALUE IN FRAME F-Main).
+  RUN wc_items_contratos.w (OUTPUT r).
+  
+  IF NOT r = ? THEN
+  DO:
+  
+      FIND items_contratos WHERE ROWID(items_contratos) = r NO-LOCK NO-ERROR.
+      IF AVAILABLE items_contratos THEN
+      DO:
+         
+         FOR EACH tambores_transporte WHERE (tambores_transporte.id_lector = 5) AND
+                                             tambores_transporte.en_remito = FALSE NO-LOCK,
+             FIRST tambores_industria where tambores_industria.id_etiqueta = tambores_transporte.id_etiqueta:
+             
+             if available tambores_industria then
+                do:   
+                    ASSIGN tambores_industria.id_contrato_of = items_contratos.id_contrato
+                           tambores_industria.id_tipocontrato_of = items_contratos.id_tipo_contrato
+                           tambores_industria.anio_of = items_contratos.anio
+                           tambores_industria.item_of = items_contratos.ITEM.
+                END.
+    
+         END.
+         
+         
+         
+      END.
+      ELSE MESSAGE "No se seleccionó nunguna fecha de envio de O.F." VIEW-AS ALERT-BOX.
+
+  END.
+  ELSE MESSAGE "La selección es nula, por favor avise a Sistemas" VIEW-AS ALERT-BOX.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME CtrlFrame
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL CtrlFrame W-Win
+PROCEDURE CtrlFrame.PSTimer.Tick .
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  None required for OCX.
+  Notes:       
+------------------------------------------------------------------------------*/
+{&open-query-browse-1}
+/* {&open-query-browse-2} */
+
+run totales.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME etiqueta
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL etiqueta W-Win
+ON RETURN OF etiqueta IN FRAME F-Main /* Etiqueta: */
+DO:
+    define var v_res as logical initial false.
+    
+    run agrego_tambores_transporte (input integer(etiqueta:SCREEN-VALUE in frame F-Main),output v_res).
+    if v_res then message "Se grabó satisfactoriamente el tambor.".
+    
+    etiqueta:SCREEN-VALUE = "".
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&UNDEFINE SELF-NAME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK W-Win 
+
+
+/* ***************************  Main Block  *************************** */
+
+/* Include custom  Main Block code for SmartWindows. */
+{src/adm/template/windowmn.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-create-objects W-Win _ADM-CREATE-OBJECTS
+PROCEDURE adm-create-objects :
+/*------------------------------------------------------------------------------
+  Purpose:     Create handles for all SmartObjects used in this procedure.
+               After SmartObjects are initialized, then SmartLinks are added.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-row-available W-Win _ADM-ROW-AVAILABLE
+PROCEDURE adm-row-available :
+/*------------------------------------------------------------------------------
+  Purpose:     Dispatched to this procedure when the Record-
+               Source has a new row available.  This procedure
+               tries to get the new row (or foriegn keys) from
+               the Record-Source and process it.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+
+  /* Define variables needed by this internal procedure.             */
+  {src/adm/template/row-head.i}
+
+  /* Process the newly available records (i.e. display fields,
+     open queries, and/or pass records on to any RECORD-TARGETS).    */
+  {src/adm/template/row-end.i}
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE agrego_tambores_transporte W-Win 
+PROCEDURE agrego_tambores_transporte :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter p_eti as integer.
+define output parameter p_respuesta as logical initial false.
+
+find tambores_industria where id_etiqueta = p_eti no-lock no-error.
+            if available tambores_industria then
+                do:
+                    find tambores_transporte where
+                         tambores_transporte.id_etiqueta    = tambores_industria.id_etiqueta no-error.
+    
+                    if not available tambores_transporte then do:
+                        create tambores_transporte.
+                        assign
+                            tambores_transporte.id_lector    = 5
+                            tambores_transporte.id_empresa   = tambores_industria.id_empresa
+                            tambores_transporte.id_sucursal  = tambores_industria.id_sucursal
+                            tambores_transporte.id_etiqueta  = tambores_industria.id_etiqueta
+                            tambores_transporte.fecha        = today
+                            tambores_transporte.hora         = string(time,"hh:mm:ss").
+                        p_respuesta = true.
+                    end.
+                    release tambores_transporte.
+
+                end.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE control_load W-Win _CONTROL-LOAD
+PROCEDURE control_load :
+/*------------------------------------------------------------------------------
+  Purpose:     Load the OCXs    
+  Parameters:  <none>
+  Notes:       Here we load, initialize and make visible the 
+               OCXs in the interface.                        
+------------------------------------------------------------------------------*/
+
+&IF "{&OPSYS}" = "WIN32":U AND "{&WINDOW-SYSTEM}" NE "TTY":U &THEN
+DEFINE VARIABLE UIB_S    AS LOGICAL    NO-UNDO.
+DEFINE VARIABLE OCXFile  AS CHARACTER  NO-UNDO.
+
+OCXFile = SEARCH( "w_d_tambores_leidos.wrx":U ).
+IF OCXFile = ? THEN
+  OCXFile = SEARCH(SUBSTRING(THIS-PROCEDURE:FILE-NAME, 1,
+                     R-INDEX(THIS-PROCEDURE:FILE-NAME, ".":U), "CHARACTER":U) + "wrx":U).
+
+IF OCXFile <> ? THEN
+DO:
+  ASSIGN
+    chCtrlFrame = CtrlFrame:COM-HANDLE
+    UIB_S = chCtrlFrame:LoadControls( OCXFile, "CtrlFrame":U)
+  .
+  RUN DISPATCH IN THIS-PROCEDURE("initialize-controls":U) NO-ERROR.
+END.
+ELSE MESSAGE "w_d_tambores_leidos.wrx":U SKIP(1)
+             "The binary control file could not be found. The controls cannot be loaded."
+             VIEW-AS ALERT-BOX TITLE "Controls Not Loaded".
+
+&ENDIF
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI W-Win _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Delete the WINDOW we created */
+  IF SESSION:DISPLAY-TYPE = "GUI":U AND VALID-HANDLE(W-Win)
+  THEN DELETE WIDGET W-Win.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE enable_UI W-Win _DEFAULT-ENABLE
+PROCEDURE enable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     ENABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we display/view/enable the widgets in the
+               user-interface.  In addition, OPEN all queries
+               associated with each FRAME and BROWSE.
+               These statements here are based on the "Other 
+               Settings" section of the widget Property Sheets.
+------------------------------------------------------------------------------*/
+  DISPLAY etiqueta_seleccionada total_tambores etiqueta FILL-IN-5 FILL-IN-1 
+          FILL-IN-4 FILL-IN-2 FILL-IN-3 
+      WITH FRAME F-Main IN WINDOW W-Win.
+  ENABLE RECT-11 BROWSE-1 RECT-9 RECT-10 BUTTON-10 etiqueta BUTTON-12 BUTTON-13 
+         BUTTON-9 BUTTON-8 
+      WITH FRAME F-Main IN WINDOW W-Win.
+  {&OPEN-BROWSERS-IN-QUERY-F-Main}
+  VIEW W-Win.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE local-exit W-Win 
+PROCEDURE local-exit :
+/* -----------------------------------------------------------
+  Purpose:  Starts an "exit" by APPLYing CLOSE event, which starts "destroy".
+  Parameters:  <none>
+  Notes:    If activated, should APPLY CLOSE, *not* dispatch adm-exit.   
+-------------------------------------------------------------*/
+   APPLY "CLOSE":U TO THIS-PROCEDURE.
+   
+   RETURN.
+       
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE local-view W-Win 
+PROCEDURE local-view :
+/*------------------------------------------------------------------------------
+  Purpose:     Override standard ADM method
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  /* Dispatch standard ADM method.                             */
+  RUN dispatch IN THIS-PROCEDURE ( INPUT 'view':U ) .
+
+  /* Code placed here will execute AFTER standard behavior.    */
+  RUN TOTALES. 
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE send-records W-Win _ADM-SEND-RECORDS
+PROCEDURE send-records :
+/*------------------------------------------------------------------------------
+  Purpose:     Send record ROWID's for all tables used by
+               this file.
+  Parameters:  see template/snd-head.i
+------------------------------------------------------------------------------*/
+
+  /* Define variables needed by this internal procedure.               */
+  {src/adm/template/snd-head.i}
+
+  /* For each requested table, put it's ROWID in the output list.      */
+  {src/adm/template/snd-list.i "p1"}
+
+  /* Deal with any unexpected table requests before closing.           */
+  {src/adm/template/snd-end.i}
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE state-changed W-Win 
+PROCEDURE state-changed :
+/* -----------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+-------------------------------------------------------------*/
+  DEFINE INPUT PARAMETER p-issuer-hdl AS HANDLE NO-UNDO.
+  DEFINE INPUT PARAMETER p-state AS CHARACTER NO-UNDO.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE totales W-Win 
+PROCEDURE totales :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE VAR v_TOTAL AS INTEGER.
+
+FOR EACH P1:
+    DELETE P1.
+END.
+
+v_total = 0.
+
+FOR EACH tambores_transporte
+    WHERE (tambores_transporte.id_lector = 5) AND
+          tambores_transporte.en_remito = FALSE NO-LOCK,
+            FIRST tambores_industria where tambores_industria.id_etiqueta = tambores_transporte.id_etiqueta NO-LOCK:
+    
+    CREATE  P1.
+    ASSIGN  P1.id_sucursal = tambores_industria.id_sucursal
+            P1.id_etiqueta = tambores_industria.id_etiqueta
+            P1.id_lote     = tambores_industria.id_lote
+            P1.id_tambor   = tambores_industria.id_tambor.
+    IF tambores_industria.id_contrato_of = "" THEN
+        ASSIGN p1.orden_fabricacion = FALSE.
+    ELSE
+    DO:
+        ASSIGN p1.orden_fabricacion = TRUE.
+        FIND items_contratos WHERE items_contratos.id_contrato = tambores_industria.id_contrato_of 
+                               and items_contratos.id_tipo_contrato = tambores_industria.id_tipocontrato_of
+                               AND items_contratos.anio = tambores_industria.anio_of
+                               AND items_contratos.ITEM = tambores_industria.item_of
+                               NO-LOCK NO-ERROR.
+                            
+        find contratos of items_contratos no-lock no-error.
+        IF AVAILABLE items_contratos THEN
+        DO:
+            ASSIGN p1.semana = items_contratos.semana_entrega
+                    p1.nro   = contratos.orden_fabricacion
+                    p1.anio  = items_contratos.anio.
+                    
+            
+            FIND clientes OF contratos NO-LOCK NO-ERROR.
+            IF AVAILABLE clientes THEN
+                ASSIGN p1.cliente = clientes.nombre.
+                
+    
+        END.
+    
+    END.
+            
+    v_total = v_total + 1.
+    
+    
+END.
+
+total_tambores:SCREEN-VALUE IN FRAME F-Main = STRING(v_total).
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+

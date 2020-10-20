@@ -1,0 +1,11 @@
+  FIELD anio LIKE camara.anio~
+  FIELD articulo LIKE camara.articulo~
+  FIELD calidad LIKE camara.calidad~
+  FIELD camara LIKE camara.camara~
+  FIELD columna LIKE camara.columna~
+  FIELD envase LIKE camara.envase~
+  FIELD fila LIKE camara.fila~
+  FIELD id_lote LIKE camara.id_lote~
+  FIELD id_suc_camara LIKE camara.id_suc_camara~
+  FIELD nromov LIKE camara.nromov~
+  FIELD tambores LIKE camara.tambores

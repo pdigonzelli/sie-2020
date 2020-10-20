@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<WSAD xmlns="urn:schemas-progress-com:WSAD:0009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <AppObject>
+    <PGVersion>
+      <PXGVersion>03</PXGVersion>
+    </PGVersion>
+    <PGGenInfo isSessionFree="true">
+      <Author />
+      <VersionString />
+      <VersionNumber>1</VersionNumber>
+      <Package />
+      <Service>sap1</Service>
+      <WorkDir>c:\webservices\</WorkDir>
+      <VerboseLogging>true</VerboseLogging>
+      <SaveBeforeGen>true</SaveBeforeGen>
+      <DotNetClient>false</DotNetClient>
+      <JavaClient>false</JavaClient>
+      <WebServicesClient>true</WebServicesClient>
+      <ESBClient>false</ESBClient>
+      <ESBClient2>false</ESBClient2>
+      <UserDefinedAppService>true</UserDefinedAppService>
+      <JavaCompilerType>1</JavaCompilerType>
+      <JavaCompiler>&lt;Install Dir&gt;\jdk\bin\javac</JavaCompiler>
+      <JavaSwitches />
+      <JavaClasspathSwitch>-classpath</JavaClasspathSwitch>
+      <JavaClasspath>&lt;Proxy Dir&gt;;&lt;Install Dir&gt;\java\progress.jar;&lt;Install Dir&gt;\java\messages.jar;;&lt;Default classes.zip&gt;</JavaClasspath>
+      <DotNetCompilerType>4</DotNetCompilerType>
+      <DotNetCompiler>csc</DotNetCompiler>
+      <DotNetSwitches />
+      <DotNetXSDGenerator>xsd</DotNetXSDGenerator>
+      <DotNetNamespace />
+      <DotNetTitle />
+      <DotNetVersion />
+      <DotNetDesc />
+      <DotNetCompany />
+      <DotNetProduct />
+      <DotNetPublicKey />
+      <DotNetDelaySign>false</DotNetDelaySign>
+      <DotNetRuntime>digitally signed</DotNetRuntime>
+      <DotNetDataSetNamespace>StrongTypesNS</DotNetDataSetNamespace>
+      <DNUseDefaultDSNamespace>true</DNUseDefaultDSNamespace>
+      <DNUseNamespaceAsDirs>true</DNUseNamespaceAsDirs>
+      <DotNetUseNullableTypes>false</DotNetUseNullableTypes>
+    </PGGenInfo>
+    <DeploymentWizard>
+      <CurrentEncoding>3</CurrentEncoding>
+      <SoapEndpointURL>http://192.168.1.107:8080/wsa/wsa1</SoapEndpointURL>
+      <WebServiceNamespace userDefined="true">urn:services-sie-com:sap:pp12ing</WebServiceNamespace>
+      <PortTypeBindingSuffix userDefined="true" />
+      <ServiceSuffix userDefined="true" />
+      <PortTypeBindingSuffix userDefined="true" />
+      <SoapAction appendToSoapAction="false" />
+      <ConnectReturnString userDefined="false" />
+      <TestWSDL bGen="false" RPCEncoded="false" RPCLiteral="false" DocLiteral="true" />
+      <ESBEncoding>3</ESBEncoding>
+      <EntryEndpoint useDefault="true" />
+      <FaultEndpoint useDefault="true" />
+      <RejectedEndpoint useDefault="true" />
+      <Container />
+      <AppserverURL>AppServerDC://localhost:3091</AppserverURL>
+      <FileName overWrite="false">pp12ing</FileName>
+      <ResourceDirectory>/Resources/OpenEdgeServices</ResourceDirectory>
+      <SonicAppService useFileSystem="false" deployToDS="false" createXAR="false">
+        <ResourceDirectory overWrite="false" />
+        <XARName />
+      </SonicAppService>
+      <SonicConnectionInfo>
+        <SonicURL>tcp://localhost:2506</SonicURL>
+        <SonicDomain>Domain1</SonicDomain>
+        <User>Administrator</User>
+        <Password />
+      </SonicConnectionInfo>
+    </DeploymentWizard>
+    <Name>pp12ing</Name>
+    <ProPath>D:\desarrollos\webservices\</ProPath>
+    <HelpString />
+    <ODLHelpString />
+    <ObjectType>false</ObjectType>
+    <AllowUnknown>true</AllowUnknown>
+    <IsTTResultSet>false</IsTTResultSet>
+    <WriteDatasetBeforeImage>false</WriteDatasetBeforeImage>
+    <Procedure isPersistent="false" useFullName="false">
+      <Name>pp12ing</Name>
+      <ProcPath />
+      <ProPath>D:\desarrollos\webservices\</ProPath>
+    </Procedure>
+  </AppObject>
+</WSAD>

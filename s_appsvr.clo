@@ -1,0 +1,5 @@
+if valid-handle(hserver) then
+do:
+    hserver:disconnect().
+    delete object hserver.
+end.

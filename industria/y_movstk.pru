@@ -1,0 +1,3 @@
+if auxi.marca then assign auxi.marca = false.
+              else assign auxi.marca = true.
+SEQUENCIA = FALSE.

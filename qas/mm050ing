@@ -1,0 +1,2523 @@
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 1   
+
+{} Line Blk
+-- ---- ---
+      1     
+      2     /*------------------------------------------------------------------
+      2     ------
+      3         File        : mm050ing.p
+      4         Purpose     : 
+      5     
+      6         Syntax      :
+      7     
+      8         Description : 
+      9     
+     10         Author(s)   : pdigonzelli
+     11         Created     : Sun Dec 20 19:25:32 ACT 2015
+     12         Notes       :
+     13       ------------------------------------------------------------------
+     13     ----*/
+     14     
+     15     /* ***************************  Definitions  ***********************
+     15     *** */
+     16     
+     17     
+     18     
+     19     ROUTINE-LEVEL ON ERROR UNDO, THROW.
+     20     SESSION:NUMERIC-FORMAT = 'european'.
+     21     
+     22     FUNCTION devuelvefechaoperativa RETURNS DATE
+     23         ( INPUT pfecha AS DATE, INPUT phora AS CHARACTER)  FORWARD.
+     24     
+     25     FUNCTION nroPesada RETURNS INTEGER
+     26         ( INPUT IBALANZA AS INTEGER, INPUT IPESASA AS INTEGER)  FORWARD.
+     27     
+     28     FUNCTION WLOG RETURNS LOGICAL
+     29         ( INPUT ARCHIVO AS CHARACTER, INPUT TEXTO AS CHARACTER)  FORWARD
+     29     .
+     30     
+     31     
+     32     DEFINE TEMP-TABLE POSICIONES
+     33         FIELD PSNROREMITO            AS CHARACTER
+     34         FIELD PSFECHAREMITO          AS CHARACTER
+     35         FIELD PSNROLOTE              AS CHARACTER
+     36         FIELD PSFECHACOSECHA         AS CHARACTER
+     37         FIELD PSMERCADO              AS CHARACTER
+     38         FIELD PSMATERIAL             AS CHARACTER
+     39         FIELD PSLOTEAGRICOLA         AS CHARACTER
+     40         FIELD PSNRODOCUMENTOMATERIAL AS CHARACTER
+     41         FIELD PSESPECIE              AS CHARACTER
+     42         FIELD PSVARIEDAD             AS CHARACTER
+     43         FIELD PSFINCA                AS CHARACTER
+     44         FIELD PSTRAZABILIDAD         AS CHARACTER
+     45         FIELD PSTIPOENVASE           AS CHARACTER
+     46         FIELD PSCANTENVASES          AS CHARACTER
+     47         FIELD PSCANTPES              AS CHARACTER
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 2   
+
+{} Line Blk
+-- ---- ---
+     48         FIELD PSUNIDAD               AS CHARACTER
+     49         FIELD PSTIPOCORTE            AS CHARACTER
+     50         FIELD PSCOLOR                AS CHARACTER
+     51         FIELD PSNROPESADA            AS CHARACTER
+     52         FIELD PSNROPOSICIONPESADA    AS CHARACTER.
+     53     
+     54     DEFINE TEMP-TABLE RESPUESTAS NO-UNDO
+     55         FIELD POSTATUS  AS CHARACTER
+     56         FIELD POMENSAJE AS CHARACTER.
+     57         
+     58             
+     59     
+     60     
+     61     
+     62     DEFINE INPUT PARAMETER SSUCURSAL AS CHARACTER NO-UNDO.
+     63     DEFINE INPUT PARAMETER STRANSPORTISTA AS CHARACTER NO-UNDO.
+     64     DEFINE INPUT PARAMETER STRANSPORTE AS CHARACTER NO-UNDO.
+     65     DEFINE INPUT PARAMETER SPESOENTRADA AS CHARACTER NO-UNDO.
+     66     DEFINE INPUT PARAMETER SFECHAENTRADA AS CHARACTER NO-UNDO.
+     67     DEFINE INPUT PARAMETER SHORAENTRADA AS CHARACTER NO-UNDO.
+     68     DEFINE INPUT PARAMETER SPESOSALIDA AS CHARACTER NO-UNDO.
+     69     DEFINE INPUT PARAMETER SFECHASALIDA AS CHARACTER NO-UNDO.
+     70     DEFINE INPUT PARAMETER SHORASALIDA AS CHARACTER NO-UNDO.
+     71     DEFINE INPUT PARAMETER SPESODESCARTE AS CHARACTER NO-UNDO.
+     72     DEFINE INPUT PARAMETER SPESONETO AS CHARACTER NO-UNDO.
+     73     DEFINE INPUT PARAMETER SNROPESADA AS CHARACTER NO-UNDO.
+     74     DEFINE INPUT PARAMETER TABLE FOR POSICIONES.
+     75     DEFINE OUTPUT PARAMETER TABLE FOR RESPUESTAS.
+     76     
+     77     
+     78     
+     79     
+     80     DEFINE VARIABLE VIBALANZA           AS INTEGER   NO-UNDO.
+     81     DEFINE VARIABLE nm                  AS CHARACTER NO-UNDO.
+     82     DEFINE VARIABLE hProd               AS HANDLE    NO-UNDO.
+     83     DEFINE VARIABLE i                   AS INTEGER   NO-UNDO.
+     84     DEFINE VARIABLE vposicion           AS INTEGER   NO-UNDO.
+     85     DEFINE VARIABLE v1                  AS INTEGER   NO-UNDO.
+     86     DEFINE VARIABLE v2                  AS INTEGER   NO-UNDO.
+     87     DEFINE VARIABLE vtipocosecha        AS INTEGER   NO-UNDO.
+     88     DEFINE VARIABLE vunioneuropea       AS LOGICAL   NO-UNDO.
+     89     DEFINE VARIABLE vchina              AS LOGICAL   NO-UNDO.
+     90     DEFINE VARIABLE vusa                AS LOGICAL   NO-UNDO.
+     91     DEFINE VARIABLE vsucursaletiqueta   AS INTEGER   NO-UNDO.
+     92     DEFINE VARIABLE vorigenorigen       AS INTEGER   NO-UNDO.
+     93     DEFINE VARIABLE vfechacosecha       AS DATE      NO-UNDO.
+     94     DEFINE VARIABLE vfincasenasa        AS INTEGER   NO-UNDO.
+     95     DEFINE VARIABLE vlotesenasa         AS INTEGER   NO-UNDO.
+     96     DEFINE VARIABLE vcertificado        AS CHARACTER NO-UNDO.
+     97     DEFINE VARIABLE vpesonetoticket     AS DECIMAL   NO-UNDO DECIMALS 3.
+     98     DEFINE VARIABLE laceptado           AS LOGICAL   NO-UNDO.
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 3   
+
+{} Line Blk
+-- ---- ---
+     99     DEFINE VARIABLE ctipocosecha        AS CHARACTER NO-UNDO.
+    100     DEFINE VARIABLE vcertunion          AS CHARACTER NO-UNDO.
+    101     DEFINE VARIABLE vcertchina          AS CHARACTER NO-UNDO.
+    102     DEFINE VARIABLE ctiposervicio       AS CHARACTER NO-UNDO.
+    103     DEFINE VARIABLE cenvase             AS CHARACTER NO-UNDO.
+    104     DEFINE VARIABLE cvariedad           AS CHARACTER NO-UNDO.
+    105     DEFINE VARIABLE ccolor              AS CHARACTER NO-UNDO.
+    106     DEFINE VARIABLE clote               AS CHARACTER NO-UNDO.
+    107     DEFINE VARIABLE cproveedor          AS CHARACTER NO-UNDO.
+    108     DEFINE VARIABLE cmateriaprima       AS CHARACTER NO-UNDO.
+    109     DEFINE VARIABLE corigensap          AS CHARACTER NO-UNDO.
+    110     DEFINE VARIABLE ccodigotrazabilidad AS CHARACTER NO-UNDO.
+    111     DEFINE VARIABLE vtiposervicio       AS INTEGER   NO-UNDO.
+    112     DEFINE VARIABLE venvase             AS INTEGER   NO-UNDO.
+    113     DEFINE VARIABLE cmercado            AS CHARACTER NO-UNDO.
+    114     DEFINE VARIABLE vcolor              AS INTEGER   NO-UNDO.
+    115     DEFINE VARIABLE iarticulo           AS INTEGER   NO-UNDO.
+    116     DEFINE VARIABLE vpesadasap          AS INTEGER   NO-UNDO.
+    117     DEFINE VARIABLE vzona_up            AS CHARACTER NO-UNDO.
+    118     DEFINE VARIABLE vrenspa             AS CHARACTER NO-UNDO.
+    119     DEFINE VARIABLE vordencomprasap     AS CHARACTER NO-UNDO.
+    120     DEFINE VARIABLE vposordencomprasap  AS INTEGER   NO-UNDO.
+    121     DEFINE VARIABLE vpesoenvasesentrada AS DECIMAL   NO-UNDO.
+    122     DEFINE VARIABLE vvariedad           AS INTEGER   NO-UNDO.
+    123     DEFINE VARIABLE vvariedadsap        AS INTEGER   NO-UNDO.
+    124     DEFINE VARIABLE vbalanza            AS INTEGER   NO-UNDO.
+    125     DEFINE VARIABLE vpesada             AS INTEGER   NO-UNDO.
+    126     DEFINE VARIABLE vsucursal           AS INTEGER   NO-UNDO.
+    127     DEFINE VARIABLE vsucplaya           AS INTEGER   NO-UNDO.
+    128     DEFINE VARIABLE vtipomov            AS INTEGER   NO-UNDO.
+    129     DEFINE VARIABLE vsucorigen          AS INTEGER   NO-UNDO.
+    130     DEFINE VARIABLE vproveedor          AS INTEGER   NO-UNDO.
+    131     DEFINE VARIABLE vpesodescarte       AS DECIMAL   NO-UNDO DECIMALS 3.
+    132     DEFINE VARIABLE vsucursalpacking    AS INTEGER   NO-UNDO.
+    133     DEFINE VARIABLE vproveedororigen    AS INTEGER   NO-UNDO.
+    134     DEFINE VARIABLE vorigen             AS INTEGER   NO-UNDO.
+    135     DEFINE VARIABLE vmateriaprima       AS INTEGER   NO-UNDO.
+    136     DEFINE VARIABLE vlote               AS INTEGER   NO-UNDO.
+    137     DEFINE VARIABLE vetiqueta           AS INTEGER   NO-UNDO.
+    138     DEFINE VARIABLE vdetalletransporte  AS INTEGER   NO-UNDO.
+    139     DEFINE VARIABLE vdestinopacking     AS INTEGER   NO-UNDO.
+    140     DEFINE VARIABLE vdescarte           AS DECIMAL   NO-UNDO.
+    141     DEFINE VARIABLE vcalidadbalanza     AS INTEGER   NO-UNDO.
+    142     DEFINE VARIABLE vhorasalida         AS CHARACTER NO-UNDO.
+    143     DEFINE VARIABLE vhoraentrada        AS CHARACTER NO-UNDO.
+    144     DEFINE VARIABLE vfinca              AS LOGICAL   NO-UNDO.
+    145     DEFINE VARIABLE vfechasalida        AS DATE      NO-UNDO.
+    146     DEFINE VARIABLE vfecharemito        AS DATE      NO-UNDO.
+    147     DEFINE VARIABLE vfechaoperativa     AS DATE      NO-UNDO.
+    148     DEFINE VARIABLE vfechaentrada       AS DATE      NO-UNDO.
+    149     DEFINE VARIABLE vcodbarrasap        AS CHARACTER NO-UNDO.
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 4   
+
+{} Line Blk
+-- ---- ---
+    150     DEFINE VARIABLE vcantenvasesentrada AS DECIMAL   NO-UNDO.
+    151     DEFINE VARIABLE pcode               AS CHARACTER FORMAT "x" NO-UNDO.
+    152     DEFINE VARIABLE porden              AS CHARACTER FORMAT "x(10)" NO-U
+    152     NDO.
+    153     DEFINE VARIABLE pposic              AS CHARACTER FORMAT "x(10)" NO-U
+    153     NDO.
+    154     DEFINE VARIABLE perror              AS CHARACTER FORMAT "x(3)" NO-UN
+    154     DO.
+    155     DEFINE VARIABLE ptexto              AS CHARACTER FORMAT "x(100)" NO-
+    155     UNDO.
+    156     DEFINE VARIABLE ptipoe              AS CHARACTER FORMAT "x" NO-UNDO.
+    157     DEFINE VARIABLE cerror              AS CHARACTER NO-UNDO INITIAL 'Er
+    157     ror de interface de ingreso de fruta'.
+    158     DEFINE VARIABLE VINDEX              AS INTEGER   NO-UNDO.
+    159     DEFINE VARIABLE VNROREMITO          AS CHARACTER NO-UNDO.
+    160     DEFINE VARIABLE cStatus             AS CHARACTER NO-UNDO.
+    161     DEFINE VARIABLE IPESADA             AS INTEGER   NO-UNDO.
+    162     
+    163     DEFINE VARIABLE ORESPUESTA          AS CHARACTER NO-UNDO.
+    164     DEFINE VARIABLE OMENSAJERESPUESTA   AS CHARACTER NO-UNDO.
+    165     
+    166     DEFINE BUFFER aux_items FOR items_stock.
+    167     DEFINE BUFFER AUX_IT FOR items_stock.
+    168     
+    169     
+    170     DEFINE VARIABLE ARCHIVO AS CHARACTER NO-UNDO.
+    171     DEFINE VARIABLE VTEXTO  AS CHARACTER NO-UNDO.
+    172     DEFINE VARIABLE ICOS    AS INTEGER NO-UNDO.
+    173     DEFINE VARIABLE XCOD    AS CHARACTER NO-UNDO.
+    174     
+    175     DEFINE VARIABLE VPARTIDAENTREGA AS INTEGER NO-UNDO.
+    176     DEFINE VARIABLE VPARTIDASERIALENTREGA AS INTEGER NO-UNDO.
+    177     
+    178     DEFINE TEMP-TABLE TTING
+    179         FIELD PES  AS CHARACTER
+    180         FIELD POSPES AS CHARACTER
+    181         FIELD NROP AS INTEGER
+    182         FIELD NROPS AS INTEGER.
+    183     
+    184     /* ********************  Preprocessor Definitions  *****************
+    184     *** */
+    185     
+    186     
+    187     /* ***************************  Main Block  ************************
+    187     *** */
+    188     
+    189     nm = SESSION:NUMERIC-FORMAT.
+    190     ARCHIVO = SESSION:TEMP-DIRECTORY + SNROPESADA.
+    191     ORESPUESTA = 'OK'.
+    192     OMENSAJERESPUESTA = 'Ingreso correcto'.  
+    193     
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 5   
+
+{} Line Blk
+-- ---- ---
+    194     CASE SSUCURSAL:
+    195         WHEN '1101' OR WHEN '1102' THEN 
+    196             VBALANZA = 2.
+    197         WHEN '1200' THEN 
+    198             VBALANZA = 4.
+    199         OTHERWISE
+    200   1     DO:
+    201   1         ORESPUESTA = 'NOK'.
+    202   1         OMENSAJERESPUESTA = 'Balanza inexistente ' + SSUCURSAL.  
+    203   1         RETURN.
+    204         END.
+    205     END CASE.
+    206     
+    207     
+    208     
+    209     VTEXTO = "CABECERA: " + SSUCURSAL + "|" + 
+    210         STRANSPORTISTA + "|" + STRANSPORTE + "|" + 
+    211         SPESOENTRADA + "|" + SFECHAENTRADA + "|" + 
+    212         SHORAENTRADA + "|" + SPESOSALIDA + "|" + 
+    213         SFECHASALIDA + "|" +  SHORASALIDA + "|" + SPESODESCARTE + "|" + 
+    213     SPESONETO + "|" + SNROPESADA.
+    214     
+    215     WLOG(ARCHIVO,VTEXTO).
+    216     
+    217     
+    218     
+    219   1 FOR EACH POSICIONES.
+    220   1     ICOS =  INTEGER(SUBSTRING(POSICIONES.PSMATERIAL,4,1)).
+    221   1     IF ICOS > 1 THEN
+    222   2     DO:
+    223             VTEXTO = ' TIPO DE COSECHA DISTINTO DE TIJERA O PROCESADO NO
+    223   2  SE PERMITE ' + POSICIONES.PSMATERIAL.
+    224   2         WLOG(ARCHIVO,VTEXTO).
+    225   2         
+    226   2         ORESPUESTA = 'NOK'.
+    227             OMENSAJERESPUESTA = ' TIPO DE COSECHA DISTINTO DE TIJERA O P
+    227   2 ROCESADO  NO SE PERMITE ' + POSICIONES.PSMATERIAL.  
+    228   2         RETURN.        
+    229   1     END.
+    230   1     
+    231         FIND FIRST lotes_plantacion WHERE lotes_plantacion.codigo_trazab
+    231   1 ilidad = POSICIONES.PSTRAZABILIDAD NO-LOCK NO-ERROR.
+    232   1     FIND FIRST lote        OF lotes_plantacion  NO-LOCK NO-ERROR.
+    233   1     FIND FIRST origenes    OF lote NO-LOCK NO-ERROR.       
+    234   1 
+    235   1 
+    236         IF NOT AVAILABLE LOTES_PLANTACION OR NOT AVAILABLE LOTE OR NOT A
+    236   1 VAILABLE origenes THEN
+    237   2     DO:
+    238             VTEXTO = 'INCONSISTENCIA DE TRAZABILIDADES '  + POSICIONES.P
+    238   2 STRAZABILIDAD.
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 6   
+
+{} Line Blk
+-- ---- ---
+    239   2         WLOG(ARCHIVO,VTEXTO).
+    240   2         
+    241   2         ORESPUESTA = 'NOK'.
+    242             OMENSAJERESPUESTA = 'INCONSISTENCIA DE TRAZABILIDADES '  + P
+    242   2 OSICIONES.PSTRAZABILIDAD.  
+    243   2         RETURN.
+    244   1     END.
+    245   1 
+    246         FIND mercados WHERE mercados.id_mercado_sap = posiciones.PSMERCA
+    246   1 DO NO-LOCK NO-ERROR.
+    247   1 
+    248   1     IF NOT AVAILABLE MERCADOS  THEN
+    249   2     DO:
+    250             VTEXTO = 'INCONSISTENCIA DE MERCADOS '  + POSICIONES.PSTRAZA
+    250   2 BILIDAD.
+    251   2         WLOG(ARCHIVO,VTEXTO).
+    252   2         
+    253   2         ORESPUESTA = 'NOK'.
+    254             OMENSAJERESPUESTA = 'INCONSISTENCIA DE MERCADOS '  + POSICIO
+    254   2 NES.PSTRAZABILIDAD.  
+    255   2         RETURN.
+    256   1     END.
+    257   1 
+    258         IF POSICIONES.PSNROREMITO = ? OR POSICIONES.PSNROREMITO = '' THE
+    258   1 N
+    259   2     DO:
+    260   2         IF INTEGER(SUBSTRING(POSICIONES.PSMATERIAL,1,3)) <> 303 THEN
+    261   3         DO:
+    262                 VTEXTO = 'POSICIONES S/REMITOS '  + POSICIONES.PSTRAZABI
+    262   3 LIDAD.
+    263   3             WLOG(ARCHIVO,VTEXTO).
+    264   3             
+    265   3             ORESPUESTA = 'NOK'.
+    266                 OMENSAJERESPUESTA = 'POSICIONES S/REMITOS '  + POSICIONE
+    266   3 S.PSTRAZABILIDAD.  
+    267   3             RETURN.
+    268   2         END.
+    269   1     END.
+    270   1 
+    271   1     VTEXTO = "POSICION: " + 
+    272   1         PSNROREMITO + "|" +
+    273   1         PSFECHAREMITO + "|" +
+    274   1         PSNROLOTE + "|" +
+    275   1         PSFECHACOSECHA + "|" +
+    276   1         PSMERCADO + "|" +
+    277   1         PSMATERIAL + "|" +
+    278   1         PSLOTEAGRICOLA + "|" +
+    279   1         PSNRODOCUMENTOMATERIAL + "|" +
+    280   1         PSESPECIE + "|" +
+    281   1         PSVARIEDAD + "|" +
+    282   1         PSFINCA + "|" +
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 7   
+
+{} Line Blk
+-- ---- ---
+    283   1         PSTRAZABILIDAD + "|" +
+    284   1         PSTIPOENVASE + "|" +
+    285   1         PSCANTENVASES + "|" +
+    286   1         PSCANTPES + "|" +
+    287   1         PSUNIDAD + "|" +
+    288   1         PSTIPOCORTE + "|" +
+    289   1         PSCOLOR + "|" +
+    290   1         PSNROPESADA + "|" +
+    291   1         PSNROPOSICIONPESADA.
+    292   1     
+    293   1     WLOG(ARCHIVO,VTEXTO).
+    294   1 
+    295     END.
+    296     
+    297     
+    298     DEFINE VARIABLE CANTPES1 AS DECIMAL NO-UNDO.
+    299     DEFINE VARIABLE SUMAPES AS DECIMAL NO-UNDO.
+    300     DEFINE VARIABLE VPESONETO1 AS DECIMAL NO-UNDO.
+    301     DEFINE VARIABLE VPESODESCARTE1 AS DECIMAL NO-UNDO.
+    302     DEFINE VARIABLE VPESOENTRADA1 AS DECIMAL NO-UNDO.
+    303     DEFINE VARIABLE VPESOSALIDA1 AS DECIMAL NO-UNDO.
+    304     DEFINE VARIABLE DIF1 AS DECIMAL NO-UNDO.
+    305     
+    306   1 FOR EACH POSICIONES.
+    307   1     IF INDEX(SESSION:NUMERIC-DECIMAL-POINT , PSCANTPES ) <> 0 THEN
+    308   1         cantpes1 = DECIMAL(PSCANTPES).
+    309   1     ELSE
+    310   2     DO:
+    311   2         IF SESSION:NUMERIC-DECIMAL-POINT = '.' THEN
+    312   2             cantpes1 = DECIMAL (REPLACE(PSCANTPES , ',' , '.')  ).
+    313   2         ELSE
+    314   2             cantpes1 = DECIMAL (REPLACE(PSCANTPES , '.' , ',') ).
+    315   1     END.
+    316   1     cantpes1 = TRUNCATE(cantpes1,0).
+    317   1     PSCANTPES = STRING(CANTPES1).
+    318   1     SUMAPES = SUMAPES + DECIMAL(PSCANTPES).
+    319     END.
+    320      
+    321     IF INDEX(SESSION:NUMERIC-DECIMAL-POINT , SPESONETO ) <> 0 THEN
+    322         vpesoneto1 = TRUNCATE(DECIMAL(SPESONETO),0).
+    323     ELSE
+    324   1 DO:
+    325   1     IF SESSION:NUMERIC-DECIMAL-POINT = '.' THEN
+    326             vpesoneto1 = TRUNCATE(DECIMAL (REPLACE(SPESONETO , ',' , '.'
+    326   1 )  ),0).
+    327   1     ELSE
+    328   1         vpesoneto1 = DECIMAL (REPLACE(SPESONETO , '.' , ',') ).
+    329     END.
+    330     
+    331     IF INDEX(SESSION:NUMERIC-DECIMAL-POINT , SPESODESCARTE ) <> 0 THEN
+    332         vpesodescarte1 = DECIMAL(SPESODESCARTE).
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 8   
+
+{} Line Blk
+-- ---- ---
+    333     ELSE
+    334   1 DO:
+    335   1     IF SESSION:NUMERIC-DECIMAL-POINT = '.' THEN
+    336             vpesodescarte1 = DECIMAL (REPLACE(SPESODESCARTE , ',' , '.')
+    336   1   ).
+    337   1     ELSE
+    338             vpesodescarte1 = DECIMAL (REPLACE(SPESODESCARTE , '.' , ',')
+    338   1  ).
+    339     END.
+    340     
+    341     IF INDEX(SESSION:NUMERIC-DECIMAL-POINT , SPESOENTRADA ) <> 0 THEN
+    342         vpesoentrada1 = DECIMAL(SPESOENTRADA).
+    343     ELSE
+    344   1 DO:
+    345   1     IF SESSION:NUMERIC-DECIMAL-POINT = '.' THEN
+    346             vpesoentrada1 = DECIMAL (REPLACE(SPESOENTRADA , ',' , '.')  
+    346   1 ).
+    347   1     ELSE
+    348             vpesoentrada1 = DECIMAL (REPLACE(SPESOENTRADA , '.' , ',') )
+    348   1 .
+    349     END.
+    350     
+    351     IF INDEX(SESSION:NUMERIC-DECIMAL-POINT , SPESOSALIDA ) <> 0 THEN
+    352         vpesosalida1 = DECIMAL(SPESOSALIDA).
+    353     ELSE
+    354   1 DO:
+    355   1     IF SESSION:NUMERIC-DECIMAL-POINT = '.' THEN
+    356   1         vpesosalida1 = DECIMAL (REPLACE(SPESOSALIDA , ',' , '.')  ).
+    357   1     ELSE
+    358   1         vpesosalida1 = DECIMAL (REPLACE(SPESOSALIDA , '.' , ',') ).
+    359     END.
+    360     
+    361     VPESOENTRADA1 = TRUNCATE(VPESOENTRADA1,0).
+    362     VPESOSALIDA1 = TRUNCATE(VPESOSALIDA1,0).
+    363     VPESONETO1 = TRUNCATE(VPESONETO1,0).
+    364     VPESODESCARTE1 = TRUNCATE(VPESODESCARTE1,0).
+    365     
+    366     
+    367     DIF1 = SUMAPES - VPESONETO1.
+    368     
+    369     
+    370     
+    371     VPESONETO1 = VPESONETO1 + DIF1.
+    372     VPESOENTRADA1 = VPESOENTRADA1 + DIF1.
+    373     
+    374     
+    375     
+    376     SPESONETO = STRING(VPESONETO1).
+    377     SPESOSALIDA = STRING(VPESOSALIDA1).
+    378     SPESOENTRADA = STRING(VPESOENTRADA1).
+    379     SPESODESCARTE = STRING(VPESODESCARTE1).
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 9   
+
+{} Line Blk
+-- ---- ---
+    380     
+    381     FIND FIRST balanzas WHERE balanzas.id_balanza = VBALANZA NO-LOCK.
+    382     /*    IF NOT AVAILABLE balanzas  THEN
+    383             UNDO , RETURN ERROR 'Balanza inexistente'. */
+    384       
+    385     
+    386     VTEXTO = 'ENCONTRANDO DATOS'.
+    387     MESSAGE VTEXTO  .
+    388     
+    389     WLOG(ARCHIVO,VTEXTO).
+    390     
+    391     DEFINE VAR NROS AS INTEGER.
+    392     FOR EACH POSICIONES NO-LOCK,FIRST items_stock WHERE items_stock.ID_S
+    392     UCURSAL = 110 AND items_stock.ID_TIPO_MOVSTO = 78 AND 
+    393                    items_stock.codigo_trazabilidad = POSICIONES.PSTRAZAB
+    393     ILIDAD AND 
+    394                    items_stock.orden_entrega_sap =  posiciones.PSNROLOTE
+    394      AND
+    395                    items_stock.orden_entrega_procesado = SNROPESADA  NO-
+    395   1 LOCK.
+    396   1 
+    397   1     
+    398   1 
+    399         MESSAGE POSICIONES.PSTRAZABILIDAD POSICIONES.PSNROLOTE SNROPESAD
+    399   1 A.
+    400         VTEXTO = POSICIONES.PSTRAZABILIDAD + "|" + POSICIONES.PSNROLOTE 
+    400   1 + "|" + SNROPESADA.
+    401   1     WLOG(ARCHIVO,VTEXTO).
+    402   1 
+    403   1    FIND FIRST  TTING WHERE  
+    404   1                TTING.NROP = items_stock.nro_partida NO-ERROR.
+    405   1     IF NOT AVAILABLE TTING THEN
+    406   2     DO:
+    407   2         NROS = 1.
+    408             FOR  LAST  AUX_IT WHERE AUX_IT.NRO_PARTIDA = items_stock.NRO
+    408   3 _PARTIDA .
+    409   3             NROS = AUX_IT.NRO_PARTIDA_SERIAL + 1.
+    410   2         END.
+    411   2         CREATE TTING.
+    412   2         ASSIGN  TTING.PES = POSICIONES.PSNROPESADA
+    413   2                 TTING.POSPES = POSICIONES.PSNROPOSICIONPESADA
+    414   2                 TTING.NROP = items_stock.nro_partida
+    415   2                 TTING.NROPS = NROS.
+    416   1     END.        
+    417   1     ELSE
+    418   2     DO:
+    419   2         CREATE TTING.
+    420   2         ASSIGN  TTING.PES = POSICIONES.PSNROPESADA
+    421   2                 TTING.POSPES = POSICIONES.PSNROPOSICIONPESADA
+    422   2                 TTING.NROP = items_stock.nro_partida
+    423   2                 TTING.NROPS = TTING.NROPS + 1.
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 10  
+
+{} Line Blk
+-- ---- ---
+    424   1     END.
+    425   1                                             
+    426     END.
+    427       
+    428     
+    429   1 FOR EACH TTING.
+    430   1     MESSAGE TTING.PES
+    431   1          TTING.POSPES
+    432   1          TTING.NROP
+    433   1          TTING.NROPS.
+    434     END.
+    435       
+    436     ipesada  =   INTEGER(SNROPESADA).
+    437     ipesada  = nroPesada (balanzas.id_balanza , ipesada).  
+    438     
+    439     VTEXTO = "PESADA: " + STRING(IPESADA).
+    440     WLOG(ARCHIVO,VTEXTO)  .
+    441     FIND FIRST balanza_pesadas WHERE balanza_pesadas.id_balanza = balanz
+    441     as.ID_BALANZA AND 
+    442         balanza_pesadas.id_pesada = IPESADA NO-LOCK NO-ERROR.
+    443     
+    444     VTEXTO = "PESADA ENCONTRADA: " + STRING(IPESADA).
+    445     WLOG(ARCHIVO,VTEXTO)  .
+    446                                          
+    447      
+    448     IF AVAILABLE balanza_pesadas THEN 
+    449   1 DO ON ERROR UNDO, THROW:
+    450   1     VTEXTO = "ACTUALIZAPESADA: INICIO".
+    451   1     WLOG(ARCHIVO,VTEXTO).      
+    452   1     RUN ACTUALIZADOCUMENTOMATERIALPESADA(BUFFER BALANZA_PESADAS).
+    453   1     VTEXTO = "ACTUALIZAPESADA: OK".
+    454   1     /*VTEXTO = "IMPRIME".
+    455   1     WLOG(ARCHIVO,VTEXTO)  .
+    456         RUN pimprimeEtiquetasIngreso.p (balanza_pesadas.id_balanza , bal
+    456   1 anza_pesadas.id_pesada , OUTPUT xcod) NO-ERROR.
+    457   1     VTEXTO = "SALE IMPRIME".*/
+    458   1     WLOG(ARCHIVO,VTEXTO)  .
+    459   1     
+    460   2     CATCH ERRA AS Progress.Lang.Error :
+    461   2         ORESPUESTA = 'NOK'.
+    462   2         OMENSAJERESPUESTA = ERRA:GetMessage(1). 
+    463   2         VTEXTO = "ACTUALIZAPESADA : " + ERRA:GetMessage(1).
+    464   2         UNDO , THROW ERRA.
+    465   1     END CATCH.  
+    466   2     FINALLY.
+    467   2         WLOG(ARCHIVO,VTEXTO).
+    468   1     END.      
+    469     END.
+    470     ELSE
+    471   1 DO TRANSACTION ON ERROR UNDO, THROW:
+    472   1     
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 11  
+
+{} Line Blk
+-- ---- ---
+    473   1     VTEXTO = "INICIA SAPTOBALANZAPESADA".
+    474   1     WLOG(ARCHIVO,VTEXTO)  .
+    475   1     
+    476         RUN sapToBalanzaPesada (balanzas.ID_BALANZA, OUTPUT vbalanza , O
+    476   1 UTPUT vpesada ).
+    477   1 
+    478   1     VTEXTO = "FINALIZA SAPTOBALANZAPESADA".
+    479   1     WLOG(ARCHIVO,VTEXTO)  .
+    480   1     
+    481         FIND balanza_pesadas WHERE balanza_pesadas.id_balanza = VBALANZA
+    481   1  AND balanza_pesadas.ID_PESADA = VPESADA NO-LOCK.
+    482   1     
+    483   1     
+    484   1     
+    485   1     RUN valoresfijos (    INPUT  vbalanza,     
+    486   1         OUTPUT vsucursal,
+    487   1         OUTPUT vsucplaya,
+    488   1         OUTPUT vtipomov,
+    489   1         OUTPUT vsucorigen).
+    490   1                           
+    491   1     DEFINE VARIABLE I-C AS INTEGER NO-UNDO.
+    492   1     I-C = 0.
+    493   2     FOR EACH POSICIONES.
+    494   2         I-C = I-C + 1.
+    495   1     END.                          
+    496   1 
+    497   1     VTEXTO = "INICIA POSCIONES".
+    498   1     WLOG(ARCHIVO,VTEXTO)  .
+    499   1 
+    500   1     
+    501   1     I = 0.
+    502   2     FOR EACH POSICIONES BY POSICIONES.PSNROLOTE:
+    503   2         i = i + 1.
+    504   2 
+    505   2         VTEXTO = "POSICION " + STRING(I).
+    506   2         WLOG(ARCHIVO,VTEXTO)  .
+    507   2                 
+    508   2         RUN devuelvevaloresMovflete ( i, vsucursal ,
+    509   2             OUTPUT cmateriaprima , 
+    510   2             OUTPUT vcantenvasesentrada , 
+    511   2             OUTPUT vpesoenvasesentrada , 
+    512   2             OUTPUT ctipocosecha , 
+    513   2             OUTPUT ctiposervicio , 
+    514   2             OUTPUT cenvase , 
+    515   2             OUTPUT corigensap , 
+    516   2             OUTPUT ccodigotrazabilidad , 
+    517   2             OUTPUT vcolor,
+    518   2             OUTPUT cmercado ,
+    519   2             OUTPUT vpesonetoticket , 
+    520   2             OUTPUT vunioneuropea ,
+    521   2             OUTPUT vchina ,
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 12  
+
+{} Line Blk
+-- ---- ---
+    522   2             OUTPUT vusa,
+    523   2             OUTPUT vfinca ,
+    524   2             OUTPUT vsucursaletiqueta,
+    525   2             OUTPUT vsucursalpacking,
+    526   2             OUTPUT vproveedor,
+    527   2             OUTPUT vproveedororigen,
+    528   2             OUTPUT vorigen,
+    529   2             OUTPUT vorigenorigen,
+    530   2             OUTPUT vtipocosecha,
+    531   2             OUTPUT vcalidadbalanza,
+    532   2             OUTPUT vtiposervicio,
+    533   2             OUTPUT venvase,
+    534   2             OUTPUT vlotesenasa,
+    535   2             OUTPUT vlote,
+    536   2             OUTPUT vfincasenasa,
+    537   2             OUTPUT vcertunion,
+    538   2             OUTPUT vcertchina,
+    539   2             OUTPUT vcertificado,
+    540   2             OUTPUT v1,
+    541   2             OUTPUT v2,
+    542   2             OUTPUT iarticulo,
+    543   2             OUTPUT vvariedad,
+    544   2             OUTPUT vzona_up,
+    545   2             OUTPUT vrenspa) NO-ERROR.
+    546   2         IF ERROR-STATUS:ERROR THEN UNDO, RETURN ERROR RETURN-VALUE.
+    547   2 
+    548   2         VTEXTO = "SALE POSICION " + STRING(I).
+    549   2         WLOG(ARCHIVO,VTEXTO)  .
+    550   2 
+    551             vcantenvasesentrada = INTEGER(POSICIONES.PSCANTENVASES).    
+    551   2         
+    552   2         vvariedadsap = vvariedad.
+    553   2     
+    554             FIND productos_terminados WHERE productos_terminados.id_arti
+    554   2 culo = iarticulo NO-LOCK.
+    555   2         FIND FIRST periodo_cosecha NO-LOCK.
+    556   2 
+    557   2 
+    558             vfechacosecha   = DATE( INTEGER(SUBSTRING(PSFECHACOSECHA,4,2
+    558     )) , INTEGER(SUBSTRING(PSFECHACOSECHA,1,2)) , INTEGER(SUBSTRING(PSFE
+    558   2 CHACOSECHA,7,4)) ).
+    559   2         IF  PSFECHAREMITO <> '' AND PSFECHAREMITO <> ? THEN
+    560                 vfecharemito    = DATE( INTEGER(SUBSTRING(PSFECHAREMITO,
+    560     4,2)) , INTEGER(SUBSTRING(PSFECHAREMITO,1,2)) , INTEGER(SUBSTRING(PS
+    560   2 FECHAREMITO,7,4)) ).
+    561   2 
+    562   2 
+    563   2         vfechaoperativa = balanza_pesadas.fecha_operativa.
+    564   2         vfechaentrada   = balanza_pesadas.fecha_entrada.
+    565   2         vfechasalida    = balanza_pesadas.fecha_salida.
+    566   2 
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 13  
+
+{} Line Blk
+-- ---- ---
+    567   2 
+    568   2 
+    569   2         IF INTEGER(SUBSTRING(POSICIONES.PSMATERIAL,1,3)) = 303 THEN
+    570   2             ASSIGN  VFECHAREMITO = TODAY
+    571   2                     VNROREMITO = '999999999999'.
+    572   2         ELSE
+    573   2             ASSIGN
+    574                     vfecharemito    = DATE( INTEGER(SUBSTRING(PSFECHAREM
+    574     ITO,4,2)) , INTEGER(SUBSTRING(PSFECHAREMITO,1,2)) , INTEGER(SUBSTRIN
+    574   2 G(PSFECHAREMITO,7,4)) )
+    575   2                 vnroremito = PSNROREMITO.
+    576   2     
+    577   2         vindex      = INDEX(VNROREMITO, "-").
+    578   2         IF vindex = 0 THEN
+    579   2             vindex      = INDEX(VNROREMITO, "R").
+    580   2     
+    581   2 
+    582   2         IF VINDEX > 0 THEN
+    583   3         DO:
+    584                 vnroremito = FILL ('0', 4 - (LENGTH(SUBSTRING(vnroremito
+    584     ,1,vindex - 1)))) + SUBSTRING(vnroremito,1,vindex - 1) + FILL ('0', 
+    584     8 - (LENGTH(SUBSTRING(vnroremito , vindex + 1)))) + SUBSTRING(vnrore
+    584   3 mito , vindex + 1).
+    585   2         END.
+    586   2         
+    587   2     
+    588   2         /* Asigno etiqueta */
+    589   2         FIND LAST aux_items USE-INDEX etiqueta WHERE
+    590                 aux_items.id_sucursal_etiqueta = vsucursaletiqueta NO-LO
+    590   2 CK NO-ERROR.
+    591   2         IF AVAILABLE aux_items THEN
+    592   2             vetiqueta = aux_items.id_etiqueta + 1.
+    593   2         ELSE
+    594   2             vetiqueta = 1.
+    595   2     
+    596   2         VTEXTO = "CREA BALANZATICKETS".
+    597   2         WLOG(ARCHIVO,VTEXTO)  .
+    598   2 
+    599             FIND mercados WHERE mercados.id_mercado_sap = posiciones.PSM
+    599   2 ERCADO NO-LOCK NO-ERROR.
+    600   2 
+    601   2 
+    602   2         
+    603   2         VPARTIDAENTREGA = 0.
+    604   2         VPARTIDASERIALENTREGA = 0.
+    605   2         
+    606   2         
+    607             FIND TTING WHERE    TTING.PES    = POSICIONES.PSNROPESADA AN
+    607   2 D 
+    608                                 TTING.POSPES = POSICIONES.PSNROPOSICIONP
+    608   2 ESADA NO-ERROR.
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 14  
+
+{} Line Blk
+-- ---- ---
+    609   2         IF AVAILABLE TTING THEN
+    610   3         DO:
+    611   3             VPARTIDAENTREGA = TTING.NROP.
+    612   3             VPARTIDASERIALENTREGA = TTING.NROPS.
+    613   2         END.         
+    614   2         
+    615   2         IF VPARTIDAENTREGA = 0          THEN 
+    616   2             VPARTIDAENTREGA = NEXT-VALUE(nro_partida, produccion).
+    617   2         IF VPARTIDASERIALENTREGA = 0    THEN 
+    618   2             VPARTIDASERIALENTREGA = 1.
+    619   2 
+    620   2 
+    621   2 
+    622   2         {creabalanzatickets.i}
+ 1    1   2 
+ 1    2     /*------------------------------------------------------------------
+ 1    2   2 ------
+ 1    3   2     File        : creabalanzatickets.i
+ 1    4   2     Purpose     : 
+ 1    5   2 
+ 1    6   2     Syntax      :
+ 1    7   2 
+ 1    8   2     Description : 
+ 1    9   2 
+ 1   10   2     Author(s)   : pdigonzelli
+ 1   11   2     Created     : Wed Jan 13 15:07:16 ACT 2016
+ 1   12   2     Notes       :
+ 1   13       ------------------------------------------------------------------
+ 1   13   2 ----*/
+ 1   14   2 
+ 1   15     /* ***************************  Definitions  ***********************
+ 1   15   2 *** */
+ 1   16   2 
+ 1   17   2 
+ 1   18     /* ********************  Preprocessor Definitions  *****************
+ 1   18   2 *** */
+ 1   19   2 
+ 1   20   2 
+ 1   21     /* ***************************  Main Block  ************************
+ 1   21   2 *** */
+ 1   22   2         CREATE balanza_tickets.
+ 1   23   2         ASSIGN 
+ 1   24   2             balanza_tickets.union_europea           = vunioneuropea
+ 1   25   2             balanza_tickets.renspa                  = vrenspa
+ 1   26                 balanza_tickets.orden_compra_sap        = POSICIONES.PSN
+ 1   26   2 ROPESADA
+ 1   27                 balanza_tickets.pos_orden_compra_sap    = POSICIONES.PSN
+ 1   27   2 ROPOSICIONPESADA
+ 1   28                 balanza_tickets.peso_neto_ticket        = vpesonetoticke
+ 1   28   2 t
+ 1   29                 balanza_tickets.peso_envases_entrada    = vpesoenvasesen
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 15  
+
+{} Line Blk
+-- ---- ---
+ 1   29   2 trada
+ 1   30   2             balanza_tickets.peso_descarte           = vpesodescarte
+ 1   31                 balanza_tickets.periodo_cosecha         = periodo_cosech
+ 1   31   2 a.periodo_cosecha
+ 1   32   2             balanza_tickets.nro_ticket              = I
+ 1   33   2             balanza_tickets.nro_remito              = vnroremito
+ 1   34                 balanza_tickets.nro_partida_serial      = VPARTIDASERIAL
+ 1   34   2 ENTREGA
+ 1   35                 balanza_tickets.nro_partida             = VPARTIDAENTREG
+ 1   35   2 A
+ 1   36                 balanza_tickets.nro_partida_general     = balanza_ticket
+ 1   36   2 s.nro_partida
+ 1   37   2             balanza_tickets.id_variedad             = vvariedad
+ 1   38   2             balanza_tickets.id_variedad_sap         = vvariedadsap
+ 1   39   2             balanza_tickets.id_tipo_servicio        = vtiposervicio
+ 1   40   2             balanza_tickets.id_tipo_cosecha         = vtipocosecha
+ 1   41                 balanza_tickets.id_sucursal_packing     = vsucursalpacki
+ 1   41   2 ng
+ 1   42                 balanza_tickets.id_sucursal_etiqueta    = vsucursaletiqu
+ 1   42   2 eta
+ 1   43   2             balanza_tickets.id_sucursal             = vsucursal
+ 1   44                 balanza_tickets.id_proveedor_origen     = vproveedororig
+ 1   44   2 en
+ 1   45   2             balanza_tickets.id_proveedor            = vproveedor
+ 1   46   2             balanza_tickets.id_pesada               = vpesada
+ 1   47   2             balanza_tickets.id_origen_origen        = vorigenorigen
+ 1   48   2             balanza_tickets.id_origen               = vorigen
+ 1   49   2             balanza_tickets.id_materia_prima        = iarticulo
+ 1   50                 balanza_tickets.id_lote_senasa          = IF vunioneurop
+ 1   50   2 ea  THEN vlotesenasa ELSE ''
+ 1   51   2             balanza_tickets.id_lote                 = vlote
+ 1   52                 balanza_tickets.id_finca_senasa         = IF vunioneurop
+ 1   52   2 ea THEN  vfincasenasa ELSE ''
+ 1   53   2             balanza_tickets.zona_up                 = vzona_up
+ 1   54   2             balanza_tickets.id_etiqueta             = vetiqueta
+ 1   55   2             balanza_tickets.id_envase               = venvase
+ 1   56                 balanza_tickets.id_detalle_transporte   = vdetalletransp
+ 1   56   2 orte
+ 1   57                 balanza_tickets.id_destino_packing      = vdestinopackin
+ 1   57   2 g
+ 1   58   2             balanza_tickets.id_descarte             = vdescarte
+ 1   59   2             balanza_tickets.id_color                = vcolor
+ 1   60                 balanza_tickets.id_calidad_balanza      = vcalidadbalanz
+ 1   60   2 a
+ 1   61   2             balanza_tickets.id_balanza              = vbalanza
+ 1   62                 balanza_tickets.hora_salida             = balanza_pesada
+ 1   62   2 s.hora_entrada
+ 1   63                 balanza_tickets.hora_entrada            = balanza_pesada
+ 1   63   2 s.hora_entrada
+ 1   64   2             balanza_tickets.finca                   = vfinca
+ 1   65   2             balanza_tickets.fecha_salida            = vfechaentrada
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 16  
+
+{} Line Blk
+-- ---- ---
+ 1   66   2             balanza_tickets.fecha_remito            = vfecharemito
+ 1   67                 balanza_tickets.fecha_operativa         = vfechaoperativ
+ 1   67   2 a
+ 1   68   2             balanza_tickets.fecha_entrada           = vfechaentrada
+ 1   69   2             balanza_tickets.fecha_cosecha           = vfechacosecha
+ 1   70                 balanza_tickets.cod_barra_sap           = TRIM(cmateriap
+ 1   70   2 rima) + PSNROLOTE
+ 1   71                 balanza_tickets.codigo_trazabilidad     = ccodigotrazabi
+ 1   71   2 lidad
+ 1   72   2             balanza_tickets.china                   = vchina
+ 1   73   2             balanza_tickets.cert_china              = vcertchina
+ 1   74   2             balanza_tickets.certificado             = vcertificado
+ 1   75                 balanza_tickets.cant_env_entrada        = vcantenvasesen
+ 1   75   2 trada
+ 1   76   2             balanza_tickets.loteagricolaSap         = PSLOTEAGRICOLA
+ 1   77   2             balanza_tickets.especieSap              = PSESPECIE
+ 1   78   2             balanza_tickets.variedadSap             = PSVARIEDAD
+ 1   79   2             balanza_tickets.fincasap                = PSFINCA
+ 1   80   2             balanza_tickets.usa                     = vusa
+ 1   81                 balanza_tickets.id_mercado              = IF AVAILABLE m
+ 1   81   2 ercados THEN mercados.id_mercado ELSE 0.
+    622   2  
+    623   2             
+    624   2 
+    625   2         VTEXTO = "PROCESA BALANZATICKETS".
+    626   2         WLOG(ARCHIVO,VTEXTO)  .
+    627   2 
+    628   2         RUN procesarBalanzaTicket (BUFFER balanza_tickets).
+    629   2         RELEASE balanza_tickets.
+    630   2         SESSION:NUMERIC-FORMAT = nm.
+    631   2 
+    632   2         VTEXTO = "VA AL OTRO ITEM".
+    633   2         WLOG(ARCHIVO,VTEXTO)  .
+    634   2 
+    635   2 
+    636   1     END. 
+    637   1     VTEXTO = "IMPRIME".
+    638   1     WLOG(ARCHIVO,VTEXTO)  .
+    639   1     
+    640         /*RUN pimprimeEtiquetasIngreso.p (balanza_pesadas.id_balanza , b
+    640   1 alanza_pesadas.id_pesada , OUTPUT xcod) NO-ERROR.*/
+    641   1     VTEXTO = "SALE IMPRIME".
+    642   1     WLOG(ARCHIVO,VTEXTO)  .
+    643   1 
+    644         /*RUN pcierrapesada.p (balanza_pesadas.id_balanza , balanza_pesa
+    644   1 das.id_pesada , FALSE , OUTPUT cStatus).
+    645   1     IF cStatus <> 'OK' THEN
+    646   1         RETURN ERROR cStatus. */
+    647   1 
+    648   1 /*    CATCH ErrB AS Progress.Lang.ProError .
+    649   1         OUTPUT TO D:\TEMP\WS2.TXT APPEND.
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 17  
+
+{} Line Blk
+-- ---- ---
+    650   1         EXPORT DELIMITER ';' "160" "ERROR" errC:GetMEssage(1).
+    651   1         OUTPUT CLOSE.    
+    652   1         ORESPUESTA = 'NOK'.
+    653   1         OMENSAJERESPUESTA = 'Ingreso incorrecto'.  
+    654   1         UNDO , THROW ErrB.
+    655   1     END CATCH. */
+    656     END.
+    657     
+    658     
+    659     
+    660   1 CATCH ErrC AS Progress.Lang.ProError .
+    661   1     VTEXTO =  "161 " + errC:GetMEssage(1).
+    662   1     WLOG(ARCHIVO,VTEXTO).
+    663   1     ORESPUESTA = 'NOK'.
+    664   1     OMENSAJERESPUESTA = 'Ingreso incorrecto'.  
+    665   1     UNDO .
+    666     END CATCH.
+    667     
+    668   1 FINALLY.
+    669   1     CREATE RESPUESTAS.
+    670   1     ASSIGN 
+    671   1         RESPUESTAS.POSTATUS  = ORESPUESTA
+    672   1         RESPUESTAS.POMENSAJE = OMENSAJERESPUESTA.
+    673   1     VTEXTO =  "FINALIZO".
+    674   1     WLOG(ARCHIVO,VTEXTO).
+    675     END FINALLY.
+    676     
+    677     
+    678     PROCEDURE ACTUALIZADOCUMENTOMATERIALPESADA.
+    679         DEFINE PARAMETER BUFFER bp FOR balanza_pesadas.
+    680         
+    681         DEFINE VARIABLE I AS INTEGER NO-UNDO.
+    682         I = 0.
+    683     
+    684         
+    685   1     FOR EACH POSICIONES BY POSICIONES.PSNROLOTE.
+    686   1         I = I + 1.
+    687             FIND FIRST balanza_tickets OF bp WHERE balanza_tickets.nro_t
+    687   1 icket = I NO-ERROR.
+    688   1         IF AVAILABLE balanza_tickets THEN
+    689   1             ASSIGN 
+    690                     balanza_tickets.orden_compra_sap     = POSICIONES.PS
+    690   1 NRODOCUMENTOMATERIAL
+    691                     balanza_tickets.pos_orden_compra_sap = POSICIONES.PS
+    691   1 NROPOSICIONPESADA. 
+    692         END.
+    693     END PROCEDURE.
+    694     
+    695     PROCEDURE SAPTOBALANZAPESADA.
+    696     
+    697         DEFINE INPUT  PARAMETER PIBALANZA                   AS INTEGER N
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 18  
+
+{} Line Blk
+-- ---- ---
+    697     O-UNDO.
+    698         DEFINE OUTPUT PARAMETER pobalanza                   AS INTEGER N
+    698     O-UNDO.
+    699         DEFINE OUTPUT PARAMETER popesada                    AS INTEGER N
+    699     O-UNDO.
+    700     
+    701         DEFINE VARIABLE X_numero        AS INTEGER.
+    702         DEFINE VARIABLE hProd           AS HANDLE    NO-UNDO.
+    703         DEFINE VARIABLE vfecha          AS DATE      NO-UNDO.
+    704         DEFINE VARIABLE vfechaOperativa AS DATE      NO-UNDO.
+    705         DEFINE VARIABLE vhora           AS DATETIME  NO-UNDO.
+    706         DEFINE VARIABLE vfechaEntrada   AS DATE      NO-UNDO.
+    707         DEFINE VARIABLE vfechaSalida    AS DATE      NO-UNDO.
+    708         DEFINE VARIABLE vHoraEntrada    AS CHARACTER NO-UNDO.
+    709         DEFINE VARIABLE vHoraSalida     AS CHARACTER NO-UNDO.
+    710         DEFINE VARIABLE vPesoEntrada    AS DECIMAL   NO-UNDO DECIMALS 3.
+    711         DEFINE VARIABLE vTransporte     AS CHARACTER NO-UNDO.
+    712         DEFINE VARIABLE vProveedor      AS INTEGER   NO-UNDO.
+    713         DEFINE VARIABLE vtipotransporte AS INTEGER   NO-UNDO.
+    714         DEFINE VARIABLE vmarca          AS CHARACTER NO-UNDO.
+    715         DEFINE VARIABLE vmodelo         AS INTEGER   NO-UNDO.
+    716         DEFINE VARIABLE vnromov         AS INTEGER   NO-UNDO.
+    717         DEFINE VARIABLE vpesoneto       AS DECIMAL   NO-UNDO DECIMALS 3.
+    718         DEFINE VARIABLE vpesodescarte   AS DECIMAL   NO-UNDO DECIMALS 3.
+    719         DEFINE VARIABLE vpesosalida     AS DECIMAL   NO-UNDO DECIMALS 3.
+    720         DEFINE VARIABLE vtara           AS DECIMAL   NO-UNDO DECIMALS 3.
+    721         DEFINE VARIABLE vsucursal       AS INTEGER   NO-UNDO.
+    722         DEFINE VARIABLE vsucplaya       AS INTEGER   NO-UNDO.
+    723         DEFINE VARIABLE vtipomov        AS INTEGER   NO-UNDO.
+    724         DEFINE VARIABLE vsucorigen      AS INTEGER   NO-UNDO.
+    725         DEFINE VARIABLE vpatente        AS CHARACTER NO-UNDO.
+    726         DEFINE VARIABLE xenvase         AS CHARACTER NO-UNDO.
+    727         DEFINE VARIABLE vpesadasap      AS CHARACTER NO-UNDO.
+    728         DEFINE VARIABLE VOCARGA         AS CHARACTER NO-UNDO.
+    729         DEFINE VARIABLE cError          AS CHARACTER NO-UNDO.
+    730             /* DEFINE VAR vocarga          AS CHARACTER NO-UNDO. */ /* N
+    730     O LO USO */
+    731         DEFINE VARIABLE vbalanza        AS INTEGER   NO-UNDO.
+    732         DEFINE VARIABLE vpesada         AS INTEGER   NO-UNDO.
+    733         DEFINE VARIABLE vpref           AS INTEGER   NO-UNDO.
+    734         DEFINE VARIABLE vTransportista  AS CHARACTER NO-UNDO.
+    735     
+    736   1     DO TRANSACTION ON ERROR UNDO, THROW.
+    737   1     
+    738   1         /* {persistentprocedure.i libProduccion.p hProd}. */
+    739   1 
+    740   1     
+    741   1         /* vocarga = hTableMovFlete:VALUE(1,2). */ /* NO LO USO */
+    742   1 
+    743   1         VFECHAENTRADA = TODAY.
+    744   1         vfecha = VFECHAENTRADA.
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 19  
+
+{} Line Blk
+-- ---- ---
+    745   1         VHORAENTRADA = STRING(TIME,'HH:MM').     
+    746             vfechaOperativa =  DYNAMIC-FUNCTION("devuelvefechaoperativa"
+    746   1  IN THIS-PROCEDURE, vfecha , vhoraEntrada).
+    747   1 /*        
+    748   1         vfecha = VFECHAENTRADA.
+    749   1         vhoraEntrada  = SHORAENTRADA.
+    750             vfechaEntrada = DATE( INTEGER(SUBSTRING(SFECHAENTRADA,5,2)) 
+    750     , INTEGER(SUBSTRING(SFECHAENTRADA,7,2)) , INTEGER(SUBSTRING(SFECHAEN
+    750   1 TRADA,1,4)) ).
+    751   1  */
+    752   1 
+    753   1     
+    754   1     
+    755   1 
+    756   1         vpesadasap = SNROPESADA.    
+    757   1 
+    758   1         vbalanza = pibalanza.
+    759   1         vpref    = vbalanza.
+    760   1         vpesada  = vpref * 1000000 + INTEGER(VPESADASAP).
+    761   1     
+    762   1         RUN valoresfijos   (    INPUT vbalanza,     
+    763   1             OUTPUT vsucursal,
+    764   1             OUTPUT vsucplaya,
+    765   1             OUTPUT vtipomov,
+    766   1             OUTPUT vsucorigen).
+    767   1                             
+    768   1     
+    769             vfechaSalida  = DATE(INTEGER(SUBSTRING(SFECHASALIDA,5,2)) , 
+    769     INTEGER(SUBSTRING(SFECHASALIDA,7,2)), INTEGER(SUBSTRING(SFECHASALIDA
+    769   1 ,1,4)) ).
+    770   1         vhoraSalida   = SHORASALIDA.
+    771   1         vPesoEntrada  = DECIMAL(SPESOENTRADA). 
+    772   1         vPesoSalida   = DECIMAL(SPESOSALIDA). 
+    773   1         
+    774   1         IF vfechasalida = DATE('30/12/1899') THEN
+    775   1             vfechasalida = ?.
+    776   1         vTransporte   = STRANSPORTE.
+    777   1         vtransportista = STRANSPORTISTA.
+    778   1 
+    779   1 
+    780   1 
+    781   1         ASSIGN 
+    782   1             vpesoneto = DECIMAL(SPESONETO).
+    783   1         ASSIGN 
+    784   1             vpesodescarte = DECIMAL(SPESODESCARTE).
+    785   1 
+    786   1 
+    787   1     {creabalanzapesada.i}
+ 1    1   1 
+ 1    2     /*------------------------------------------------------------------
+ 1    2   1 ------
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 20  
+
+{} Line Blk
+-- ---- ---
+ 1    3   1     File        : creabalanzapesada.i
+ 1    4   1     Purpose     : 
+ 1    5   1 
+ 1    6   1     Syntax      :
+ 1    7   1 
+ 1    8   1     Description : 
+ 1    9   1 
+ 1   10   1     Author(s)   : pdigonzelli
+ 1   11   1     Created     : Wed Jan 13 15:16:53 ACT 2016
+ 1   12   1     Notes       :
+ 1   13       ------------------------------------------------------------------
+ 1   13   1 ----*/
+ 1   14   1 
+ 1   15     /* ***************************  Definitions  ***********************
+ 1   15   1 *** */
+ 1   16   1 
+ 1   17   1 
+ 1   18     /* ********************  Preprocessor Definitions  *****************
+ 1   18   1 *** */
+ 1   19   1 
+ 1   20   1 
+ 1   21     /* ***************************  Main Block  ************************
+ 1   21   1 *** */
+ 1   22   1     
+ 1   23   1     CREATE balanza_pesadas.
+ 1   24   1     ASSIGN
+ 1   25   1         balanza_pesadas.fecha_entrada       = vfechaentrada
+ 1   26   1         balanza_pesadas.fecha_operativa     = vfechaoperativa
+ 1   27   1         balanza_pesadas.fecha_salida        = vfechaentrada
+ 1   28   1         balanza_pesadas.hora_entrada        = vhoraentrada
+ 1   29   1         balanza_pesadas.hora_salida         = vhoraentrada
+ 1   30   1         balanza_pesadas.id_balanza          = vbalanza
+ 1   31   1         balanza_pesadas.id_pesada           = vpesada
+ 1   32   1         balanza_pesadas.id_pesada_sap       = vpesadasap   
+ 1   33   1         balanza_pesadas.id_proveedor        = vproveedor
+ 1   34   1         balanza_pesadas.id_sucursal         = vsucursal
+ 1   35   1         balanza_pesadas.id_tipo_movsto      = vtipomov
+ 1   36   1         balanza_pesadas.id_tipo_transporte  = vtipotransporte
+ 1   37   1         balanza_pesadas.id_transporte       = INTEGER(vtransporte)
+ 1   38   1         balanza_pesadas.marca               = vmarca
+ 1   39   1         balanza_pesadas.modelo              = vmodelo
+ 1   40   1         balanza_pesadas.nromov              = vnromov
+ 1   41   1         balanza_pesadas.orden_carga_sap     = vocarga
+ 1   42   1         balanza_pesadas.patente             = vpatente
+ 1   43   1         balanza_pesadas.peso_descarte       = vpesodescarte
+ 1   44   1         balanza_pesadas.peso_entrada        = vpesoentrada
+ 1   45   1         balanza_pesadas.peso_neto           = vpesoneto
+ 1   46   1         balanza_pesadas.peso_salida         = vpesosalida
+ 1   46   1         balanza_pesadas.tara                = vtara.
+    787   1  
+    788   1     
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 21  
+
+{} Line Blk
+-- ---- ---
+    789             /* RUN crearmovtransportedebalanza (  INPUT vbalanza, INPUT 
+    789   1 vpesada) NO-ERROR. */ 
+    790   1 
+    791   1 
+    792             FIND FIRST tipo_numero WHERE tipo_numero.id_sucursal = vsucp
+    792   1 laya AND
+    793   1             tipo_numero.id_tipo_movsto = vtipomov NO-ERROR.
+    794   1         x_numero = tipo_numero.nro + 1.
+    795   1 
+    796   1    
+    797   1         ASSIGN 
+    798   1             tipo_numero.nro = x_numero.
+    799   1         RELEASE tipo_numero.
+    800   1 
+    801   1         ASSIGN
+    802   1             balanza_pesadas.id_sucursal    = vsucplaya
+    803   1             balanza_pesadas.id_tipo_movsto = vtipomov
+    804   1             balanza_pesadas.nro            = x_numero.
+    805   1 
+    806   1         VTEXTO =  "CREAMOVSUCU".
+    807   1         WLOG(ARCHIVO,VTEXTO).
+    808   1 
+    809   1     {creamovsucu.i}
+ 1    1   1 
+ 1    2     /*------------------------------------------------------------------
+ 1    2   1 ------
+ 1    3   1     File        : creamovsucu.i
+ 1    4   1     Purpose     : 
+ 1    5   1 
+ 1    6   1     Syntax      :
+ 1    7   1 
+ 1    8   1     Description : 
+ 1    9   1 
+ 1   10   1     Author(s)   : pdigonzelli
+ 1   11   1     Created     : Wed Jan 13 15:16:04 ACT 2016
+ 1   12   1     Notes       :
+ 1   13       ------------------------------------------------------------------
+ 1   13   1 ----*/
+ 1   14   1 
+ 1   15     /* ***************************  Definitions  ***********************
+ 1   15   1 *** */
+ 1   16   1 
+ 1   17   1 
+ 1   18     /* ********************  Preprocessor Definitions  *****************
+ 1   18   1 *** */
+ 1   19   1 
+ 1   20   1 
+ 1   21     /* ***************************  Main Block  ************************
+ 1   21   1 *** */
+ 1   22   1     CREATE  movsucu.
+ 1   23   1     ASSIGN
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 22  
+
+{} Line Blk
+-- ---- ---
+ 1   24   1          movsucu.id_sucursal     = vsucplaya
+ 1   25   1          movsucu.id_tipo_movsto  = vtipomov
+ 1   26   1          movsucu.nro             = x_numero
+ 1   27   1          movsucu.id_suc_origen   = vsucplaya
+ 1   28   1          movsucu.id_suc_envio    = vsucorigen
+ 1   29   1          movsucu.fecha_proceso   = ?
+ 1   30   1          movsucu.fecha_operativa = balanza_pesadas.fecha_operativa
+ 1   31   1          movsucu.fecha       = balanza_pesadas.fecha_salida
+ 1   32              movsucu.hora        = SUBSTRING(balanza_pesadas.hora_salida
+ 1   32   1 ,1,2) + "00".
+    809   1  
+    810   1     
+    811   1         VTEXTO =  "TERMINA CREAMOVSUCU".
+    812   1         WLOG(ARCHIVO,VTEXTO).
+    813   1 
+    814         END.
+    815   1     FINALLY.
+    816   1         pobalanza = vbalanza.
+    817   1         popesada  = vpesada.
+    818         END FINALLY.
+    819     
+    820     
+    821     END PROCEDURE.       
+    822     
+    823     
+    824     PROCEDURE procesarBalanzaTicket :
+    825         /*--------------------------------------------------------------
+    825     ----------------
+    826           Purpose:     
+    827           Parameters:  <none>
+    828           Notes:       
+    829         ----------------------------------------------------------------
+    829     --------------*/
+    830         DEFINE PARAMETER BUFFER balanza_tickets FOR balanza_tickets.
+    831     
+    832         
+    833         DEFINE VARIABLE hProd AS HANDLE NO-UNDO.
+    834         DEFINE BUFFER aux_pesada  FOR balanza_pesadas.
+    835         DEFINE BUFFER aux_tickets FOR balanza_tickets.
+    836         DEFINE BUFFER aux_salida  FOR balanza_salidas.
+    837         DEFINE VARIABLE X_peso_envases AS DECIMAL   NO-UNDO.
+    838         DEFINE VARIABLE v1             AS INTEGER.
+    839         DEFINE VARIABLE v2             AS INTEGER.
+    840     
+    841         DEFINE VARIABLE cerror         AS CHARACTER NO-UNDO INITIAL 'Err
+    841     or en la rutina de proceso de la balanza'.
+    842     
+    843     
+    844     
+    845   1     DO ON ERROR UNDO , THROW:
+    846   1     
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 23  
+
+{} Line Blk
+-- ---- ---
+    847   1 
+    848             FIND FIRST      lotes_plantacion WHERE lotes_plantacion.codi
+    848   1 go_trazabilidad = balanza_tickets.codigo_trazabilidad NO-LOCK.
+    849             /*    IF NOT AVAILABLE lotes_plantacion THEN RETURN ERROR 'E
+    849   1 rror de lotes de plantacion'. */
+    850   1 
+    851   1         FIND FIRST   lote        OF lotes_plantacion  NO-LOCK.
+    852             /*    IF NOT AVAILABLE lotes_plantacion THEN RETURN ERROR 'E
+    852   1 rror de lotes'. */
+    853   1 
+    854   1         IF balanza_tickets.UNION_europea THEN
+    855   1             ASSIGN  balanza_tickets.certificado = lote.certificado.
+    856   1         ELSE
+    857   1             ASSIGN  balanza_tickets.certificado = ""
+    858   1                 balanza_tickets.cert_china  = "".
+    859   1 
+    860   1         IF balanza_tickets.china THEN
+    861   1             ASSIGN  balanza_tickets.certificado = lote.cert_china
+    862   1                 balanza_tickets.cert_china  = lote.cert_china.
+    863   1     
+    864   1     
+    865   1         CASE balanza_tickets.id_balanza:
+    866   1             WHEN  2 OR  
+    867   1             WHEN 4 THEN
+    868   2                 DO:
+    869   2                     WLOG(ARCHIVO,'CREAPARTTIDAS').
+    870                         RUN crearpartidas (INPUT balanza_tickets.id_sucu
+    870   2 rsal,
+    871   2                         INPUT balanza_tickets.nro_partida ).
+    872   2                     WLOG(ARCHIVO,'CREAITEMS').
+    873                         RUN crearitemsstockdebalanza (INPUT balanza_tick
+    873   2 ets.id_balanza, 
+    874                             INPUT balanza_tickets.id_pesada, balanza_tic
+    874   2 kets.nro_ticket).
+    875   2                     WLOG(ARCHIVO,'SALECREAITEMS').
+    876   1                 END.
+    877   1             WHEN 7 THEN
+    878   2                 DO:
+    879   2                     FIND FIRST aux_pesada WHERE
+    880                             aux_pesada.id_balanza = balanza_tickets.id_b
+    880   2 alanza AND
+    881                             aux_pesada.id_pesada  = balanza_tickets.id_p
+    881   2 esada NO-LOCK.
+    882   2     
+    883   2     
+    884   2                     FIND FIRST aux_tickets WHERE   
+    885                             aux_tickets.id_balanza = balanza_tickets.id_
+    885   2 balanza AND
+    886                             aux_tickets.id_pesada  = balanza_tickets.id_
+    886   2 pesada NO-LOCK.
+    887   2                     IF AVAILABLE aux_tickets THEN 
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 24  
+
+{} Line Blk
+-- ---- ---
+    888   3                     DO:
+    889   4                         FOR EACH aux_salida OF aux_pesada:
+    890   4                             DELETE aux_salida.
+    891   3                         END.
+    892   4                         FOR EACH aux_tickets OF aux_pesada:
+    893   4                             CREATE aux_salida.
+    894   4                             ASSIGN
+    895                                     aux_salida.id_balanza          = aux
+    895   4 _tickets.id_balanza
+    896                                     aux_salida.id_pesada           = aux
+    896   4 _tickets.id_pesada
+    897                                     aux_salida.id_envase           = aux
+    897   4 _tickets.id_envase
+    898                                     aux_salida.cant_env_salida     = aux
+    898   4 _tickets.cant_env_entrada
+    899                                     aux_salida.peso_envases_salida = aux
+    899   4 _tickets.peso_envases_entrada.
+    900   4     
+    901   3                         END.
+    902   3                         FIND aux_pesada WHERE
+    903                                 aux_pesada.id_balanza = balanza_tickets.
+    903   3 id_balanza AND
+    904                                 aux_pesada.id_pesada  = balanza_tickets.
+    904   3 id_pesada.
+    905   3     
+    906   3                         IF AVAILABLE aux_pesada THEN 
+    907   4                         DO:
+    908   4                             FOR EACH aux_tickets WHERE
+    909                                     aux_tickets.id_balanza = balanza_tic
+    909   4 kets.id_balanza AND
+    910                                     aux_tickets.id_pesada  = balanza_tic
+    910   5 kets.id_pesada:
+    911                                     x_peso_envases  = x_peso_envases  + 
+    911   5 aux_tickets.peso_envases_entrada.
+    912   4                             END.
+    913   4                             ASSIGN 
+    914                                     aux_pesada.peso_envases_entrada = x_
+    914   4 peso_envases.
+    915   3                         END.
+    916   2                     END.
+    917   1                 END.
+    918   1         END CASE.
+    919   1     
+    920   1         /* Creo tabla items_transporte */
+    921   1 
+    922   1         /*
+    923             RUN crearitemstranspdebalanza IN hprod (    INPUT balanza_ti
+    923   1 ckets.id_balanza,
+    924                                                         INPUT balanza_ti
+    924   1 ckets.id_pesada). */
+    925   1     
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 25  
+
+{} Line Blk
+-- ---- ---
+    926   1     
+    927   1         /* Actualizo fecha y hora salida de balanza_pesada */
+    928             FIND FIRST aux_pesada WHERE aux_pesada.id_balanza = balanza_
+    928   1 tickets.id_balanza AND
+    929   1             aux_pesada.id_pesada = balanza_tickets.id_pesada.
+    930   1         IF AVAILABLE aux_pesada THEN
+    931   2         DO:
+    932   2             ASSIGN 
+    933                     aux_pesada.fecha_salida = balanza_tickets.fecha_sali
+    933   2 da
+    934                     aux_pesada.hora_salida  = balanza_tickets.hora_salid
+    934   2 a.
+    935   1         END.
+    936   1     
+    937   1 
+    938             IF balanza_tickets.id_balanza = 2 OR balanza_tickets.id_bala
+    938   1 nza = 4 THEN
+    939   2         DO:
+    940   2 
+    941   2             WLOG(ARCHIVO,'PESOSBALANZAS').
+    942   2             
+    943   2             /* Actualizo pesos */
+    944                 RUN pesosbalanzapesada (INPUT balanza_tickets.id_balanza
+    944   2  , balanza_tickets.ID_PESADA ). 
+    945   2     
+    946   2             /* Actualizo saldos de partida */
+    947   2             WLOG(ARCHIVO,'SALDOSPARTIDAS').
+    948                 RUN actsaldospartidadebalanza (INPUT balanza_tickets.id_
+    948     sucursal, INPUT balanza_tickets.nro_partida , INPUT balanza_tickets.
+    948   2 nro_partida_serial). 
+    949   2             WLOG(ARCHIVO,'SALESALDOSPARTIDAS').
+    950   2     
+    951   2         /*
+    952   2             /* Imprimo etiqueta */
+    953   2             RUN dd_etibal.p (input balanza_tickets.nro_partida).
+    954   2         */
+    955   1         END.
+    956         END.
+    957     /*
+    958     CATCH err AS Progress.Lang.Error:
+    959         OUTPUT TO D:\TEMP\WS2.TXT APPEND.
+    960         EXPORT DELIMITER ';' "21" err:GetMEssage(1).
+    961         OUTPUT CLOSE.    
+    962         UNDO, THROW ERR .    
+    963     END CATCH.
+    964     */
+    965     END PROCEDURE.
+    966     
+    967     
+    968     PROCEDURE valoresfijos :
+    969         /*--------------------------------------------------------------
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 26  
+
+{} Line Blk
+-- ---- ---
+    969     ----------------
+    970           Purpose:     
+    971           Parameters:  <none>
+    972           Notes:       
+    973         ----------------------------------------------------------------
+    973     --------------*/
+    974         /* REVISAR:  */
+    975         DEFINE INPUT PARAMETER X_balanza AS INTEGER NO-UNDO.
+    976         DEFINE OUTPUT PARAMETER x_sucursal  AS INTEGER NO-UNDO.
+    977         DEFINE OUTPUT PARAMETER x_suc_playa AS INTEGER NO-UNDO.
+    978         DEFINE OUTPUT PARAMETER x_tipo_mov  AS INTEGER NO-UNDO.
+    979         DEFINE OUTPUT PARAMETER x_suc_origen AS INTEGER NO-UNDO.
+    980     
+    981         
+    982         FIND FIRST balanzas WHERE
+    983             balanzas.id_balanza   = X_balanza AND
+    984             balanzas.id_suc_envio <> 0 NO-LOCK.
+    985         IF AVAILABLE balanzas THEN
+    986   1     DO:
+    987             FIND FIRST tipo_movsto WHERE tipo_movsto.abreviatura = "ingr
+    987   1 eso"
+    988   1             NO-LOCK NO-ERROR.
+    989   1     
+    990   1         x_sucursal  = balanzas.id_sucursal.
+    991   1         x_suc_playa = balanzas.id_suc_envio.
+    992   1         x_tipo_mov  = tipo_movsto.id_tipo_movsto.
+    993   1         X_suc_origen = balanzas.id_suc_origen.
+    994         END.
+    995     END PROCEDURE.
+    996     
+    997     PROCEDURE devuelvevaloresmovflete :
+    998         /*--------------------------------------------------------------
+    998     ----------------
+    999           Purpose:     
+   1000           Parameters:  <none>
+   1001           Notes:       
+   1002         ----------------------------------------------------------------
+   1002     --------------*/
+   1003         DEFINE INPUT PARAMETER i AS INTEGER NO-UNDO.
+   1004         DEFINE INPUT PARAMETER vsucursal AS INTEGER NO-UNDO.
+   1005     
+   1006         DEFINE OUTPUT PARAMETER cmateriaprima AS CHARACTER NO-UNDO.
+   1007         DEFINE OUTPUT PARAMETER vcantenvasesentrada AS INTEGER NO-UNDO.
+   1008         DEFINE OUTPUT PARAMETER vpesoenvasesentrada AS DECIMAL NO-UNDO D
+   1008     ECIMALS 3.
+   1009         DEFINE OUTPUT PARAMETER ctipocosecha        AS  CHARACTER NO-UND
+   1009     O.
+   1010         DEFINE OUTPUT PARAMETER ctiposervicio       AS CHARACTER NO-UNDO
+   1010     .
+   1011         DEFINE OUTPUT PARAMETER cenvase             AS CHARACTER NO-UNDO
+   1011     .
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 27  
+
+{} Line Blk
+-- ---- ---
+   1012         DEFINE OUTPUT PARAMETER corigensap          AS CHARACTER NO-UNDO
+   1012     .
+   1013         DEFINE OUTPUT PARAMETER ccodigotrazabilidad AS CHARACTER NO-UNDO
+   1013     .
+   1014         DEFINE OUTPUT PARAMETER vcolor              AS INTEGER NO-UNDO.
+   1015         DEFINE OUTPUT PARAMETER cmercado            AS CHARACTER NO-UNDO
+   1015     .
+   1016         DEFINE OUTPUT PARAMETER vpesonetoticket     AS INTEGER NO-UNDO.
+   1017         DEFINE OUTPUT PARAMETER vunioneuropea       AS LOGICAL NO-UNDO.
+   1018         DEFINE OUTPUT PARAMETER vchina              AS LOGICAL NO-UNDO.
+   1019         DEFINE OUTPUT PARAMETER vusa                AS LOGICAL NO-UNDO.
+   1020         DEFINE OUTPUT PARAMETER vfinca              AS LOGICAL NO-UNDO.
+   1021         DEFINE OUTPUT PARAMETER vsucursaletiqueta   AS INTEGER NO-UNDO.
+   1022         DEFINE OUTPUT PARAMETER vsucursalpacking    AS INTEGER NO-UNDO.
+   1023         DEFINE OUTPUT PARAMETER vproveedor          AS INTEGER NO-UNDO.
+   1024         DEFINE OUTPUT PARAMETER vproveedororigen    AS INTEGER NO-UNDO.
+   1025         DEFINE OUTPUT PARAMETER vorigen             AS INTEGER NO-UNDO.
+   1026         DEFINE OUTPUT PARAMETER vorigenorigen       AS INTEGER NO-UNDO.
+   1027         DEFINE OUTPUT PARAMETER vtipocosecha        AS INTEGER NO-UNDO.
+   1028         DEFINE OUTPUT PARAMETER vcalidadbalanza     AS INTEGER NO-UNDO.
+   1029         DEFINE OUTPUT PARAMETER vtiposervicio       AS INTEGER NO-UNDO.
+   1030         DEFINE OUTPUT PARAMETER venvase             AS INTEGER NO-UNDO.
+   1031         DEFINE OUTPUT PARAMETER vlotesenasa         AS INTEGER NO-UNDO.
+   1032         DEFINE OUTPUT PARAMETER vlote               AS INTEGER NO-UNDO.
+   1033         DEFINE OUTPUT PARAMETER vfincasenasa        AS INTEGER NO-UNDO.
+   1034         DEFINE OUTPUT PARAMETER vcertunion          AS CHARACTER NO-UNDO
+   1034     .
+   1035         DEFINE OUTPUT PARAMETER vcertchina          AS CHARACTER NO-UNDO
+   1035     .
+   1036         DEFINE OUTPUT PARAMETER vcertificado        AS CHARACTER NO-UNDO
+   1036     .
+   1037         DEFINE OUTPUT PARAMETER v1                  AS INTEGER NO-UNDO.
+   1038         DEFINE OUTPUT PARAMETER v2                  AS INTEGER NO-UNDO.
+   1039         DEFINE OUTPUT PARAMETER iarticulo           AS INTEGER NO-UNDO.
+   1040         DEFINE OUTPUT PARAMETER ivariedad           AS INTEGER NO-UNDO.
+   1041         DEFINE OUTPUT PARAMETER vzona_up            AS CHARACTER NO-UNDO
+   1041     .
+   1042         DEFINE OUTPUT PARAMETER vrenspa             AS CHARACTER NO-UNDO
+   1042     .
+   1043     
+   1044         DEFINE VARIABLE cantpes  AS DECIMAL   NO-UNDO.
+   1045         DEFINE VARIABLE vcantpes AS CHARACTER NO-UNDO.
+   1046     
+   1047         VTEXTO = "DEVUELVE VALORES #1".
+   1048         WLOG(ARCHIVO,VTEXTO)  .
+   1049     
+   1050         cmateriaprima       = POSICIONES.PSMATERIAL. /* REVISAR */   
+   1051         ctipocosecha        = SUBSTRING(POSICIONES.PSMATERIAL,4,1).
+   1052         /*  ctiposervicio       = PSTIPOSERVICIO. NO LO TENGO */
+   1053         cenvase             = PSTIPOENVASE.
+   1054             /*     corigensap          = STRING(htableMovFleteD:VALUE(i,
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 28  
+
+{} Line Blk
+-- ---- ---
+   1054     15),"x(4)") + STRING(htableMovFleteD:VALUE(i,16),"9999"). */ /* NO S
+   1054     E USA */
+   1055         ccodigoTrazabilidad = PSTRAZABILIDAD.
+   1056         cmercado            = PSMERCADO. /**** REVISAR MERCADO SEGUN TAB
+   1056     LA ***/
+   1057         
+   1058         VTEXTO = "DEVUELVE VALORES #2".
+   1059         WLOG(ARCHIVO,VTEXTO)  .
+   1060         
+   1061         CASE SUBSTRING(cmateriaprima,6,2):
+   1062             WHEN '01' THEN 
+   1063                 iarticulo = 1. /* LIMON */
+   1064             WHEN '04' THEN 
+   1065                 iarticulo = 2. /* POMELO */
+   1066             WHEN '02' THEN 
+   1067                 iarticulo = 3. /* NARANJA */
+   1068             WHEN '03' THEN 
+   1069                 iarticulo = 4. /* MANDARINA */
+   1070             
+   1071             /*        WHEN 'PALTA001' THEN iarticulo = 5. FALTAN VARIEDA
+   1071     DES
+   1072                     WHEN 'TANGELO001' THEN iarticulo = 6.
+   1073                     WHEN 'KUNKUA001' THEN iarticulo = 7. */
+   1074             OTHERWISE 
+   1075             iarticulo = 0.
+   1076         END CASE.
+   1077         
+   1078         
+   1079         /* PROCESAR EL MATERIAL SAP PARA DETERMINAR EL ARTICULO */
+   1080     
+   1081         WLOG(ARCHIVO, 'TIPOCOSECHA-' + CTIPOCOSECHA).
+   1082     
+   1083     
+   1084         FIND FIRST      tipo_cosecha WHERE id_tipo_cosecha_sap      =  (
+   1084     '0' + ctipocosecha) NO-LOCK NO-ERROR.
+   1085         IF AVAILABLE    tipo_cosecha THEN ASSIGN vtipocosecha    = tipo_
+   1085     cosecha.id_tipo_cosecha
+   1086                 vcalidadbalanza = tipo_cosecha.id_calidad_balanza. 
+   1087         ELSE ASSIGN vtipocosecha    = 0 vcalidadbalanza = 0.
+   1088         FIND FIRST      tipos_servicios WHERE id_tipo_servicio_sap =  ct
+   1088     iposervicio NO-LOCK NO-ERROR.
+   1089         IF AVAILABLE    tipos_servicios THEN  vtiposervicio = tipos_serv
+   1089     icios.id_tipo_servicio. 
+   1090         ELSE vtiposervicio = 0.
+   1091         
+   1092         VTEXTO = "DEVUELVE VALORES #3".
+   1093         WLOG(ARCHIVO,VTEXTO)  .
+   1094          
+   1095         vcantpes = PSCANTPES.                                  
+   1096         IF INDEX(SESSION:NUMERIC-DECIMAL-POINT , vcantpes ) <> 0 THEN
+   1097             cantpes = DECIMAL(vcantpes).
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 29  
+
+{} Line Blk
+-- ---- ---
+   1098         ELSE
+   1099   1     DO:
+   1100   1         IF SESSION:NUMERIC-DECIMAL-POINT = '.' THEN
+   1101   1             cantpes = DECIMAL (REPLACE(vcantpes , ',' , '.')  ).
+   1102   1         ELSE
+   1103   1             cantpes = DECIMAL (REPLACE(vcantpes , '.' , ',') ).
+   1104         END.
+   1105     
+   1106         /* cantpes = truncate(cantpes,0). */
+   1107         VTEXTO = "DEVUELVE VALORES #5".
+   1108         WLOG(ARCHIVO,VTEXTO)  .
+   1109         
+   1110         IF cenvase <> "" THEN 
+   1111   1     DO:
+   1112             FIND FIRST      envases_prod WHERE id_envase_sap =  cenvase 
+   1112   1 NO-LOCK NO-ERROR.
+   1113             IF AVAILABLE    envases_prod THEN venvase = envases_prod.id_
+   1113   1 envase . 
+   1114   1         ELSE venvase = 0.
+   1115   1 
+   1116             FIND r_envases_prod WHERE r_envases_prod.id_envase = envases
+   1116   1 _prod.id_envase AND
+   1117   1             r_envases_prod.id_articulo = iArticulo NO-LOCK NO-ERROR.
+   1118   1 
+   1119     /*        vcantenvasesentrada = IF TRIM(STRING( PSUNIDAD )) = 'KG' T
+   1119     HEN (IF AVAILABLE r_envases_prod THEN cantpes / r_envases_prod.Kilos
+   1119   1  ELSE 0) ELSE INTEGER(PSCANTPES). */
+   1120             vpesoenvasesentrada = vcantenvasesentrada * ( IF AVAILABLE e
+   1120   1 nvases_prod THEN envases_prod.tara ELSE 0  ).
+   1121             vpesonetoticket     = IF TRIM(STRING( PSUNIDAD )) = 'KG' THE
+   1121     N ( CANTPES - VPESOENVASESENTRADA ) ELSE vcantenvasesentrada * ( IF 
+   1121   1 AVAILABLE r_envases_prod THEN r_envases_prod.kilos ELSE 0  ).
+   1122         END.
+   1123         ELSE
+   1124   1     DO:
+   1125   1         venvase = 0.
+   1126   1         vcantenvasesentrada = 0.
+   1127   1         vpesoenvasesentrada = 0.
+   1128   1         vpesonetoticket     = cantpes.
+   1129         END.
+   1130         /*
+   1131              FIND FIRST      colores  WHERE colores.id_color_sap = PSCOL
+   1131     OR NO-LOCK NO-ERROR.
+   1132              IF AVAILABLE    colores  THEN vcolor = colores.id_color . E
+   1132     LSE vcolor = 0. */
+   1133     
+   1134         VTEXTO = "DEVUELVE VALORES #6".
+   1135         WLOG(ARCHIVO,VTEXTO)  .
+   1136         
+   1137         FIND FIRST      colores  WHERE colores.id_color_sap = INTEGER(PS
+   1137     COLOR) NO-LOCK NO-ERROR.
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 30  
+
+{} Line Blk
+-- ---- ---
+   1138         IF AVAILABLE    colores  THEN vcolor = colores.id_color . 
+   1139         ELSE vcolor = 0. 
+   1140     
+   1141         VTEXTO = "DEVUELVE VALORES #61 " + CCODIGOTRAZABILIDAD.
+   1142         WLOG(ARCHIVO,VTEXTO)  .
+   1143     
+   1144         FIND FIRST      lotes_plantacion WHERE lotes_plantacion.codigo_t
+   1144     razabilidad = ccodigotrazabilidad NO-LOCK.
+   1145         /* IF NOT AVAILABLE lotes_plantacion THEN RETURN ERROR 'Error de
+   1145      lotes de plantacion'. */
+   1146     
+   1147         VTEXTO = "DEVUELVE VALORES #612 " + STRING(AVAILABLE(LOTES_PLANT
+   1147     ACION)).
+   1148     
+   1149         FIND FIRST   lote        OF lotes_plantacion  NO-LOCK NO-ERROR.
+   1150         IF AVAILABLE lote  THEN ASSIGN 
+   1151                 vlotesenasa = lote.id_lote_senasa
+   1152                 vlote       = lote.id_lote. 
+   1153         ELSE ASSIGN vlotesenasa = 0 
+   1154                     vlote       = 0.
+   1155     
+   1156         VTEXTO = "DEVUELVE VALORES #62".
+   1157         WLOG(ARCHIVO,VTEXTO)  .
+   1158     
+   1159         FIND FIRST      origenes    OF lote NO-LOCK NO-ERROR.       
+   1160         IF AVAILABLE    origenes  THEN
+   1161             ASSIGN
+   1162                 vfincasenasa = origenes.id_finca_senasa 
+   1163                 vorigen      = origenes.id_origen 
+   1164                 vzona_up     = origenes.zona_up 
+   1165                 vrenspa      = origenes.renspa.
+   1166         ELSE
+   1167             ASSIGN
+   1168                 vfincasenasa = 0
+   1169                 vorigen      = 0
+   1170                 vzona_up     = "" 
+   1171                 vrenspa      = "".
+   1172     
+   1173         VTEXTO = "DEVUELVE VALORES #63".
+   1174         WLOG(ARCHIVO,VTEXTO)  .
+   1175     
+   1176         FIND FIRST      proveedores OF origenes  NO-LOCK NO-ERROR.
+   1177         IF AVAILABLE    proveedores THEN vproveedor = proveedores.id_pro
+   1177     veedor. 
+   1178         ELSE vproveedor = 0.
+   1179     
+   1180         VTEXTO = "DEVUELVE VALORES #7".
+   1181         WLOG(ARCHIVO,VTEXTO)  .
+   1182         
+   1183         FIND variedades WHERE variedades.id_articulo = iarticulo AND
+   1184             variedades.id_variedad = lote.id_variedad NO-LOCK NO-ERROR.
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 31  
+
+{} Line Blk
+-- ---- ---
+   1185         IF NOT AVAILABLE variedades THEN ivariedad = 0. 
+   1186         ELSE ivariedad = variedades.id_variedad.
+   1187         
+   1188         IF iarticulo = 1 THEN
+   1189             ivariedad = 1.  /***** FUERZO VARIEDAD 1 EN LIMON ***/
+   1190     
+   1191         CASE cmercado: /*** CONFIRMAR LO QUE VUELVE DE MERCADO **/
+   1192             WHEN 'UE' THEN
+   1193   1             DO:
+   1194   1                 vunioneuropea = TRUE.
+   1195   1                 vchina        = FALSE.
+   1196   1                 vusa          = FALSE.
+   1197                 END.
+   1198             WHEN 'CHINA' THEN
+   1199   1             DO:
+   1200   1                 vunioneuropea = FALSE.
+   1201   1                 vchina = TRUE.
+   1202   1                 vusa          = FALSE.
+   1203                 END.
+   1204             WHEN 'USA' THEN
+   1205   1             DO:
+   1206   1                 vunioneuropea   = FALSE.
+   1207   1                 vchina          = FALSE.
+   1208   1                 vusa            = TRUE.
+   1209                 END.
+   1210             OTHERWISE 
+   1211   1         DO:
+   1212   1             vunioneuropea = FALSE.
+   1213   1             vchina        = FALSE.
+   1214             END.
+   1215         END CASE.
+   1216         /*** DETERMINAR SI LA FRUTA ES DE FINCA O ES PROCESADA **/
+   1217         /*
+   1218         IF hTableMovfleteD:VALUE(1,15) = 'A300' THEN
+   1219             vfinca = TRUE.
+   1220         ELSE
+   1221             vfinca = FALSE.
+   1222         */
+   1223         
+   1224         VTEXTO = "DEVUELVE VALORES #7".
+   1225         WLOG(ARCHIVO,VTEXTO)  .
+   1226         
+   1227         
+   1228         
+   1229         IF SUBSTRING(CMATERIAPRIMA,1,3) = '303' THEN
+   1230             VFINCA = FALSE.
+   1231         ELSE 
+   1232             VFINCA = TRUE.
+   1233             
+   1234         IF vfinca THEN 
+   1235   1     DO:
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 32  
+
+{} Line Blk
+-- ---- ---
+   1236   1 
+   1237   1         IF vsucursal = 98 THEN
+   1238   1             vsucursaletiqueta = 101.
+   1239   1         ELSE
+   1240   1             vsucursaletiqueta = 111.
+   1241   1 
+   1242   1         ASSIGN 
+   1243   1             vsucursalpacking = 0
+   1244   1             vproveedororigen = vproveedor
+   1245   1             vorigenorigen    = vorigen.
+   1246         END.
+   1247     
+   1248     
+   1249         /**** MODIFICADO POR PABLO ****/
+   1250         WLOG(ARCHIVO, 'VSUCURSAL' + STRING(VSUCURSAL)).
+   1251         
+   1252         IF NOT vfinca THEN 
+   1253   1     DO:
+   1254   1 
+   1255   1         IF vsucursal = 98 THEN
+   1256   1             vsucursaletiqueta = 101.
+   1257   1         ELSE
+   1258   1             vsucursaletiqueta = 130.
+   1259   1 
+   1260   1         ASSIGN
+   1261   1             vsucursalpacking = vsucursal
+   1262   1             vproveedororigen = 1
+   1263   1             vorigenorigen    = (IF vsucursal = 98 THEN 97 ELSE 98).
+   1264         END.
+   1265     
+   1266         WLOG(ARCHIVO, 'VSUCURSALETIQUETA' + STRING(VSUCURSALETIQUETA)).
+   1267     
+   1268     
+   1269         MESSAGE VSUCURSALETIQUETA VFINCA.
+   1270     
+   1271         IF vtipocosecha = 4 AND VFINCA THEN 
+   1272   1     DO:
+   1273   1 
+   1274   1         IF vsucursal = 98 THEN
+   1275   1             vsucursaletiqueta = 110.
+   1276   1         ELSE
+   1277   1             vsucursaletiqueta = 130.
+   1278   1 
+   1279   1         ASSIGN
+   1280   1             vsucursalpacking = vsucursal
+   1281   1             vproveedororigen = 1
+   1282   1             vorigenorigen    = (IF vsucursal = 98 THEN 97 ELSE 98).
+   1283         END.
+   1284     
+   1285         WLOG(ARCHIVO, 'VSUCURSALETIQUETA' + STRING(VSUCURSALETIQUETA)).
+   1286     
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 33  
+
+{} Line Blk
+-- ---- ---
+   1287         
+   1288         VTEXTO = "DEVUELVE VALORES #8".
+   1289         WLOG(ARCHIVO,VTEXTO)  .
+   1290         
+   1291         vcertunion  = lote.certificado.
+   1292         vcertchina  = lote.cert_china.
+   1293     
+   1294     
+   1295         vcertificado = "".
+   1296         IF cmercado = 'UE' THEN
+   1297   1     DO:
+   1298             IF vcertunion = "" THEN UNDO , THROW NEW Progress.Lang.AppEr
+   1298   1 ror("El lote no posee certificado UE", 550).
+   1299   1         vchina = NO.
+   1300   1         vunioneuropea = TRUE.
+   1301   1         vcertificado = vcertunion.
+   1302         END.
+   1303     
+   1304     
+   1305         IF cmercado  = 'CHINA' THEN
+   1306   1     DO:
+   1307             IF vcertchina = "" THEN UNDO , THROW NEW Progress.Lang.AppEr
+   1307   1 ror("El lote no posee certificado CH", 550).
+   1308   1         vunioneuropea = NO.
+   1309   1         vchina = TRUE.
+   1310   1         vcertificado = vcertchina. 
+   1311         END.
+   1312         IF vsucursal = 98 THEN  ASSIGN v1 = 110
+   1313                 v2 = 97.
+   1314         ELSE  ASSIGN v1 = 130
+   1315                 v2 = 98. 
+   1316     /*
+   1317         CATCH ERRX AS Progress.Lang.Error :
+   1318             UNDO, THROW ERRX.
+   1319         END CATCH.
+   1320     */    
+   1321         VTEXTO = "DEVUELVE VALORES #9".
+   1322         WLOG(ARCHIVO,VTEXTO)  .
+   1323     
+   1324     END PROCEDURE.
+   1325     
+   1326     
+   1327     PROCEDURE crearpartidas :
+   1328         /*--------------------------------------------------------------
+   1328     ----------------
+   1329           Purpose:     
+   1330           Parameters:  <none>
+   1331           Notes:       
+   1332         ----------------------------------------------------------------
+   1332     --------------*/
+   1333     
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 34  
+
+{} Line Blk
+-- ---- ---
+   1334         /** Crea tabla partidas a partir de balanza_tickets */
+   1335         DEFINE INPUT PARAMETER vsuctrabajo AS INTEGER.
+   1336         DEFINE INPUT PARAMETER vpartida AS INTEGER.
+   1337     
+   1338     
+   1339         FIND FIRST produccion.partidas WHERE produccion.partidas.id_suc_
+   1339     trabajo = vsuctrabajo AND
+   1340             partidas.nro_partida = vpartida NO-ERROR.
+   1341         IF NOT AVAILABLE partidas THEN
+   1342   1     DO:
+   1343   1         CREATE partidas.
+   1344   1         ASSIGN 
+   1345   1             partidas.id_suc_trabajo = vsuctrabajo
+   1346   1             partidas.nro_partida    = vpartida.
+   1347   1      
+   1348             FIND FIRST balanza_tickets WHERE balanza_tickets.id_sucursal
+   1348   1  = partidas.id_suc_trabajo AND
+   1349   1             balanza_tickets.nro_partida = partidas.nro_partida AND 
+   1350   1             balanza_tickets.nro_partida_serial = 1 NO-LOCK.
+   1351   1         IF AVAILABLE balanza_tickets THEN
+   1352   2         DO:
+   1353   2             BUFFER-COPY balanza_tickets TO partidas.
+   1354   1         END.
+   1355         END.   
+   1356     /*  
+   1357     CATCH ERRX AS Progress.Lang.Error :
+   1358         UNDO, THROW ERRX.
+   1359     END CATCH. */
+   1360     END PROCEDURE.  
+   1361       
+   1362     PROCEDURE crearitemsstockdebalanza :
+   1363         /*--------------------------------------------------------------
+   1363     ----------------
+   1364           Purpose:     
+   1365           Parameters:  <none>
+   1366           Notes:       
+   1367         ----------------------------------------------------------------
+   1367     --------------*/
+   1368         DEFINE INPUT PARAMETER x_balanza    AS INTEGER NO-UNDO.
+   1369         DEFINE INPUT PARAMETER x_pesada     AS INTEGER NO-UNDO.
+   1370         DEFINE INPUT PARAMETER X_nro_ticket AS INTEGER NO-UNDO.
+   1371     
+   1372         DEFINE VARIABLE X_partida        AS INTEGER NO-UNDO.
+   1373         DEFINE VARIABLE X_partida_serial AS INTEGER NO-UNDO.
+   1374         DEFINE VARIABLE X_suc_etiq       AS INTEGER NO-UNDO.
+   1375         DEFINE VARIABLE X_etiqueta       AS INTEGER NO-UNDO.
+   1376         DEFINE VARIABLE v1               AS INTEGER NO-UNDO.
+   1377         DEFINE VARIABLE v2               AS INTEGER NO-UNDO.
+   1378         DEFINE VARIABLE K                AS INTEGER NO-UNDO.
+   1379     
+   1380         FIND FIRST balanza_pesadas WHERE balanza_pesadas.id_balanza = x_
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 35  
+
+{} Line Blk
+-- ---- ---
+   1380     balanza AND
+   1381             balanza_pesadas.id_pesada = x_pesada NO-LOCK.
+   1382         /*    IF NOT AVAILABLE balanza_pesadas THEN RETURN ERROR 'PESADA
+   1382      INEXISTENTE'. */
+   1383     
+   1384         FIND FIRST balanza_tickets WHERE balanza_tickets.id_balanza = X_
+   1384     balanza AND
+   1385             balanza_tickets.id_pesada = X_pesada AND
+   1386             balanza_tickets.nro_ticket = X_nro_ticket NO-LOCK.
+   1387         /*    IF NOT AVAILABLE balanza_tickets THEN RETURN ERROR 'TICKET
+   1387      INEXISTENTE'. */
+   1388     
+   1389         X_partida = balanza_tickets.nro_partida.
+   1390         x_partida_serial = balanza_tickets.nro_partida_serial.
+   1391         X_suc_etiq = balanza_tickets.id_sucursal_etiqueta.
+   1392         X_etiqueta = balanza_tickets.id_etiqueta.
+   1393     
+   1394         FIND FIRST  movsucu OF balanza_pesadas.
+   1395         IF AVAILABLE  movsucu THEN 
+   1396   1     DO:
+   1397   1         IF  movsucu.fecha_proceso = ? THEN 
+   1398   2         DO:
+   1399   2             ASSIGN
+   1400   2                 movsucu.fecha     = balanza_pesadas.fecha_salida
+   1401                     movsucu.hora      = SUBSTRING(balanza_pesadas.hora_s
+   1401   2 alida,1,2) + "00"
+   1402   2                 movsucu.peso      = balanza_pesadas.peso_neto
+   1403   2                 movsucu.c_usuario = USERID("userdb")
+   1404   2                 movsucu.c_fecha   = TODAY
+   1405   2                 movsucu.c_hora    = STRING(TIME, "hh:mm:ss").
+   1406   2 
+   1407   2             ASSIGN  
+   1408                     movsucu.fecha_operativa = balanza_pesadas.fecha_oper
+   1408   2 ativa.
+   1409   2             
+   1410   2             WLOG(ARCHIVO, 'CREAITEMSTOCK').
+   1411   2             FIND FIRST  items_stock WHERE
+   1412   2                 items_stock.id_sucursal =  movsucu.id_sucursal AND
+   1413                     items_stock.id_tipo_movsto =  movsucu.id_tipo_movsto
+   1413   2  AND
+   1414   2                 items_stock.nro =  movsucu.nro AND
+   1415   2                 items_stock.item = x_nro_ticket NO-ERROR.
+   1416   2             IF NOT AVAILABLE  items_stock THEN 
+   1417   3             DO:
+   1418   3                 CREATE  items_stock.
+   1419   3                 ASSIGN
+   1420                         items_stock.id_sucursal     = movsucu.id_sucursa
+   1420   3 l
+   1421                         items_stock.id_tipo_movsto  = movsucu.id_tipo_mo
+   1421   3 vsto
+   1422                         items_stock.id_suc_envio    = movsucu.id_suc_env
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 36  
+
+{} Line Blk
+-- ---- ---
+   1422   3 io
+   1423   3                     items_stock.nro             = movsucu.nro
+   1424                         items_stock.fecha_operativa = movsucu.fecha_oper
+   1424   3 ativa.
+   1425   3                 RUN s_stock.p (OUTPUT  items_stock.id_serial).
+   1426   2             END.
+   1427   2             
+   1428   2             
+   1429   2             ASSIGN
+   1430   2                 items_stock.nro_partida          = x_partida
+   1431   2                 items_stock.nro_partida_origen   = x_partida
+   1432                     items_stock.nro_partida_serial   = x_partida_serial 
+   1432   2     
+   1433   2                 items_stock.id_sucursal_etiqueta = x_suc_etiq
+   1434   2                 items_stock.id_etiqueta          = x_etiqueta
+   1435                     items_stock.item                 = balanza_tickets.n
+   1435   2 ro_ticket
+   1436                     items_stock.fecha                = balanza_tickets.f
+   1436   2 echa_salida
+   1437                     items_stock.hora                 = SUBSTRING(balanza
+   1437   2 _tickets.hora_salida,1,2) +
+   1438                                                           substring(bala
+   1438   2 nza_tickets.hora_salida,4,2)
+   1439                     items_stock.dia                  = WEEKDAY(balanza_t
+   1439   2 ickets.fecha_salida)
+   1440                     items_stock.nro_comprobante      = balanza_tickets.n
+   1440   2 ro_remito
+   1441                     items_stock.id_articulo          = balanza_tickets.i
+   1441   2 d_materia_prima
+   1442                     items_stock.peso                 = balanza_tickets.p
+   1442   2 eso_neto_ticket
+   1443   2                 items_stock.codigo_stock         = "I"
+   1444                     items_stock.cantidad             = balanza_tickets.c
+   1444   2 ant_env_entrada
+   1445                     items_stock.cantidad1            = balanza_tickets.p
+   1445   2 eso_neto_ticket / 20 /* cantidad de bandejas */
+   1446                     items_stock.id_calidad           = balanza_tickets.i
+   1446   2 d_calidad_balanza
+   1447                     items_stock.id_variedad          = balanza_tickets.i
+   1447   2 d_variedad
+   1448                     items_stock.id_envase            = balanza_tickets.i
+   1448   2 d_envase
+   1449   2                 items_stock.id_color             = 0
+   1450                     items_stock.fecha_cosecha        = balanza_tickets.f
+   1450   2 echa_cosecha
+   1451                     items_stock.union_europea        = balanza_tickets.u
+   1451   2 nion_europea
+   1452                     items_stock.china                = balanza_tickets.c
+   1452   2 hina
+   1453                     items_stock.id_proveedor         = balanza_tickets.i
+   1453   2 d_proveedor
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 37  
+
+{} Line Blk
+-- ---- ---
+   1454                     items_stock.id_origen            = balanza_tickets.i
+   1454   2 d_origen
+   1455                     items_stock.id_lote              = balanza_tickets.i
+   1455   2 d_lote
+   1456                     items_stock.id_finca_senasa      = balanza_tickets.i
+   1456   2 d_finca_senasa
+   1457                     items_stock.id_lote_senasa       = balanza_tickets.i
+   1457   2 d_lote_senasa
+   1458                     items_stock.codigo_trazabilidad  = balanza_tickets.c
+   1458   2 odigo_trazabilidad
+   1459                     items_stock.id_tipo_cosecha      = balanza_tickets.i
+   1459   2 d_tipo_cosecha
+   1460                     items_stock.periodo_cosecha      = balanza_tickets.p
+   1460   2 eriodo_cosecha
+   1461                     items_stock.certificado          = balanza_tickets.c
+   1461   2 ertificado
+   1462                     items_stock.cert_china           = balanza_tickets.c
+   1462   2 ert_china
+   1463                     items_stock.id_mercado           = balanza_tickets.i
+   1463   2 d_mercado          
+   1464   2                 items_stock.c_usuario            = USERID("userdb")
+   1465   2                 items_stock.c_fecha              = TODAY
+   1466                     items_stock.c_hora               = STRING(TIME, "hh:
+   1466   2 mm:ss").
+   1467   2 
+   1468   2             WLOG(ARCHIVO, 'TERMINACREAITEMSTOCK').
+   1469   2         
+   1470   2             IF  items_stock.peso <> 0 THEN
+   1471                     ASSIGN  items_stock.cantidad1 = items_stock.peso / 2
+   1471   2 0.
+   1472   2         
+   1473   2             CASE balanza_tickets.id_tipo_cosecha:
+   1474   2                 WHEN 1 THEN
+   1475   2                     items_stock.estado_fruta = FALSE.
+   1476   2                 WHEN 4 THEN
+   1477   2                     items_stock.estado_fruta = TRUE.
+   1478   2                 OTHERWISE
+   1479   2                 items_stock.estado_fruta = FALSE.
+   1480   2             END CASE.
+   1481                 WLOG(ARCHIVO, 'EMPIEZABINES ' + STRING(balanza_tickets.N
+   1481   2 RO_REMITO)).
+   1482   2             /******* Archivo de Bines *******/
+   1483   2             /***
+   1484   2             FIND FIRST bines USE-INDEX proveedor_remito WHERE
+   1485                     bines.id_proveedor  = balanza_tickets.id_proveedor A
+   1485   2 ND
+   1486   2                 bines.nro_remito    = balanza_tickets.nro_remito AND
+   1487   2                 balanza_tickets.nro_remito <> '' and
+   1488   2                 balanza_tickets.nro_remito <> ? NO-LOCK NO-ERROR.
+   1489   2             IF AVAILABLE bines THEN 
+   1490   2             DO:
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 38  
+
+{} Line Blk
+-- ---- ---
+   1491   2                 WLOG(ARCHIVO, 'EMPIEZABINES1').
+   1492   2                 FOR EACH bines WHERE
+   1493                         bines.id_proveedor  = balanza_tickets.id_proveed
+   1493   2 or AND
+   1494                         bines.nro_remito    = balanza_tickets.nro_remito
+   1494   2  AND 
+   1495   2                     bines.nro_ticket    = 0 :
+   1496   2             
+   1497   2                     ASSIGN
+   1498   2                         bines.id_balanza         = x_balanza
+   1499   2                         bines.id_pesada          = x_pesada
+   1500   2                         bines.nro_ticket         = x_nro_ticket
+   1501   2                         bines.nro_partida        = x_partida
+   1502   2                         bines.nro_partida_serial = x_partida_serial
+   1503                             bines.id_sucursal        = items_stock.id_su
+   1503   2 cursal
+   1504                             bines.id_tipo_movsto     = items_stock.id_ti
+   1504   2 po_movsto
+   1505   2                         bines.nro                = items_stock.nro
+   1506   2                         bines.item               = items_stock.item
+   1507                             bines.id_suc_envio       = items_stock.id_su
+   1507   2 c_envio
+   1508                             bines.fecha_operativa    = items_stock.fecha
+   1508   2 _operativa
+   1509   2                         bines.fecha              = items_stock.fecha
+   1510   2                         bines.hora               = items_stock.hora.
+   1511   2                 END.
+   1512   2             END.
+   1513   2             ELSE 
+   1514   2             DO:    
+   1515   2                 DO k = 1 TO balanza_tickets.cant_env_entrada:
+   1516   2                     WLOG(ARCHIVO, 'EMPIEZABINES2').
+   1517   2                     
+   1518   2                     CREATE bines.
+   1519   2                     ASSIGN
+   1520   2                         bines.id_balanza         = x_balanza
+   1521   2                         bines.id_pesada          = x_pesada
+   1522   2                         bines.nro_ticket         = x_nro_ticket
+   1523   2                         bines.nro_partida        = x_partida
+   1524   2                         bines.nro_partida_serial = x_partida_serial
+   1525                             bines.id_sucursal        = items_stock.id_su
+   1525   2 cursal
+   1526                             bines.id_tipo_movsto     = items_stock.id_ti
+   1526   2 po_movsto
+   1527   2                         bines.nro                = items_stock.nro
+   1528   2                         bines.item               = items_stock.item
+   1529                             bines.id_suc_envio       = items_stock.id_su
+   1529   2 c_envio
+   1530                             bines.fecha_operativa    = items_stock.fecha
+   1530   2 _operativa
+   1531   2                         bines.fecha              = items_stock.fecha
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 39  
+
+{} Line Blk
+-- ---- ---
+   1532   2                         bines.hora               = items_stock.hora
+   1533                             bines.id_proveedor       = items_stock.id_pr
+   1533   2 oveedor
+   1534                             bines.id_origen          = items_stock.id_or
+   1534   2 igen
+   1535                             bines.id_lote            = items_stock.id_lo
+   1535   2 te.
+   1536   2                 END.
+   1537   2             END.
+   1538   2     
+   1539   2             RELEASE bines.
+   1540   2             */
+   1541   2             WLOG(ARCHIVO, 'EMPIEZABINES3').
+   1542   2     
+   1543   2             /******* Archivo Relacion Bines/Items Stock *******/
+   1544   2             FOR EACH bines NO-LOCK WHERE
+   1545   2                 bines.nro_partida           = x_partida AND
+   1546   3                 bines.nro_partida_serial    = x_partida_serial:
+   1547   3                 WLOG(ARCHIVO, 'EMPIEZABINES4').
+   1548   3             
+   1549   3                 CREATE r_bines_items_stock.
+   1550   3                 ASSIGN
+   1551                         r_bines_items_stock.nro_bin            = bines.n
+   1551   3 ro_bin
+   1552                         r_bines_items_stock.nro_partida        = bines.n
+   1552   3 ro_partida
+   1553                         r_bines_items_stock.nro_partida_serial = bines.n
+   1553   3 ro_partida_serial
+   1554                         r_bines_items_stock.id_sucursal        = bines.i
+   1554   3 d_sucursal
+   1555                         r_bines_items_stock.id_tipo_movsto     = bines.i
+   1555   3 d_tipo_movsto
+   1556                         r_bines_items_stock.item               = bines.i
+   1556   3 tem
+   1557                         r_bines_items_stock.nro                = bines.n
+   1557   3 ro.
+   1558   2             END.
+   1559   2            
+   1560   2             RELEASE r_bines_items_stock.
+   1561   2 
+   1562   2             WLOG(ARCHIVO, 'TERMINABINES').
+   1563   2 
+   1564   2 
+   1565   2 
+   1566   2             /* Revisar --ver parametrizar */
+   1567                 IF balanza_tickets.id_sucursal = 98 THEN  ASSIGN v1 = 11
+   1567   2 0
+   1568   2                     v2 = 97.
+   1569   2             ELSE ASSIGN v1 = 130
+   1570   2                     v2 = 98. 
+   1571   2             
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 40  
+
+{} Line Blk
+-- ---- ---
+   1572   2             
+   1573   2             
+   1574   2 
+   1575                 /******* Llama al programa para estimacion cosecha *****
+   1575   2 **/
+   1576   2             IF balanza_tickets.id_tipo_cosecha = 1 AND
+   1577   2                 (balanza_tickets.union_europea OR 
+   1578   2                 balanza_tickets.china) AND
+   1579   2                 balanza_tickets.id_sucursal_etiqueta <> v1 AND
+   1580   2                 balanza_tickets.id_origen_origen <> v2 THEN 
+   1581   3             DO:
+   1582   3 
+   1583   3                 WLOG(ARCHIVO, 'ESTIMACIONCOSECHA').
+   1584   3                 RUN dd_sdoest.p
+   1585   3                     (INPUT balanza_tickets.fecha_cosecha,
+   1586   3                     INPUT balanza_tickets.id_proveedor,
+   1587   3                     INPUT balanza_tickets.id_finca_senasa,
+   1588   3                     INPUT balanza_tickets.id_lote_senasa,
+   1589   3                     INPUT balanza_tickets.certificado,
+   1590   3                     INPUT balanza_tickets.codigo_trazabilidad,
+   1591   3                     INPUT balanza_tickets.peso_neto_ticket,
+   1592   3                     INPUT "alta").
+   1593   2             END.
+   1594   2 
+   1595   1         END.
+   1596         END.
+   1597     /*
+   1598         CATCH ERRX AS Progress.Lang.Error :
+   1599             UNDO, THROW ERRX.
+   1600         END CATCH. */
+   1601     END PROCEDURE.
+   1602     
+   1603     PROCEDURE pesosbalanzapesada :
+   1604         /*--------------------------------------------------------------
+   1604     ----------------
+   1605           Purpose:     
+   1606           Parameters:  <none>
+   1607           Notes:       
+   1608         ----------------------------------------------------------------
+   1608     --------------*/
+   1609         DEFINE INPUT PARAMETER X_BALANZA AS INTEGER NO-UNDO.    
+   1610         DEFINE INPUT PARAMETER x_pesada AS INTEGER NO-UNDO.
+   1611     
+   1612         DEFINE BUFFER auxbalticket FOR balanza_tickets.
+   1613         DEFINE BUFFER auxbalpes    FOR balanza_tickets.
+   1614         DEFINE BUFFER AUXBAL       FOR balanza_PESADAS.
+   1615         
+   1616         DEFINE VARIABLE vpesoneto     AS DECIMAL.
+   1617         DEFINE VARIABLE vpesodescarte AS DECIMAL.
+   1618     
+   1619         FIND FIRST AUXBAL WHERE AUXBAL.id_balanza = X_PESADA AND AUXBAL.
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 41  
+
+{} Line Blk
+-- ---- ---
+   1619     ID_PESADA = X_PESADA  NO-LOCK NO-ERROR.
+   1620     
+   1621         
+   1622     
+   1623         IF AVAILABLE AUXBAL THEN
+   1624   1     DO:
+   1625             FIND FIRST balanzas WHERE balanzas.id_balanza = AUXBAL.ID_BA
+   1625   1 LANZA NO-LOCK.
+   1626   1         vpesoneto = 0.
+   1627             FOR EACH auxbalticket WHERE auxbalticket.id_balanza = AUXBAL
+   1627   1 .id_balanza AND
+   1628   2             auxbalticket.id_pesada = AUXBAL.id_pesada NO-LOCK:
+   1629   2             IF auxbalticket.id_tipo_cosecha = 1 OR
+   1630   2                 auxbalticket.id_tipo_cosecha = 4 OR
+   1631   2                 auxbalticket.id_tipo_cosecha = 5 THEN
+   1632   2                 vpesoneto = vpesoneto + auxbalticket.peso_neto.
+   1633   1         END.
+   1634   1         
+   1635   1         vpesodescarte = 0.
+   1636   1         IF balanzas.id_suc_envio <> 0 THEN
+   1637   2         DO:
+   1638                 FOR EACH auxbalticket WHERE auxbalticket.id_balanza = AU
+   1638   2 XBAL.id_balanza AND
+   1639   3                 auxbalticket.id_pesada = AUXBAL.id_pesada NO-LOCK:
+   1640   3                 IF auxbalticket.id_tipo_cosecha = 2 OR
+   1641   3                     auxbalticket.id_tipo_cosecha = 3 THEN
+   1642                         vpesodescarte = vpesodescarte + auxbalticket.pes
+   1642   3 o_neto.
+   1643   2             END.
+   1644   1         END.
+   1645   1         ELSE
+   1646   2         DO:
+   1647                 FOR EACH auxbalticket WHERE auxbalticket.id_balanza = AU
+   1647   2 XBAL.id_balanza AND
+   1648   3                 auxbalticket.id_pesada = AUXBAL.id_pesada NO-LOCK:
+   1649                     vpesodescarte = vpesodescarte + auxbalticket.peso_de
+   1649   3 scarte.
+   1650   2             END.
+   1651   1         END.
+   1652   1         ASSIGN 
+   1653   1             AUXBAL.peso_neto     = vpesoneto
+   1654   1             AUXBAL.peso_descarte = vpesodescarte.
+   1655         END.
+   1656     END PROCEDURE.  
+   1657     
+   1658     PROCEDURE actsaldospartidadebalanza :
+   1659         /*--------------------------------------------------------------
+   1659     ----------------
+   1660           Purpose:     
+   1661           Parameters:  <none>
+   1662           Notes:       
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 42  
+
+{} Line Blk
+-- ---- ---
+   1663         ----------------------------------------------------------------
+   1663     --------------*/
+   1664     
+   1665         DEFINE INPUT PARAMETER vsuctrabajo AS INTEGER.
+   1666         DEFINE INPUT PARAMETER vpartida AS INTEGER.
+   1667         DEFINE INPUT PARAMETER vpartidaserial AS INTEGER.
+   1668     
+   1669         FIND FIRST balanza_tickets WHERE balanza_tickets.nro_partida = v
+   1669     partida AND 
+   1670             balanza_tickets.nro_partida_serial = vpartidaserial NO-LOCK 
+   1670     NO-ERROR.
+   1671         IF AVAILABLE balanza_tickets THEN
+   1672   1     DO:
+   1673             FIND FIRST balanza_pesadas OF balanza_tickets NO-LOCK NO-ERR
+   1673   1 OR.
+   1674             FIND FIRST saldos_partidas WHERE saldos_partidas.id_suc_trab
+   1674   1 ajo = vsuctrabajo  AND
+   1675                 saldos_partidas.nro_partida = balanza_tickets.nro_partid
+   1675   1 a AND 
+   1676                 saldos_partidas.id_sucursal = balanza_pesada.id_sucursal
+   1676   1  NO-ERROR.
+   1677   1         IF NOT AVAILABLE saldos_partidas THEN
+   1678   2         DO:
+   1679   2             CREATE saldos_partidas.
+   1680   2             ASSIGN 
+   1681   2                 saldos_partidas.id_suc_trabajo = vsuctrabajo 
+   1682                     saldos_partidas.nro_partida    = balanza_tickets.nro
+   1682   2 _partida
+   1683                     saldos_partidas.id_sucursal    = balanza_pesada.id_s
+   1683   2 ucursal.
+   1684   2             
+   1685   1         END.
+   1686   1         ASSIGN 
+   1687                 saldos_partida.ingreso = saldos_partidas.ingreso + balan
+   1687   1 za_tickets.peso_neto_ticket
+   1688                 saldos_partida.saldo   = saldos_partidas.ingreso - saldo
+   1688   1 s_partidas.egreso.
+   1689         END.
+   1690     
+   1691         /* Actualiza saldos_packing */
+   1692         
+   1693        
+   1694         FIND FIRST saldos_packing WHERE
+   1695             saldos_packing.nro_partida  = vpartida AND
+   1696             saldos_packing.nro_partida_serial = vpartidaserial NO-ERROR.
+   1697         IF NOT AVAILABLE saldos_packing THEN
+   1698   1     DO:
+   1699   1         CREATE saldos_packing.
+   1700   1         ASSIGN
+   1701   1             saldos_packing.nro_partida          = vpartida
+   1702   1             saldos_packing.nro_partida_serial   = vpartidaserial
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 43  
+
+{} Line Blk
+-- ---- ---
+   1703                 saldos_packing.id_sucursal_etiqueta = balanza_tickets.id
+   1703   1 _sucursal_etiqueta
+   1704                 saldos_packing.id_etiqueta          = balanza_tickets.id
+   1704   1 _etiqueta
+   1705                 saldos_packing.id_sucursal          = balanza_pesadas.id
+   1705   1 _sucursal
+   1706                 saldos_packing.cantidad_total       = balanza_tickets.pe
+   1706   1 so_neto_ticket / 20
+   1707                 saldos_packing.saldo                = balanza_tickets.pe
+   1707   1 so_neto_ticket / 20
+   1708                 saldos_packing.saldo_camara         = balanza_tickets.pe
+   1708   1 so_neto_ticket / 20
+   1709   1             saldos_packing.c_usuario            = 'mm050'.
+   1710   1 
+   1711   1         RELEASE saldos_packing.
+   1712         END.
+   1713         
+   1714         WLOG(ARCHIVO, 'BALANZA TICKETS-PARTIDA-' + STRING(balanza_ticket
+   1714     s.NRO_PARTIDA)).
+   1715         WLOG(ARCHIVO, 'BALANZA TICKETS-SUC ETIQUETA-' +  STRING(balanza_
+   1715     tickets.id_sucursal_etiqueta)).
+   1716         
+   1717     
+   1718     
+   1719     END PROCEDURE.
+   1720     FUNCTION devuelvefechaoperativa RETURNS DATE
+   1721         ( INPUT pfecha AS DATE, INPUT phora AS CHARACTER) :
+   1722         /*--------------------------------------------------------------
+   1722     ----------------
+   1723           Purpose:   
+   1724             Notes:  
+   1725         ----------------------------------------------------------------
+   1725     --------------*/
+   1726     
+   1727         DEFINE VARIABLE vfechaop AS DATE.
+   1728       
+   1729         FIND FIRST fechas_operativas WHERE
+   1730             (fechas_operativas.fecha_inicio = pfecha AND phora >= fechas
+   1730     _operativas.hora_inicio) OR
+   1731             (fechas_operativas.fecha_fin = pfecha AND phora <= fechas_op
+   1731     erativas.hora_fin)  NO-LOCK NO-ERROR.
+   1732         IF  AVAILABLE fechas_operativas THEN 
+   1733             vfechaop = fechas_operativas.fecha_inicio.
+   1734     
+   1735     
+   1736     
+   1737         RETURN vfechaop.
+   1738     END FUNCTION.     
+   1739     
+   1740     FUNCTION nroPesada RETURNS INTEGER (INPUT IBALANZA AS INTEGER, INPUT
+   1740      IPESASA AS INTEGER):
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 44  
+
+{} Line Blk
+-- ---- ---
+   1741         DEFINE VARIABLE VINROPESADA AS INTEGER NO-UNDO.
+   1742         
+   1743         VINROPESADA = IBALANZA * 1000000 + IPESADA.
+   1744         OUTPUT TO D:\TEMP\WS2.TXT APPEND.
+   1745         RETURN VINROPESADA.
+   1746     END FUNCTION.
+   1747      
+   1748     FUNCTION WLOG RETURNS LOGICAL (INPUT ARCHIVO AS CHARACTER, INPUT TEX
+   1748     TO AS CHARACTER):
+   1749         OUTPUT TO VALUE(ARCHIVO) APPEND.
+   1750         EXPORT DELIMITER "|" STRING(NOW)  TEXTO.
+   1751         OUTPUT CLOSE.
+   1752         RETURN TRUE.
+   1752     END FUNCTION.
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 45  
+
+     File Name       Line Blk. Type   Tran            Blk. Label            
+-------------------- ---- ----------- ---- --------------------------------
+...os\qas\mm050ing.p  678 Procedure   No   Procedure ACTUALIZADOCUMENTOMATERIALPESADA
+    Buffers: produccion.bp
+
+...os\qas\mm050ing.p  685 For         Yes                                   
+...os\qas\mm050ing.p  695 Procedure   No   Procedure SAPTOBALANZAPESADA     
+...os\qas\mm050ing.p  736 Do          Yes                                   
+...os\qas\mm050ing.p  824 Procedure   No   Procedure procesarBalanzaTicket  
+    Buffers: produccion.aux_salida
+             produccion.aux_tickets
+             produccion.aux_pesada
+             produccion.balanza_tickets
+
+...os\qas\mm050ing.p  845 Do          Yes                                   
+...os\qas\mm050ing.p  866 Do          No                                    
+...os\qas\mm050ing.p  877 Do          No                                    
+...os\qas\mm050ing.p  887 Do          No                                    
+...os\qas\mm050ing.p  889 For         Yes                                   
+...os\qas\mm050ing.p  892 For         Yes                                   
+...os\qas\mm050ing.p  906 Do          No                                    
+...os\qas\mm050ing.p  908 For         No                                    
+...os\qas\mm050ing.p  930 Do          No                                    
+...os\qas\mm050ing.p  938 Do          No                                    
+...os\qas\mm050ing.p  968 Procedure   No   Procedure valoresfijos           
+...os\qas\mm050ing.p  985 Do          No                                    
+...os\qas\mm050ing.p  997 Procedure   No   Procedure devuelvevaloresmovflete
+...os\qas\mm050ing.p 1098 Do          No                                    
+...os\qas\mm050ing.p 1110 Do          No                                    
+...os\qas\mm050ing.p 1123 Do          No                                    
+...os\qas\mm050ing.p 1192 Do          No                                    
+...os\qas\mm050ing.p 1198 Do          No                                    
+...os\qas\mm050ing.p 1204 Do          No                                    
+...os\qas\mm050ing.p 1210 Do          No                                    
+...os\qas\mm050ing.p 1234 Do          No                                    
+...os\qas\mm050ing.p 1252 Do          No                                    
+...os\qas\mm050ing.p 1271 Do          No                                    
+...os\qas\mm050ing.p 1296 Do          No                                    
+...os\qas\mm050ing.p 1305 Do          No                                    
+...os\qas\mm050ing.p 1327 Procedure   Yes  Procedure crearpartidas          
+...os\qas\mm050ing.p 1341 Do          No                                    
+...os\qas\mm050ing.p 1351 Do          No                                    
+...os\qas\mm050ing.p 1362 Procedure   Yes  Procedure crearitemsstockdebalanza
+...os\qas\mm050ing.p 1395 Do          No                                    
+...os\qas\mm050ing.p 1397 Do          No                                    
+...os\qas\mm050ing.p 1416 Do          No                                    
+...os\qas\mm050ing.p 1544 For         Yes                                   
+...os\qas\mm050ing.p 1576 Do          No                                    
+...os\qas\mm050ing.p 1603 Procedure   Yes  Procedure pesosbalanzapesada     
+    Buffers: produccion.AUXBAL
+
+...os\qas\mm050ing.p 1623 Do          No                                    
+...os\qas\mm050ing.p 1627 For         No                                    
+    Buffers: produccion.auxbalticket
+
+...os\qas\mm050ing.p 1636 Do          No                                    
+...os\qas\mm050ing.p 1638 For         No                                    
+    Buffers: produccion.auxbalticket
+
+...os\qas\mm050ing.p 1645 Do          No                                    
+...os\qas\mm050ing.p 1647 For         No                                    
+    Buffers: produccion.auxbalticket
+
+...os\qas\mm050ing.p 1658 Procedure   Yes  Procedure actsaldospartidadebalanza
+...os\qas\mm050ing.p 1671 Do          No                                    
+...os\qas\mm050ing.p 1677 Do          No                                    
+...os\qas\mm050ing.p 1697 Do          No                                    
+...os\qas\mm050ing.p 1720 Function    No   Function devuelvefechaoperativa  
+...os\qas\mm050ing.p 1740 Function    No   Function nroPesada               
+...os\qas\mm050ing.p 1748 Function    No   Function WLOG                    
+    Frames:  Unnamed
+
+...os\qas\mm050ing.p    0 Procedure   No                                    
+    Buffers: produccion.fechas_operativas
+             produccion.saldos_packing
+             produccion.saldos_partidas
+             produccion.r_bines_items_stock
+             ppacking.bines
+             produccion.partidas
+             produccion.variedades
+             general.proveedores
+             produccion.colores
+             produccion.r_envases_prod
+             produccion.envases_prod
+             produccion.tipos_servicios
+             produccion.tipo_cosecha
+             general.tipo_movsto
+             general.movsucu
+             general.tipo_numero
+             RESPUESTAS
+             produccion.balanza_tickets
+             produccion.balanza_pesadas
+             TTING
+             general.items_stock
+             produccion.balanzas
+             general.mercados
+             produccion.origenes
+             produccion.lote
+             general.lotes_plantacion
+             POSICIONES
+
+...os\qas\mm050ing.p  199 Do          No                                    
+...os\qas\mm050ing.p  219 For         No                                    
+...os\qas\mm050ing.p  221 Do          No                                    
+...os\qas\mm050ing.p  236 Do          No                                    
+...os\qas\mm050ing.p  248 Do          No                                    
+...os\qas\mm050ing.p  258 Do          No                                    
+...os\qas\mm050ing.p  260 Do          No                                    
+...os\qas\mm050ing.p  306 For         No                                    
+...os\qas\mm050ing.p  309 Do          No                                    
+...os\qas\mm050ing.p  323 Do          No                                    
+...os\qas\mm050ing.p  333 Do          No                                    
+...os\qas\mm050ing.p  343 Do          No                                    
+...os\qas\mm050ing.p  353 Do          No                                    
+...os\qas\mm050ing.p  392 For         No                                    
+...os\qas\mm050ing.p  405 Do          No                                    
+...os\qas\mm050ing.p  408 For         No                                    
+    Buffers: general.AUX_IT
+
+...os\qas\mm050ing.p  417 Do          No                                    
+...os\qas\mm050ing.p  429 For         No                                    
+...os\qas\mm050ing.p  448 Do          No                                    
+...os\qas\mm050ing.p  460 Catch       No                                    
+...os\qas\mm050ing.p                  06/19/2017 15:21:27   PROGRESS(R) Page 46  
+
+     File Name       Line Blk. Type   Tran            Blk. Label            
+-------------------- ---- ----------- ---- --------------------------------
+...os\qas\mm050ing.p  466 Finally     No                                    
+...os\qas\mm050ing.p  470 Do          Yes                                   
+...os\qas\mm050ing.p  493 For         No                                    
+...os\qas\mm050ing.p  502 For         Yes                                   
+    Buffers: general.aux_items
+             produccion.periodo_cosecha
+             produccion.productos_terminados
+
+...os\qas\mm050ing.p  582 Do          No                                    
+...os\qas\mm050ing.p  609 Do          No                                    
+

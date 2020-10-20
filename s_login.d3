@@ -1,0 +1,9 @@
+if opsys = "UNIX" or opsys = "WIN32" then
+  assign path = vlc_dir_fuentes + "especificos," +
+                vlc_dir_fuentes + "supervisor,".
+
+if opsys = "UNIX" or opsys = "WIN32" then
+  if defpropath <> ? and defpropath <> "" then
+    assign propath = path + defpropath.
+  else
+    assign propath = path.

@@ -1,0 +1,116 @@
+DEFINE VAR r AS ROWID.
+DEFINE VAR v_total_kgs_contratos AS DECIMAL.
+DEFINE VAR v_total_tambores_contratos AS INTEGER.
+DEFINE VAR v_kgs_items AS DECIMAL.
+DEFINE VAR v_kgs_asignados AS DECIMAL.
+DEFINE VAR v_kgs_acum_asignados AS DECIMAL.
+DEFINE VAR v_kgs_pendientes AS DECIMAL.
+DEFINE VAR v_lotes AS CHAR.
+DEFINE VAR v_kgs_asignados_of AS DECIMAL.
+DEFINE VAR v_kgs_acum_asignados_of AS DECIMAL.
+DEFINE VAR v_kgs_pendientes_of AS DECIMAL.
+DEFINE VAR v_lotes_of AS CHAR.
+DEFINE VAR tiene-oe AS LOGICAL INITIAL FALSE.
+DEFINE VAR v_tambores_lote AS INTEGER.
+DEFINE BUFFER b_cont FOR contratos.
+DEFINE BUFFER b_item_cont FOR items_contratos.
+
+FOR EACH prog_produccion.
+    DELETE prog_produccion.
+END.
+
+FOR EACH items_contratos NO-LOCK
+                        WHERE items_contratos.anio_semana_entrega >= YEAR(TODAY)
+                        BY items_contratos.anio_semana_entrega
+                        BY items_contratos.semana_entrega
+                        BY items_contratos.semana_entrega_hasta.
+    FIND FIRST items_orden_entrega OF items_contratos NO-LOCK NO-ERROR.
+    IF NOT AVAILABLE items_orden_entrega THEN DO:
+        /* SI ENTRA ACA ES PORQUE ES UNA PARTE PENDIENTE */
+        FIND FIRST contratos OF items_contratos NO-LOCK NO-ERROR.
+        IF AVAILABLE contratos THEN DO:
+            FOR EACH b_item_cont OF contratos NO-LOCK.
+                v_total_tambores_contratos = v_total_tambores_contratos + b_item_cont.cantidad.
+                
+                IF b_item_cont.id_articulo = 51 THEN DO:
+                    FIND r_envases_prod OF b_item_cont NO-LOCK NO-ERROR.
+                    IF AVAILABLE r_envases_prod THEN DO:
+                        v_total_kgs_contratos =  v_total_kgs_contratos + (b_item_cont.cantidad * 
+                                                                          r_envases_prod.kilos).
+                    END.
+                END.
+                ELSE
+                DO:
+                    FIND r_productos_calidad_envase OF b_item_cont NO-LOCK NO-ERROR.
+                    IF AVAILABLE r_productos_calidad_envase THEN DO:
+                        v_total_kgs_contratos =  v_total_kgs_contratos + (b_item_cont.cantidad * 
+                                                                          r_productos_calidad_envase.kilos).
+                    END.
+                END.
+            END.
+            
+            {n:\industria\i_calculo_prog_produccion1_todas.i}
+           
+            v_total_kgs_contratos = 0.
+            v_kgs_acum_asignados = 0.
+            v_kgs_acum_asignados_of = 0.
+        END.
+
+    END.
+    IF AVAILABLE items_orden_entrega THEN DO:
+        
+        v_tambores_lote = 0.
+        FOR EACH tambores_industria OF items_orden_entrega NO-LOCK.
+            v_tambores_lote = v_tambores_lote + 1.
+        END.
+
+        /* ACA ENTRA SI YA TIENE UNA OE, FALTA VER SI ESTA TOTALMENTE REALIZADA */
+        IF items_contrato.cantidad <> items_orden_entrega.cantidad_tambores OR
+           items_contrato.cantidad <> v_tambores_lote THEN DO:
+            FIND FIRST contratos OF items_contratos NO-LOCK NO-ERROR.
+            IF AVAILABLE contratos THEN DO:
+                FOR EACH b_item_cont OF contratos NO-LOCK.
+                    v_total_tambores_contratos = v_total_tambores_contratos + b_item_cont.cantidad.
+                    IF b_item_cont.id_articulo = 51 THEN DO:
+                        FIND r_envases_prod OF b_item_cont NO-LOCK NO-ERROR.
+                        IF AVAILABLE r_envases_prod THEN DO:
+                            v_total_kgs_contratos =  v_total_kgs_contratos + (b_item_cont.cantidad * 
+                                                                              r_envases_prod.kilos).
+                        END.
+                    END.
+                    ELSE DO:
+                        FIND r_productos_calidad_envase OF b_item_cont NO-LOCK NO-ERROR.
+                        IF AVAILABLE r_productos_calidad_envase THEN DO:
+                            v_total_kgs_contratos =  v_total_kgs_contratos + (b_item_cont.cantidad * 
+                                                                              r_productos_calidad_envase.kilos).
+                    END.
+                END.
+            END.
+            FOR EACH items_orden_entrega OF items_contratos NO-LOCK.
+                
+                v_lotes = "".
+                v_kgs_asignados = 0.    
+                FOR EACH tambores_industria OF items_orden_entrega NO-LOCK
+                                            BREAK BY id_lote.
+                    IF FIRST-OF(tambores_industria.id_lote) THEN DO:
+                        v_lotes = v_lotes + " " + string(tambores_industria.id_lote) + "/" + STRING(YEAR(tambores_industria.fecha)).
+                    END.
+                    v_kgs_asignados = v_kgs_asignados + tambores_industria.kilos_tambor.
+                        
+                END.
+                    
+                v_kgs_acum_asignados = v_kgs_acum_asignados + v_kgs_asignados.
+                /*{n:\industria\i_calculo_prog_produccion.i}*/
+                {n:\industria\i_calculo_prog_produccion1_todas.i}
+                tiene-oe = TRUE.
+            END.
+                
+            v_total_kgs_contratos = 0.
+            v_kgs_acum_asignados = 0.
+            v_kgs_acum_asignados_of = 0.
+        END.
+    END.
+END.
+END.                                    
+
+ 

@@ -1,0 +1,97 @@
+=====================================================
+PROGRESS stack trace as of Tue Apr 11 19:30:11 2017
+=====================================================
+Startup parameters:
+-pf C:\Progress\OpenEdge102b\startup.pf,-cpinternal ISO8859-1,-cpstream ISO8859-1,-cpcoll Spanish9,-cpcase Basic,-d dmy,-numsep 44,-numdec 46,(end .pf),-wy,-debugalert,-inp 16000,-tok 4000,-rereadnolock,-s 200,-mmax 65534,-T C:\OpenEdge\WRK102b,-p C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_server.p
+
+Exception code: C0000005 ACCESS_VIOLATION
+Fault address:  02F90000 211:0239009C GùèþÿÿÿQ†Œw~Rw
+
+Registers:
+EAX:6E18BC8E
+EBX:032B0000
+ECX:02F90000
+EDX:02F90000
+ESI:02F90000
+EDI:02F90000
+CS:EIP:0023:02F90000
+SS:ESP:002B:0593FF84  EBP:0593FF94
+DS:002B  ES:002B  FS:0053  GS:002B
+Flags:00010246
+
+
+Debugging dll C:\Windows\SYSTEM32\DBGHELP.DLL
+Symbol Path:
+ C:\Progress\OpenEdge102b\bin;C:\Progress\OpenEdge102b\pdbfiles
+
+
+Call Stack:
+Address   Frame
+02F90000  00000000  0000:00000000 
+76687C04  00000000  BaseThreadInitThunk+24
+778DAB8F  00000000  RtlInitializeExceptionChain+8F
+778DAB5A  00000000  RtlInitializeExceptionChain+5A
+
+
+** ABL Stack Trace **
+
+--> C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_server.p (C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_server.p) at line 141
+
+** Persistent procedures/Classes **
+
+Handle  File Name
+002871  C:\Progress\OpenEdge102b\gui\_dict.r
+002769  C:\Progress\OpenEdge102b\gui\_dict.r
+002667  C:\Progress\OpenEdge102b\gui\_dict.r
+002559  C:\Progress\OpenEdge102b\gui\_dict.r
+002200  C:\Progress\OpenEdge102b\gui\adm2\design.r
+002147  C:\Progress\OpenEdge102b\gui\adm2\filter.r
+002081  C:\Progress\OpenEdge102b\gui\adm2\toolbar.r
+001962  C:\Progress\OpenEdge102b\gui\adm2\browser.r
+001960  C:\Progress\OpenEdge102b\gui\adm2\datavis.r
+001958  C:\Progress\OpenEdge102b\gui\adm2\visual.r
+001800  C:\Progress\OpenEdge102b\gui\adm2\dataextapi.r
+001799  C:\Progress\OpenEdge102b\gui\adm2\dataextcols.r
+001798  C:\Progress\OpenEdge102b\gui\adm2\dataext.r
+001797  C:\Progress\OpenEdge102b\gui\adm2\data.r
+001781  C:\Progress\OpenEdge102b\gui\adm2\queryext.r
+001780  C:\Progress\OpenEdge102b\gui\adm2\query.r
+001777  C:\Progress\OpenEdge102b\gui\adm2\dataquery.r
+001774  C:\Progress\OpenEdge102b\gui\adm2\appserver.r
+001770  C:\Progress\OpenEdge102b\gui\adm2\smart.r
+001768  adecomm/as-utils.r
+001209  adecomm/_winmenu.r
+001009  adecomm/oeideservice.r
+001008  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_serverDEFAULT.p
+001007  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.ve_10.2.1.08\runtime\_ideveruntime.p
+001006  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.text_10.2.1.08\runtime\_idetxtruntime.p
+001005  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_idewsruntime.p
+001004  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_idedbruntime.p
+001003  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.oestudio_10.2.1.08\runtime\_abruntime.p
+001000  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_oeidecontext.p
+
+//=====================================================
+PROGRESS stack trace as of Tue Apr 11 19:30:17 2017
+//=====================================================
+Exception code: C0000005 ACCESS_VIOLATION
+Fault address:  02F90000 00:00318898 
+
+Registers:
+EAX:6E18BC8E
+EBX:032B0000
+ECX:02F90000
+EDX:02F90000
+ESI:02F90000
+EDI:02F90000
+CS:EIP:0023:02F90000
+SS:ESP:002B:0593FF84  EBP:0593FF94
+DS:002B  ES:002B  FS:0053  GS:002B
+Flags:00010246
+
+Call Stack:
+Address   Frame
+02F90000  0593FF80  0000:00000000 
+76687C04  0593FF94  BaseThreadInitThunk+24
+778DAB8F  0593FFDC  RtlInitializeExceptionChain+8F
+778DAB5A  0593FFEC  RtlInitializeExceptionChain+5A
+

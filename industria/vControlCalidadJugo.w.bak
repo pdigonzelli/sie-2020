@@ -1,0 +1,497 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER AB_v9r12 GUI ADM2
+&ANALYZE-RESUME
+/* Connected Databases 
+          general          PROGRESS
+          produccion       PROGRESS
+          general         PROGRESS
+*/
+&Scoped-define WINDOW-NAME CURRENT-WINDOW
+
+/* Temp-Table and Buffer definitions                                    */
+DEFINE TEMP-TABLE RowObject
+       {"dLotesJugo.i"}.
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS vTableWin 
+/*------------------------------------------------------------------------
+
+  File:
+
+  Description: from viewer.w - Template for SmartDataViewer objects
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress AppBuilder.      */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartDataViewer
+&Scoped-define DB-AWARE no
+
+&Scoped-define ADM-CONTAINER FRAME
+
+&Scoped-define ADM-SUPPORTED-LINKS Data-Target,Update-Source,TableIO-Target,GroupAssign-Source,GroupAssign-Target
+
+/* Include file with RowObject temp-table definition */
+&Scoped-define DATA-FIELD-DEFS "dLotesJugo.i"
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME F-Main
+
+/* Standard List Definitions                                            */
+&Scoped-Define ENABLED-FIELDS RowObject.control_calidad ~
+RowObject.microbiologia RowObject.pesticida RowObject.sensorial 
+&Scoped-define ENABLED-TABLES RowObject
+&Scoped-define FIRST-ENABLED-TABLE RowObject
+&Scoped-Define ENABLED-OBJECTS chkFisico chkMicro chkPesticida chkSensorial 
+&Scoped-Define DISPLAYED-FIELDS RowObject.fecha_control_calidad ~
+RowObject.fecha_microbiologia RowObject.fecha_pesticida ~
+RowObject.control_calidad RowObject.microbiologia RowObject.pesticida ~
+RowObject.sensorial RowObject.fecha_sensorial 
+&Scoped-define DISPLAYED-TABLES RowObject
+&Scoped-define FIRST-DISPLAYED-TABLE RowObject
+&Scoped-Define DISPLAYED-OBJECTS chkFisico chkMicro chkPesticida ~
+chkSensorial 
+
+/* Custom List Definitions                                              */
+/* ADM-ASSIGN-FIELDS,List-2,List-3,List-4,List-5,List-6                 */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+/* ***********************  Control Definitions  ********************** */
+
+
+/* Definitions of the field level widgets                               */
+DEFINE VARIABLE chkFisico AS LOGICAL INITIAL no 
+     LABEL "Control Fisico Quimico" 
+     VIEW-AS TOGGLE-BOX
+     SIZE 27 BY .81 NO-UNDO.
+
+DEFINE VARIABLE chkMicro AS LOGICAL INITIAL no 
+     LABEL "Control Microbiologia" 
+     VIEW-AS TOGGLE-BOX
+     SIZE 27 BY .81 NO-UNDO.
+
+DEFINE VARIABLE chkPesticida AS LOGICAL INITIAL no 
+     LABEL "Control Pesticida" 
+     VIEW-AS TOGGLE-BOX
+     SIZE 27 BY .81 NO-UNDO.
+
+DEFINE VARIABLE chkSensorial AS LOGICAL INITIAL no 
+     LABEL "Control Sensorial" 
+     VIEW-AS TOGGLE-BOX
+     SIZE 23 BY .81 NO-UNDO.
+
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME F-Main
+     chkFisico AT ROW 1 COL 1
+     RowObject.fecha_control_calidad AT ROW 1 COL 53 COLON-ALIGNED
+          LABEL "Fecha Aprobacion"
+          VIEW-AS FILL-IN 
+          SIZE 16 BY 1
+     RowObject.fecha_microbiologia AT ROW 2.52 COL 53 COLON-ALIGNED
+          LABEL "Fecha Aprobacion"
+          VIEW-AS FILL-IN 
+          SIZE 16 BY 1
+     chkMicro AT ROW 2.67 COL 1
+     RowObject.fecha_pesticida AT ROW 4.14 COL 53 COLON-ALIGNED
+          LABEL "Fecha Aprobacion"
+          VIEW-AS FILL-IN 
+          SIZE 16 BY 1
+     chkPesticida AT ROW 4.33 COL 1
+     RowObject.control_calidad AT ROW 5.05 COL 3 COLON-ALIGNED NO-LABEL
+          VIEW-AS FILL-IN 
+          SIZE 10.6 BY 1
+     RowObject.microbiologia AT ROW 5.05 COL 15 COLON-ALIGNED NO-LABEL
+          VIEW-AS FILL-IN 
+          SIZE 10.6 BY 1
+     RowObject.pesticida AT ROW 5.05 COL 26 COLON-ALIGNED NO-LABEL
+          VIEW-AS FILL-IN 
+          SIZE 10.6 BY 1
+     RowObject.sensorial AT ROW 5.05 COL 37 COLON-ALIGNED NO-LABEL
+          VIEW-AS FILL-IN 
+          SIZE 10.6 BY 1
+     RowObject.fecha_sensorial AT ROW 5.76 COL 53 COLON-ALIGNED
+          LABEL "Fecha Aprobacion"
+          VIEW-AS FILL-IN 
+          SIZE 16 BY 1
+     chkSensorial AT ROW 6 COL 1
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY USE-DICT-EXPS 
+         SIDE-LABELS NO-UNDERLINE THREE-D NO-AUTO-VALIDATE 
+         AT COL 1 ROW 1
+         SIZE 70.2 BY 5.91.
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartDataViewer
+   Data Source: "dLotesJugo.w"
+   Allow: Basic,DB-Fields,Smart
+   Container Links: Data-Target,Update-Source,TableIO-Target,GroupAssign-Source,GroupAssign-Target
+   Frames: 1
+   Add Fields to: Neither
+   Other Settings: PERSISTENT-ONLY COMPILE
+   Temp-Tables and Buffers:
+      TABLE: RowObject D "?" ?  
+      ADDITIONAL-FIELDS:
+          {dLotesJugo.i}
+      END-FIELDS.
+   END-TABLES.
+ */
+
+/* This procedure should always be RUN PERSISTENT.  Report the error,  */
+/* then cleanup and return.                                            */
+IF NOT THIS-PROCEDURE:PERSISTENT THEN DO:
+  MESSAGE "{&FILE-NAME} should only be RUN PERSISTENT.":U
+          VIEW-AS ALERT-BOX ERROR BUTTONS OK.
+  RETURN.
+END.
+
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+/* DESIGN Window definition (used by the UIB) 
+  CREATE WINDOW vTableWin ASSIGN
+         HEIGHT             = 5.91
+         WIDTH              = 70.2.
+/* END WINDOW DEFINITION */
+                                                                        */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB vTableWin 
+/* ************************* Included-Libraries *********************** */
+
+{src/adm2/viewer.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR WINDOW vTableWin
+  VISIBLE,,RUN-PERSISTENT                                               */
+/* SETTINGS FOR FRAME F-Main
+   NOT-VISIBLE                                                          */
+ASSIGN 
+       FRAME F-Main:HIDDEN           = TRUE.
+
+ASSIGN 
+       RowObject.control_calidad:HIDDEN IN FRAME F-Main           = TRUE.
+
+/* SETTINGS FOR FILL-IN RowObject.fecha_control_calidad IN FRAME F-Main
+   NO-ENABLE EXP-LABEL                                                  */
+/* SETTINGS FOR FILL-IN RowObject.fecha_microbiologia IN FRAME F-Main
+   NO-ENABLE EXP-LABEL                                                  */
+/* SETTINGS FOR FILL-IN RowObject.fecha_pesticida IN FRAME F-Main
+   NO-ENABLE EXP-LABEL                                                  */
+/* SETTINGS FOR FILL-IN RowObject.fecha_sensorial IN FRAME F-Main
+   NO-ENABLE EXP-LABEL                                                  */
+ASSIGN 
+       RowObject.microbiologia:HIDDEN IN FRAME F-Main           = TRUE.
+
+ASSIGN 
+       RowObject.pesticida:HIDDEN IN FRAME F-Main           = TRUE.
+
+ASSIGN 
+       RowObject.sensorial:HIDDEN IN FRAME F-Main           = TRUE.
+
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+
+/* Setting information for Queries and Browse Widgets fields            */
+
+&ANALYZE-SUSPEND _QUERY-BLOCK FRAME F-Main
+/* Query rebuild information for FRAME F-Main
+     _Options          = "NO-LOCK"
+     _Query            is NOT OPENED
+*/  /* FRAME F-Main */
+&ANALYZE-RESUME
+
+ 
+
+
+
+/* ************************  Control Triggers  ************************ */
+
+&Scoped-define SELF-NAME chkFisico
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL chkFisico vTableWin
+ON VALUE-CHANGED OF chkFisico IN FRAME F-Main /* Control Fisico Quimico */
+DO:
+  rowObject.CONTROL_calidad:SCREEN-VALUE       = SELF:SCREEN-VALUE.
+  rowObject.fecha_control_calidad:SCREEN-VALUE = IF LOGICAL(SELF:SCREEN-VALUE) THEN STRING(TODAY) ELSE "".
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME chkMicro
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL chkMicro vTableWin
+ON VALUE-CHANGED OF chkMicro IN FRAME F-Main /* Control Microbiologia */
+DO:
+  rowObject.microbiologia:SCREEN-VALUE       = SELF:SCREEN-VALUE.
+  rowObject.fecha_microbiologia:SCREEN-VALUE = IF LOGICAL(SELF:SCREEN-VALUE) THEN STRING(TODAY) ELSE "".
+
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME chkPesticida
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL chkPesticida vTableWin
+ON VALUE-CHANGED OF chkPesticida IN FRAME F-Main /* Control Pesticida */
+DO:
+  rowObject.pesticida:SCREEN-VALUE        = SELF:SCREEN-VALUE.
+  rowObject.fecha_pesticida:SCREEN-VALUE  = IF LOGICAL(SELF:SCREEN-VALUE) THEN STRING(TODAY) ELSE "".
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME chkSensorial
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL chkSensorial vTableWin
+ON VALUE-CHANGED OF chkSensorial IN FRAME F-Main /* Control Sensorial */
+DO:
+  rowObject.sensorial:SCREEN-VALUE       = SELF:SCREEN-VALUE.
+  rowObject.fecha_sensorial:SCREEN-VALUE = IF LOGICAL(SELF:SCREEN-VALUE) THEN STRING(TODAY) ELSE "".
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&UNDEFINE SELF-NAME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK vTableWin 
+
+
+/* ***************************  Main Block  *************************** */
+  {adm2/support/viewTrg.i}.  
+  &IF DEFINED(UIB_IS_RUNNING) <> 0 &THEN          
+    RUN initializeObject.
+  &ENDIF         
+  
+  /************************ INTERNAL PROCEDURES ********************/
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE customEnable vTableWin 
+PROCEDURE customEnable :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER plState AS LOGICAL    NO-UNDO.
+
+  chkFisico:SENSITIVE IN FRAME F-Main        = plState.
+  chkMicro:SENSITIVE IN FRAME F-Main         = plState.
+  chkPesticida:SENSITIVE IN FRAME F-Main     = plState.
+  chkSensorial:SENSITIVE IN FRAME F-Main     = plState.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disableFields vTableWin 
+PROCEDURE disableFields :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  DEFINE INPUT PARAMETER pcFieldType AS CHARACTER NO-UNDO.
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER( INPUT pcFieldType).
+
+  RUN customEnable(FALSE).
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI vTableWin  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Hide all frames. */
+  HIDE FRAME F-Main.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE displayFields vTableWin 
+PROCEDURE displayFields :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  DEFINE INPUT PARAMETER pcColValues AS CHARACTER NO-UNDO.
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER( INPUT pcColValues).
+
+  DEFINE VARIABLE iLoop          AS INTEGER   NO-UNDO.
+  DEFINE VARIABLE iNumEntries    AS INTEGER   NO-UNDO.
+  DEFINE VARIABLE hField         AS HANDLE    NO-UNDO.
+  DEFINE VARIABLE cFieldHandles  AS CHARACTER NO-UNDO.
+  DEFINE VARIABLE cCont          AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE hTableioSource AS HANDLE    NO-UNDO.
+
+
+
+
+  ASSIGN cFieldHandles  = DYNAMIC-FUNCTION('getAllFieldHandles')
+         iNumEntries    = NUM-ENTRIES(cFieldHandles)
+         hTableioSource = DYNAMIC-FUNCTION('getTableIOSource').
+
+  DO iLoop = 1 TO iNumEntries:
+    ASSIGN hField = WIDGET-HANDLE(ENTRY(iLoop,cFieldHandles)).
+
+    IF NOT VALID-HANDLE(hField) THEN RETURN.
+
+    IF hField:NAME = "control_calidad"  THEN DO:
+      chkFisico:SCREEN-VALUE IN FRAME F-Main =  IF STRING(hField:SCREEN-VALUE) = "Aprobado" THEN STRING(TRUE) ELSE STRING(FALSE).
+    END.
+
+    IF hField:NAME = "microbiologia"  THEN DO:
+      chkMicro:SCREEN-VALUE IN FRAME F-Main =  IF STRING(hField:SCREEN-VALUE) = "Aprobado" THEN STRING(TRUE) ELSE STRING(FALSE).
+    END.
+
+    IF hField:NAME = "pesticida"  THEN DO:
+      chkPesticida:SCREEN-VALUE IN FRAME F-Main =  IF STRING(hField:SCREEN-VALUE) = "Aprobado" THEN STRING(TRUE) ELSE STRING(FALSE).
+    END.
+
+    IF hField:NAME = "sensorial"  THEN DO:
+      chkSensorial:SCREEN-VALUE IN FRAME F-Main =  IF STRING(hField:SCREEN-VALUE) = "Aprobado" THEN STRING(TRUE) ELSE STRING(FALSE).
+    END.
+
+  END.
+
+  
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE enableFields vTableWin 
+PROCEDURE enableFields :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  RUN customEnable(TRUE).
+  setDataModified (TRUE).
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE initializeObject vTableWin 
+PROCEDURE initializeObject :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  RUN customEnable(FALSE).
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE updateRecord vTableWin 
+PROCEDURE updateRecord :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+

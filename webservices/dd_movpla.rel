@@ -1,0 +1,223 @@
+/*-----CONSULTA POR CAMPO RELACIONADO-----*/
+if frame-field = "hora" then do:
+    xHora = input items_stock.hora.
+    if integer (substr(xHora,1,2)) >= 0 and
+        integer (substr(xHora,1,2)) < 24 and
+        integer (substr(xHora,3,2)) >= 0 and
+        integer (substr(xHora,3,2)) < 60 then do:
+        
+        display xHora @ items_stock.hora
+            with frame trabajo.
+    end.
+    else do:
+        message "ERROR EN INGRESO DE HORA"
+            view-as alert-box.
+        items_stock.hora = substring(string(time,"hh:mm"),1,2) +
+                           substring(string(time,"hh:mm"),4,2).
+        display items_stock.hora @ items_stock.hora
+            with frame trabajo.
+        apply "entry" to items_stock.hora in frame trabajo.
+        return no-apply.
+    end.
+end.
+
+
+/*-----CONSULTA POR CAMPO RELACIONADO-----*/
+if frame-field = "xPartida" then do:
+    xPartida    = input xPartida.
+    if xPartida <> 0 then do:
+        x_partida   = integer(substr(string(xPartida, "9999999999"),1,8)).
+        x_partida_s = integer(substr(string(xPartida, "9999999999"),9,2)).
+
+        
+        MESSAGE X_PARTIDA X_PARTIDA_S x_fecha_des x_origen VIEW-AS ALERT-BOX.
+        
+        find first saldos_packing where
+            saldos_packing.nro_partida = x_partida and
+            saldos_packing.nro_partida_serial = x_partida_s
+            no-error.
+        
+        if available saldos_packing and
+            saldos_packing.abierto and
+            saldos_packing.habilitado and
+            saldos_packing.id_sucursal_etiqueta = x_origen then do:
+
+            find first aux_items where
+                aux_items.nro_partida = x_partida and
+                aux_items.nro_partida_serial = x_partida_s and
+                aux_items.fecha_operativa <= x_fecha_des
+                no-lock no-error.
+
+                
+            if available aux_items and aux_items.fecha_operativa <= x_fecha_des then do:
+                if aux_items.id_articulo <> x_materia and
+                    aux_items.id_variedad <> x_variedad then do:
+                    message "ESPECIE O VARIEDAD DIFERENTE"
+                        view-as alert-box.
+                    xPartida    = 0.
+                    display xPartida @ xPartida
+                        with frame trabajo.
+                    apply "entry" to xPartida in frame trabajo.
+                    return no-apply.
+                end.
+                else do:
+                    display
+                        aux_items.id_articulo           @ items_stock.id_articulo
+                        aux_items.id_variedad           @ items_stock.id_variedad
+                        aux_items.fecha_cosecha         @ items_stock.fecha_cosecha
+                        aux_items.id_tipo_cosecha       @ items_stock.id_tipo_cosecha
+                        aux_items.estado_fruta          @ items_stock.estado_fruta
+                        aux_items.codigo_trazabilidad   @ items_stock.codigo_trazabilidad
+                        aux_items.id_proveedor          @ items_stock.id_proveedor
+                        aux_items.id_origen             @ items_stock.id_origen
+                        aux_items.id_lote               @ items_stock.id_lote
+                        aux_items.union_europea         @ items_stock.union_europea
+                        aux_items.china                 @ items_stock.china
+                        aux_items.certificado           @ items_stock.certificado
+                        aux_items.id_color              @ items_stock.id_color
+                        saldos_packing.saldo            @ items_stock.cantidad
+                        with frame trabajo.
+                        
+                    find productos_terminados of aux_items no-lock no-error.
+                    if available productos_terminados then
+                        display productos_terminados.abreviatura @ productos_terminados.abreviatura
+                            with frame trabajo.
+                    else
+                        display "" @ productos_terminados.abreviatura
+                            with frame trabajo.
+
+                    find variedades of aux_items no-lock no-error.
+                    if available variedades then
+                        display variedades.abreviatura @ variedades.abreviatura
+                            with frame trabajo.
+                    else
+                        display "" @ variedades.abreviatura
+                            with frame trabajo.
+        
+                    find tipo_cosecha of aux_items no-lock no-error.
+                    if available tipo_cosecha then
+                        display tipo_cosecha.descripcion @ tipo_cosecha.descripcion
+                            with frame trabajo.
+                    else
+                        display "" @ tipo_cosecha.descripcion
+                            with frame trabajo.
+                
+                    find proveedores of aux_items no-lock no-error.
+                    if available proveedores then
+                        display proveedores.nombre @ proveedores.nombre
+                            with frame trabajo.
+                    else
+                        display "" @ proveedores.nombre
+                            with frame trabajo.
+                    
+                    find origenes of aux_items no-lock no-error.
+                    if available origenes then do:
+                        x_finca_senasa  = substr(origenes.zona_up,1,2) + "-" +
+                                          string(aux_items.id_finca_senasa,"9999") + "-" +
+                                          string(aux_items.id_lote_senasa,"999").
+                        display
+                            x_finca_senasa @ x_finca_senasa
+                            origenes.abreviatura @ origenes.abreviatura
+                            with frame trabajo.
+                    end.
+                    else do:
+                        x_finca_senasa  = "XX" + "-" +
+                                          string(aux_items.id_finca_senasa,"9999") + "-" +
+                                          string(aux_items.id_lote_senasa,"999").
+                        display
+                            x_finca_senasa @ x_finca_senasa
+                            "" @ origenes.abreviatura
+                            with frame trabajo.
+                    end.
+                    
+                    find lote of aux_items no-lock no-error.
+                    if available lote then
+                        display lote.abreviatura @ lote.abreviatura
+                            with frame trabajo.
+                    else
+                        display "" @ lote.abreviatura
+                            with frame trabajo.
+
+                    find first colores of aux_items no-lock no-error.
+                    if available colores then
+                        display colores.abreviatura @ colores.abreviatura
+                            with frame trabajo.
+                    else
+                        display "" @ colores.abreviatura
+                            with frame trabajo.
+        
+                    assign
+                         items_stock.nro_comprobante         = aux_items.nro_comprobante
+                         items_stock.id_sucursal_etiqueta    = aux_items.id_sucursal_etiqueta
+                         items_stock.id_etiqueta             = aux_items.id_etiqueta
+                         items_stock.nro_partida             = x_partida
+                         items_stock.nro_partida_serial      = x_partida_s
+                         items_stock.nro_partida_origen      = x_partida
+                         items_stock.id_articulo             = aux_items.id_articulo
+                         items_stock.id_variedad             = aux_items.id_variedad
+                         items_stock.fecha_cosecha           = aux_items.fecha_cosecha
+                         items_stock.estado_fruta            = aux_items.estado_fruta
+                         items_stock.camara                  = aux_items.camara
+                         items_stock.codigo_trazabilidad     = aux_items.codigo_trazabilidad
+                         items_stock.id_proveedor            = aux_items.id_proveedor
+                         items_stock.id_origen               = aux_items.id_origen
+                         items_stock.id_lote                 = aux_items.id_lote
+                         items_stock.renspa                  = aux_items.renspa
+                         items_stock.zona_up                 = aux_items.zona_up
+                         items_stock.id_tipo_cosecha         = aux_items.id_tipo_cosecha
+                         items_stock.union_europea           = aux_items.union_europea
+                         items_stock.certificado             = aux_items.certificado
+                         items_stock.china                   = aux_items.china
+                         items_stock.cert_china              = aux_items.cert_china
+                         items_stock.id_finca_senasa         = aux_items.id_finca_senasa
+                         items_stock.id_lote_senasa          = aux_items.id_lote_senasa
+                         items_stock.id_color                = aux_items.id_color.
+        
+                    g_resto_bdjas = saldos_packing.saldo.
+                end.
+            end.
+            if available aux_items and aux_items.fecha_operativa > x_fecha_des then do:
+                message "Partida con Fecha Posterior: " +
+                    string(aux_items.fecha_operativa,"99/99/99")
+                    view-as alert-box.
+                xPartida = 0.
+                display xPartida @ xPartida
+                    with frame trabajo.
+                apply "entry" to xPartida in frame trabajo.
+                return no-apply.
+            end.
+        end.
+        else do:
+            message "Partida Inexistente" view-as alert-box.
+            xPartida = 0.
+            display xPartida @ xPartida
+                with frame trabajo.
+            apply "entry" to xPartida in frame trabajo.
+            return no-apply.
+        end.
+        release saldos_packing.
+    end.
+    else do:
+        message "Debe Ingresar Nro.de Partida" view-as alert-box.
+        xPartida = 0.
+        display xPartida @ xPartida
+            with frame trabajo.
+        apply "entry" to xPartida in frame trabajo.
+        return no-apply.
+    end.
+end.
+
+
+/*-----CONSULTA POR CAMPO RELACIONADO-----*/
+if frame-field = "cantidad" then do:
+    xCantidad = input items_stock.cantidad.
+    if xCantidad <= 0 or
+        xCantidad > g_resto_bdjas then do:
+        message "ERROR EN INGRESO DE CANTIDAD"
+            view-as alert-box.
+        display g_resto_bdjas @ items_stock.cantidad
+            with frame trabajo.
+        apply "entry" to items_stock.cantidad in frame trabajo.
+        return no-apply.
+    end.
+end.

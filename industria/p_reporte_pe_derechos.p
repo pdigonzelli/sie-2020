@@ -1,0 +1,209 @@
+DEFINE INPUT PARAMETER v_fecha_liq AS DATE.
+DEFINE INPUT PARAMETER v_despachante AS INTEGER.
+DEFINE INPUT PARAMETER v_fecha_desde AS DATE.
+DEFINE INPUT PARAMETER v_fecha_hasta AS DATE.
+
+
+DEFINE VAR v_semana AS INTEGER.
+DEFINE VAR v_total AS DECIMAL.
+DEFINE VAR v_total_semana AS DECIMAL.
+DEFINE VAR v_total_articulo AS DECIMAL.
+
+
+/*-- VARIABLES DE EXCEL --*/
+
+    define var chExcelAplication as com-handle.
+    define var chWorkbook        as com-handle.
+    define var chWorkSheet       as com-handle.
+    define var chchart           as com-handle.
+    define var chWorkSheetRange  as com-handle.
+    DEFINE VAR chpicture         AS COM-HANDLE.
+
+    define var ifila  as integer.
+    define var cfila  as character.
+    define var crange as character.
+
+ /*-- FIN VARIABLES DE EXCEL --*/
+{..\industria\semana.i}
+
+v_semana = semana(v_fecha_liq).
+
+/*-- CONFIGURACION INICIAL --*/
+
+    create "Excel.Application" chExcelAplication.
+    chExcelAplication:visible = true.
+    chWorkbook  = chExcelAplication:Workbooks:add().
+    chWorkSheet = chExcelAplication:Sheets:Item(1). 
+  
+
+    /* Formato del titulo general */
+    chWorkSheet:Range("A1:AP6"):Font:Bold           = true.
+    chWorkSheet:Range("A1:AP1900"):Font:size        = 8.
+    chWorkSheet:Range("A6:AP6"):HorizontalAlignment = 3.
+    chPicture = chWorkSheet:Pictures:INSERT("..\industria\Sami.jpg").
+    chPicture:HEIGHT = 57.
+    chPicture:WIDTH = 136.
+    
+    
+    
+
+    /* Ancho de las columnas */
+    chWorkSheet:Columns("A"):ColumnWidth = 5.
+    chWorkSheet:Columns("B"):ColumnWidth = 15.
+    chWorkSheet:Columns("C"):ColumnWidth = 15.
+    chWorkSheet:Columns("D"):ColumnWidth = 15.
+    chWorkSheet:Columns("E"):ColumnWidth = 15.
+    chWorkSheet:Columns("F"):ColumnWidth = 15.
+    chWorkSheet:Columns("G"):ColumnWidth = 15.
+    chWorkSheet:Columns("H"):ColumnWidth = 15.
+    chWorkSheet:Columns("I"):ColumnWidth = 15.
+    /* chWorkSheet:Columns("I"):NumberFormat = " ###,###,##0.00".*/
+    chWorkSheet:Columns("J"):ColumnWidth = 15.
+
+ /*-- FIN CONFIGURACION INICIAL --*/
+ 
+
+  chWorkSheet:Range("A5:Z5"):HorizontalAlignment = 3.
+ 
+  chWorkSheet:Range("B5"):Value = "Fecha Liquidación".
+  chWorkSheet:Range("B5"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("B5"):interior:colorindex = 19.
+  chWorkSheet:Range("B5"):Font:colorindex = 1.
+  chWorkSheet:Range("C5"):Value = v_fecha_liq.
+  chWorkSheet:Range("C5"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("B6"):Value = "Semana".
+  chWorkSheet:Range("B6"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("B6"):interior:colorindex = 19.
+  chWorkSheet:Range("B6"):Font:colorindex = 1.
+  chWorkSheet:Range("C6"):Value = v_semana.
+  chWorkSheet:Range("C6"):BorderAround(1,2,1,1).
+
+  ifila = 9.
+FOR EACH permisos_embarque WHERE (IF v_fecha_liq <> ?  THEN permisos_embarque.fecha          = v_fecha_liq   ELSE TRUE)
+                             AND (IF v_despachante > 0 THEN permisos_embarque.id_despachante = v_despachante ELSE TRUE)
+                             AND (IF v_fecha_desde <> ? THEN permisos_embarque.fecha        >= v_fecha_desde ELSE TRUE)
+                             AND (IF v_fecha_hasta <> ? THEN permisos_embarque.fecha        <= v_fecha_hasta ELSE TRUE)
+                           NO-LOCK
+                        BREAK BY permisos_embarque.id_articulo
+                              BY permisos_embarque.fecha_venc_derecho.
+    FIND despachantes OF permisos_embarque NO-LOCK NO-ERROR.
+    FIND items_orden_entrega OF permisos_embarque NO-LOCK NO-ERROR.
+    FIND aduanas OF permisos_embarque NO-LOCK NO-ERROR.
+
+    IF FIRST-OF(permisos_embarque.id_articulo) THEN DO:
+        chWorkSheet:Range("B" + string(ifila) + ":G" + string(ifila)):MergeCells = True.
+        FIND FIRST productos_terminados OF permisos_embarque NO-LOCK NO-ERROR.
+        IF AVAILABLE productos_terminados THEN 
+            chWorkSheet:Range("B" + string(ifila)):Value = productos_terminados.abreviatura.
+        ELSE
+            chWorkSheet:Range("B" + string(ifila)):Value = "NONE - " + STRING(permisos_embarque.id_articulo).
+        
+        chWorkSheet:Range("B" + string(ifila)):BorderAround(1,2,1,1).
+        chWorkSheet:Range("B" + string(ifila)):interior:colorindex = 31.
+        chWorkSheet:Range("B" + string(ifila)):Font:colorindex = 2.
+  
+    END.
+  
+    IF FIRST-OF(permisos_embarque.fecha_venc_derecho) THEN DO:
+        ifila = ifila + 1.
+        chWorkSheet:Range("B" + string(ifila)):Value = "Fecha Venc. Derecho".
+        chWorkSheet:Range("B" + string(ifila)):BorderAround(1,2,1,1).
+        chWorkSheet:Range("B" + string(ifila)):interior:colorindex = 22.
+        chWorkSheet:Range("B" + string(ifila)):Font:colorindex = 1.
+        chWorkSheet:Range("C" + string(ifila)):Value = permisos_embarque.fecha_venc_derecho.
+        chWorkSheet:Range("C" + string(ifila)):BorderAround(1,2,1,1).
+
+        ifila = ifila + 1.
+        chWorkSheet:Range("C" + string(ifila)):Value = "OE".
+        chWorkSheet:Range("C" + string(ifila)):BorderAround(1,2,1,1).
+        chWorkSheet:Range("C" + string(ifila)):interior:colorindex = 32.
+        chWorkSheet:Range("C" + string(ifila)):Font:colorindex = 2.
+        chWorkSheet:Range("D" + string(ifila)):Value = "DESPACHANTE".
+        chWorkSheet:Range("D" + string(ifila)):BorderAround(1,2,1,1).
+        chWorkSheet:Range("D" + string(ifila)):interior:colorindex = 32.
+        chWorkSheet:Range("D" + string(ifila)):Font:colorindex = 2.
+        chWorkSheet:Range("E" + string(ifila)):Value = "P/E".
+        chWorkSheet:Range("E" + string(ifila)):BorderAround(1,2,1,1).
+        chWorkSheet:Range("E" + string(ifila)):interior:colorindex = 32.
+        chWorkSheet:Range("E" + string(ifila)):Font:colorindex = 2.
+        chWorkSheet:Range("F" + string(ifila)):Value = "ADUANA".
+        chWorkSheet:Range("F" + string(ifila)):BorderAround(1,2,1,1).
+        chWorkSheet:Range("F" + string(ifila)):interior:colorindex = 32.
+        chWorkSheet:Range("F" + string(ifila)):Font:colorindex = 2.
+        chWorkSheet:Range("G" + string(ifila)):Value = "IMPORTE".
+        chWorkSheet:Range("G" + string(ifila)):BorderAround(1,2,1,1).
+        chWorkSheet:Range("G" + string(ifila)):interior:colorindex = 32.
+        chWorkSheet:Range("G" + string(ifila)):Font:colorindex = 2.
+        
+    END.
+
+  
+     /*------------------------------------ PROCESO PRINCIPAL ---------------------------------------*/
+        ifila = ifila + 1.
+        cfila  = string(ifila).
+        
+        
+        cRange = "C" + cfila.
+        chWorkSheet:Range(crange):value = STRING(permisos_embarque.id_orden_entrega) + "-" +
+                                          STRING(permisos_embarque.ITEM_oe).
+        cRange = "D" + cfila.
+        chWorkSheet:Range(crange):value = despachantes.descripcion.
+        cRange = "E" + cfila.
+        chWorkSheet:Range(crange):value = STRING(permisos_embarque.anio) + " " + STRING(permisos_embarque.id_aduana) + " " + permisos_embarque.id_permiso_embarque.
+        cRange = "F" + cfila.
+        chWorkSheet:Range(crange):value = aduanas.descripcion.
+        cRange = "G" + cfila.
+        chWorkSheet:Range(crange):value = permisos_embarque.importe_derecho.
+        
+        v_total              = v_total + permisos_embarque.importe_derecho.
+        v_total_semana       = v_total_semana + permisos_embarque.importe_derecho.
+        v_total_articulo     = v_total_articulo + permisos_embarque.importe_derecho.
+
+      /*----------------------------------- FIN PROCESO PRINCIPAL ----------------------------*/
+
+
+    IF LAST-OF(permisos_embarque.fecha_venc_derecho) THEN DO:
+        ifila = ifila + 1.
+        cfila  = string(ifila).
+        cRange = "F" + cfila.
+        chWorkSheet:Range(crange):value = "TOTAL SEMANA".
+        chWorkSheet:Range(crange):interior:colorindex = 22.
+        chWorkSheet:Range(crange):Font:colorindex = 1.
+        cRange = "G" + cfila.
+        chWorkSheet:Range(crange):value = v_total_semana.
+        v_total_semana = 0.
+    END.
+
+    IF LAST-OF(permisos_embarque.id_articulo) THEN DO:
+        ifila = ifila + 1.
+        cfila  = string(ifila).
+        cRange = "F" + cfila.
+        chWorkSheet:Range(crange):value = "TOTAL ARTICULO".
+        chWorkSheet:Range(crange):interior:colorindex = 31.
+        chWorkSheet:Range(crange):Font:colorindex = 2.
+        cRange = "G" + cfila.
+        chWorkSheet:Range(crange):value = v_total_articulo.
+        v_total_articulo = 0.
+        ifila = ifila + 2.
+        
+    END.
+
+
+
+END.
+
+        ifila = ifila + 1.
+        cfila  = string(ifila).
+        cRange = "F" + cfila.
+        chWorkSheet:Range(crange):value = "TOTAL GENERAL".
+        chWorkSheet:Range(crange):interior:colorindex = 19.
+        chWorkSheet:Range(crange):Font:colorindex = 1.
+        cRange = "G" + cfila.
+        chWorkSheet:Range(crange):value = v_total.
+        v_total = 0.
+        ifila = ifila + 1.
+
+  /*-- LIBERA VARIABLES DE EXCEL --*/
+    if valid-handle(chExcelAplication) then RELEASE OBJECT chExcelAplication.
+    if valid-handle(chWorkBook)        then RELEASE OBJECT chWorkBook.
+    if valid-handle(chWorkSheet)       then RELEASE OBJECT chWorkSheet.  

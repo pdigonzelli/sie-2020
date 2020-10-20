@@ -1,0 +1,36 @@
+    run p_calcula_galones_tambor.p (  input tambores_industria.id_etiqueta, OUTPUT gall ).
+         
+             if v_cantidad_tambores <> 0 then   
+             industria.orden_entrega.cantidad:screen-value in frame F-Main               = string(v_cantidad_tambores).
+             industria.orden_entrega.kgs_netos_tambores:screen-value in frame F-Main     = string(v_kilos).
+             industria.orden_entrega.kgs_brutos_tambores:screen-value in frame F-Main    = string(v_kilos_brutos).
+                 
+                case items_contratos.id_tipo_unidad_venta_origen:
+                    when 1 then /* TONELADAS */
+                        do:
+                            v_precio_total = ((v_kilos / 1000) * items_contrato.precio_origen).
+                        end.
+                    when 2 then /* KILOS */
+                        do:
+                            v_precio_total = (v_kilos * items_contrato.precio_origen).
+                        end.
+                    when 3 then /* GALONES */                    
+                        do:
+                            if items_contrato.id_articulo = 52 or
+                               items_contrato.id_articulo = 53 then
+                                do:       
+                                
+                                 industria.orden_entrega.grados_brix:screen-value in frame F-Main = string(v_gall_brix).                               
+                                 industria.orden_entrega.total_galones:screen-value in frame F-Main          = string(gall).
+                 
+                                end.
+
+                            v_precio_total = (gall * items_contrato.precio_origen).
+                        end.
+                    when 4 then /* LIBRAS */
+                        do:
+                            v_precio_total = ((v_kilos * 2.20462) * items_contrato.precio_origen).
+                        end.
+               end case. 
+               
+               industria.orden_entrega.total_factura:screen-value in frame F-Main  = string(v_precio_total).

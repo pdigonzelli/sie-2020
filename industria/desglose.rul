@@ -1,0 +1,103 @@
+
+# FOB
+#100-THC (ORIGEN); es_fob > calcZero
+#101-TOLL; es_fob > calcZero
+#102-HANDLING (GATE OUT); es_fob > calcZero
+#102-ADVANCED MANIFEST CARGO; es_fob > calcZero
+#103-COMISION; es_fob > calcZero
+#104-BILL OF LAIDING; es_fob > calcZero
+
+
+
+# CFR 
+5-FLETE; es_cfr > calcFlete
+17-BUNKER; es_cfr > calcBunker
+26-INBALANCE SURCHARGE; es_cfr > calcInbalance
+37-SECURITY CHARGE; es_cfr > calcSecurityCharge
+31-PEAK SURCHARGE (EBAF); es_cfr > calcEbaf
+
+# CIP
+11-SEGURO; es_cip > calcSeguro
+
+
+# CIF
+5-FLETE; es_cif > calcFlete
+17-BUNKER; es_cif > calcBunker
+26-INBALANCE SURCHARGE; es_cif > calcInbalance
+37-SECURITY CHARGE; es_cif > calcSecurityCharge
+31-PEAK SURCHARGE (EBAF); es_cif > calcEbaf
+11-SEGURO; es_cif > calcSeguro
+32-AMS; es_cif > calcAmc
+
+
+# DDP
+5-FLETE; es_ddp > calcFlete
+20-THC DESTINO; NOT es_canada AND NOT es_europa AND es_ddp > calcThcDestino
+33-CUSTOM BROKER FEE; es_ddp > calcCustomBrokerFee
+7-REPROCESO; es_ddp > calcReproceso
+16-CHASSIS FEE; NOT es_canada AND NOT es_miami AND NOT es_europa AND es_ddp > calcInland
+13-IKS; es_ddp AND es_cliente_iks > calcIks
+38-DESTINATION SECURITY; es_ddp > calcDestinationSecurity
+39-PANAMA CANAL TOLL; es_ddp > calcPanamaToll
+40-B/L DESTINO; NOT es_canada AND es_maersk AND es_ddp > calcBL
+41-WHARFAGE; NOT es_canada AND NOT es_miami AND NOT es_europa AND es_ddp > calcWharfage
+22-FCA COSTS; es_ddp > calcFcaCosts
+24-PALLETIZING; es_ddp > calcPalletizing
+35-SERVICE FEE; NOT es_canada AND NOT es_miami AND es_ddp > calcServiceFee
+28-WAREHOUSE; es_ddp > calcWarehouse
+6-DELIVERY EN DESTINO; es_ddp > calcDelivery
+17-BUNKER; es_ddp > calcBunker
+26-INBALANCE SURCHARGE; es_ddp > calcInbalance
+37-SECURITY CHARGE; es_ddp > calcSecurityCharge
+31-PEAK SURCHARGE (EBAF); es_ddp > calcEbaf
+11-SEGURO; es_ddp > calcSeguro
+12-VARIOS; es_ddp > calcVarios
+42-DOC FEE; es_ddp > calcDocFee
+8-DUTIES (ENTRY); es_europa AND es_ddp > calcEntryEuropa
+34-DUTIES USA; es_usa AND es_ddp > calcEntryUsa
+
+# DDU
+5-FLETE; es_ddu > calcFlete
+20-THC DESTINO; NOT es_canada AND NOT es_europa AND es_ddu > calcThcDestino
+33-CUSTOM BROKER FEE; es_ddu > calcCustomBrokerFee
+16-CHASSIS FEE; es_ddu > calcInland
+12-VARIOS; es_ddu > calcVarios
+13-IKS; es_ddu > calcIks
+38-DESTINATION SECURITY; es_ddu > calcDestinationSecurity
+39-PANAMA CANAL TOLL; es_ddu > calcZero
+40-B/L DESTINO; NOT es_canada AND es_maersk AND es_ddu > calcBL
+41-WHARFAGE; es_ddu > calcWharfage
+22-FCA COSTS; es_ddu > calcFcaCosts
+24-PALLETIZING; es_ddu > calcPalletizing
+35-SERVICE FEE; es_ddu > calcServiceFee
+28-WAREHOUSE; es_ddu > calcWareHouse
+6-DELIVERY EN DESTINO; es_ddu > calcDelivery
+17-BUNKER; es_ddu > calcBunker
+26-INBALANCE SURCHARGE; es_ddu > calcInbalance
+37-SECURITY CHARGE; es_ddu > calcZero
+31-PEAK SURCHARGE (EBAF); es_ddu > calcEbaf
+11-SEGURO; es_ddu > calcSeguro
+
+
+# EDDP
+5-FLETE; es_eddp > calcFlete
+8-DUTIES (ENTRY); es_eddp > calcEntryUsa
+20-THC DESTINO; NOT es_canada AND NOT es_europa AND es_eddp > calcThcDestino
+33-CUSTOM BROKER FEE; es_eddp > calcCustomBrokerFee
+16-CHASSIS FEE; es_eddp > calcInland
+12-VARIOS; es_eddp > calcVarios
+13-IKS; es_cliente_iks AND es_eddp > calcIks
+38-DESTINATION SECURITY; es_eddp > calcDestinationSecurity
+39-PANAMA CANAL TOLL; es_eddp > calcPanamaToll
+40-B/L DESTINO; NOT es_canada AND es_maersk AND es_eddp > calcBL
+41-WHARFAGE; es_eddp > calcWharfage
+22-FCA COSTS; es_eddp > calcFcaCosts
+24-PALLETIZING; es_eddp > calcPalletizing
+35-SERVICE FEE; es_eddp > calcServiceFee
+28-WAREHOUSE; es_eddp > calcWareHouse
+17-BUNKER; es_eddp > calcBunker
+26-INBALANCE SURCHARGE; es_eddp > calcInbalance
+37-SECURITY CHARGE; es_eddp > calcSecurityCharge
+31-PEAK SURCHARGE (EBAF); es_eddp > calcEbaf
+11-SEGURO; es_eddp > calcSeguro
+  

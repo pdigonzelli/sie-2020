@@ -1,0 +1,578 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER UIB_v9r12
+&ANALYZE-RESUME
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS Procedure 
+/*------------------------------------------------------------------------
+    File        : 
+    Purpose     :
+
+    Syntax      :
+
+    Description :
+
+    Author(s)   :
+    Created     :
+    Notes       :
+  ----------------------------------------------------------------------*/
+/*          This .W file was created with the Progress AppBuilder.      */
+/*----------------------------------------------------------------------*/
+
+/* ***************************  Definitions  ************************** */
+
+/*TEMP-TABLES*/
+
+DEFINE TEMP-TABLE ttInal
+  RCODE-INFORMATION
+  FIELD id_orden_entrega AS INTEGER   COLUMN-LABEL "OE"
+  FIELD cliente          AS CHARACTER COLUMN-LABEL "Cliente"
+  FIELD destino_final    AS CHARACTER COLUMN-LABEL "Destino"
+  FIELD producto         AS CHARACTER COLUMN-LABEL "Producto"
+  FIELD tambores         AS INTEGER   COLUMN-LABEL "Tambores"
+  FIELD kilos_netos      AS DECIMAL   COLUMN-LABEL "Kilos"
+  .
+
+DEFINE TEMP-TABLE ttEmbarques
+  RCODE-INFORMATION
+  FIELD id_orden_entrega  AS INTEGER   COLUMN-LABEL "OE"
+  FIELD cliente           AS CHARACTER COLUMN-LABEL "Cliente"
+  FIELD producto          AS CHARACTER COLUMN-LABEL "Produto"
+  FIELD agencia           AS CHARACTER COLUMN-LABEL "Agencia"
+  FIELD vapor             AS CHARACTER COLUMN-LABEL "Vapor"
+  FIELD cantidad          AS INTEGER   COLUMN-LABEL "Qty"
+  FIELD tipo_contenedor   AS CHARACTER COLUMN-LABEL "Tipo Cont"
+  FIELD booking           AS CHARACTER COLUMN-LABEL "Booking"
+  FIELD destino           AS CHARACTER COLUMN-LABEL "Destino"
+  FIELD cutoff            AS DATE      COLUMN-LABEL "Cut Off"
+  FIELD Inal              AS CHARACTER COLUMN-LABEL "Inal"
+  FIELD orden_retiro      AS CHARACTER COLUMN-LABEL "Orden Retiro"
+  FIELD reserva_espacio   AS CHARACTER COLUMN-LABEL "Reserva Espacio"
+  FIELD asociacion        AS CHARACTER COLUMN-LABEL "Asociacion con Tbs"
+  FIELD remito            AS CHARACTER COLUMN-LABEL "Remito"
+  FIELD fax               AS CHARACTER COLUMN-LABEL "Fax"
+  FIELD observaciones     AS CHARACTER COLUMN-LABEL "Observaciones"
+  .
+
+DEFINE TEMP-TABLE ttRtosTransito
+  RCODE-INFORMATION
+  FIELD nro_comp        AS CHARACTER  COLUMN-LABEL "Remito"
+  FIELD fecha           AS DATE       COLUMN-LABEL "Fecha"
+  FIELD oe              AS INTEGER    COLUMN-LABEL "OE"
+  FIELD cliente         AS CHARACTER  COLUMN-LABEL "Cliente"
+  FIELD lugdes          AS CHARACTER  COLUMN-LABEL "Lugar Descarga"
+  FIELD destino         AS CHARACTER  COLUMN-LABEL "Destino"
+  .
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE Procedure
+&Scoped-define DB-AWARE no
+
+
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: Procedure
+   Allow: 
+   Frames: 0
+   Add Fields to: Neither
+   Other Settings: CODE-ONLY COMPILE
+ */
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+/* DESIGN Window definition (used by the UIB) 
+  CREATE WINDOW Procedure ASSIGN
+         HEIGHT             = 15
+         WIDTH              = 60.
+/* END WINDOW DEFINITION */
+                                                                        */
+&ANALYZE-RESUME
+
+ 
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK Procedure 
+
+
+/* ***************************  Main Block  *************************** */
+
+DEFINE VARIABLE hLib AS HANDLE     NO-UNDO.
+
+RUN libLogistica.p PERSISTENT SET hLib.
+THIS-PROCEDURE:ADD-SUPER-PROCEDURE(hLib, SEARCH-SELF).
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&IF DEFINED(EXCLUDE-buttonAction1) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE buttonAction1 Procedure 
+PROCEDURE buttonAction1 :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER pcArgs AS CHARACTER  NO-UNDO.
+
+  RUN SUPER (pcArgs).
+
+  DEFINE VARIABLE iWeek   AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE cRgo    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cDocS   AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cDocN   AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE dDesde  AS DATE       NO-UNDO.
+  DEFINE VARIABLE dHasta  AS DATE       NO-UNDO.
+  DEFINE VARIABLE hLibCom AS HANDLE     NO-UNDO.
+  DEFINE VARIABLE hLib    AS HANDLE     NO-UNDO.
+
+  
+  RUN libCommonFunctions.p PERSISTENT SET hLibCom.
+  hLib = DYNAMIC-FUNCTION('getPersistentLib' IN hLibCom, 'libOrdenEntrega.p').
+  
+  RELEASE documentos_oe.
+
+  iWeek  = INTEGER(pcArgs).
+  cRgo   = DYNAMIC-FUNCTION('getFechasSemana' IN hLibCom, iWeek, YEAR(TODAY)).
+  dDesde = DATE(ENTRY(1, cRgo)).
+  dHasta = DATE(ENTRY(2, cRgo)).
+
+  FOR EACH ttEmbarques.
+    DELETE ttEmbarques.
+  END.
+
+  FOR EACH orden_entrega
+      WHERE orden_entrega.fecha_embarque >= dDesde
+        AND orden_entrega.fecha_embarque <= dHasta
+      NO-LOCK, 
+      EACH items_orden_entrega 
+        OF orden_entrega
+      NO-LOCK.
+
+    FIND FIRST clientes_ventas OF items_orden_entrega NO-LOCK NO-ERROR.
+    FIND FIRST calidades OF items_orden_entrega NO-LOCK NO-ERROR.
+    FIND FIRST agencias WHERE agencias.id_agencia =  orden_entrega.id_agencia NO-LOCK NO-ERROR.
+    FIND FIRST vapores OF orden_entrega NO-LOCK NO-ERROR.
+    FIND FIRST destinos OF orden_entrega NO-LOCK NO-ERROR.
+    FIND FIRST tipo_contenedor OF items_orden_entrega NO-LOCK NO-ERROR.
+
+    CREATE ttEmbarques.    
+    ASSIGN ttEmbarques.id_orden_entrega = items_orden_entrega.id_orden_entrega
+           ttEmbarques.cliente          = IF AVAILABLE clientes_ventas THEN clientes.razon_social ELSE "NONE"
+           ttEmbarques.producto         = IF AVAILABLE calidades THEN calidades.descripcion ELSE "NONE"
+           ttEmbarques.agencia          = IF AVAILABLE agencias THEN agencias.descripcion ELSE "NONE"
+           ttEmbarques.vapor            = IF AVAILABLE vapores THEN vapores.descripcion ELSE "NONE"
+           ttEmbarques.cantidad         = items_orden_entrega.contenedores
+           ttEmbarques.tipo_contenedor  = IF AVAILABLE tipo_contenedor THEN tipo_contenedor.descripcion ELSE "NONE"
+           ttEmbarques.booking          = orden_entrega.booking
+           ttEmbarques.destino          = IF AVAILABLE destinos THEN destinos.descripcion ELSE "NONE"
+           ttEmbarques.cutoff           = orden_entrega.fecha_cut_off
+           ttEmbarques.observaciones    = orden_entrega.observaciones
+           .
+
+    FOR EACH documentos_oe
+          OF orden_entrega
+        NO-LOCK.
+      cDocS = "".
+      IF documentos_oe.fecha_cumplido <> ? THEN 
+        cDocS = "X".
+      CASE documentos_oe.id_tipo_documento.
+        WHEN 1 THEN ttEmbarques.inal        = cDocS.
+        WHEN 2 THEN ttEmbarques.orden       = cDocS.
+        WHEN 3 THEN ttEmbarques.reserva     = cDocS.
+        WHEN 4 THEN ttEmbarques.asociacion  = cDocS.
+        WHEN 5 THEN ttEmbarques.remito      = cDocS.
+        WHEN 6 THEN ttEmbarques.fax         = cDocS.
+      END CASE.
+    END.
+  
+    
+
+  END.
+  
+  RUN generateExcel.p (TABLE ttEmbarques,
+                       " Estados OEs ",
+                       " ",
+                       7,
+                       8,
+                       "Arial",
+                       8).
+
+
+
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-buttonAction2) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE buttonAction2 Procedure 
+PROCEDURE buttonAction2 :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER pcArgs AS CHARACTER  NO-UNDO.
+
+  RUN SUPER (pcArgs).
+
+  DEFINE VARIABLE hLibCom AS HANDLE     NO-UNDO.
+  DEFINE VARIABLE cRgo    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE dDesde  AS DATE       NO-UNDO.
+  DEFINE VARIABLE dHasta  AS DATE       NO-UNDO.
+  DEFINE VARIABLE iWeek   AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE fKil    AS DECIMAL    NO-UNDO.
+
+
+  RUN libCommonFunctions.p PERSISTENT SET hLibCom.
+
+  iWeek  = INTEGER(pcArgs).
+  cRgo   = DYNAMIC-FUNCTION('getFechasSemana' IN hLibCom, iWeek, YEAR(TODAY)).
+  dDesde = DATE(ENTRY(1, cRgo)).
+  dHasta = DATE(ENTRY(2, cRgo)).
+
+  FOR EACH ttInal.
+    DELETE ttInal.
+  END.
+
+  RELEASE documentos_oe.
+
+  FOR EACH documentos_oe
+      WHERE documentos_oe.fecha_cumplido    = ?
+        AND documentos_oe.id_tipo_documento = 1, 
+      EACH orden_entrega 
+        OF documentos_oe 
+      WHERE orden_entrega.fecha_embarque >= dDesde
+      NO-LOCK, 
+      FIRST items_orden_entrega 
+         OF orden_entrega 
+      WHERE (items_orden_entrega.id_articulo = 52 OR items_orden_entrega.id_articulo = 53 OR items_orden_entrega.id_articulo = 71) 
+      NO-LOCK .
+
+    FIND FIRST destinos OF orden_entrega NO-LOCK NO-ERROR.
+    
+    FIND FIRST clientes_ventas OF items_orden_entrega NO-LOCK NO-ERROR.
+    FIND FIRST productos_terminados OF items_orden_entrega NO-LOCK NO-ERROR.
+    FIND FIRST calidades OF items_orden_entrega NO-LOCK NO-ERROR.
+
+    /*estimacion de kilos */
+    fKil = 0.
+    IF AVAILABLE calidades THEN DO:
+      IF calidades.descripcion MATCHES "*400*" THEN
+        fKil = 250 * items_orden_entrega.tambores_pedidos.
+      
+      IF calidades.descripcion MATCHES "*480*" THEN
+        fKil = 250 * items_orden_entrega.tambores_pedidos.
+      
+      IF calidades.descripcion MATCHES "*500*" THEN
+        fKil = 260 * items_orden_entrega.tambores_pedidos.
+
+      IF calidades.descripcion MATCHES "*pulp*" THEN
+        fKil = 19.60 * items_orden_entrega.tambores_pedidos.
+
+    END.
+
+    CREATE ttInal.
+    ASSIGN ttInal.id_orden_entrega  = documentos_oe.id_orden_entrega
+           ttInal.cliente           = IF AVAILABLE clientes_ventas THEN clientes.razon_social ELSE ""
+           ttInal.destino_final     = IF AVAILABLE destinos THEN destinos.descripcion ELSE ""
+           ttInal.producto          = IF AVAILABLE calidades THEN calidades.descripcion ELSE ""
+           ttInal.tambores          = items_orden_entrega.tambores_pedidos
+           ttInal.kilos_netos       = fKil
+           .
+
+    /*marca como pedidos los inales cuando tira el listado*/
+    ASSIGN documentos_oe.fecha_pedido   = TODAY
+           documentos_oe.fecha_cumplido = TODAY.
+           
+        
+  END.
+
+  RUN generateExcel.p (INPUT TABLE ttInal,
+                         INPUT " Inales a Solicitar ",
+                         INPUT " ",
+                         INPUT 7,
+                         INPUT 8,
+                         INPUT "Arial",
+                         INPUT 8).
+  
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-buttonAction3) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE buttonAction3 Procedure 
+PROCEDURE buttonAction3 :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER pcArgs AS CHARACTER  NO-UNDO.
+
+  RUN SUPER (pcArgs).
+
+  DEFINE VARIABLE iWeek   AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE cRgo    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cDocS   AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cDocN   AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE dDesde  AS DATE       NO-UNDO.
+  DEFINE VARIABLE dHasta  AS DATE       NO-UNDO.
+  DEFINE VARIABLE hLibCom AS HANDLE     NO-UNDO.
+  DEFINE VARIABLE hLib    AS HANDLE     NO-UNDO.
+
+  
+  RUN libCommonFunctions.p PERSISTENT SET hLibCom.
+  hLib = DYNAMIC-FUNCTION('getPersistentLib' IN hLibCom, 'libOrdenEntrega.p').
+  
+  FOR EACH ttRtosTransito.
+    DELETE ttRtosTransito.
+  END.
+
+  iWeek  = INTEGER(pcArgs).
+  cRgo   = DYNAMIC-FUNCTION('getFechasSemana' IN hLibCom, iWeek, YEAR(TODAY)).
+  dDesde = DATE(ENTRY(1, cRgo)).
+  dHasta = DATE(ENTRY(2, cRgo)).
+
+  FOR EACH remitos
+      WHERE remitos.fecha       >= dDesde
+        AND remitos.fecha       <= dHasta
+        AND remitos.id_operacion = 311
+        AND remitos.mercado      = 1
+      NO-LOCK. 
+    
+    FIND FIRST confirmacion_remito
+         WHERE confirmacion_remito.id_sucursal_remito = remitos.id_sucursal
+           AND confirmacion_remito.id_tipo_movsto     = remitos.id_tipo_movsto
+           AND confirmacion_remito.nro_remito         = remitos.nro
+         NO-LOCK NO-ERROR.
+
+    FIND FIRST clientes_ventas OF remitos NO-LOCK NO-ERROR.
+    FIND FIRST lugar_descarga OF remitos NO-LOCK NO-ERROR.
+    FIND FIRST destinos OF remitos NO-LOCK NO-ERROR.
+
+    IF NOT AVAILABLE confirmacion_remito THEN DO:
+      CREATE ttRtosTransito.
+      ASSIGN  ttRtosTransito.nro_comp = STRING(remitos.nro_comp, "9999-99999999")
+              ttRtosTransito.fecha    = remitos.fecha
+              ttRtosTransito.oe       = remitos.id_orden_entrega
+              ttRtosTransito.cliente  = IF AVAILABLE clientes_ventas THEN clientes.razon_social ELSE "NO-INFO"
+              ttRtosTransito.destino  = IF AVAILABLE destinos THEN destinos.descripcion ELSE "NO-INFO"
+              ttRtosTransito.lugdes   = IF AVAILABLE lugar_descarga THEN lugar_descarga.descripcion ELSE "NO-INFO"
+              .
+
+    END.
+
+  END.
+
+    RUN generateExcel.p (INPUT TABLE ttRtostransito,
+                         INPUT " Remitos No Confirmados ",
+                         INPUT " ",
+                         INPUT 7,
+                         INPUT 8,
+                         INPUT "Arial",
+                         INPUT 8).
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-fillTreeView) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE fillTreeView Procedure 
+PROCEDURE fillTreeView :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER phTree AS COM-HANDLE     NO-UNDO.
+  DEFINE INPUT  PARAMETER pcArgs AS CHARACTER  NO-UNDO.
+
+  RUN SUPER (phTree, pcArgs).
+
+
+  DEFINE VARIABLE dDesde  AS DATE       NO-UNDO.
+  DEFINE VARIABLE dHasta  AS DATE       NO-UNDO.
+  DEFINE VARIABLE cRgo    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cKey    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cTxt    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cIco    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cCli    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE hLibCom AS HANDLE.
+  DEFINE VARIABLE pchTree AS COM-HANDLE     NO-UNDO.
+  DEFINE VARIABLE chOpen  AS COM-HANDLE     NO-UNDO.
+  DEFINE VARIABLE chClose AS COM-HANDLE     NO-UNDO.
+  DEFINE VARIABLE chOE    AS COM-HANDLE     NO-UNDO.
+  DEFINE VARIABLE chNode  AS COM-HANDLE     NO-UNDO.
+  DEFINE VARIABLE i       AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE piWeek  AS INTEGER    NO-UNDO.
+
+  
+  
+  RUN libCommonFunctions.p PERSISTENT SET hLibCom.
+
+  piWeek  = INTEGER(pcArgs).
+  pchTree = phTree.
+
+
+  pchTree:NODES:CLEAR().
+
+  cRgo   = DYNAMIC-FUNCTION('getFechasSemana' IN hLibCom, piWeek, YEAR(TODAY)).
+  dDesde = DATE(ENTRY(1, cRgo)).
+  dHasta = DATE(ENTRY(2, cRgo)).
+
+  i = 1.
+
+  
+  chNode  = pchTree:Nodes:ADD(, , "Semana" + STRING(piWeek), "Semana "  + STRING(piWeek), "semana").  
+  chOpen  = pchTree:Nodes:ADD(chNode:KEY, 4, "Pendientes", "Pendientes", "pendientes").
+  chClose = pchTree:Nodes:ADD(chNode:KEY, 4, "Cerradas", "Embarques", "cerradas").
+
+  chNode:TAG = STRING(piWeek).
+
+
+  FOR EACH items_contratos
+      WHERE items_contratos.semana_entrega = piWeek
+        AND items_contratos.anio = YEAR(dDesde)
+      NO-LOCK.
+
+    FIND FIRST contratos OF items_contratos NO-LOCK NO-ERROR.
+    FIND FIRST clientes_ventas OF contratos NO-LOCK NO-ERROR.
+        
+    cKey = "parte" + items_contratos.id_contrato + "-" + STRING(items_contratos.ITEM).
+    cTxt = items_contratos.id_contrato + " Parte: " + STRING(items_contratos.ITEM) + " Cliente: " + clientes.razon_social.
+
+    IF items_contratos.pendiente THEN DO:      
+      chNode = pchTree:Nodes:ADD(chOpen:KEY, 4, cKey, cTxt, "contrato").
+    END.
+      
+  END.
+
+
+  FOR EACH orden_entrega
+      WHERE orden_entrega.fecha_embarque  >= dDesde
+        AND orden_entrega.fecha_embarque  <= dHasta
+      BY orden_entrega.id_orden_entrega.
+
+    FOR EACH items_orden_entrega 
+            OF orden_entrega 
+          NO-LOCK.
+
+        FIND FIRST contratos OF items_orden_entrega NO-LOCK NO-ERROR.
+        FIND FIRST clientes_ventas OF contratos NO-LOCK NO-ERROR.
+        
+        cCli   = IF AVAILABLE clientes_ventas THEN clientes.razon_social ELSE "NONE".
+        cKey   = "orden" + items_orden_entrega.id_contrato + "-" + STRING(items_orden_entrega.ITEM) + "-" + STRING(items_orden_entrega.id_orden_entrega) + "-" + STRING(items_orden_entrega.ITEM_oe).
+        cTxt   = STRING(items_orden_entrega.id_orden_entrega) + " - " + 
+                 STRING(items_orden_entrega.ITEM_oe) + 
+                 " cliente: " + cCli + 
+                 " contrato: " + items_orden_entrega.id_contrato + " parte: " + STRING(items_orden_entrega.item) + 
+                 " Por " + STRING(items_orden_entrega.cantidad_tambores) + " en semana " + STRING(items_orden_entrega.semana_entrega)  .
+        chOE   = pchTree:Nodes:ADD(chClose:KEY, 4, cKey, cTxt, "oe").
+  
+      
+        FOR EACH documentos_oe
+            WHERE documentos_oe.id_orden_entrega = items_orden_entrega.id_orden_entrega
+            NO-LOCK.
+  
+          cIco = "no".
+          IF documentos_oe.fecha_pedido <> ? AND documentos_oe.fecha_cumplido <> ? THEN cIco = "si".
+          IF documentos_oe.fecha_pedido = ? AND documentos_oe.fecha_cumplido = ? THEN cIco = "no".
+          IF documentos_oe.fecha_pedido <> ? AND documentos_oe.fecha_cumplido = ? THEN cIco = "pedido".
+          IF documentos_oe.fecha_pedido = ? AND documentos_oe.fecha_cumplido <> ? THEN cIco = "no".
+          
+          cTxt   = documentos_oe.descripcion.
+          IF documentos_oe.fecha_pedido <> ? THEN cTxt = cTxt + " pedido el: " + STRING(documentos_oe.fecha_pedido).
+          IF documentos_oe.fecha_cumplido <> ? THEN cTxt = cTxt + " cumplido el: " + STRING(documentos_oe.fecha_cumplido).
+          
+          cKey   = "documento" + STRING(documentos_oe.id_orden_entrega) + STRING(items_orden_entrega.ITEM_oe) + STRING(documentos_oe.id_documento_oe).
+  
+          chNode     = pchTree:Nodes:ADD(chOE:KEY, 4, cKey, cTxt, cIco).
+          chNode:TAG = STRING(documentos_oe.id_documento_oe).
+  
+        END.
+  
+  
+  
+      END.
+
+  END.
+
+      
+
+
+  RELEASE documentos_oe.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-nodeDoubleClick) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE nodeDoubleClick Procedure 
+PROCEDURE nodeDoubleClick :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER phNode AS COM-HANDLE     NO-UNDO.
+  DEFINE INPUT  PARAMETER pcArgs AS CHARACTER  NO-UNDO.
+
+  RUN SUPER (phNode, pcArgs).
+
+  DEFINE VARIABLE iDoc AS INTEGER    NO-UNDO.
+
+  IF phNode:TAG = "" THEN RETURN.
+  
+  iDoc = INTEGER(phNode:TAG).
+  
+  FOR EACH documentos_oe
+      WHERE documentos_oe.id_documento_oe = iDoc.
+    documentos_oe.fecha_cumplido = TODAY.
+    phNode:IMAGE = "si".
+  END.
+
+
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+

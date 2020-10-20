@@ -1,0 +1,481 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER AB_v10r12 GUI ADM2
+&ANALYZE-RESUME
+/* Connected Databases 
+          comercial        PROGRESS
+          general         PROGRESS
+*/
+&Scoped-define WINDOW-NAME CURRENT-WINDOW
+
+/* Temp-Table and Buffer definitions                                    */
+DEFINE TEMP-TABLE RowObject
+       {"dLotesInd.i"}.
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS vTableWin 
+/*------------------------------------------------------------------------
+
+  File:
+
+  Description: from viewer.w - Template for SmartDataViewer objects
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress AppBuilder.      */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartDataViewer
+&Scoped-define DB-AWARE no
+
+&Scoped-define ADM-CONTAINER FRAME
+
+&Scoped-define ADM-SUPPORTED-LINKS Data-Target,Update-Source,TableIO-Target,GroupAssign-Source,GroupAssign-Target
+
+/* Include file with RowObject temp-table definition */
+&Scoped-define DATA-FIELD-DEFS "dLotesInd.i"
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME F-Main
+
+/* Standard List Definitions                                            */
+&Scoped-Define ENABLED-FIELDS RowObject.id_lote RowObject.Fecha ~
+RowObject.citral RowObject.descripcion 
+&Scoped-define ENABLED-TABLES RowObject
+&Scoped-define FIRST-ENABLED-TABLE RowObject
+&Scoped-Define ENABLED-OBJECTS radProducto 
+&Scoped-Define DISPLAYED-FIELDS RowObject.id_lote RowObject.anio ~
+RowObject.Fecha RowObject.citral RowObject.descripcion 
+&Scoped-define DISPLAYED-TABLES RowObject
+&Scoped-define FIRST-DISPLAYED-TABLE RowObject
+&Scoped-Define DISPLAYED-OBJECTS radProducto fiCodigo 
+
+/* Custom List Definitions                                              */
+/* ADM-ASSIGN-FIELDS,List-2,List-3,List-4,List-5,List-6                 */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* ************************  Function Prototypes ********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getNextNroLote vTableWin 
+FUNCTION getNextNroLote RETURNS CHARACTER
+  (piSuc AS INTEGER,
+   piArt AS INTEGER)  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* ***********************  Control Definitions  ********************** */
+
+
+/* Definitions of handles for SmartObjects                              */
+DEFINE VARIABLE h_dsucursales AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect AS HANDLE NO-UNDO.
+
+/* Definitions of the field level widgets                               */
+DEFINE VARIABLE fiCodigo AS CHARACTER FORMAT "X(256)":U 
+     LABEL "Codigo" 
+     VIEW-AS FILL-IN 
+     SIZE 33 BY 1 NO-UNDO.
+
+DEFINE VARIABLE radProducto AS INTEGER 
+     VIEW-AS RADIO-SET VERTICAL
+     RADIO-BUTTONS 
+          "Aceite", 51,
+"Terpeno", 74,
+"Oil", 57,
+"Water Phase", 58,
+"Cera", 37,
+"Ac. Destilado", 76,
+"Ac. Grado 2", 50,
+"Ac. Naranja", 41,
+"Lotes Interno Aceite", 98,
+"Lotes Interno Water Phase", 27,
+"Aceite Destilado", 76,
+"Terpeno Naranja", 96,
+"Sobrante Terpeno Naranja", 591,
+"Mov. Interno Oil Limon", 592,
+"Mov. Interno Oil Naranja", 593,
+"Mov. Interno Oil Pomelo", 594,
+"Mov. Interno Aceite Destilado", 595
+     SIZE 34 BY 11.91 NO-UNDO.
+
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME F-Main
+     radProducto AT ROW 1 COL 2 NO-LABEL
+     fiCodigo AT ROW 2.05 COL 49 COLON-ALIGNED
+     RowObject.id_lote AT ROW 3.05 COL 49 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 16 BY 1
+     RowObject.anio AT ROW 3.1 COL 74.2 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 7.6 BY 1
+     RowObject.Fecha AT ROW 4.1 COL 49 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 16 BY 1
+     RowObject.citral AT ROW 5.1 COL 49 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 16 BY 1
+     RowObject.descripcion AT ROW 6.1 COL 49 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 32 BY 1
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY USE-DICT-EXPS 
+         SIDE-LABELS NO-UNDERLINE THREE-D NO-AUTO-VALIDATE 
+         AT COL 1 ROW 1
+         SIZE 84.2 BY 12.1.
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartDataViewer
+   Data Source: "dLotesInd.w"
+   Allow: Basic,DB-Fields,Smart
+   Container Links: Data-Target,Update-Source,TableIO-Target,GroupAssign-Source,GroupAssign-Target
+   Frames: 1
+   Add Fields to: Neither
+   Other Settings: PERSISTENT-ONLY COMPILE
+   Temp-Tables and Buffers:
+      TABLE: RowObject D "?" ?  
+      ADDITIONAL-FIELDS:
+          {dLotesInd.i}
+      END-FIELDS.
+   END-TABLES.
+ */
+
+/* This procedure should always be RUN PERSISTENT.  Report the error,  */
+/* then cleanup and return.                                            */
+IF NOT THIS-PROCEDURE:PERSISTENT THEN DO:
+  MESSAGE "{&FILE-NAME} should only be RUN PERSISTENT.":U
+          VIEW-AS ALERT-BOX ERROR BUTTONS OK.
+  RETURN.
+END.
+
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+/* DESIGN Window definition (used by the UIB) 
+  CREATE WINDOW vTableWin ASSIGN
+         HEIGHT             = 12.1
+         WIDTH              = 84.2.
+/* END WINDOW DEFINITION */
+                                                                        */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB vTableWin 
+/* ************************* Included-Libraries *********************** */
+
+{src/adm2/viewer.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR WINDOW vTableWin
+  VISIBLE,,RUN-PERSISTENT                                               */
+/* SETTINGS FOR FRAME F-Main
+   NOT-VISIBLE                                                          */
+ASSIGN 
+       FRAME F-Main:HIDDEN           = TRUE.
+
+/* SETTINGS FOR FILL-IN RowObject.anio IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN fiCodigo IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+
+/* Setting information for Queries and Browse Widgets fields            */
+
+&ANALYZE-SUSPEND _QUERY-BLOCK FRAME F-Main
+/* Query rebuild information for FRAME F-Main
+     _Options          = "NO-LOCK"
+     _Query            is NOT OPENED
+*/  /* FRAME F-Main */
+&ANALYZE-RESUME
+
+ 
+
+
+
+/* ************************  Control Triggers  ************************ */
+
+&Scoped-define SELF-NAME RowObject.id_lote
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL RowObject.id_lote vTableWin
+ON LEAVE OF RowObject.id_lote IN FRAME F-Main /* Lote */
+DO:
+  DEFINE VARIABLE cOld AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cNew AS CHARACTER  NO-UNDO.
+
+  cOld = fiCodigo:SCREEN-VALUE.
+
+  cNew = ENTRY(1, cOld, ".") + "." + 
+         ENTRY(2, cOld, ".") + "." + 
+         ENTRY(3, cOld, ".") + "." + 
+         STRING(INTEGER(SELF:SCREEN-VALUE), "9999") + "/" + 
+         SUBSTRING(STRING(YEAR(TODAY)), 3, 2).
+
+  fiCodigo:SCREEN-VALUE = cNew.
+
+
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME radProducto
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL radProducto vTableWin
+ON VALUE-CHANGED OF radProducto IN FRAME F-Main
+DO:
+  getNextNroLote(DYNAMIC-FUNCTION('getDataValue' IN h_dynselect),
+                                  INTEGER(SELF:SCREEN-VALUE)).
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&UNDEFINE SELF-NAME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK vTableWin 
+
+
+/* ***************************  Main Block  *************************** */
+  {adm2/support/viewTrg.i}.  
+  &IF DEFINED(UIB_IS_RUNNING) <> 0 &THEN          
+    RUN initializeObject.
+  &ENDIF         
+  
+  /************************ INTERNAL PROCEDURES ********************/
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE addRecord vTableWin 
+PROCEDURE addRecord :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  
+  rowObject.fecha:SCREEN-VALUE IN FRAME F-Main = STRING(TODAY).
+  rowObject.anio:SCREEN-VALUE IN FRAME F-Main  = STRING(YEAR(TODAY)).
+
+  DYNAMIC-FUNCTION('setDataValue' IN h_dynselect, '95').
+  RUN valueChanged IN h_dynselect.
+
+  RUN customFilter.
+
+  radProducto:SENSITIVE IN FRAME f-Main = TRUE.
+  
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-create-objects vTableWin  _ADM-CREATE-OBJECTS
+PROCEDURE adm-create-objects :
+/*------------------------------------------------------------------------------
+  Purpose:     Create handles for all SmartObjects used in this procedure.
+               After SmartObjects are initialized, then SmartLinks are added.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE currentPage  AS INTEGER NO-UNDO.
+
+  ASSIGN currentPage = getCurrentPage().
+
+  CASE currentPage: 
+
+    WHEN 0 THEN DO:
+       RUN constructObject (
+             INPUT  'dsucursales.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedsucursalesUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dsucursales ).
+       RUN repositionObject IN h_dsucursales ( 9.81 , 62.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.86 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventDisplayedFieldabreviaturaKeyFieldid_sucursalDataSourceFilterNumRows20OptionalnoOptionalString':U + '<none>' + 'LabelSucursalSortnoViewAsBrowserToolTipFormatHelpId0BrowseTitleSucursalesBrowseFieldsSucursal,id_sucursalExitBrowseOnActionyesCancelBrowseOnExityesRepositionDataSourcenoDefineAnyKeyTriggeryesStartBrowseKeysNEXT-FRAMEFieldNameid_sucursalDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect ).
+       RUN repositionObject IN h_dynselect ( 1.00 , 51.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect ( 1.00 , 33.00 ) NO-ERROR.
+
+       /* Links to SmartDataField h_dynselect. */
+       RUN addLink ( h_dsucursales , 'Data':U , h_dynselect ).
+
+       /* Adjust the tab order of the smart objects. */
+       RUN adjustTabOrder ( h_dynselect ,
+             radProducto:HANDLE IN FRAME F-Main , 'AFTER':U ).
+    END. /* Page 0 */
+
+  END CASE.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE customFilter vTableWin 
+PROCEDURE customFilter :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE cQry AS CHARACTER  NO-UNDO.
+
+  cQry = "sucursales.id_sucursal = 95 OR sucursales.id_sucursal = 96".
+  DYNAMIC-FUNCTION('setQueryWhere' IN h_dSucursales, cQry).
+  DYNAMIC-FUNCTION('openQuery' IN h_dSucursales).
+
+
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI vTableWin  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Hide all frames. */
+  HIDE FRAME F-Main.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE initializeObject vTableWin 
+PROCEDURE initializeObject :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  RUN customFilter.
+
+  radProducto:SENSITIVE IN FRAME f-Main = FALSE.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE updateRecord vTableWin 
+PROCEDURE updateRecord :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  radProducto:SENSITIVE IN FRAME f-Main = TRUE.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+/* ************************  Function Implementations ***************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getNextNroLote vTableWin 
+FUNCTION getNextNroLote RETURNS CHARACTER
+  (piSuc AS INTEGER,
+   piArt AS INTEGER) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE hLibTam AS HANDLE     NO-UNDO.
+  DEFINE VARIABLE cLot    AS CHARACTER  NO-UNDO.
+
+  DEFINE VARIABLE hLibCom AS HANDLE.
+  RUN libCommonFunctions.p PERSISTENT SET hLibCom.
+  hLibTam = DYNAMIC-FUNCTION('getPersistentLib' IN hLibCom, 'libTamboresIndustria.p').
+  DELETE OBJECT hLibCom.
+
+  cLot = DYNAMIC-FUNCTION('getNextNroLote' IN hLibTam, piSuc, 6, piArt, YEAR(TODAY)).
+  fiCodigo:SCREEN-VALUE IN FRAME F-Main          = cLot.
+  cLot = ENTRY(4, cLot, ".").
+
+  rowObject.id_lote:SCREEN-VALUE IN FRAME F-Main = ENTRY(1, cLot, "/").
+  rowObject.anio:SCREEN-VALUE IN FRAME F-Main    = STRING(YEAR(TODAY)).
+  
+  
+  RETURN cLot.
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+

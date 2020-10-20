@@ -1,0 +1,1014 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER UIB_v8r12 GUI ADM1
+&ANALYZE-RESUME
+&Scoped-define WINDOW-NAME W-Win
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS W-Win 
+/*------------------------------------------------------------------------
+
+  File: 
+
+  Description: from cntnrwin.w - ADM SmartWindow Template
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+  History: 
+          
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress UIB.             */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+/* Local Variable Definitions ---                                       */
+define var alta as logical no-undo initial false.
+
+/*-- VARIABLES DE EXCEL --*/
+
+    define var chExcelAplication as com-handle.
+    define var chWorkbook        as com-handle.
+    define var chWorkSheet       as com-handle.
+    define var chchart           as com-handle.
+    define var chWorkSheetRange  as com-handle.
+  
+    define var ifila  as integer.
+    define var cfila  as character.
+    define var crange as character.
+
+ /*-- FIN VARIABLES DE EXCEL --*/
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartWindow
+&Scoped-define DB-AWARE no
+
+&Scoped-define ADM-CONTAINER WINDOW
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME F-Main
+
+/* Standard List Definitions                                            */
+&Scoped-Define ENABLED-OBJECTS BUTTON-23 RECT-2 
+&Scoped-Define DISPLAYED-OBJECTS FILL-IN-3 
+
+/* Custom List Definitions                                              */
+/* List-1,List-2,List-3,List-4,List-5,List-6                            */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+/* ***********************  Control Definitions  ********************** */
+
+/* Define the widget handle for the window                              */
+DEFINE VAR W-Win AS WIDGET-HANDLE NO-UNDO.
+
+/* Definitions of handles for SmartObjects                              */
+DEFINE VARIABLE h_cus-misc AS HANDLE NO-UNDO.
+
+/* Definitions of the field level widgets                               */
+DEFINE BUTTON BUTTON-23 
+     LABEL "Reporte Comercial Contable Final" 
+     SIZE 40 BY 1.14.
+
+DEFINE VARIABLE FILL-IN-3 AS CHARACTER FORMAT "X(256)":U INITIAL "Reportes de Exportacion" 
+     VIEW-AS FILL-IN 
+     SIZE 66 BY 1
+     BGCOLOR 3 FGCOLOR 15  NO-UNDO.
+
+DEFINE RECTANGLE RECT-2
+     EDGE-PIXELS 8  NO-FILL 
+     SIZE-PIXELS 115 BY 50
+     BGCOLOR 7 FGCOLOR 7 .
+
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME F-Main
+     FILL-IN-3 AT ROW 2.67 COL 6 NO-LABEL
+     BUTTON-23 AT ROW 7.19 COL 7
+     RECT-2 AT Y 200 X 280
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY 
+         SIDE-LABELS NO-UNDERLINE THREE-D 
+         AT COL 1 ROW 1
+         SIZE 81 BY 19.14.
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartWindow
+   Allow: Basic,Browse,DB-Fields,Query,Smart,Window
+ */
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+IF SESSION:DISPLAY-TYPE = "GUI":U THEN
+  CREATE WINDOW W-Win ASSIGN
+         HIDDEN             = YES
+         TITLE              = "<insert SmartWindow title>"
+         HEIGHT             = 14.1
+         WIDTH              = 80.4
+         MAX-HEIGHT         = 19.14
+         MAX-WIDTH          = 107
+         VIRTUAL-HEIGHT     = 19.14
+         VIRTUAL-WIDTH      = 107
+         RESIZE             = no
+         SCROLL-BARS        = no
+         STATUS-AREA        = yes
+         BGCOLOR            = ?
+         FGCOLOR            = ?
+         THREE-D            = yes
+         MESSAGE-AREA       = no
+         SENSITIVE          = yes.
+ELSE {&WINDOW-NAME} = CURRENT-WINDOW.
+/* END WINDOW DEFINITION                                                */
+&ANALYZE-RESUME
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "visibles" W-Win _INLINE
+/* Actions: ? custom/support/cusvis.p ? ? ? */
+/* SmartWindow,uib,49271
+Destroy on next read */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "con parametros" W-Win _INLINE
+/* Actions: ? custom/support/con-parametros.p ? ? ? */
+/* SmartWindow,uib,49271
+Destroy on next read */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB W-Win 
+/* ************************* Included-Libraries *********************** */
+
+{custom/method/ccontainr.i}
+{custom/method/cabm.i}
+{custom/method/contenedor.i}
+{custom/method/l-create-obj.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR WINDOW W-Win
+  VISIBLE,,RUN-PERSISTENT                                               */
+/* SETTINGS FOR FRAME F-Main
+                                                                        */
+/* SETTINGS FOR FILL-IN FILL-IN-3 IN FRAME F-Main
+   NO-ENABLE ALIGN-L                                                    */
+IF SESSION:DISPLAY-TYPE = "GUI":U AND VALID-HANDLE(W-Win)
+THEN W-Win:HIDDEN = yes.
+
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+ 
+
+
+
+/* ************************  Control Triggers  ************************ */
+
+&Scoped-define SELF-NAME W-Win
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL W-Win W-Win
+ON END-ERROR OF W-Win /* <insert SmartWindow title> */
+OR ENDKEY OF {&WINDOW-NAME} ANYWHERE DO:
+  /* This case occurs when the user presses the "Esc" key.
+     In a persistently run window, just ignore this.  If we did not, the
+     application would exit. */
+  IF THIS-PROCEDURE:PERSISTENT THEN RETURN NO-APPLY.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL W-Win W-Win
+ON WINDOW-CLOSE OF W-Win /* <insert SmartWindow title> */
+DO:
+  /* This ADM code must be left here in order for the SmartWindow
+     and its descendents to terminate properly on exit. */
+  APPLY "CLOSE":U TO THIS-PROCEDURE.
+  RETURN NO-APPLY.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-23
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-23 W-Win
+ON CHOOSE OF BUTTON-23 IN FRAME F-Main /* Reporte Comercial Contable Final */
+DO:
+
+define var v_semana_desde as integer.
+define var v_anio_desde as integer.
+define var v_semana_hasta as integer.
+define var v_anio_hasta as integer.
+DEFINE VARIABLE vsailing AS INTEGER    NO-UNDO.
+
+RUN rep_excell_contawo.p (INPUT 0, DATE("01/01/2001")).
+ 
+
+/*MESSAGE 'Exportando .....' VIEW-AS ALERT-BOX.*/
+
+RUN Exportacion.
+
+
+/*
+OUTPUT TO c:\temp\datos.txt.
+  EXPORT DELIMITER ";"
+      "Contrato"
+      "Fecha Contrato"
+      "Condicion Vta."
+      "Item"
+      "Cant.Contratos"
+      "region"
+      "Cod.Cliente"
+      "Cliente"
+      "region cliente final"
+      "Cod.Cliente Final"
+      "Cliente Final"
+      "Cod. Articulo"
+      "Articulo"
+      "Cod.Calidad"
+      "Calidad"
+      "Cod.Destino"
+      "Destino"
+      "Cod.Vapor"
+      "Vapor"
+      "Fecha Salida"
+      "Fecha Llegada"
+      "OE"
+      "Nro.Packing List"
+      "Cantidad PL"
+      "Lote"
+      "Factura"
+      "Fecha Fac."
+      "Fecha Vto. Fac." 
+      "Cantidad Factura"
+      "Unidad de Facturacion"
+      "Condicion de venta de factura"
+      "Fob unitario factura"
+      "Importe Items Fac."
+      "Moneda origen"
+      "Gastos"
+      "Gasto para discriminar".
+
+
+
+
+  FOR EACH re_cial_completo BY re_cial_completo.id_contrato
+                            BY re_cial_completo.anio
+                            BY re_cial_completo.semana_desde
+                            BY re_cial_completo.semana_hasta.
+
+     FIND subd_vtas WHERE subd_vtas.id_punto_venta = re_cial_completo.id_punto_venta AND
+                          subd_vtas.nromov         = re_cial_completo.nromov NO-LOCK NO-ERROR.
+     FIND aux_subd_ventas OF  subd_vtas NO-LOCK NO-ERROR.
+     FIND tipo_venta WHERE tipo_venta.id_tipo_venta = subd_vtas.id_tipo_venta NO-LOCK NO-ERROR.
+     FIND destinos WHERE destinos.id_destino = aux_subd_ventas.id_destino_grupo NO-LOCK NO-ERROR.
+     FIND zonas_clientes WHERE zonas_clientes.id_zona = destinos.id_zona NO-LOCK NO-ERROR.
+     FIND tipo_moneda WHERE tipo_moneda.id_moneda = subd_vtas.id_moneda_origen NO-LOCK NO-ERROR.
+
+
+     IF AVAILABLE destinos THEN
+         vsailing = destinos.sailing.
+     ELSE
+         vsailing = 21.
+
+      EXPORT DELIMITER ";"
+        re_cial_completo.id_contrato
+        re_cial_completo.fecha_contrato
+        re_cial_completo.condicion_venta
+        re_cial_completo.ITEM
+        re_cial_completo.cantidad_contratos
+        IF AVAILABLE zonas_clientes THEN zonas_clientes.descripcion ELSE "Sin Info."
+        re_cial_completo.id_cliente
+        re_cial_completo.cliente
+        "region cliente final"
+        re_cial_completo.id_cliente_final
+        re_cial_completo.cliente_final
+        re_cial_completo.id_articulo
+        re_cial_completo.articulo
+        re_cial_completo.id_calidad
+        re_cial_completo.calidad
+        re_cial_completo.id_destino
+        re_cial_completo.destino
+        re_cial_completo.id_vapor
+        re_cial_completo.vapor
+        IF AVAILABLE aux_subd_ventas THEN string(aux_subd_ventas.fecha_vapor,"99/99/99") ELSE "Sin Info."
+        IF AVAILABLE aux_subd_ventas THEN string(aux_subd_ventas.fecha_vapor + vsailing,"99/99/99") ELSE "Sin Info."
+        re_cial_completo.orden_entrega
+        re_cial_completo.nro_pack_list
+        re_cial_completo.cantidad_pl
+        re_cial_completo.lote
+        re_cial_completo.factura
+        string(re_cial_completo.fecha_factura)
+        string(re_cial_completo.vto_factura)
+        "cantidad factura"
+        re_cial_completo.unidad_venta
+        IF AVAILABLE tipo_venta THEN tipo_venta.descripcion ELSE "Sin Info."
+        "fob unitario factura"
+        string(re_cial_completo.importe_item_factura)
+        re_cial_completo.moneda_venta
+        string(re_cial_completo.gastos)
+        "gasto para discriminar"
+
+        /*
+        IF NOT re_cial_completo.consignacion THEN
+            re_cial_completo.factura
+        ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        string(re_cial_completo.fecha_factura)
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        string(re_cial_completo.vto_factura)
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        "cantidad factura"
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        "unidad de facturacion"
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        "condicion de venta de factura"
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        "fob unitario factura"
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        string(re_cial_completo.importe_item_factura)
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        "moneda origen"
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        string(re_cial_completo.gastos)
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        "gasto para discriminar"
+            ELSE "" 
+        */
+        .
+
+  END.
+  OUTPUT CLOSE.
+
+  MESSAGE 'Termino .....' VIEW-AS ALERT-BOX.
+
+  */
+
+
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&UNDEFINE SELF-NAME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK W-Win 
+
+
+/* ***************************  Main Block  *************************** */
+
+/* Include custom  Main Block code for SmartWindows. */
+{src/adm/template/windowmn.i}
+{custom/method/winitialize.i}
+{custom/method/ctitulo.i}
+run deshabilita_viewer.
+run habilitar_relacion_viewer.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-create-objects W-Win  _ADM-CREATE-OBJECTS
+PROCEDURE adm-create-objects :
+/*------------------------------------------------------------------------------
+  Purpose:     Create handles for all SmartObjects used in this procedure.
+               After SmartObjects are initialized, then SmartLinks are added.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE adm-current-page  AS INTEGER NO-UNDO.
+
+  RUN get-attribute IN THIS-PROCEDURE ('Current-Page':U).
+  ASSIGN adm-current-page = INTEGER(RETURN-VALUE).
+
+  CASE adm-current-page: 
+
+    WHEN 0 THEN DO:
+       RUN init-object IN THIS-PROCEDURE (
+             INPUT  'custom/objects/cus-misc.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'Edge-Pixels = 2,
+                     SmartPanelType = Misc-icon':U ,
+             OUTPUT h_cus-misc ).
+       RUN set-position IN h_cus-misc ( 10.76 , 58.00 ) NO-ERROR.
+       RUN set-size IN h_cus-misc ( 1.91 , 21.00 ) NO-ERROR.
+
+       /* Adjust the tab order of the smart objects. */
+       RUN adjust-tab-order IN adm-broker-hdl ( h_cus-misc ,
+             BUTTON-23:HANDLE IN FRAME F-Main , 'AFTER':U ).
+    END. /* Page 0 */
+
+  END CASE.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-row-available W-Win  _ADM-ROW-AVAILABLE
+PROCEDURE adm-row-available :
+/*------------------------------------------------------------------------------
+  Purpose:     Dispatched to this procedure when the Record-
+               Source has a new row available.  This procedure
+               tries to get the new row (or foriegn keys) from
+               the Record-Source and process it.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+
+  /* Define variables needed by this internal procedure.             */
+  {src/adm/template/row-head.i}
+
+  /* Process the newly available records (i.e. display fields,
+     open queries, and/or pass records on to any RECORD-TARGETS).    */
+  {src/adm/template/row-end.i}
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE asigna-parametros W-Win 
+PROCEDURE asigna-parametros :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE consulta W-Win 
+PROCEDURE consulta :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define var lista_consultas as character no-undo.
+define var cresult as character no-undo.
+define var r as rowid no-undo.
+
+run devuelve-rowid (output r).
+
+if r = ? then
+do: 
+    message "No esta posicionado en ningun registro" view-as alert-box.
+    return.
+end.    
+
+if lista_consultas = "" then
+    message "No hay consultas disponibles" view-as alert-box.
+else
+    run custom/support/cfun.w(input lista_consultas,output cresult).
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE deshabilita_viewer W-Win 
+PROCEDURE deshabilita_viewer :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI W-Win  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Delete the WINDOW we created */
+  IF SESSION:DISPLAY-TYPE = "GUI":U AND VALID-HANDLE(W-Win)
+  THEN DELETE WIDGET W-Win.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE enable_UI W-Win  _DEFAULT-ENABLE
+PROCEDURE enable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     ENABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we display/view/enable the widgets in the
+               user-interface.  In addition, OPEN all queries
+               associated with each FRAME and BROWSE.
+               These statements here are based on the "Other 
+               Settings" section of the widget Property Sheets.
+------------------------------------------------------------------------------*/
+  DISPLAY FILL-IN-3 
+      WITH FRAME F-Main IN WINDOW W-Win.
+  ENABLE BUTTON-23 RECT-2 
+      WITH FRAME F-Main IN WINDOW W-Win.
+  {&OPEN-BROWSERS-IN-QUERY-F-Main}
+  VIEW W-Win.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE Exportacion W-Win 
+PROCEDURE Exportacion :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+ DEFINE VARIABLE vsailing AS INTEGER    NO-UNDO.
+ 
+  /********* Variables de Excel **************/
+
+ define var chExcelAplication as com-handle.
+ define var chWorkbook        as com-handle.
+ define var chWorkSheet       as com-handle.
+ define var chchart           as com-handle.
+ define var chWorkSheetRange  as com-handle.
+
+ define var ifila  as integer.
+ define var cfila  as character.
+ define var crange as character.
+
+ define var lst-titulos as char.
+ define var lst-width   as char.
+ define var lst-valores as char.
+ DEFINE VAR lst-data    AS CHAR.
+
+ DEFINE VAR I AS INTEGER.
+
+ /********** Arma Planilla ***********/
+
+ create "Excel.Application" chExcelAplication.
+ chExcelAplication:visible = true.
+ chWorkbook  = chExcelAplication:Workbooks:add().
+ chWorkSheet = chExcelAplication:Sheets:Item(1).
+
+ chWorkSheet:Range("A1:AM12"):Font:Bold = true.
+ chWorkSheet:Range("A1:AM3000"):Font:size = 8.
+ chWorkSheet:Range("B2"):Font:size = 12.
+ 
+ RUN setHeaderExcel.p (INPUT chWorkSheet,
+                       INPUT " LISTADO DE CONTRATOS",
+                       INPUT " ").
+
+ lst-titulos  = "Contrato,Fecha,Cond.Vta.,Item,Cant.Contratos,region,Cod.Cliente,Cliente,region cliente final,Cod.Cliente Final,Cliente Final,Cod. Articulo,Articulo,Cod.Calidad,Calidad,Cod.Destino,Destino,Cod.Vapor,Vapor,Salida,Llegada,OE,Nro.Pack.List,Cantidad PL,Lote,Factura,Fecha Fac.,Vto.Fac.,Cant.Factura,Und.Fact.,Cond.Vta.Fact.,Fob unitario factura,Importe Items Fac.,Moneda origen,Gastos,Gasto para discriminar".
+ lst-width   = "8,15,20,10,8,10,10,10,10,13,10,10,8,20,40,18,25,15,15,25,25,10,10,10,8,10,15,15,15,15,15,15,15,15,15,15".
+ 
+ RUN setTitleExcel.p (INPUT chWorksheet,
+                      INPUT 6,
+                      INPUT lst-titulos,
+                      INPUT lst-width).
+
+ /*
+  chWorkSheet:Range("P11"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("Q11:S11"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("T11:Z11"):BorderAround(1,2,1,1).
+
+  
+  chWorkSheet:Range("P11"):interior:colorindex = 17.
+  chWorkSheet:Range("Q11:S11"):interior:colorindex = 15.
+  chWorkSheet:Range("T11:Z11"):interior:colorindex = 19.
+    */
+  /*chWorkSheet:Range("P11"):Value = "Reporte segun AFIP".
+  chWorkSheet:Range("Q11"):Value = "                Reporte segun Banco Central".
+  chWorkSheet:Range("U11"):Value = "                Segun Planilla de Ingreso de Divisas".
+    */
+ 
+ 
+
+ chWorkSheet:Columns("C"):NumberFormat  = "dd/mm/aa".
+ chWorkSheet:Columns("U"):NumberFormat  = "dd/mm/aa".
+ chWorkSheet:Columns("V"):NumberFormat  = "dd/mm/aa".
+ chWorkSheet:Columns("AB"):NumberFormat = "dd/mm/aa".
+ chWorkSheet:Columns("AC"):NumberFormat = "dd/mm/aa".
+
+ chExcelAplication:Selection:Style:IncludeNumber = true.
+
+ ifila = 8.
+ FOR EACH re_cial_completo BY re_cial_completo.id_contrato
+                            BY re_cial_completo.anio
+                            BY re_cial_completo.semana_desde
+                            BY re_cial_completo.semana_hasta.
+
+     FIND subd_vtas WHERE subd_vtas.id_punto_venta = re_cial_completo.id_punto_venta AND
+                          subd_vtas.nromov         = re_cial_completo.nromov NO-LOCK NO-ERROR.
+     FIND aux_subd_ventas OF  subd_vtas NO-LOCK NO-ERROR.
+     FIND tipo_venta WHERE tipo_venta.id_tipo_venta = subd_vtas.id_tipo_venta NO-LOCK NO-ERROR.
+     FIND destinos WHERE destinos.id_destino = aux_subd_ventas.id_destino_grupo NO-LOCK NO-ERROR.
+     FIND zonas_clientes WHERE zonas_clientes.id_zona = destinos.id_zona NO-LOCK NO-ERROR.
+     FIND tipo_moneda WHERE tipo_moneda.id_moneda = subd_vtas.id_moneda_origen NO-LOCK NO-ERROR.
+
+
+     IF AVAILABLE destinos THEN
+         vsailing = destinos.sailing.
+     ELSE
+         vsailing = 21.
+       
+/*
+     lst-data = re_cial_completo.id_contrato     + "," +       
+                re_cial_completo.fecha_contrato  + "," +       
+                re_cial_completo.condicion_venta + "," + 
+                re_cial_completo.ITEM.*/
+
+       iFila = iFila + 1.
+ 
+       cFila = STRING(iFila).
+       cRange = "B" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.id_contrato.
+       cRange = "C" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.fecha_contrato.
+       cRange = "D" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.condicion_venta.
+       cRange = "E" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.ITEM.
+       cRange = "F" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.cantidad_contratos.
+       cRange = "G" + cFila.
+       chWorkSheet:Range(cRange):Value = IF AVAILABLE zonas_clientes THEN zonas_clientes.descripcion ELSE "Sin Info.".
+       cRange = "H" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.id_cliente. 
+       cRange = "I" + cFila.
+       chWorkSheet:Range(cRange):Value =  re_cial_completo.cliente.
+       cRange = "J" + cFila.
+       chWorkSheet:Range(cRange):Value = "region cliente final".
+       cRange = "K" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.id_cliente_final.
+       cRange = "L" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.cliente_final.
+       cRange = "M" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.id_articulo.
+       cRange = "N" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.articulo.
+       cRange = "O" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.id_calidad.
+       cRange = "P" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.calidad.
+       cRange = "Q" + cFila.
+       chWorkSheet:Range(cRange):Value =  re_cial_completo.id_destino.
+       cRange = "R" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.destino.
+       cRange = "S" + cFila.
+       chWorkSheet:Range(cRange):Value =  re_cial_completo.id_vapor.
+       cRange = "T" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.vapor.
+       cRange = "U" + cFila.
+       chWorkSheet:Range(cRange):Value = IF AVAILABLE aux_subd_ventas THEN string(aux_subd_ventas.fecha_vapor,"99/99/99") ELSE "Sin Info.".
+       cRange = "V" + cFila.
+       chWorkSheet:Range(cRange):Value = IF AVAILABLE aux_subd_ventas THEN string(aux_subd_ventas.fecha_vapor + vsailing,"99/99/99") ELSE "Sin Info.".
+       cRange = "W" + cFila.
+       chWorkSheet:Range(cRange):Value =re_cial_completo.orden_entrega.
+       cRange = "X" + cFila.
+       chWorkSheet:Range(cRange):Value = re_cial_completo.nro_pack_list.
+       cRange = "Y" + cFila.
+       chWorkSheet:Range(cRange):Value =re_cial_completo.cantidad_pl.
+       cRange = "Z" + cFila.
+       chWorkSheet:Range(cRange):Value =re_cial_completo.lote.
+       cRange = "AA" + cFila.
+       chWorkSheet:Range(cRange):Value =re_cial_completo.factura.
+       cRange = "AB" + cFila.
+       chWorkSheet:Range(cRange):Value =string(re_cial_completo.fecha_factura).
+       cRange = "AC" + cFila.
+       chWorkSheet:Range(cRange):Value =string(re_cial_completo.vto_factura).
+       cRange = "AD" + cFila.
+       chWorkSheet:Range(cRange):Value ="cantidad factura".
+       cRange = "AE" + cFila.
+       chWorkSheet:Range(cRange):Value =re_cial_completo.unidad_venta.
+       cRange = "AF" + cFila.
+       chWorkSheet:Range(cRange):Value = IF AVAILABLE tipo_venta THEN tipo_venta.descripcion ELSE "Sin Info.".
+       cRange = "AG" + cFila.
+       chWorkSheet:Range(cRange):Value ="fob unitario factura".
+       cRange = "AH" + cFila.
+       chWorkSheet:Range(cRange):Value = string(re_cial_completo.importe_item_factura).
+       cRange = "AI" + cFila.
+       chWorkSheet:Range(cRange):Value =re_cial_completo.moneda_venta.
+       cRange = "AJ" + cFila.
+       chWorkSheet:Range(cRange):Value = string(re_cial_completo.gastos).
+       cRange = "AK" + cFila.
+       chWorkSheet:Range(cRange):Value ="gasto para discriminar".
+
+        /*
+        IF NOT re_cial_completo.consignacion THEN
+            re_cial_completo.factura
+        ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        string(re_cial_completo.fecha_factura)
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        string(re_cial_completo.vto_factura)
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        "cantidad factura"
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        "unidad de facturacion"
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        "condicion de venta de factura"
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        "fob unitario factura"
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        string(re_cial_completo.importe_item_factura)
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        "moneda origen"
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        string(re_cial_completo.gastos)
+            ELSE ""
+        IF NOT re_cial_completo.consignacion THEN
+        "gasto para discriminar"
+            ELSE "" 
+        */
+        .
+
+  END.
+
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE get-deshabilitados-paleta W-Win 
+PROCEDURE get-deshabilitados-paleta :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter hprograma as handle no-undo.
+define output parameter estados as character no-undo.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE impresion W-Win 
+PROCEDURE impresion :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define var lista_reportes as character no-undo.
+define var cresult as character no-undo.
+define var r as rowid no-undo.
+
+run devuelve-rowid (output r).
+
+if r = ? then
+do: 
+    message "No esta posicionado en ningun registro" view-as alert-box.
+    return.
+end.    
+
+if lista_reportes = "" then
+    message "No hay reportes disponibles" view-as alert-box.
+else
+    run custom/support/cfun.w(input lista_reportes,output cresult).
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE local-exit W-Win 
+PROCEDURE local-exit :
+/* -----------------------------------------------------------
+  Purpose:  Starts an "exit" by APPLYing CLOSE event, which starts "destroy".
+  Parameters:  <none>
+  Notes:    If activated, should APPLY CLOSE, *not* dispatch adm-exit.   
+-------------------------------------------------------------*/
+   APPLY "CLOSE":U TO THIS-PROCEDURE.
+   
+   RETURN.
+       
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE post-copy W-Win 
+PROCEDURE post-copy :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter h as handle no-undo.
+
+alta = false.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE post-create W-Win 
+PROCEDURE post-create :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter h as handle. /* handle del viewer */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE post-delete W-Win 
+PROCEDURE post-delete :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter h as handle. /* handle del viewer */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE post-update W-Win 
+PROCEDURE post-update :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter r as rowid. /* rowid de la tabla updateada */
+define input parameter h as handle. /* handle del viewer */
+
+alta = false.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE pre-copy W-Win 
+PROCEDURE pre-copy :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter h as handle no-undo.
+alta = true.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE pre-create W-Win 
+PROCEDURE pre-create :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter h as handle. /* handle del viewer */
+alta = true.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE pre-delete W-Win 
+PROCEDURE pre-delete :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter r as rowid. /* rowid de la tabla updateada */
+define input parameter h as handle. /* handle del viewer */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE pre-update W-Win 
+PROCEDURE pre-update :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter r as rowid. /* rowid de la tabla updateada */
+define input parameter h as handle. /* handle del viewer */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE resetea-registro W-Win 
+PROCEDURE resetea-registro :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter h as handle no-undo.
+
+alta = false.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE send-records W-Win  _ADM-SEND-RECORDS
+PROCEDURE send-records :
+/*------------------------------------------------------------------------------
+  Purpose:     Send record ROWID's for all tables used by
+               this file.
+  Parameters:  see template/snd-head.i
+------------------------------------------------------------------------------*/
+
+  /* SEND-RECORDS does nothing because there are no External
+     Tables specified for this SmartWindow, and there are no
+     tables specified in any contained Browse, Query, or Frame. */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE state-changed W-Win 
+PROCEDURE state-changed :
+/* -----------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+-------------------------------------------------------------*/
+  DEFINE INPUT PARAMETER p-issuer-hdl AS HANDLE NO-UNDO.
+  DEFINE INPUT PARAMETER p-state AS CHARACTER NO-UNDO.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+

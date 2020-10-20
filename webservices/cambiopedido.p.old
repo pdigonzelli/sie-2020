@@ -1,0 +1,192 @@
+
+/*------------------------------------------------------------------------
+    File        : cambiopedido.p
+    Purpose     : 
+
+    Syntax      :
+
+    Description : 
+
+    Author(s)   : pdigonzelli
+    Created     : Tue Apr 12 09:59:28 ACT 2016
+    Notes       :
+  ----------------------------------------------------------------------*/
+
+/* ***************************  Definitions  ************************** */
+
+DEFINE INPUT PARAMETER SUC AS INTEGER NO-UNDO.
+DEFINE INPUT PARAMETER PALLET AS INTEGER NO-UNDO.
+DEFINE INPUT PARAMETER PEDIDO AS INTEGER NO-UNDO.
+
+DEFINE BUFFER AUX_PAL FOR PALLETS.
+DEFINE BUFFER BPEDIDOS FOR pedidos_packing.
+DEFINE BUFFER BITEMSPEDIDOS FOR items_pedidos_packing.
+DEFINE BUFFER BIT FOR items_pedidos_packing.
+
+
+DEFINE VAR XTOTPAL AS INTEGER NO-UNDO.
+DEFINE VAR x_uenoue AS LOGICAL NO-UNDO.
+DEFINE VAR x_noueue AS LOGICAL NO-UNDO.
+DEFINE VAR operacion AS CHARACTER NO-UNDO.
+DEFINE VAR CPARAMETROS AS CHARACTER NO-UNDO.
+DEFINE VAR RES AS CHARACTER NO-UNDO.
+
+DEFINE VAR VDOC1 AS CHARACTER NO-UNDO.
+DEFINE VAR VDOC2 AS CHARACTER NO-UNDO.
+DEFINE VAR VPOSDOC1 AS CHARACTER NO-UNDO.
+DEFINE VAR VPOSDOC2 AS CHARACTER NO-UNDO.
+
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+
+/* ***************************  Main Block  *************************** */
+
+FIND PALLETS WHERE PALLETS.ID_SUC_TRABAJO = SUC AND PALLETS.ID_PALLET = PALLET.
+
+find first  pedidos_packing where
+            pedidos_packing.id_empresa          = 1 and
+            pedidos_packing.id_punto_emisor     = 1 and
+            pedidos_packing.id_orden            = PEDIDO no-lock.
+
+
+        /*****************************/
+        /* CONTROLA TOTAL DE PALLETS */
+        /*****************************/
+for each aux_pal of pedidos_packing no-lock where
+    aux_pal.estado and
+    aux_pal.merma = false:
+
+    xTotPal = xTotPal + 1.
+end.
+release aux_pal.
+
+if xTotPal >= pedidos_packing.total_pallets then
+    RETURN ERROR "PEDIDO " + STRING(pedidos_packing.id_orden) +  " COMPLETO - NO SE PUEDE MOVER EL PALLET".
+
+
+
+        
+DO ON ERROR UNDO, LEAVE.        
+                
+                
+    find first items_pedidos_packing of pedidos_packing where
+        items_pedidos_packing.id_articulo       = pallets.id_articulo       and
+        items_pedidos_packing.id_variedad       = pallets.id_variedad       and
+        items_pedidos_packing.id_marca          = pallets.id_marca          and
+        items_pedidos_packing.id_caract         = pallets.id_caract         and
+        items_pedidos_packing.id_tipo_pallet    = pallets.id_tipo_pallet    and
+        items_pedidos_packing.calibre           = pallets.calibre           and
+        items_pedidos_packing.bultos            = pallets.bultos            no-lock no-error.
+        
+    if available items_pedidos_packing then do:
+        
+        
+        find first bpedidos where
+            bpedidos.id_empresa          = 1 and
+            bpedidos.id_punto_emisor     = 1 and
+            bpedidos.id_orden            = PALLETS.ID_ORDEN no-lock no-error.
+        
+        if available bpedidos then
+            find first bitemspedidos of bpedidos where
+                bitemspedidos.id_articulo       = pallets.id_articulo       and
+                bitemspedidos.id_variedad       = pallets.id_variedad       and
+                bitemspedidos.id_marca          = pallets.id_marca          and
+                bitemspedidos.id_caract         = pallets.id_caract         and
+                bitemspedidos.id_tipo_pallet    = pallets.id_tipo_pallet    and
+                bitemspedidos.calibre           = pallets.calibre           and
+                bitemspedidos.bultos            = pallets.bultos            no-lock no-error.
+
+
+            
+        x_uenoue    = false.
+        x_noueue    = false.
+
+                
+        /****************************/
+        /* CAMBIA CABECERA DEL PALLET */
+        /****************************/
+
+                 
+        assign
+            PALLETS.id_orden                = pedidos_packing.id_orden
+            PALLETS.item                    = items_pedidos_packing.item
+            PALLETS.id_envase               = items_pedidos_packing.id_envase
+            PALLETS.id_calidad              = items_pedidos_packing.id_calidad
+            PALLETS.id_categoria            = items_pedidos_packing.id_categoria
+            PALLETS.contramarca             = items_pedidos_packing.contramarca.
+            /* pallets.id_tipo_pallet          = items_pedidos_packing.id_tipo_pallet.*/
+                
+        if pedidos_packing.union_europea <> pallets.union_europea then do:
+            if pedidos_packing.union_europea = false and pallets.union_europea then do:
+                assign
+                    PALLETS.union_europea           = false
+                    PALLETS.id_finca_senasa         = 0
+                    PALLETS.id_lote_senasa          = 0.
+                    
+                x_uenoue    = true.
+            end.
+            else do:
+                assign
+                    PALLETS.union_europea           = true
+                x_noueue    = true.
+            end.
+        end.
+
+  
+        /*************************/
+        /* MODIFICA ITEMS DEL PALLET */
+        /*************************/
+
+        for each items_pallets of pallets:
+            
+            assign
+                ITEMS_PALLETS.id_orden      = pedidos_packing.id_orden
+                ITEMS_PALLETS.item          = items_pedidos_packing.item
+                ITEMS_PALLETS.id_envase     = items_pedidos_packing.id_envase
+                ITEMS_PALLETS.id_calidad    = items_pedidos_packing.id_calidad
+                ITEMS_PALLETS.id_categoria  = items_pedidos_packing.id_categoria
+                ITEMS_PALLETS.contramarca   = items_pedidos_packing.contramarca.
+            
+            if x_uenoue then do:
+                assign
+                    ITEMS_PALLETS.id_finca_senasa   = 0
+                    ITEMS_PALLETS.id_lote_senasa    = 0
+                    ITEMS_PALLETS.certificado       = "".
+            end.
+                
+        end.
+
+        assign
+            pallets.id_estado_pallet    = 2.     /* Cambio de Pedido */
+
+
+        for each cajas of pallets:
+            assign
+                cajas.id_orden  = pallets.id_orden
+                cajas.item      = pallets.item.
+        end.
+
+
+        IF pallets.id_pallet_sap <> '' THEN
+        DO:
+            OPERACION = 'pp378ing.py'.
+    
+            CPARAMETROS =  pallets.id_pallet_sap + ',' + STRING(pedidos_packing.ID_PEDIDO_SAP) + ',' + STRING(pedidos_packing.posicion_pedido_sap) + 
+                       ',' + STRING(BPEDIDOS.id_pedido_sap)  + ',' + STRING(BPEDIDOS.posicion_pedido_sap).
+            RUN OPERACION.P (INPUT operacion , INPUT CPARAMETROS, OUTPUT  RES) NO-ERROR.  
+            IF ERROR-STATUS:ERROR THEN
+                UNDO, RETURN ERROR RETURN-VALUE.   
+        END.
+        
+        release pallets.
+        release items_pallets.
+    end.
+    else 
+       UNDO, RETURN ERROR "ERROR - NO EXISTE ITEM EN EL PEDIDO " + string(PEDIDO,"zzzzzzzz9") + " PARA MOVER EL PALLET". 
+end.
+
+
+CATCH E AS Progress.Lang.Error :
+    UNDO , RETURN ERROR E:GETMESSAGE(1).		
+END CATCH.

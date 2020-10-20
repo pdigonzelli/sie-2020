@@ -1,0 +1,742 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER AB_v9r12 GUI ADM2
+&ANALYZE-RESUME
+&Scoped-define WINDOW-NAME wWin
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS wWin 
+/*------------------------------------------------------------------------
+
+  File: 
+
+  Description: from cntnrwin.w - ADM SmartWindow Template
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+  History: New V9 Version - January 15, 1998
+          
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress AB.              */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+
+DEFINE VAR queryText1   AS CHARACTER INITIAL " "NO-UNDO.
+DEFINE VAR querysort1   AS CHARACTER INITIAL " "NO-UNDO.
+DEFINE VAR qh           AS HANDLE NO-UNDO.
+
+DEFINE VAR iOldPage     AS INTEGER INITIAL 0.
+
+DEFINE TEMP-TABLE ttBISAP
+  RCODE-INFORMATION
+  FIELD KUNNR  AS CHARACTER
+  FIELD BUKRS  AS CHARACTER
+  FIELD VKORG  AS CHARACTER
+  FIELD VTWEG  AS CHARACTER
+  FIELD SPART  AS CHARACTER
+  FIELD KTOKD  AS CHARACTER
+  FIELD KNVI-TAXKD  AS CHARACTER
+  FIELD KKBER  AS CHARACTER
+  FIELD ANRED  AS CHARACTER
+  FIELD NAME1  AS CHARACTER
+  FIELD NAME2  AS CHARACTER
+  FIELD NAME3  AS CHARACTER
+  FIELD NAME4  AS CHARACTER
+  FIELD SORT1  AS CHARACTER
+  FIELD SORT2  AS CHARACTER
+  FIELD STRAS  AS CHARACTER
+  FIELD ORT01  AS CHARACTER
+  FIELD PSTLZ  AS CHARACTER
+  FIELD LAND1  AS CHARACTER
+  FIELD REGIO  AS CHARACTER
+  FIELD TELF1  AS CHARACTER
+  FIELD TELFX  AS CHARACTER
+  FIELD LIFNR  AS CHARACTER
+  FIELD STCD1  AS CHARACTER
+  FIELD KNA1-STKZN  AS CHARACTER
+  FIELD BRSCH  AS CHARACTER
+  FIELD KUKLA  AS CHARACTER
+  FIELD LZONE  AS CHARACTER
+  FIELD FITYP  AS CHARACTER
+  FIELD STCDT  AS CHARACTER
+  FIELD AKONT  AS CHARACTER
+  FIELD FDGRV  AS CHARACTER
+  FIELD ZTERM  AS CHARACTER
+  FIELD KNB1-XZVER  AS CHARACTER
+  FIELD KNB1-ZWELS  AS CHARACTER
+  FIELD ALTKN  AS CHARACTER
+  FIELD GRICD  AS CHARACTER
+  FIELD GRIDT  AS CHARACTER
+  FIELD BANKS  AS CHARACTER
+  FIELD BANKL  AS CHARACTER
+  FIELD BANKN  AS CHARACTER
+  FIELD BKONT  AS CHARACTER
+  FIELD BVTYP  AS CHARACTER
+  FIELD XEZER  AS CHARACTER
+  FIELD BKREF  AS CHARACTER
+  FIELD KOINH  AS CHARACTER
+  FIELD ABLAD  AS CHARACTER
+  FIELD KNFAK  AS CHARACTER
+  FIELD BZIRK  AS CHARACTER
+  FIELD VKBUR  AS CHARACTER
+  FIELD WAERS  AS CHARACTER
+  FIELD VKGRP  AS CHARACTER
+  FIELD KDGRP  AS CHARACTER
+  FIELD KONDA  AS CHARACTER
+  FIELD KALKS  AS CHARACTER
+  FIELD VSBED  AS CHARACTER
+  FIELD VWERK  AS CHARACTER
+  FIELD INCO1  AS CHARACTER
+  FIELD INCO2  AS CHARACTER
+  FIELD KTGRD  AS CHARACTER
+  FIELD PLTYP  AS CHARACTER
+  FIELD VERSG  AS CHARACTER
+  FIELD AUFSD  AS CHARACTER
+  FIELD STCD2  AS CHARACTER
+  FIELD COUNC  AS CHARACTER
+  FIELD KZAZU  AS CHARACTER
+  FIELD LPRIO  AS CHARACTER
+  .
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartWindow
+&Scoped-define DB-AWARE no
+
+&Scoped-define ADM-CONTAINER WINDOW
+
+&Scoped-define ADM-SUPPORTED-LINKS Data-Target,Data-Source,Page-Target,Update-Source,Update-Target,Filter-target,Filter-Source
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME fMain
+
+/* Standard List Definitions                                            */
+&Scoped-Define ENABLED-OBJECTS BUTTON-1 
+
+/* Custom List Definitions                                              */
+/* List-1,List-2,List-3,List-4,List-5,List-6                            */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* ************************  Function Prototypes ********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD queryName wWin 
+FUNCTION queryName RETURNS CHARACTER
+  ( /* parameter-definitions */ )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* ***********************  Control Definitions  ********************** */
+
+/* Define the widget handle for the window                              */
+DEFINE VAR wWin AS WIDGET-HANDLE NO-UNDO.
+
+/* Menu Definitions                                                     */
+DEFINE MENU POPUP-MENU-fMain 
+       MENU-ITEM m_Query_Constructor LABEL "Query Constructor".
+
+
+/* Definitions of handles for SmartObjects                              */
+DEFINE VARIABLE h_bsapclientes AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dsapclientes AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynfilter AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dyntoolbar AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_folder AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_vsapclientesbkn00 AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_vsapclientesbkna1 AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_vsapclientesbknb1 AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_vsapclientesbknbk AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_vsapclientesbknva AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_vsapclientesbknvv AS HANDLE NO-UNDO.
+
+/* Definitions of the field level widgets                               */
+DEFINE BUTTON BUTTON-1 
+     LABEL "Migrar" 
+     SIZE 15 BY 1.14.
+
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME fMain
+     BUTTON-1 AT ROW 2.67 COL 105
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY 
+         SIDE-LABELS NO-UNDERLINE THREE-D 
+         AT COL 1 ROW 1
+         SIZE 120.6 BY 29.43.
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartWindow
+   Allow: Basic,Browse,DB-Fields,Query,Smart,Window
+   Container Links: Data-Target,Data-Source,Page-Target,Update-Source,Update-Target,Filter-target,Filter-Source
+   Design Page: 6
+   Other Settings: COMPILE
+ */
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+IF SESSION:DISPLAY-TYPE = "GUI":U THEN
+  CREATE WINDOW wWin ASSIGN
+         HIDDEN             = YES
+         TITLE              = "Migracion a SAP - Clientes"
+         HEIGHT             = 29.43
+         WIDTH              = 120.6
+         MAX-HEIGHT         = 31.14
+         MAX-WIDTH          = 148.2
+         VIRTUAL-HEIGHT     = 31.14
+         VIRTUAL-WIDTH      = 148.2
+         RESIZE             = no
+         SCROLL-BARS        = no
+         STATUS-AREA        = no
+         BGCOLOR            = ?
+         FGCOLOR            = ?
+         THREE-D            = yes
+         MESSAGE-AREA       = no
+         SENSITIVE          = yes.
+ELSE {&WINDOW-NAME} = CURRENT-WINDOW.
+/* END WINDOW DEFINITION                                                */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB wWin 
+/* ************************* Included-Libraries *********************** */
+
+{src/adm2/containr.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR FRAME fMain
+                                                                        */
+ASSIGN 
+       FRAME fMain:POPUP-MENU       = MENU POPUP-MENU-fMain:HANDLE.
+
+IF SESSION:DISPLAY-TYPE = "GUI":U AND VALID-HANDLE(wWin)
+THEN wWin:HIDDEN = yes.
+
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+ 
+
+
+
+/* ************************  Control Triggers  ************************ */
+
+&Scoped-define SELF-NAME wWin
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL wWin wWin
+ON END-ERROR OF wWin /* Migracion a SAP - clientes */
+OR ENDKEY OF {&WINDOW-NAME} ANYWHERE DO:
+  /* This case occurs when the user presses the "Esc" key.
+     In a persistently run window, just ignore this.  If we did not, the
+     application would exit. */
+  IF THIS-PROCEDURE:PERSISTENT THEN RETURN NO-APPLY.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL wWin wWin
+ON WINDOW-CLOSE OF wWin /* Migracion a SAP - clientes */
+DO:
+  /* This ADM code must be left here in order for the SmartWindow
+     and its descendents to terminate properly on exit. */
+  APPLY "CLOSE":U TO THIS-PROCEDURE.
+  RETURN NO-APPLY.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-1
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-1 wWin
+ON CHOOSE OF BUTTON-1 IN FRAME fMain /* Migrar */
+DO:
+  DEFINE VARIABLE hLIb AS HANDLE     NO-UNDO.
+
+  DEFINE VARIABLE hLibCom AS HANDLE.
+  RUN libCommonFunctions.p PERSISTENT SET hLibCom.
+  hLib   = DYNAMIC-FUNCTION('getPersistentLib' IN hLibCom, 'd:\temp\industria\libProg2Sap.p'). 
+  DELETE OBJECT hLibCom.
+  
+  RUN transferclientes IN hLib (0, DATE('01/01/2007'), DATE('31/12/2007')).
+  
+  DYNAMIC-FUNCTION('openQuery' IN h_dSapClientes).
+  
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME m_Query_Constructor
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL m_Query_Constructor wWin
+ON CHOOSE OF MENU-ITEM m_Query_Constructor /* Query Constructor */
+DO:
+    DEFINE VAR xSDOS        AS CHARACTER    NO-UNDO.
+    DEFINE VAR i            AS INTEGER      NO-UNDO.
+    DEFINE VAR iPage        AS INTEGER      NO-UNDO.
+    DEFINE VAR iActualPage  AS INTEGER      NO-UNDO.
+    DEFINE VAR xDataSource  AS CHARACTER    NO-UNDO.
+    DEFINE VAR hDataSource  AS HANDLE       NO-UNDO.
+
+    xSDOS = DYNAMIC-FUNCTION ('getSDO').
+    {get CurrentPage iActualPage}.
+
+    DO i = 1 TO NUM-ENTRIES(xSDOS):
+        qh = WIDGET-HANDLE(ENTRY(i,xSDOS)).
+        {get ObjectPage iPage qh}.
+        {get DataSource xDataSource qh}.
+        hDataSource = WIDGET-HANDLE(xDataSource).
+        IF ( iPage = iActualPage OR iPage = 0 ) AND NOT valid-handle(hDataSource)THEN
+            RUN adm2/support/wquery.w ( INPUT qh ).
+        ELSE
+            MESSAGE 'No puede ejecutar consulta en el detalle' VIEW-AS ALERT-BOX WARNING.
+
+    END.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&UNDEFINE SELF-NAME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK wWin 
+
+
+/* ***************************  Main Block  *************************** */
+
+/* Include custom  Main Block code for SmartWindows. */
+{src/adm2/windowmn.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-create-objects wWin  _ADM-CREATE-OBJECTS
+PROCEDURE adm-create-objects :
+/*------------------------------------------------------------------------------
+  Purpose:     Create handles for all SmartObjects used in this procedure.
+               After SmartObjects are initialized, then SmartLinks are added.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE currentPage  AS INTEGER NO-UNDO.
+
+  ASSIGN currentPage = getCurrentPage().
+
+  CASE currentPage: 
+
+    WHEN 0 THEN DO:
+       RUN constructObject (
+             INPUT  'dsapclientes.wDB-AWARE':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedsapclientesUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dsapclientes ).
+       RUN repositionObject IN h_dsapclientes ( 5.29 , 98.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.86 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'bsapclientes.w':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'ScrollRemotenoNumDown0CalcWidthnoMaxWidth80FetchOnReposToEndyesDataSourceNamesUpdateTargetNamesLogicalObjectNameHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_bsapclientes ).
+       RUN repositionObject IN h_bsapclientes ( 6.48 , 2.00 ) NO-ERROR.
+       RUN resizeObject IN h_bsapclientes ( 4.52 , 118.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'adm2/dyntoolbar.w':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'FlatButtonsyesMenunoShowBorderyesToolbaryesActionGroupsTableio,Navigation,Banda1,Banda2SubModulesTableIOTypeUpdateSupportedLinksNavigation-source,Tableio-sourceToolbarBandsToolbarParentMenuToolbarAutoSizenoToolbarDrawDirectionHorizontalToolbarInitialStateLogicalObjectNameAutoResizeDisabledActionsHiddenActionsHiddenToolbarBandsHiddenMenuBandsMenuMergeOrder0EdgePixels2PanelTypeToolbarDeactivateTargetOnHidenoDisabledActionsNavigationTargetNameHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dyntoolbar ).
+       RUN repositionObject IN h_dyntoolbar ( 1.00 , 1.00 ) NO-ERROR.
+       RUN resizeObject IN h_dyntoolbar ( 1.24 , 119.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'adm2/dynfilter.w':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'DisplayedFieldsKUNNR,NAME1OperatorStyleImplicitOperatorViewAsCombo-boxOperator=UseBeginsyesUseContainsyesDefaultWidth16DefaultCharWidth20DefaultEditorLines1ViewAsFieldsFieldOperatorStylesFieldFormatsFieldWidthsFieldLabelsFieldToolTipsFieldHelpIdsDesignDataObjectFieldColumn20HideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynfilter ).
+       RUN repositionObject IN h_dynfilter ( 2.43 , 2.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynfilter ( 3.71 , 101.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'adm2/folder.w':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'FolderLabels':U + 'BKN00|BKNA1|BKNB1|BKNBK|BKNVA|BKNVV' + 'FolderTabWidth0FolderFont-1HideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_folder ).
+       RUN repositionObject IN h_folder ( 11.71 , 2.00 ) NO-ERROR.
+       RUN resizeObject IN h_folder ( 18.57 , 118.00 ) NO-ERROR.
+
+       /* Links to SmartDataObject h_dsapclientes. */
+       RUN addLink ( h_dynfilter , 'Filter':U , h_dsapclientes ).
+       RUN addLink ( h_dyntoolbar , 'Navigation':U , h_dsapclientes ).
+
+       /* Links to SmartDataBrowser h_bsapclientes. */
+       RUN addLink ( h_dsapclientes , 'Data':U , h_bsapclientes ).
+
+       /* Links to SmartFolder h_folder. */
+       RUN addLink ( h_folder , 'Page':U , THIS-PROCEDURE ).
+
+    END. /* Page 0 */
+
+    WHEN 1 THEN DO:
+       RUN constructObject (
+             INPUT  'vsapclientesbkn00.w':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'DataSourceNamesUpdateTargetNamesLogicalObjectNameLogicalObjectNamePhysicalObjectNameDynamicObjectnoRunAttributeHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_vsapclientesbkn00 ).
+       RUN repositionObject IN h_vsapclientesbkn00 ( 17.19 , 14.00 ) NO-ERROR.
+       /* Size in AB:  ( 6.00 , 92.20 ) */
+
+       /* Links to SmartDataViewer h_vsapclientesbkn00. */
+       RUN addLink ( h_dsapclientes , 'Data':U , h_vsapclientesbkn00 ).
+       RUN addLink ( h_vsapclientesbkn00 , 'Update':U , h_dsapclientes ).
+       RUN addLink ( h_dyntoolbar , 'TableIo':U , h_vsapclientesbkn00 ).
+
+    END. /* Page 1 */
+
+    WHEN 2 THEN DO:
+       RUN constructObject (
+             INPUT  'vsapclientesbkna1.w':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'DataSourceNamesUpdateTargetNamesLogicalObjectNameLogicalObjectNamePhysicalObjectNameDynamicObjectnoRunAttributeHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_vsapclientesbkna1 ).
+       RUN repositionObject IN h_vsapclientesbkna1 ( 13.14 , 3.00 ) NO-ERROR.
+       /* Size in AB:  ( 14.52 , 108.40 ) */
+
+       /* Initialize other pages that this page requires. */
+       RUN initPages ('1') NO-ERROR.
+
+       /* Links to SmartDataViewer h_vsapclientesbkna1. */
+       RUN addLink ( h_dsapclientes , 'Data':U , h_vsapclientesbkna1 ).
+       RUN addLink ( h_vsapclientesbkn00 , 'GroupAssign':U , h_vsapclientesbkna1 ).
+
+    END. /* Page 2 */
+
+    WHEN 3 THEN DO:
+       RUN constructObject (
+             INPUT  'vsapclientesbknb1.w':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'DataSourceNamesUpdateTargetNamesLogicalObjectNameLogicalObjectNamePhysicalObjectNameDynamicObjectnoRunAttributeHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_vsapclientesbknb1 ).
+       RUN repositionObject IN h_vsapclientesbknb1 ( 16.48 , 18.00 ) NO-ERROR.
+       /* Size in AB:  ( 9.81 , 60.80 ) */
+
+       /* Initialize other pages that this page requires. */
+       RUN initPages ('1') NO-ERROR.
+
+       /* Links to SmartDataViewer h_vsapclientesbknb1. */
+       RUN addLink ( h_dsapclientes , 'Data':U , h_vsapclientesbknb1 ).
+       RUN addLink ( h_vsapclientesbkn00 , 'GroupAssign':U , h_vsapclientesbknb1 ).
+
+    END. /* Page 3 */
+
+    WHEN 4 THEN DO:
+       RUN constructObject (
+             INPUT  'vsapclientesbknbk.w':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'DataSourceNamesUpdateTargetNamesLogicalObjectNameLogicalObjectNamePhysicalObjectNameDynamicObjectnoRunAttributeHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_vsapclientesbknbk ).
+       RUN repositionObject IN h_vsapclientesbknbk ( 16.24 , 26.00 ) NO-ERROR.
+       /* Size in AB:  ( 9.76 , 53.80 ) */
+
+       /* Initialize other pages that this page requires. */
+       RUN initPages ('1') NO-ERROR.
+
+       /* Links to SmartDataViewer h_vsapclientesbknbk. */
+       RUN addLink ( h_dsapclientes , 'Data':U , h_vsapclientesbknbk ).
+       RUN addLink ( h_vsapclientesbkn00 , 'GroupAssign':U , h_vsapclientesbknbk ).
+
+    END. /* Page 4 */
+
+    WHEN 5 THEN DO:
+       RUN constructObject (
+             INPUT  'vsapclientesbknva.w':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'DataSourceNamesUpdateTargetNamesLogicalObjectNameLogicalObjectNamePhysicalObjectNameDynamicObjectnoRunAttributeHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_vsapclientesbknva ).
+       RUN repositionObject IN h_vsapclientesbknva ( 18.86 , 23.00 ) NO-ERROR.
+       /* Size in AB:  ( 2.62 , 55.00 ) */
+
+       /* Initialize other pages that this page requires. */
+       RUN initPages ('1') NO-ERROR.
+
+       /* Links to SmartDataViewer h_vsapclientesbknva. */
+       RUN addLink ( h_dsapclientes , 'Data':U , h_vsapclientesbknva ).
+       RUN addLink ( h_vsapclientesbkn00 , 'GroupAssign':U , h_vsapclientesbknva ).
+
+    END. /* Page 5 */
+
+    WHEN 6 THEN DO:
+       RUN constructObject (
+             INPUT  'vsapclientesbknvv.w':U ,
+             INPUT  FRAME fMain:HANDLE ,
+             INPUT  'DataSourceNamesUpdateTargetNamesLogicalObjectNameLogicalObjectNamePhysicalObjectNameDynamicObjectnoRunAttributeHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_vsapclientesbknvv ).
+       RUN repositionObject IN h_vsapclientesbknvv ( 13.38 , 4.00 ) NO-ERROR.
+       /* Size in AB:  ( 13.38 , 113.80 ) */
+
+       /* Initialize other pages that this page requires. */
+       RUN initPages ('1') NO-ERROR.
+
+       /* Links to SmartDataViewer h_vsapclientesbknvv. */
+       RUN addLink ( h_dsapclientes , 'Data':U , h_vsapclientesbknvv ).
+       RUN addLink ( h_vsapclientesbkn00 , 'GroupAssign':U , h_vsapclientesbknvv ).
+
+       /* Adjust the tab order of the smart objects. */
+    END. /* Page 6 */
+
+  END CASE.
+  /* Select a Startup page. */
+  IF currentPage eq 0
+  THEN RUN selectPage IN THIS-PROCEDURE ( 1 ).
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE changePage wWin 
+PROCEDURE changePage :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+  {adm2/support/changePage.i}.  
+  
+  RUN SUPER.
+
+  /* Code placed here will execute AFTER standard behavior.    */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI wWin  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Delete the WINDOW we created */
+  IF SESSION:DISPLAY-TYPE = "GUI":U AND VALID-HANDLE(wWin)
+  THEN DELETE WIDGET wWin.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE enable_UI wWin  _DEFAULT-ENABLE
+PROCEDURE enable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     ENABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we display/view/enable the widgets in the
+               user-interface.  In addition, OPEN all queries
+               associated with each FRAME and BROWSE.
+               These statements here are based on the "Other 
+               Settings" section of the widget Property Sheets.
+------------------------------------------------------------------------------*/
+  ENABLE BUTTON-1 
+      WITH FRAME fMain IN WINDOW wWin.
+  {&OPEN-BROWSERS-IN-QUERY-fMain}
+  VIEW wWin.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE exitObject wWin 
+PROCEDURE exitObject :
+/*------------------------------------------------------------------------------
+  Purpose:  Window-specific override of this procedure which destroys 
+            its contents and itself.
+    Notes:  
+------------------------------------------------------------------------------*/
+
+  APPLY "CLOSE":U TO THIS-PROCEDURE.
+  RETURN.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE getQuery wWin 
+PROCEDURE getQuery :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE OUTPUT PARAMETER queryText AS CHARACTER NO-UNDO.
+    queryText = queryText1.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE getSort wWin 
+PROCEDURE getSort :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE OUTPUT PARAMETER querySort AS CHARACTER NO-UNDO.
+    querySort = querySort1.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE initializeObject wWin 
+PROCEDURE initializeObject :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  DYNAMIC-FUNCTION('enableActions' IN h_dyntoolbar, "exitAction").  
+  SUBSCRIBE TO "tlbExit" IN h_dyntoolbar.
+
+  DYNAMIC-FUNCTION('enableActions' IN h_dyntoolbar, "excelAction").  
+  SUBSCRIBE TO "tlbExcel" IN h_dyntoolbar.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE setSort wWin 
+PROCEDURE setSort :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE INPUT PARAMETER xSort AS CHARACTER NO-UNDO.
+
+querySort1 = xSort.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE tlbExcel wWin 
+PROCEDURE tlbExcel :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  FOR EACH ttBISAP.
+    DELETE ttBISAP.
+  END.
+  
+  FOR EACH BATCH_input_clientes_sap.
+    CREATE ttBISAP.
+    BUFFER-COPY BATCH_input_clientes_sap TO ttBISAP.
+  END.
+
+
+  RUN generateExcel.p (INPUT TABLE ttBISAP,
+                      INPUT " clientes SAP",
+                      INPUT ""  ,
+                      INPUT 7,
+                      INPUT 8,
+                      INPUT "Arial",
+                      INPUT 8).
+ 
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE tlbExit wWin 
+PROCEDURE tlbExit :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  APPLY "CLOSE":U TO THIS-PROCEDURE.
+  RETURN NO-APPLY.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+/* ************************  Function Implementations ***************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION queryName wWin 
+FUNCTION queryName RETURNS CHARACTER
+  ( /* parameter-definitions */ ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+
+  RETURN "".   /* Function return value. */
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+

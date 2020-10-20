@@ -1,0 +1,445 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER AB_v9r12 GUI ADM2
+&ANALYZE-RESUME
+/* Connected Databases 
+          general         PROGRESS
+*/
+&Scoped-define WINDOW-NAME CURRENT-WINDOW
+
+/* Temp-Table and Buffer definitions                                    */
+DEFINE TEMP-TABLE RowObject
+       {"dItemsMovimientoCamara.i"}.
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS vTableWin 
+/*------------------------------------------------------------------------
+
+  File:
+
+  Description: from viewer.w - Template for SmartDataViewer objects
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress AppBuilder.      */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+DEFINE VARIABLE iTip AS INTEGER    NO-UNDO.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartDataViewer
+&Scoped-define DB-AWARE no
+
+&Scoped-define ADM-CONTAINER FRAME
+
+&Scoped-define ADM-SUPPORTED-LINKS Data-Target,Update-Source,TableIO-Target,GroupAssign-Source,GroupAssign-Target
+
+/* Include file with RowObject temp-table definition */
+&Scoped-define DATA-FIELD-DEFS "dItemsMovimientoCamara.i"
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME F-Main
+
+/* Standard List Definitions                                            */
+&Scoped-Define ENABLED-FIELDS RowObject.nro_fila_origen ~
+RowObject.nro_columna_origen RowObject.nro_fila RowObject.nro_columna ~
+RowObject.destino RowObject.observaciones 
+&Scoped-define ENABLED-TABLES RowObject
+&Scoped-define FIRST-ENABLED-TABLE RowObject
+&Scoped-Define DISPLAYED-FIELDS RowObject.cantidad ~
+RowObject.nro_fila_origen RowObject.nro_columna_origen RowObject.nro_fila ~
+RowObject.nro_columna RowObject.destino RowObject.observaciones 
+&Scoped-define DISPLAYED-TABLES RowObject
+&Scoped-define FIRST-DISPLAYED-TABLE RowObject
+
+
+/* Custom List Definitions                                              */
+/* ADM-ASSIGN-FIELDS,List-2,List-3,List-4,List-5,List-6                 */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+/* ***********************  Control Definitions  ********************** */
+
+
+/* Definitions of handles for SmartObjects                              */
+DEFINE VARIABLE h_dcamara AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dttorigenesmovcamara AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dtttipomovcamara AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect-2 AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect-3 AS HANDLE NO-UNDO.
+
+/* Definitions of the field level widgets                               */
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME F-Main
+     RowObject.cantidad AT ROW 1 COL 55 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 10.4 BY 1
+     RowObject.nro_fila_origen AT ROW 4.29 COL 17 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 9.6 BY 1
+     RowObject.nro_columna_origen AT ROW 5.38 COL 17 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 9.6 BY 1
+     RowObject.nro_fila AT ROW 4.33 COL 43 COLON-ALIGNED
+          LABEL "Nro Fila Dest"
+          VIEW-AS FILL-IN 
+          SIZE 9.6 BY 1
+     RowObject.nro_columna AT ROW 5.43 COL 43 COLON-ALIGNED
+          LABEL "Nro Col Dest"
+          VIEW-AS FILL-IN 
+          SIZE 9.6 BY 1
+     RowObject.destino AT ROW 6.52 COL 17 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 48 BY 1
+     RowObject.observaciones AT ROW 7.67 COL 19 NO-LABEL
+          VIEW-AS EDITOR
+          SIZE 48 BY 3.1
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY USE-DICT-EXPS 
+         SIDE-LABELS NO-UNDERLINE THREE-D NO-AUTO-VALIDATE 
+         AT COL 1 ROW 1
+         SIZE 66.6 BY 9.86.
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartDataViewer
+   Data Source: "dItemsMovimientoCamara.w"
+   Allow: Basic,DB-Fields,Smart
+   Container Links: Data-Target,Update-Source,TableIO-Target,GroupAssign-Source,GroupAssign-Target
+   Frames: 1
+   Add Fields to: Neither
+   Other Settings: PERSISTENT-ONLY COMPILE
+   Temp-Tables and Buffers:
+      TABLE: RowObject D "?" ?  
+      ADDITIONAL-FIELDS:
+          {dItemsMovimientoCamara.i}
+      END-FIELDS.
+   END-TABLES.
+ */
+
+/* This procedure should always be RUN PERSISTENT.  Report the error,  */
+/* then cleanup and return.                                            */
+IF NOT THIS-PROCEDURE:PERSISTENT THEN DO:
+  MESSAGE "{&FILE-NAME} should only be RUN PERSISTENT.":U
+          VIEW-AS ALERT-BOX ERROR BUTTONS OK.
+  RETURN.
+END.
+
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+/* DESIGN Window definition (used by the UIB) 
+  CREATE WINDOW vTableWin ASSIGN
+         HEIGHT             = 9.86
+         WIDTH              = 66.6.
+/* END WINDOW DEFINITION */
+                                                                        */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB vTableWin 
+/* ************************* Included-Libraries *********************** */
+
+{src/adm2/viewer.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR WINDOW vTableWin
+  VISIBLE,,RUN-PERSISTENT                                               */
+/* SETTINGS FOR FRAME F-Main
+   NOT-VISIBLE Custom                                                   */
+ASSIGN 
+       FRAME F-Main:HIDDEN           = TRUE.
+
+/* SETTINGS FOR FILL-IN RowObject.cantidad IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN RowObject.nro_columna IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.nro_fila IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+
+/* Setting information for Queries and Browse Widgets fields            */
+
+&ANALYZE-SUSPEND _QUERY-BLOCK FRAME F-Main
+/* Query rebuild information for FRAME F-Main
+     _Options          = "NO-LOCK"
+     _Query            is NOT OPENED
+*/  /* FRAME F-Main */
+&ANALYZE-RESUME
+
+ 
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK vTableWin 
+
+
+/* ***************************  Main Block  *************************** */
+  {adm2/support/viewTrg.i}.  
+  &IF DEFINED(UIB_IS_RUNNING) <> 0 &THEN          
+    RUN initializeObject.
+  &ENDIF         
+  
+  /************************ INTERNAL PROCEDURES ********************/
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-create-objects vTableWin  _ADM-CREATE-OBJECTS
+PROCEDURE adm-create-objects :
+/*------------------------------------------------------------------------------
+  Purpose:     Create handles for all SmartObjects used in this procedure.
+               After SmartObjects are initialized, then SmartLinks are added.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE currentPage  AS INTEGER NO-UNDO.
+
+  ASSIGN currentPage = getCurrentPage().
+
+  CASE currentPage: 
+
+    WHEN 0 THEN DO:
+       RUN constructObject (
+             INPUT  'dtttipomovcamara.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch10CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedtttipomovcamaraUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dtttipomovcamara ).
+       RUN repositionObject IN h_dtttipomovcamara ( 3.86 , 57.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.86 , 9.20 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventonChooseTipoMovDisplayedFielddescripcionKeyFieldid_tipo_movimientoDataSourceFilterNumRows5OptionalnoOptionalString':U + '<none>' + 'LabelTipo MovimientoSortnoViewAsCombo-box:drop-down-listToolTipFormatHelpId0BrowseTitleBrowseFieldsExitBrowseOnActionnoCancelBrowseOnExitnoRepositionDataSourceyesDefineAnyKeyTriggeryesStartBrowseKeysFieldNameid_tipo_movimientoDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect ).
+       RUN repositionObject IN h_dynselect ( 1.00 , 19.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect ( 1.00 , 27.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'dcamara.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedcamaraUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dcamara ).
+       RUN repositionObject IN h_dcamara ( 6.24 , 1.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.86 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventDisplayedFielddescripcionKeyFieldid_camaraDataSourceFilterNumRows5OptionalnoOptionalString':U + '<none>' + 'LabelCamaraSortyesViewAsCombo-box:drop-down-listToolTipFormatHelpId0BrowseTitleCamarasBrowseFieldsExitBrowseOnActionyesCancelBrowseOnExityesRepositionDataSourceyesDefineAnyKeyTriggeryesStartBrowseKeysFieldNameid_camaraDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect-3 ).
+       RUN repositionObject IN h_dynselect-3 ( 3.19 , 19.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect-3 ( 1.00 , 36.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'dttorigenesmovcamara.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedttorigenesmovcamaraUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dttorigenesmovcamara ).
+       RUN repositionObject IN h_dttorigenesmovcamara ( 8.14 , 4.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.86 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventonChooseOrigenDisplayedFielddescripcionKeyFieldid_origenDataSourceFilterNumRows5OptionalnoOptionalString':U + '<none>' + 'LabelOrigenSortyesViewAsCombo-box:drop-down-listToolTipFormatHelpId0BrowseTitleBrowseFieldsExitBrowseOnActionnoCancelBrowseOnExitnoRepositionDataSourceyesDefineAnyKeyTriggeryesStartBrowseKeysFieldNameid_origenDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect-2 ).
+       RUN repositionObject IN h_dynselect-2 ( 2.10 , 19.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect-2 ( 1.00 , 27.00 ) NO-ERROR.
+
+       /* Links to SmartDataField h_dynselect. */
+       RUN addLink ( h_dtttipomovcamara , 'Data':U , h_dynselect ).
+
+       /* Links to SmartDataField h_dynselect-3. */
+       RUN addLink ( h_dcamara , 'Data':U , h_dynselect-3 ).
+
+       /* Links to SmartDataField h_dynselect-2. */
+       RUN addLink ( h_dttorigenesmovcamara , 'Data':U , h_dynselect-2 ).
+
+       /* Adjust the tab order of the smart objects. */
+       RUN adjustTabOrder ( h_dynselect ,
+             RowObject.cantidad:HANDLE IN FRAME F-Main , 'BEFORE':U ).
+       RUN adjustTabOrder ( h_dynselect-2 ,
+             RowObject.cantidad:HANDLE IN FRAME F-Main , 'AFTER':U ).
+       RUN adjustTabOrder ( h_dynselect-3 ,
+             h_dynselect-2 , 'AFTER':U ).
+    END. /* Page 0 */
+
+  END CASE.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE customEnableFields vTableWin 
+PROCEDURE customEnableFields :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER plState1 AS LOGICAL    NO-UNDO.
+  DEFINE INPUT  PARAMETER plState2 AS LOGICAL    NO-UNDO.
+
+  ASSIGN rowObject.nro_fila_origen:SENSITIVE IN FRAME F-Main    = plState1
+         rowObject.nro_columna_origen:SENSITIVE IN FRAME F-Main = plState1
+         rowObject.nro_fila:SENSITIVE IN FRAME F-Main           = plState2
+         rowObject.nro_columna:SENSITIVE IN FRAME F-Main        = plState2.
+
+  DEFINE VARIABLE hSource AS HANDLE     NO-UNDO.
+  DEFINE VARIABLE cQry AS CHARACTER  NO-UNDO.
+  
+  hSource = DYNAMIC-FUNCTION('getDataSource').
+  
+  cQry = "camara.id_sucursal = " + DYNAMIC-FUNCTION('columnValue' IN hSource, 'id_sucursal').
+
+  DYNAMIC-FUNCTION('setQueryWhere' IN h_dCamara, cQry).
+  DYNAMIC-FUNCTION('openQuery' IN h_dCamara).
+  
+  
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI vTableWin  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Hide all frames. */
+  HIDE FRAME F-Main.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE enableFields vTableWin 
+PROCEDURE enableFields :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  RUN customEnableFields(FALSE, TRUE).
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE onChooseOrigen vTableWin 
+PROCEDURE onChooseOrigen :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER pcValue AS CHARACTER  NO-UNDO.
+
+
+  RUN customEnableFields(FALSE, FALSE).
+
+  IF iTip = 1 THEN
+    RUN customEnableFields(FALSE, TRUE).
+
+  IF iTip = 2 AND pcValue = "2" THEN
+    RUN customEnableFields(TRUE, FALSE).
+
+  IF iTip = 3 AND pcValue = "2" THEN
+    RUN customEnableFields(TRUE, TRUE).
+  
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE onChooseTipoMov vTableWin 
+PROCEDURE onChooseTipoMov :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER pcValue AS CHARACTER  NO-UNDO.
+  
+  DEFINE VARIABLE cQry AS CHARACTER  NO-UNDO.
+
+  iTip = INTEGER(pcValue).
+
+  IF pcValue = "1" THEN
+    cQry = "id_origen = 1".    
+
+  IF pcValue = "2" THEN
+    cQry = "id_origen = 2".    
+
+  IF pcValue = "3" THEN
+    cQry = "id_origen = 2".    
+
+  
+  DYNAMIC-FUNCTION('setQueryWhere' IN h_dttOrigenesMovCamara, cQry).
+  DYNAMIC-FUNCTION('openQuery' IN h_dttOrigenesMovCamara).
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+

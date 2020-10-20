@@ -1,0 +1,320 @@
+UPDATE FIELD "bonificacion" OF "items_stock"
+  ORDER 590
+
+UPDATE FIELD "id_articulo" OF "items_stock"
+  ORDER 320
+
+UPDATE FIELD "unidades" OF "items_stock"
+  ORDER 780
+
+UPDATE FIELD "bon_global" OF "items_stock"
+  ORDER 500
+
+UPDATE FIELD "cf_global" OF "items_stock"
+  ORDER 490
+
+UPDATE FIELD "unidad_compra" OF "items_stock"
+  ORDER 700
+
+UPDATE FIELD "unidad_distribucion" OF "items_stock"
+  ORDER 710
+
+UPDATE FIELD "unidad_almacen" OF "items_stock"
+  ORDER 720
+
+UPDATE FIELD "costo" OF "items_stock"
+  ORDER 450
+
+UPDATE FIELD "costo_final" OF "items_stock"
+  ORDER 670
+
+UPDATE FIELD "costo_financiero" OF "items_stock"
+  ORDER 550
+
+UPDATE FIELD "descuentos" OF "items_stock"
+  ORDER 610
+
+UPDATE FIELD "observaciones" OF "items_stock"
+  ORDER 760
+
+UPDATE FIELD "desp_global" OF "items_stock"
+  ORDER 530
+
+UPDATE FIELD "bultos" OF "items_stock"
+  ORDER 360
+
+UPDATE FIELD "c_fecha" OF "items_stock"
+  ORDER 970
+
+UPDATE FIELD "c_hora" OF "items_stock"
+  ORDER 980
+
+UPDATE FIELD "c_usuario" OF "items_stock"
+  ORDER 960
+
+UPDATE FIELD "dto_pago" OF "items_stock"
+  ORDER 650
+
+UPDATE FIELD "flete" OF "items_stock"
+  ORDER 570
+
+UPDATE FIELD "id_interno_articulos" OF "items_stock"
+  ORDER 480
+
+UPDATE FIELD "id_iva_articulos" OF "items_stock"
+  ORDER 470
+
+UPDATE FIELD "retorno" OF "items_stock"
+  ORDER 630
+
+UPDATE FIELD "ret_global" OF "items_stock"
+  ORDER 510
+
+UPDATE FIELD "peso" OF "items_stock"
+  ORDER 680
+
+UPDATE FIELD "id_articulo_proveedor" OF "items_stock"
+  ORDER 440
+
+UPDATE FIELD "codigo_stock" OF "items_stock"
+  ORDER 730
+
+UPDATE FIELD "id_jaula" OF "items_stock"
+  ORDER 740
+
+UPDATE FIELD "fecha" OF "items_stock"
+  ORDER 140
+
+UPDATE FIELD "dia" OF "items_stock"
+  ORDER 160
+
+UPDATE FIELD "id_departamento" OF "items_stock"
+  ORDER 190
+
+UPDATE FIELD "id_familia" OF "items_stock"
+  ORDER 230
+
+UPDATE FIELD "id_subfamilia" OF "items_stock"
+  ORDER 120
+
+UPDATE FIELD "id_rubro" OF "items_stock"
+  ORDER 210
+
+UPDATE FIELD "id_sector" OF "items_stock"
+  ORDER 200
+
+UPDATE FIELD "id_tipo_nivel" OF "items_stock"
+  ORDER 750
+
+UPDATE FIELD "precio_venta" OF "items_stock"
+  ORDER 460
+
+UPDATE FIELD "id_centro_costo" OF "items_stock"
+  ORDER 770
+
+UPDATE FIELD "anulado" OF "items_stock"
+  ORDER 790
+
+UPDATE FIELD "cantidad" OF "items_stock"
+  ORDER 800
+
+UPDATE FIELD "consumido" OF "items_stock"
+  ORDER 810
+
+UPDATE FIELD "cantidad_consumida" OF "items_stock"
+  ORDER 820
+
+UPDATE FIELD "id_moneda_origen" OF "items_stock"
+  ORDER 520
+
+UPDATE FIELD "tipo_cambio" OF "items_stock"
+  ORDER 540
+
+UPDATE FIELD "costo_final_pesos" OF "items_stock"
+  ORDER 560
+
+UPDATE FIELD "costo_final_dolar" OF "items_stock"
+  ORDER 580
+
+UPDATE FIELD "costo_pesos" OF "items_stock"
+  ORDER 600
+
+UPDATE FIELD "costo_dolar" OF "items_stock"
+  ORDER 620
+
+UPDATE FIELD "con_devolucion" OF "items_stock"
+  ORDER 640
+
+UPDATE FIELD "cotizacion" OF "items_stock"
+  ORDER 660
+
+UPDATE FIELD "des_global" OF "items_stock"
+  ORDER 220
+
+UPDATE FIELD "fec_cosecha" OF "items_stock"
+  ORDER 870
+
+UPDATE FIELD "finca" OF "items_stock"
+  ORDER 880
+
+UPDATE FIELD "letra" OF "items_stock"
+  ORDER 890
+
+UPDATE FIELD "nro_lote" OF "items_stock"
+  ORDER 900
+
+UPDATE FIELD "desde_lote" OF "items_stock"
+  ORDER 910
+
+UPDATE FIELD "hasta_lote" OF "items_stock"
+  ORDER 920
+
+UPDATE FIELD "kg_envases" OF "items_stock"
+  ORDER 940
+
+UPDATE FIELD "importe" OF "items_stock"
+  ORDER 950
+
+UPDATE FIELD "id_proveedor" OF "items_stock"
+  ORDER 250
+
+UPDATE FIELD "id_origen" OF "items_stock"
+  ORDER 260
+
+UPDATE FIELD "estado_fruta" OF "items_stock"
+  ORDER 430
+
+UPDATE FIELD "periodo_cosecha" OF "items_stock"
+  ORDER 400
+
+UPDATE FIELD "id_tipo_cosecha" OF "items_stock"
+  ORDER 410
+
+UPDATE FIELD "fecha_cosecha" OF "items_stock"
+  ORDER 420
+
+UPDATE FIELD "id_lote" OF "items_stock"
+  ORDER 280
+
+UPDATE FIELD "hora" OF "items_stock"
+  ORDER 150
+
+UPDATE FIELD "id_sucursal_etiqueta" OF "items_stock"
+  ORDER 90
+
+UPDATE FIELD "id_etiqueta" OF "items_stock"
+  ORDER 100
+
+UPDATE FIELD "id_categoria" OF "items_stock"
+  ORDER 340
+
+UPDATE FIELD "calibre" OF "items_stock"
+  ORDER 350
+
+UPDATE FIELD "camara" OF "items_stock"
+  ORDER 110
+
+UPDATE FIELD "cod_prod" OF "items_stock"
+  ORDER 180
+
+UPDATE FIELD "ubicacion" OF "items_stock"
+  ORDER 130
+
+UPDATE FIELD "codigo_trazabilidad" OF "items_stock"
+  ORDER 310
+
+UPDATE FIELD "fecha_operativa" OF "items_stock"
+  ORDER 170
+
+UPDATE FIELD "id_sucursal_packing" OF "items_stock"
+  ORDER 240
+
+UPDATE FIELD "id_finca_senasa" OF "items_stock"
+  ORDER 270
+
+UPDATE FIELD "id_lote_senasa" OF "items_stock"
+  ORDER 290
+
+UPDATE FIELD "renspa" OF "items_stock"
+  ORDER 300
+
+UPDATE FIELD "union_europea" OF "items_stock"
+  ORDER 990
+
+UPDATE FIELD "nro_partida_origen" OF "items_stock"
+  ORDER 80
+
+UPDATE FIELD "nro_partida_general" OF "items_stock"
+  ORDER 1000
+
+UPDATE FIELD "certificado" OF "items_stock"
+  ORDER 1010
+
+UPDATE FIELD "nro_comprobante" OF "items_stock"
+  ORDER 1020
+
+UPDATE FIELD "china" OF "items_stock"
+  ORDER 1030
+
+UPDATE FIELD "cert_china" OF "items_stock"
+  ORDER 1040
+
+UPDATE FIELD "fecha_salida" OF "items_stock"
+  ORDER 1050
+
+UPDATE FIELD "id_division" OF "items_stock"
+  ORDER 1060
+
+UPDATE FIELD "id_estado_fruta" OF "items_stock"
+  ORDER 1070
+
+UPDATE FIELD "id_calidad" OF "items_stock"
+  ORDER 330
+
+UPDATE FIELD "id_variedad" OF "items_stock"
+  ORDER 370
+
+UPDATE FIELD "id_marca" OF "items_stock"
+  ORDER 380
+
+UPDATE FIELD "id_envase" OF "items_stock"
+  ORDER 830
+
+UPDATE FIELD "tipo_precio" OF "items_stock"
+  ORDER 930
+
+UPDATE FIELD "id_caract" OF "items_stock"
+  ORDER 840
+
+UPDATE FIELD "id_color" OF "items_stock"
+  ORDER 390
+
+UPDATE FIELD "pallets" OF "items_stock"
+  ORDER 850
+
+UPDATE FIELD "tamano" OF "items_stock"
+  ORDER 860
+
+UPDATE FIELD "documento_sap" OF "items_stock"
+  ORDER 1080
+
+UPDATE FIELD "id_color_stock" OF "items_stock"
+  ORDER 1100
+
+UPDATE FIELD "hora_stock" OF "items_stock"
+  ORDER 1110
+
+UPDATE FIELD "nro_partida_serial" OF "items_stock"
+  ORDER 1090
+
+UPDATE FIELD "orden_entrega_sap" OF "items_stock"
+  ORDER 1120
+
+UPDATE FIELD "zona_up" OF "items_stock"
+  ORDER 1130
+
+UPDATE FIELD "id_mercado" OF "items_stock"
+  ORDER 1140
+
+DROP FIELD "cantidad1" OF "items_stock"
+ADD FIELD "cantidad1" OF "items_stock" AS

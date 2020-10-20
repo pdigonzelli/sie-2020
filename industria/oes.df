@@ -1,0 +1,3820 @@
+ADD TABLE "items_contratos"
+  AREA "Schema Area"
+  DUMP-NAME "items_co"
+
+ADD FIELD "id_contrato" OF "items_contratos" AS character 
+  FORMAT "X(12)"
+  INITIAL ""
+  LABEL "Contract"
+  POSITION 2
+  SQL-WIDTH 24
+  COLUMN-LABEL "Contract"
+  ORDER 220
+
+ADD FIELD "anio" OF "items_contratos" AS integer 
+  DESCRIPTION "Año"
+  FORMAT ">>>9"
+  INITIAL "2001"
+  LABEL "Año"
+  POSITION 3
+  SQL-WIDTH 4
+  COLUMN-LABEL "Año"
+  ORDER 20
+
+ADD FIELD "c_usuario" OF "items_contratos" AS character 
+  DESCRIPTION " Nombre del usuario que modificó el registro"
+  FORMAT "x(12)"
+  INITIAL ?
+  LABEL "Usuario"
+  POSITION 4
+  SQL-WIDTH 24
+  COLUMN-LABEL "Usuario"
+  HELP " Nombre del usuario que modificó el registro"
+  ORDER 30
+
+ADD FIELD "c_fecha" OF "items_contratos" AS date 
+  DESCRIPTION " Fecha de última modificación del registro"
+  FORMAT "99/99/99"
+  INITIAL "today"
+  LABEL "Fecha"
+  POSITION 5
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  HELP " Fecha de última modificación del registro"
+  ORDER 40
+
+ADD FIELD "c_hora" OF "items_contratos" AS character 
+  DESCRIPTION " Hora de última modificación del registro"
+  FORMAT "x(8)"
+  INITIAL ?
+  LABEL "Hora"
+  POSITION 6
+  SQL-WIDTH 16
+  COLUMN-LABEL "Hora"
+  HELP " Hora de última modificación del registro"
+  ORDER 50
+
+ADD FIELD "item" OF "items_contratos" AS integer 
+  DESCRIPTION "Item"
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Parte"
+  POSITION 7
+  SQL-WIDTH 4
+  COLUMN-LABEL "Parte"
+  ORDER 60
+
+ADD FIELD "id_articulo" OF "items_contratos" AS integer 
+  DESCRIPTION "Identificación del Articulo"
+  FORMAT ">9"
+  INITIAL "0"
+  LABEL "Articulo"
+  POSITION 8
+  SQL-WIDTH 4
+  COLUMN-LABEL "Articulo"
+  VALEXP "id_articulo > 0"
+  VALMSG "Debe ingresar un articulo válido"
+  ORDER 70
+
+ADD FIELD "id_calidad" OF "items_contratos" AS integer 
+  DESCRIPTION "Identificación de la Calidad"
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Calidad"
+  POSITION 9
+  SQL-WIDTH 4
+  COLUMN-LABEL "Calidad"
+  VALEXP "id_calidad > 0"
+  VALMSG "Debe ingresar una calidad válida"
+  ORDER 80
+
+ADD FIELD "id_envase" OF "items_contratos" AS integer 
+  DESCRIPTION "Identificación de la Envase"
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Envase"
+  POSITION 10
+  SQL-WIDTH 4
+  COLUMN-LABEL "Envase"
+  VALEXP "id_envase > 0"
+  VALMSG "Debe ingresar un envase válido"
+  ORDER 90
+
+ADD FIELD "id_tipo_contrato" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Contrato"
+  POSITION 11
+  SQL-WIDTH 4
+  COLUMN-LABEL "T.Contrato"
+  ORDER 160
+
+ADD FIELD "fecha" OF "items_contratos" AS date 
+  DESCRIPTION "Fecha "
+  FORMAT "99/99/9999"
+  INITIAL "today"
+  LABEL "Fecha"
+  POSITION 12
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  HELP "Fecha"
+  ORDER 240
+
+ADD FIELD "precio_venta" OF "items_contratos" AS decimal 
+  FORMAT "->>>,>>>,>>>,>>9.999"
+  INITIAL "0"
+  LABEL "Precio Venta"
+  POSITION 13
+  SQL-WIDTH 18
+  COLUMN-LABEL "PrecioV."
+  DECIMALS 3
+  ORDER 180
+
+ADD FIELD "cantidad" OF "items_contratos" AS decimal 
+  DESCRIPTION "Cantidad total del pedido"
+  FORMAT "->>>,>>>,>>9.99"
+  INITIAL "0"
+  LABEL "Cantidad"
+  POSITION 14
+  SQL-WIDTH 17
+  COLUMN-LABEL "Cantidad"
+  DECIMALS 2
+  ORDER 130
+
+ADD FIELD "observaciones" OF "items_contratos" AS character 
+  DESCRIPTION "Observaciones"
+  FORMAT "X(100)"
+  INITIAL ""
+  LABEL "Observaciones"
+  POSITION 15
+  SQL-WIDTH 200
+  VIEW-AS "VIEW-AS EDITOR
+SIZE 50 BY 2"
+  COLUMN-LABEL "Observaciones"
+  ORDER 140
+
+ADD FIELD "precio_origen" OF "items_contratos" AS decimal 
+  FORMAT "->>>,>>>,>>>,>>9.999"
+  INITIAL "0"
+  POSITION 16
+  SQL-WIDTH 18
+  DECIMALS 3
+  ORDER 250
+
+ADD FIELD "precio_comision" OF "items_contratos" AS decimal 
+  FORMAT "->>>,>>>,>>>,>>9.999"
+  INITIAL "0"
+  LABEL "Precio Comision"
+  POSITION 17
+  SQL-WIDTH 18
+  COLUMN-LABEL "PrecioCom."
+  DECIMALS 3
+  ORDER 190
+
+ADD FIELD "precio_local" OF "items_contratos" AS decimal 
+  FORMAT "->>>,>>>,>>>,>>9.999"
+  INITIAL "0"
+  LABEL "Precio Local"
+  POSITION 18
+  SQL-WIDTH 18
+  COLUMN-LABEL "PrecioL"
+  DECIMALS 3
+  ORDER 260
+
+ADD FIELD "marca_tambores" OF "items_contratos" AS character 
+  FORMAT "X(100)"
+  INITIAL ""
+  LABEL "Marca de Tambores"
+  POSITION 19
+  SQL-WIDTH 200
+  VIEW-AS "VIEW-AS EDITOR
+SIZE 50 BY 2
+"
+  COLUMN-LABEL "MarcaTambores"
+  ORDER 210
+
+ADD FIELD "id_tipo_unidad_venta" OF "items_contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Unidad Venta"
+  POSITION 20
+  SQL-WIDTH 4
+  COLUMN-LABEL "U.Venta"
+  ORDER 230
+
+ADD FIELD "precio_base" OF "items_contratos" AS decimal 
+  FORMAT "->>>,>>>,>>>,>>9.999"
+  INITIAL "0"
+  LABEL "Fob Facturacion"
+  POSITION 21
+  SQL-WIDTH 18
+  COLUMN-LABEL "Fob Facturacion"
+  DECIMALS 3
+  ORDER 270
+
+ADD FIELD "id_articulo_cliente" OF "items_contratos" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Codigo Producto Cliente"
+  POSITION 22
+  SQL-WIDTH 186
+  COLUMN-LABEL "CodProdCli"
+  EXTENT 3
+  ORDER 280
+
+ADD FIELD "semana_entrega" OF "items_contratos" AS integer 
+  DESCRIPTION "Semana de entrega"
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Semana de entrega"
+  POSITION 23
+  SQL-WIDTH 4
+  COLUMN-LABEL "Semana de entrega"
+  ORDER 290
+
+ADD FIELD "anio_semana_entrega" OF "items_contratos" AS integer 
+  FORMAT "9999"
+  INITIAL "0"
+  LABEL "Año"
+  POSITION 24
+  SQL-WIDTH 4
+  COLUMN-LABEL "Año"
+  ORDER 300
+
+ADD FIELD "comision_broker_viejo" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Comisión"
+  POSITION 25
+  SQL-WIDTH 4
+  COLUMN-LABEL "Comisión"
+  ORDER 310
+
+ADD FIELD "comision_otros_viejo" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Comisión Otros"
+  POSITION 26
+  SQL-WIDTH 4
+  COLUMN-LABEL "Comisión Otros"
+  ORDER 320
+
+ADD FIELD "id_clausula" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Clausula"
+  POSITION 27
+  SQL-WIDTH 4
+  COLUMN-LABEL "Clausula"
+  ORDER 330
+
+ADD FIELD "embarque_estimado" OF "items_contratos" AS date 
+  FORMAT "99/99/9999"
+  INITIAL ?
+  LABEL "Embarque Estimado"
+  POSITION 28
+  SQL-WIDTH 4
+  COLUMN-LABEL "EmbEst"
+  ORDER 340
+
+ADD FIELD "arribo_estimado" OF "items_contratos" AS date 
+  FORMAT "99/99/9999"
+  INITIAL ?
+  LABEL "Arribo Estimado"
+  POSITION 29
+  SQL-WIDTH 4
+  COLUMN-LABEL "Arr Est"
+  ORDER 350
+
+ADD FIELD "cotizacion_origen" OF "items_contratos" AS decimal 
+  FORMAT "->>,>>9.999"
+  INITIAL "0"
+  LABEL "Cotización"
+  POSITION 30
+  SQL-WIDTH 18
+  COLUMN-LABEL "Cot"
+  DECIMALS 3
+  ORDER 460
+
+ADD FIELD "cotizacion_base" OF "items_contratos" AS decimal 
+  FORMAT "->>,>>9.999"
+  INITIAL "0"
+  LABEL "Cotización"
+  POSITION 31
+  SQL-WIDTH 18
+  COLUMN-LABEL "Cot"
+  DECIMALS 3
+  ORDER 470
+
+ADD FIELD "id_moneda_origen" OF "items_contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Codigo Moneda Origen"
+  POSITION 32
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodMonOri"
+  ORDER 380
+
+ADD FIELD "id_moneda_local" OF "items_contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Codigo Moneda Origen"
+  POSITION 33
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodMonOri"
+  ORDER 390
+
+ADD FIELD "id_moneda_base" OF "items_contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Codigo Moneda Origen"
+  POSITION 34
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodMonOri"
+  ORDER 400
+
+ADD FIELD "numero_release" OF "items_contratos" AS character 
+  FORMAT "X(40)"
+  INITIAL ""
+  LABEL "Nro Release"
+  POSITION 35
+  SQL-WIDTH 246
+  COLUMN-LABEL "NRelease"
+  EXTENT 3
+  ORDER 410
+
+ADD FIELD "id_destino" OF "items_contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Destino"
+  POSITION 36
+  SQL-WIDTH 4
+  COLUMN-LABEL "Destino"
+  ORDER 420
+
+ADD FIELD "id_from" OF "items_contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Origen"
+  POSITION 37
+  SQL-WIDTH 4
+  COLUMN-LABEL "Origen"
+  ORDER 430
+
+ADD FIELD "id_po_cliente" OF "items_contratos" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "PO Cliente"
+  POSITION 38
+  SQL-WIDTH 186
+  COLUMN-LABEL "PO Cliente"
+  EXTENT 3
+  ORDER 440
+
+ADD FIELD "precio_base_calculo" OF "items_contratos" AS decimal 
+  FORMAT "->>>,>>>,>>>,>>9.999"
+  INITIAL "0"
+  LABEL "Precio Base Calculo"
+  POSITION 39
+  SQL-WIDTH 18
+  COLUMN-LABEL "PrecioBC"
+  DECIMALS 3
+  ORDER 450
+
+ADD FIELD "id_puerto_ent" OF "items_contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Puerto Entrada"
+  POSITION 40
+  SQL-WIDTH 4
+  COLUMN-LABEL "P.Ent."
+  ORDER 480
+
+ADD FIELD "id_puerto_sal" OF "items_contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Puerto de Salida"
+  POSITION 41
+  SQL-WIDTH 4
+  COLUMN-LABEL "P.Sal"
+  ORDER 490
+
+ADD FIELD "id_vapor" OF "items_contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Vapor"
+  POSITION 42
+  SQL-WIDTH 4
+  COLUMN-LABEL "Vapor"
+  ORDER 500
+
+ADD FIELD "destino_final" OF "items_contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Destino Final"
+  POSITION 43
+  SQL-WIDTH 4
+  COLUMN-LABEL "Destino Final"
+  ORDER 510
+
+ADD FIELD "id_tipo_unidad_venta_origen" OF "items_contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Unidad Venta"
+  POSITION 44
+  SQL-WIDTH 4
+  COLUMN-LABEL "U.Venta"
+  ORDER 520
+
+ADD FIELD "semana_entrega_hasta" OF "items_contratos" AS integer 
+  DESCRIPTION "Semana de entrega"
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Semana de entrega hasta"
+  POSITION 45
+  SQL-WIDTH 4
+  COLUMN-LABEL "Semana de entrega hasta"
+  ORDER 530
+
+ADD FIELD "comision_broker" OF "items_contratos" AS decimal 
+  FORMAT ">>>,>>9.999"
+  INITIAL "0"
+  LABEL "Comision"
+  POSITION 46
+  SQL-WIDTH 18
+  COLUMN-LABEL "Comision"
+  DECIMALS 3
+  ORDER 540
+
+ADD FIELD "comision_otros" OF "items_contratos" AS decimal 
+  FORMAT ">>>,>>9.999"
+  INITIAL "0"
+  LABEL "Comision otros"
+  POSITION 47
+  SQL-WIDTH 18
+  COLUMN-LABEL "Com. Otros"
+  DECIMALS 3
+  ORDER 550
+
+ADD FIELD "id_variedad" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Var."
+  POSITION 48
+  SQL-WIDTH 4
+  COLUMN-LABEL "Var."
+  ORDER 560
+
+ADD FIELD "id_forma_carga" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Forma Carga"
+  POSITION 49
+  SQL-WIDTH 4
+  COLUMN-LABEL "Forma Carga"
+  ORDER 570
+
+ADD FIELD "cantidad_pallet" OF "items_contratos" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Cant.Pallets"
+  POSITION 50
+  SQL-WIDTH 17
+  COLUMN-LABEL "Cant.Pallets"
+  DECIMALS 2
+  ORDER 580
+
+ADD FIELD "cajas_pallets" OF "items_contratos" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Cajas x Pallets"
+  POSITION 51
+  SQL-WIDTH 17
+  COLUMN-LABEL "Cajas x Pallets"
+  DECIMALS 2
+  ORDER 590
+
+ADD FIELD "kilos_cajas" OF "items_contratos" AS decimal 
+  FORMAT "->>,>>9.9999"
+  INITIAL "0"
+  LABEL "Kilos x Caja"
+  POSITION 52
+  SQL-WIDTH 17
+  COLUMN-LABEL "Kilos x Caja"
+  DECIMALS 2
+  ORDER 600
+
+ADD FIELD "id_categoria" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Categoria"
+  POSITION 53
+  SQL-WIDTH 4
+  COLUMN-LABEL "Categoria"
+  ORDER 610
+
+ADD FIELD "calibres" OF "items_contratos" AS character 
+  FORMAT "X(15)"
+  INITIAL ""
+  LABEL "Calibres"
+  POSITION 54
+  SQL-WIDTH 30
+  COLUMN-LABEL "Calibres"
+  ORDER 620
+
+ADD FIELD "papel_sulfito" OF "items_contratos" AS logical 
+  FORMAT "si/no"
+  INITIAL "si"
+  LABEL "Papel Sulfito?"
+  POSITION 55
+  SQL-WIDTH 1
+  COLUMN-LABEL "Papel Sulfito?"
+  ORDER 630
+
+ADD FIELD "obleas" OF "items_contratos" AS logical 
+  FORMAT "si/no"
+  INITIAL "si"
+  LABEL "Obleas"
+  POSITION 56
+  SQL-WIDTH 1
+  COLUMN-LABEL "Obleas"
+  ORDER 640
+
+ADD FIELD "contramarca" OF "items_contratos" AS character 
+  FORMAT "X(8)"
+  INITIAL ""
+  LABEL "Contramarca"
+  POSITION 57
+  SQL-WIDTH 16
+  COLUMN-LABEL "Contramarca"
+  ORDER 650
+
+ADD FIELD "id_tipo_pallet" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Pallet"
+  POSITION 58
+  SQL-WIDTH 4
+  COLUMN-LABEL "Tipo Pallet"
+  ORDER 660
+
+ADD FIELD "id_medida_pallet" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Medida Pallet"
+  POSITION 59
+  SQL-WIDTH 4
+  COLUMN-LABEL "Medida Pallet"
+  ORDER 670
+
+ADD FIELD "id_confeccion_final" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Confección Final"
+  POSITION 60
+  SQL-WIDTH 4
+  COLUMN-LABEL "Confección Final"
+  ORDER 680
+
+ADD FIELD "id_tipo_empaque" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Empaque"
+  POSITION 61
+  SQL-WIDTH 4
+  COLUMN-LABEL "Tipo Empaque"
+  ORDER 690
+
+ADD FIELD "id_cliente_final" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Cliente Final"
+  POSITION 62
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cliente Final"
+  ORDER 700
+
+ADD FIELD "id_tipo_esquinero" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Flejes"
+  POSITION 63
+  SQL-WIDTH 4
+  COLUMN-LABEL "Tipo Flejes"
+  ORDER 710
+
+ADD FIELD "otra_identificacion" OF "items_contratos" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Otra Identificacion"
+  POSITION 64
+  SQL-WIDTH 60
+  COLUMN-LABEL "Otra Identificacion"
+  ORDER 750
+
+ADD FIELD "reutiliza_caja" OF "items_contratos" AS logical 
+  FORMAT "si/no"
+  INITIAL "si"
+  LABEL "Reutiliza Caja"
+  POSITION 65
+  SQL-WIDTH 1
+  COLUMN-LABEL "Reutiliza Caja"
+  ORDER 730
+
+ADD FIELD "id_tipo_envase" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Envase"
+  POSITION 66
+  SQL-WIDTH 4
+  COLUMN-LABEL "Tipo Envase"
+  ORDER 740
+
+ADD FIELD "id_tipo_tratamiento" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Tratamiento"
+  POSITION 67
+  SQL-WIDTH 4
+  COLUMN-LABEL "Tipo Tratamiento"
+  ORDER 760
+
+ADD FIELD "id_empacador" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Empacador"
+  POSITION 68
+  SQL-WIDTH 4
+  COLUMN-LABEL "Empacador"
+  ORDER 770
+
+ADD FIELD "id_marca" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Marca"
+  POSITION 69
+  SQL-WIDTH 4
+  COLUMN-LABEL "Marca"
+  ORDER 780
+
+ADD FIELD "id_caract" OF "items_contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Caract"
+  POSITION 70
+  SQL-WIDTH 4
+  COLUMN-LABEL "Caract"
+  ORDER 790
+
+ADD FIELD "estado" OF "items_contratos" AS logical 
+  FORMAT "Vigente/Cancelado"
+  INITIAL "Vigente"
+  LABEL "Estado"
+  POSITION 71
+  SQL-WIDTH 1
+  COLUMN-LABEL "Estado"
+  ORDER 800
+
+ADD FIELD "pendiente" OF "items_contratos" AS logical 
+  FORMAT "si/no"
+  INITIAL "si"
+  LABEL "Pendiente"
+  POSITION 72
+  SQL-WIDTH 1
+  COLUMN-LABEL "Pendiente"
+  ORDER 810
+
+ADD FIELD "id_tipo_venta" OF "items_contratos" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "CodTipoVenta"
+  POSITION 73
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodTipoVenta"
+  ORDER 820
+
+ADD FIELD "id_instrumento_pago" OF "items_contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "1"
+  LABEL "Cod. Ins. Pago"
+  POSITION 74
+  SQL-WIDTH 4
+  COLUMN-LABEL "C.Ins.P."
+  ORDER 830
+
+ADD FIELD "adelanto" OF "items_contratos" AS decimal 
+  FORMAT "->>>,>>>,>>9.9999"
+  INITIAL "0"
+  LABEL "Adelanto"
+  POSITION 75
+  SQL-WIDTH 17
+  COLUMN-LABEL "Adelanto"
+  DECIMALS 2
+  ORDER 840
+
+ADD FIELD "descuento" OF "items_contratos" AS decimal 
+  FORMAT "->>>,>>>,>>9.9999"
+  INITIAL "0"
+  LABEL "Descuento"
+  POSITION 76
+  SQL-WIDTH 17
+  COLUMN-LABEL "Descuento"
+  DECIMALS 2
+  ORDER 850
+
+ADD FIELD "interes" OF "items_contratos" AS decimal 
+  FORMAT "->>>,>>>,>>9.9999"
+  INITIAL "0"
+  LABEL "Interes"
+  POSITION 77
+  SQL-WIDTH 17
+  COLUMN-LABEL "Interes"
+  DECIMALS 2
+  ORDER 860
+
+ADD FIELD "saldo" OF "items_contratos" AS decimal 
+  FORMAT "->>>,>>>,>>9.9999"
+  INITIAL "0"
+  LABEL "Saldo"
+  POSITION 78
+  SQL-WIDTH 17
+  COLUMN-LABEL "Saldo"
+  DECIMALS 2
+  ORDER 870
+
+ADD FIELD "detalle_clientes" OF "items_contratos" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  POSITION 79
+  SQL-WIDTH 60
+  ORDER 880
+
+ADD FIELD "obs_comerciales" OF "items_contratos" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  POSITION 80
+  SQL-WIDTH 60
+  ORDER 890
+
+ADD FIELD "id_deposito_final" OF "items_contratos" AS integer 
+  FORMAT ">>>>9"
+  INITIAL "0"
+  LABEL "Cod.Deposito"
+  POSITION 81
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cod.Dep."
+  ORDER 900
+
+ADD FIELD "consignacion" OF "items_contratos" AS logical 
+  FORMAT "si/no"
+  INITIAL "no"
+  LABEL "Consignacion"
+  POSITION 82
+  SQL-WIDTH 1
+  COLUMN-LABEL "Consignacion"
+  ORDER 910
+
+ADD FIELD "cert_fito" OF "items_contratos" AS logical 
+  FORMAT "si/no"
+  INITIAL "no"
+  LABEL "Cert.Fitosanitario"
+  POSITION 83
+  SQL-WIDTH 1
+  COLUMN-LABEL "Cert.Fito."
+  ORDER 920
+
+ADD FIELD "id_cond_pago_cliente" OF "items_contratos" AS integer 
+  FORMAT ">>>>9"
+  INITIAL "0"
+  LABEL "Cond.Pago Cliente"
+  POSITION 84
+  SQL-WIDTH 4
+  COLUMN-LABEL "C.PagoCli"
+  ORDER 930
+
+ADD FIELD "precio_fob_base_400" OF "items_contratos" AS decimal 
+  FORMAT "->>>,>>>,>>>,>>9.999"
+  INITIAL "0"
+  LABEL "Fob Base 400"
+  POSITION 85
+  SQL-WIDTH 18
+  COLUMN-LABEL "Fob Base 400"
+  DECIMALS 3
+  ORDER 940
+
+ADD FIELD "id_color_envase" OF "items_contratos" AS integer 
+  FORMAT ">9"
+  INITIAL "0"
+  POSITION 86
+  SQL-WIDTH 4
+  ORDER 950
+
+ADD FIELD "codigo_banco_internacional" OF "items_contratos" AS character 
+  FORMAT "X(100)"
+  INITIAL ""
+  POSITION 87
+  SQL-WIDTH 200
+  ORDER 960
+
+ADD INDEX "items_orden_fabricacion" ON "items_contratos" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "id_contrato" ASCENDING 
+  INDEX-FIELD "id_tipo_contrato" ASCENDING 
+  INDEX-FIELD "anio" ASCENDING 
+  INDEX-FIELD "item" ASCENDING 
+
+ADD INDEX "color_envases" ON "items_contratos" 
+  AREA "industria"
+  INDEX-FIELD "id_color_envase" ASCENDING 
+
+ADD INDEX "contrato" ON "items_contratos" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipo_contrato" ASCENDING 
+  INDEX-FIELD "id_contrato" ASCENDING 
+  INDEX-FIELD "anio" ASCENDING 
+
+ADD INDEX "contrato_solo" ON "items_contratos" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_contrato" ASCENDING 
+
+ADD INDEX "fecha" ON "items_contratos" 
+  AREA "Schema Area"
+  INDEX-FIELD "fecha" ASCENDING 
+
+ADD TABLE "tambores_industria"
+  AREA "Schema Area"
+  LABEL "Tambores de Industria"
+  DESCRIPTION "Maestro de TODOS los tambores de industria"
+  DUMP-NAME "tam_indu"
+  TABLE-TRIGGER "DELETE" NO-OVERRIDE PROCEDURE "..\triggers\trd_tambores_industria.p" CRC "?" 
+
+ADD FIELD "id_empresa" OF "tambores_industria" AS integer 
+  DESCRIPTION "Identificación de la Empresa"
+  FORMAT ">9"
+  INITIAL "1"
+  LABEL "Empresa"
+  POSITION 2
+  SQL-WIDTH 4
+  COLUMN-LABEL "Empresa"
+  VALEXP "id_empresa > 0"
+  VALMSG "Debe ingresar una Empresa válida"
+  ORDER 10
+
+ADD FIELD "id_sucursal" OF "tambores_industria" AS integer 
+  FORMAT ">>,>>9"
+  INITIAL "0"
+  LABEL "Sucursal"
+  POSITION 3
+  SQL-WIDTH 4
+  COLUMN-LABEL "Suc"
+  ORDER 20
+  MANDATORY
+
+ADD FIELD "id_tipotambor" OF "tambores_industria" AS integer 
+  FORMAT ">,>>9"
+  INITIAL "0"
+  LABEL "Tipo tambor"
+  POSITION 4
+  SQL-WIDTH 4
+  COLUMN-LABEL "T.Tambor"
+  ORDER 30
+
+ADD FIELD "nromov" OF "tambores_industria" AS integer 
+  FORMAT ">>>,>>>,>>9"
+  INITIAL "0"
+  LABEL "Nromov"
+  POSITION 5
+  SQL-WIDTH 4
+  COLUMN-LABEL "Nromov"
+  ORDER 40
+
+ADD FIELD "id_articulo" OF "tambores_industria" AS integer 
+  DESCRIPTION "Artículo"
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Artículo"
+  POSITION 6
+  SQL-WIDTH 4
+  COLUMN-LABEL "Artículo"
+  ORDER 50
+
+ADD FIELD "id_tambor" OF "tambores_industria" AS integer 
+  FORMAT ">>>,>>>,>>9"
+  INITIAL "0"
+  LABEL "Tambor"
+  POSITION 7
+  SQL-WIDTH 4
+  COLUMN-LABEL "Tambor"
+  ORDER 60
+  MANDATORY
+
+ADD FIELD "id_envase" OF "tambores_industria" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "503"
+  LABEL "Envase"
+  POSITION 8
+  SQL-WIDTH 4
+  COLUMN-LABEL "Envase"
+  ORDER 70
+
+ADD FIELD "id_etiqueta" OF "tambores_industria" AS integer 
+  DESCRIPTION "Etiqueta"
+  FORMAT ">>>,>>>,>>9"
+  INITIAL "0"
+  LABEL "Etiqueta"
+  POSITION 9
+  SQL-WIDTH 4
+  COLUMN-LABEL "Etiqueta"
+  ORDER 80
+
+ADD FIELD "kilos_tambor_old" OF "tambores_industria" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Kilos Tambor"
+  POSITION 10
+  SQL-WIDTH 4
+  COLUMN-LABEL "Kilos"
+  ORDER 90
+
+ADD FIELD "kilos_agregados" OF "tambores_industria" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "lleno"
+  POSITION 11
+  SQL-WIDTH 4
+  COLUMN-LABEL "lleno"
+  ORDER 100
+
+ADD FIELD "Nro" OF "tambores_industria" AS integer 
+  DESCRIPTION "Nro de orden"
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Nro orden"
+  POSITION 12
+  SQL-WIDTH 4
+  COLUMN-LABEL "Nro orden"
+  ORDER 110
+
+ADD FIELD "Anio" OF "tambores_industria" AS integer 
+  DESCRIPTION "Año"
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Año"
+  POSITION 13
+  SQL-WIDTH 4
+  COLUMN-LABEL "Año"
+  ORDER 120
+
+ADD FIELD "Fecha" OF "tambores_industria" AS date 
+  FORMAT "99/99/9999"
+  INITIAL "today"
+  LABEL "Fecha"
+  POSITION 14
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  ORDER 130
+
+ADD FIELD "Fecha_cierre" OF "tambores_industria" AS date 
+  FORMAT "99/99/9999"
+  INITIAL "today"
+  LABEL "Fecha Cierre"
+  POSITION 15
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cierre"
+  ORDER 140
+
+ADD FIELD "citral" OF "tambores_industria" AS decimal 
+  DESCRIPTION "Citral"
+  FORMAT ">>9.99"
+  INITIAL "0"
+  LABEL "Citral"
+  POSITION 16
+  SQL-WIDTH 17
+  COLUMN-LABEL "Citral"
+  DECIMALS 2
+  ORDER 150
+
+ADD FIELD "id_empresa_destino" OF "tambores_industria" AS integer 
+  FORMAT ">9"
+  INITIAL "0"
+  LABEL "Empresa"
+  POSITION 17
+  SQL-WIDTH 4
+  COLUMN-LABEL "Empresa"
+  ORDER 160
+  MANDATORY
+
+ADD FIELD "id_sucursal_destino" OF "tambores_industria" AS integer 
+  FORMAT ">,>>9"
+  INITIAL "0"
+  LABEL "Sucursal"
+  POSITION 18
+  SQL-WIDTH 4
+  COLUMN-LABEL "Sucursal"
+  ORDER 170
+  MANDATORY
+
+ADD FIELD "id_tipotambor_destino" OF "tambores_industria" AS integer 
+  FORMAT ">,>>9"
+  INITIAL "0"
+  LABEL "Tipo tambor"
+  POSITION 19
+  SQL-WIDTH 4
+  COLUMN-LABEL "T.Tambor"
+  ORDER 180
+
+ADD FIELD "nromov_destino" OF "tambores_industria" AS integer 
+  FORMAT ">>>,>>>,>>9"
+  INITIAL "0"
+  LABEL "Nromov Destino"
+  POSITION 20
+  SQL-WIDTH 4
+  COLUMN-LABEL "Nro. Des."
+  ORDER 190
+
+ADD FIELD "id_contrato_of" OF "tambores_industria" AS character 
+  FORMAT "X(12)"
+  INITIAL ""
+  LABEL "Contract"
+  POSITION 21
+  SQL-WIDTH 24
+  COLUMN-LABEL "Contract"
+  ORDER 400
+
+ADD FIELD "anio_of" OF "tambores_industria" AS integer 
+  DESCRIPTION "Año"
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Año"
+  POSITION 22
+  SQL-WIDTH 4
+  COLUMN-LABEL "Año"
+  ORDER 210
+
+ADD FIELD "item_of" OF "tambores_industria" AS integer 
+  DESCRIPTION "Item"
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Item"
+  POSITION 23
+  SQL-WIDTH 4
+  COLUMN-LABEL "Item"
+  ORDER 220
+
+ADD FIELD "id_empresa_ubicacion" OF "tambores_industria" AS integer 
+  DESCRIPTION "Destino dentro de la Empresa"
+  FORMAT ">9"
+  INITIAL "0"
+  LABEL "Empresa Ubicacion"
+  POSITION 24
+  SQL-WIDTH 4
+  COLUMN-LABEL "Emp Ubi."
+  VALEXP "id_empresa > 0"
+  VALMSG "Debe ingresar una Empresa válida"
+  ORDER 230
+
+ADD FIELD "id_sucursal_ubicacion" OF "tambores_industria" AS integer 
+  FORMAT ">,>>9"
+  INITIAL "0"
+  LABEL "Sucursal Ubicacion"
+  POSITION 25
+  SQL-WIDTH 4
+  COLUMN-LABEL "Suc Ubi."
+  ORDER 240
+  MANDATORY
+
+ADD FIELD "id_locacion_ubicacion" OF "tambores_industria" AS integer 
+  FORMAT ">>,>>9"
+  INITIAL "0"
+  LABEL "Locacion Ubicacion"
+  POSITION 26
+  SQL-WIDTH 4
+  COLUMN-LABEL "Loc Ubi"
+  ORDER 250
+
+ADD FIELD "id_posicion_ubicacion" OF "tambores_industria" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Posicion Ubicacion"
+  POSITION 27
+  SQL-WIDTH 4
+  COLUMN-LABEL "Pos Ubi"
+  ORDER 260
+
+ADD FIELD "c_usuario" OF "tambores_industria" AS character 
+  DESCRIPTION " Nombre del usuario que modificó el registro"
+  FORMAT "x(12)"
+  INITIAL ?
+  LABEL "Usuario"
+  POSITION 28
+  SQL-WIDTH 24
+  COLUMN-LABEL "Usuario"
+  HELP " Nombre del usuario que modificó el registro"
+  ORDER 270
+
+ADD FIELD "c_fecha" OF "tambores_industria" AS date 
+  DESCRIPTION " Fecha de última modificación del registro"
+  FORMAT "99/99/99"
+  INITIAL "today"
+  LABEL "Fecha"
+  POSITION 29
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  HELP " Fecha de última modificación del registro"
+  ORDER 280
+
+ADD FIELD "c_hora" OF "tambores_industria" AS character 
+  DESCRIPTION " Hora de última modificación del registro"
+  FORMAT "x(8)"
+  INITIAL ?
+  LABEL "Hora"
+  POSITION 30
+  SQL-WIDTH 16
+  COLUMN-LABEL "Hora"
+  HELP " Hora de última modificación del registro"
+  ORDER 290
+
+ADD FIELD "id_lote" OF "tambores_industria" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Lote"
+  POSITION 31
+  SQL-WIDTH 4
+  COLUMN-LABEL "Lote"
+  ORDER 300
+  MANDATORY
+
+ADD FIELD "tara" OF "tambores_industria" AS decimal 
+  DESCRIPTION "Tara "
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Tara"
+  POSITION 32
+  SQL-WIDTH 17
+  COLUMN-LABEL "Tara"
+  DECIMALS 2
+  ORDER 310
+
+ADD FIELD "indice_tambor" OF "tambores_industria" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "Indice"
+  POSITION 33
+  SQL-WIDTH 4
+  COLUMN-LABEL "Indice"
+  ORDER 320
+
+ADD FIELD "id_proveedor" OF "tambores_industria" AS integer 
+  DESCRIPTION "Id de Proveedor"
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Proveedor"
+  POSITION 34
+  SQL-WIDTH 4
+  COLUMN-LABEL "Proveedor"
+  VALEXP "id_proveedor > 0"
+  VALMSG "Debe ingrear un proveedor existente"
+  ORDER 330
+
+ADD FIELD "id_sucursal_remito" OF "tambores_industria" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Suc. Remito"
+  POSITION 35
+  SQL-WIDTH 4
+  COLUMN-LABEL "Suc. Rem."
+  ORDER 340
+
+ADD FIELD "id_tipo_movsto" OF "tambores_industria" AS integer 
+  FORMAT ">,>>9"
+  INITIAL "0"
+  LABEL "Tipo Movsto"
+  POSITION 36
+  SQL-WIDTH 4
+  COLUMN-LABEL "Tipo Movsto"
+  ORDER 350
+
+ADD FIELD "nro_remito" OF "tambores_industria" AS integer 
+  FORMAT ">>,>>>,>>9"
+  INITIAL "0"
+  LABEL "Nro Remito"
+  POSITION 37
+  SQL-WIDTH 4
+  COLUMN-LABEL "Nro Remito"
+  ORDER 360
+
+ADD FIELD "id_envio_of" OF "tambores_industria" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Envio Orden Fabricaion"
+  POSITION 38
+  SQL-WIDTH 4
+  COLUMN-LABEL "Envio"
+  ORDER 370
+
+ADD FIELD "id_calidad" OF "tambores_industria" AS integer 
+  FORMAT ">>,>>9"
+  INITIAL "0"
+  LABEL "Calidad"
+  POSITION 39
+  SQL-WIDTH 4
+  COLUMN-LABEL "Calidad"
+  ORDER 380
+  MANDATORY
+
+ADD FIELD "id_tipocontrato_of" OF "tambores_industria" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Contrato de OF"
+  POSITION 40
+  SQL-WIDTH 4
+  COLUMN-LABEL "T.C. OF"
+  ORDER 390
+
+ADD FIELD "galones_tambor" OF "tambores_industria" AS integer 
+  FORMAT "->>>,>>>,>>9"
+  INITIAL "0"
+  LABEL "Galones"
+  POSITION 41
+  SQL-WIDTH 4
+  COLUMN-LABEL "Gal."
+  ORDER 410
+
+ADD FIELD "kilos_tambor" OF "tambores_industria" AS decimal 
+  FORMAT ">>>,>>9.999"
+  INITIAL "0"
+  LABEL "Kilos tambor"
+  POSITION 42
+  SQL-WIDTH 19
+  COLUMN-LABEL "Kilos"
+  DECIMALS 4
+  ORDER 420
+
+ADD FIELD "id_orden_entrega" OF "tambores_industria" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "OE"
+  POSITION 43
+  SQL-WIDTH 4
+  COLUMN-LABEL "OE"
+  ORDER 430
+
+ADD FIELD "estado" OF "tambores_industria" AS logical 
+  FORMAT "Nuestro/Externo"
+  INITIAL "Nuestro"
+  LABEL "Estado"
+  POSITION 44
+  SQL-WIDTH 1
+  COLUMN-LABEL "Estado"
+  ORDER 440
+
+ADD FIELD "item_oe" OF "tambores_industria" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Parte OE"
+  POSITION 45
+  SQL-WIDTH 4
+  COLUMN-LABEL "Parte OE"
+  ORDER 450
+
+ADD FIELD "c_usuario_rep" OF "tambores_industria" AS character 
+  DESCRIPTION " Nombre del usuario que modificó el registro"
+  FORMAT "x(12)"
+  INITIAL ?
+  LABEL "Usuario"
+  POSITION 46
+  SQL-WIDTH 24
+  COLUMN-LABEL "Usuario"
+  HELP " Nombre del usuario que modificó el registro"
+  ORDER 460
+
+ADD FIELD "c_fecha_rep" OF "tambores_industria" AS date 
+  DESCRIPTION " Fecha de última modificación del registro"
+  FORMAT "99/99/99"
+  INITIAL "today"
+  LABEL "Fecha"
+  POSITION 47
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  HELP " Fecha de última modificación del registro"
+  ORDER 470
+
+ADD FIELD "c_hora_rep" OF "tambores_industria" AS character 
+  DESCRIPTION " Hora de última modificación del registro"
+  FORMAT "x(8)"
+  INITIAL ?
+  LABEL "Hora"
+  POSITION 48
+  SQL-WIDTH 16
+  COLUMN-LABEL "Hora"
+  HELP " Hora de última modificación del registro"
+  ORDER 480
+
+ADD FIELD "id_lote_nuevo" OF "tambores_industria" AS character 
+  FORMAT "X(8)"
+  INITIAL ""
+  LABEL "Lote Nuevo"
+  POSITION 49
+  SQL-WIDTH 16
+  COLUMN-LABEL "Lote Nuevo"
+  ORDER 490
+
+ADD FIELD "item_factura" OF "tambores_industria" AS integer 
+  FORMAT ">>>>9"
+  INITIAL "0"
+  POSITION 50
+  SQL-WIDTH 4
+  ORDER 500
+
+ADD FIELD "id_release_delivery" OF "tambores_industria" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "item"
+  POSITION 51
+  SQL-WIDTH 4
+  COLUMN-LABEL "item"
+  ORDER 510
+
+ADD FIELD "item_release_delivery" OF "tambores_industria" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "item_release_delivery"
+  POSITION 52
+  SQL-WIDTH 4
+  COLUMN-LABEL "item_release_delivery"
+  ORDER 520
+
+ADD FIELD "id_lote_deposito" OF "tambores_industria" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Lote Deposito"
+  POSITION 53
+  SQL-WIDTH 40
+  COLUMN-LABEL "Lote Deposito"
+  ORDER 530
+
+ADD FIELD "fecha_reproceso" OF "tambores_industria" AS date 
+  FORMAT "99/99/9999"
+  INITIAL ?
+  LABEL "fecha_reproceso"
+  POSITION 54
+  SQL-WIDTH 4
+  COLUMN-LABEL "fecha_reproceso"
+  ORDER 540
+
+ADD FIELD "id_estado" OF "tambores_industria" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Estado"
+  POSITION 55
+  SQL-WIDTH 4
+  COLUMN-LABEL "Estado"
+  ORDER 550
+
+ADD FIELD "nro_precinto" OF "tambores_industria" AS character 
+  FORMAT "X(50)"
+  INITIAL ""
+  LABEL "Nro Precinto"
+  POSITION 56
+  SQL-WIDTH 100
+  COLUMN-LABEL "Nro Precinto"
+  ORDER 560
+
+ADD FIELD "id_camara" OF "tambores_industria" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 57
+  SQL-WIDTH 4
+  ORDER 570
+  MANDATORY
+
+ADD FIELD "id_sucursal_camara" OF "tambores_industria" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 58
+  SQL-WIDTH 4
+  ORDER 580
+  MANDATORY
+
+ADD FIELD "id_empresa_camara" OF "tambores_industria" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 59
+  SQL-WIDTH 4
+  ORDER 590
+  MANDATORY
+
+ADD FIELD "nro_fila_camara" OF "tambores_industria" AS character 
+  FORMAT "X(10)"
+  INITIAL ""
+  LABEL "fila"
+  POSITION 60
+  SQL-WIDTH 20
+  COLUMN-LABEL "fila"
+  ORDER 600
+
+ADD FIELD "nro_columna_camara" OF "tambores_industria" AS character 
+  FORMAT "X(10)"
+  INITIAL ""
+  LABEL "columna"
+  POSITION 61
+  SQL-WIDTH 20
+  COLUMN-LABEL "columna"
+  ORDER 610
+
+ADD FIELD "id_tipo_precinto" OF "tambores_industria" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "IdTipoPrecinto"
+  POSITION 62
+  SQL-WIDTH 4
+  COLUMN-LABEL "IdTipoPrecinto"
+  ORDER 620
+
+ADD FIELD "codigo_lote" OF "tambores_industria" AS character 
+  FORMAT "X(50)"
+  INITIAL ""
+  POSITION 63
+  SQL-WIDTH 100
+  ORDER 630
+
+ADD FIELD "origen_water" OF "tambores_industria" AS character 
+  FORMAT "X(50)"
+  INITIAL ""
+  POSITION 64
+  SQL-WIDTH 100
+  ORDER 640
+
+ADD FIELD "id_devolucion" OF "tambores_industria" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 65
+  SQL-WIDTH 4
+  ORDER 650
+
+ADD FIELD "anio_devolucion" OF "tambores_industria" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  POSITION 66
+  SQL-WIDTH 4
+  ORDER 660
+
+ADD INDEX "tambores_industria" ON "tambores_industria" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "id_empresa" ASCENDING 
+  INDEX-FIELD "id_sucursal" ASCENDING 
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "nromov" ASCENDING 
+  INDEX-FIELD "id_tambor" ASCENDING 
+
+ADD INDEX "anio" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "Anio" ASCENDING 
+
+ADD INDEX "art_cal_env" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_articulo" ASCENDING 
+  INDEX-FIELD "id_calidad" ASCENDING 
+  INDEX-FIELD "id_envase" ASCENDING 
+
+ADD INDEX "busqueda_remito" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "id_articulo" ASCENDING 
+  INDEX-FIELD "id_lote" ASCENDING 
+  INDEX-FIELD "Anio" ASCENDING 
+
+ADD INDEX "busqueda_remito1" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "id_articulo" ASCENDING 
+  INDEX-FIELD "id_lote" ASCENDING 
+  INDEX-FIELD "Anio" ASCENDING 
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+
+ADD INDEX "cacha_stock" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+  INDEX-FIELD "id_articulo" ASCENDING 
+  INDEX-FIELD "id_lote" ASCENDING 
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "Anio" ASCENDING 
+  INDEX-FIELD "id_tambor" ASCENDING 
+
+ADD INDEX "camara" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_empresa_camara" ASCENDING 
+  INDEX-FIELD "id_sucursal_camara" ASCENDING 
+  INDEX-FIELD "id_camara" ASCENDING 
+
+ADD INDEX "cascara1" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+  INDEX-FIELD "id_locacion_ubicacion" ASCENDING 
+  INDEX-FIELD "nromov_destino" ASCENDING 
+
+ADD INDEX "cascara2" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+  INDEX-FIELD "id_locacion_ubicacion" ASCENDING 
+  INDEX-FIELD "nromov_destino" ASCENDING 
+  INDEX-FIELD "id_tambor" ASCENDING 
+
+ADD INDEX "cascara3" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+  INDEX-FIELD "id_locacion_ubicacion" ASCENDING 
+  INDEX-FIELD "nromov_destino" ASCENDING 
+  INDEX-FIELD "id_lote" ASCENDING 
+  INDEX-FIELD "id_tambor" ASCENDING 
+
+ADD INDEX "claveestado" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_empresa" ASCENDING 
+  INDEX-FIELD "id_sucursal" ASCENDING 
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "nromov" ASCENDING 
+  INDEX-FIELD "id_estado" ASCENDING 
+
+ADD INDEX "codigo" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "codigo_lote" ASCENDING 
+
+ADD INDEX "contrato_completo" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_contrato_of" ASCENDING 
+  INDEX-FIELD "id_tipocontrato_of" ASCENDING 
+  INDEX-FIELD "anio_of" ASCENDING 
+
+ADD INDEX "devolucion" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_devolucion" ASCENDING 
+  INDEX-FIELD "anio_devolucion" ASCENDING 
+
+ADD INDEX "estado" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "estado" ASCENDING 
+
+ADD INDEX "estadotambor" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_estado" ASCENDING 
+
+ADD INDEX "etiquetas" ON "tambores_industria" 
+  AREA "Schema Area"
+  UNIQUE
+  INDEX-FIELD "id_etiqueta" ASCENDING 
+
+ADD INDEX "fecha" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "Fecha" ASCENDING 
+
+ADD INDEX "fecha_desc" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "Fecha" DESCENDING 
+
+ADD INDEX "fecha_reproceso" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "fecha_reproceso" ASCENDING 
+
+ADD INDEX "fillData" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "Fecha" ASCENDING 
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+
+ADD INDEX "id_camara" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_camara" ASCENDING 
+
+ADD INDEX "id_lote_deposito" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_lote_deposito" ASCENDING 
+
+ADD INDEX "id_tambor" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tambor" ASCENDING 
+
+ADD INDEX "items_oe" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_orden_entrega" ASCENDING 
+  INDEX-FIELD "item_oe" ASCENDING 
+
+ADD INDEX "item_contrato" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_contrato_of" ASCENDING 
+  INDEX-FIELD "id_tipocontrato_of" ASCENDING 
+  INDEX-FIELD "anio_of" ASCENDING 
+  INDEX-FIELD "item_of" ASCENDING 
+
+ADD INDEX "lote" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_lote" ASCENDING 
+
+ADD INDEX "lote_fecha_articulo" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_lote" ASCENDING 
+  INDEX-FIELD "Fecha" ASCENDING 
+  INDEX-FIELD "id_articulo" ASCENDING 
+
+ADD INDEX "lote_fecha_tambor" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_lote" ASCENDING 
+  INDEX-FIELD "Fecha" ASCENDING 
+  INDEX-FIELD "id_tambor" ASCENDING 
+
+ADD INDEX "lote_tambor" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_lote" ASCENDING 
+  INDEX-FIELD "id_tambor" ASCENDING 
+
+ADD INDEX "movest" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "nromov" ASCENDING 
+  INDEX-FIELD "id_estado" ASCENDING 
+
+ADD INDEX "nromov" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "nromov" ASCENDING 
+
+ADD INDEX "nromov_destino" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "nromov_destino" ASCENDING 
+
+ADD INDEX "OE" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_orden_entrega" ASCENDING 
+
+ADD INDEX "oilprod1" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+  INDEX-FIELD "id_articulo" ASCENDING 
+  INDEX-FIELD "id_locacion_ubicacion" ASCENDING 
+
+ADD INDEX "oilprod2" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_lote" ASCENDING 
+  INDEX-FIELD "Fecha" ASCENDING 
+  INDEX-FIELD "id_articulo" ASCENDING 
+  INDEX-FIELD "id_calidad" ASCENDING 
+  INDEX-FIELD "id_envase" ASCENDING 
+  INDEX-FIELD "kilos_tambor" ASCENDING 
+
+ADD INDEX "origen_lote_Aceite" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_articulo" ASCENDING 
+  INDEX-FIELD "id_empresa_destino" ASCENDING 
+  INDEX-FIELD "id_sucursal_destino" ASCENDING 
+  INDEX-FIELD "id_tipotambor_destino" ASCENDING 
+  INDEX-FIELD "nromov_destino" ASCENDING 
+  INDEX-FIELD "Fecha_cierre" ASCENDING 
+  INDEX-FIELD "id_locacion_ubicacion" ASCENDING 
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+  INDEX-FIELD "id_tambor" ASCENDING 
+  INDEX-FIELD "id_lote" ASCENDING 
+  INDEX-FIELD "id_sucursal" ASCENDING 
+
+ADD INDEX "parte_contrato" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_contrato_of" ASCENDING 
+  INDEX-FIELD "id_tipocontrato_of" ASCENDING 
+  INDEX-FIELD "anio_of" ASCENDING 
+  INDEX-FIELD "item_of" ASCENDING 
+
+ADD INDEX "pickUp1" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "Fecha" ASCENDING 
+  INDEX-FIELD "id_locacion_ubicacion" ASCENDING 
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "id_sucursal" ASCENDING 
+  INDEX-FIELD "id_lote" ASCENDING 
+  INDEX-FIELD "Anio" ASCENDING 
+  INDEX-FIELD "id_articulo" ASCENDING 
+  INDEX-FIELD "id_tambor" ASCENDING 
+
+ADD INDEX "precinto" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "nro_precinto" ASCENDING 
+
+ADD INDEX "prodind" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "id_estado" ASCENDING 
+  INDEX-FIELD "id_locacion_ubicacion" ASCENDING 
+  INDEX-FIELD "id_sucursal" ASCENDING 
+  INDEX-FIELD "id_articulo" ASCENDING 
+  INDEX-FIELD "Fecha" ASCENDING 
+
+ADD INDEX "prodind2" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "Fecha" ASCENDING 
+  INDEX-FIELD "id_lote" ASCENDING 
+  INDEX-FIELD "id_articulo" ASCENDING 
+  INDEX-FIELD "id_envase" ASCENDING 
+
+ADD INDEX "release_delivery" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_release_delivery" ASCENDING 
+  INDEX-FIELD "item_release_delivery" ASCENDING 
+
+ADD INDEX "remito" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "nro_remito" ASCENDING 
+
+ADD INDEX "remitosinfo" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_empresa" ASCENDING 
+  INDEX-FIELD "id_sucursal" ASCENDING 
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "nromov" ASCENDING 
+  INDEX-FIELD "id_sucursal_remito" ASCENDING 
+  INDEX-FIELD "id_tipo_movsto" ASCENDING 
+  INDEX-FIELD "nro_remito" ASCENDING 
+  INDEX-FIELD "item_factura" ASCENDING 
+
+ADD INDEX "remitos_nuevo" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_sucursal_remito" ASCENDING 
+  INDEX-FIELD "id_tipo_movsto" ASCENDING 
+  INDEX-FIELD "nro_remito" ASCENDING 
+  INDEX-FIELD "item_factura" ASCENDING 
+
+ADD INDEX "remito_completo" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_sucursal_remito" ASCENDING 
+  INDEX-FIELD "id_tipo_movsto" ASCENDING 
+  INDEX-FIELD "nro_remito" ASCENDING 
+
+ADD INDEX "stock" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+  INDEX-FIELD "id_locacion_ubicacion" ASCENDING 
+  INDEX-FIELD "Fecha" ASCENDING 
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+
+ADD INDEX "stockTbs" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_contrato_of" ASCENDING 
+  INDEX-FIELD "id_tipocontrato_of" ASCENDING 
+  INDEX-FIELD "anio_of" ASCENDING 
+  INDEX-FIELD "id_locacion_ubicacion" ASCENDING 
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+  INDEX-FIELD "nromov_destino" ASCENDING 
+  INDEX-FIELD "id_estado" ASCENDING 
+
+ADD INDEX "stock_1" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+  INDEX-FIELD "id_locacion_ubicacion" ASCENDING 
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+
+ADD INDEX "stock_principal_lote" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+  INDEX-FIELD "id_locacion_ubicacion" ASCENDING 
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "id_articulo" ASCENDING 
+  INDEX-FIELD "id_contrato_of" ASCENDING 
+  INDEX-FIELD "id_tipocontrato_of" ASCENDING 
+  INDEX-FIELD "anio_of" ASCENDING 
+
+ADD INDEX "sucursal" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_sucursal" ASCENDING 
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "id_lote" ASCENDING 
+
+ADD INDEX "suc_ubicacion" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+
+ADD INDEX "tambores_destino" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_empresa_destino" ASCENDING 
+  INDEX-FIELD "id_sucursal_destino" ASCENDING 
+  INDEX-FIELD "id_tipotambor_destino" ASCENDING 
+  INDEX-FIELD "nromov_destino" ASCENDING 
+
+ADD INDEX "tambores_ubicacion" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_empresa_ubicacion" ASCENDING 
+  INDEX-FIELD "id_sucursal_ubicacion" ASCENDING 
+  INDEX-FIELD "id_locacion_ubicacion" ASCENDING 
+  INDEX-FIELD "id_posicion_ubicacion" ASCENDING 
+
+ADD INDEX "tbscontrato" ON "tambores_industria" 
+  AREA "industria"
+  INDEX-FIELD "id_contrato_of" ASCENDING 
+  INDEX-FIELD "id_tipocontrato_of" ASCENDING 
+  INDEX-FIELD "anio_of" ASCENDING 
+  INDEX-FIELD "item_of" ASCENDING 
+
+ADD INDEX "tipotambor" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+
+ADD INDEX "tipotambor_fecha" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "Fecha" ASCENDING 
+
+ADD INDEX "tipotambor_fecha_desc" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "Fecha" DESCENDING 
+
+ADD INDEX "tipotambor_y_tambor" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "id_tambor" ASCENDING 
+
+ADD INDEX "tipo_tambor_lote_fecha" ON "tambores_industria" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipotambor" ASCENDING 
+  INDEX-FIELD "id_lote" ASCENDING 
+  INDEX-FIELD "Fecha" ASCENDING 
+
+ADD TABLE "contratos"
+  AREA "Schema Area"
+  LABEL "Contratos de Industria"
+  DESCRIPTION "Contratos de Industria"
+  DUMP-NAME "contrato"
+  TABLE-TRIGGER "WRITE" NO-OVERRIDE PROCEDURE "..\triggers\trw_contratos.p" CRC "?" 
+
+ADD FIELD "id_contrato" OF "contratos" AS character 
+  FORMAT "X(12)"
+  INITIAL ""
+  LABEL "Contract"
+  POSITION 2
+  SQL-WIDTH 24
+  COLUMN-LABEL "Contract"
+  ORDER 10
+
+ADD FIELD "id_tipo_contrato" OF "contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Contrato"
+  POSITION 3
+  SQL-WIDTH 4
+  COLUMN-LABEL "T.Contrato"
+  ORDER 20
+
+ADD FIELD "anio" OF "contratos" AS integer 
+  FORMAT "9999"
+  INITIAL "2001"
+  LABEL "Año"
+  POSITION 4
+  SQL-WIDTH 4
+  COLUMN-LABEL "Año"
+  ORDER 30
+
+ADD FIELD "orden_fabricacion" OF "contratos" AS integer 
+  FORMAT ">>,>>>,>>9"
+  INITIAL "0"
+  LABEL "OF"
+  POSITION 5
+  SQL-WIDTH 4
+  COLUMN-LABEL "OF"
+  ORDER 40
+
+ADD FIELD "fecha" OF "contratos" AS date 
+  FORMAT "99/99/9999"
+  INITIAL "today"
+  LABEL "Fecha"
+  POSITION 6
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  ORDER 50
+
+ADD FIELD "id_po_cliente" OF "contratos" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "PO Cliente"
+  POSITION 7
+  SQL-WIDTH 186
+  COLUMN-LABEL "PO Cliente"
+  EXTENT 3
+  ORDER 220
+
+ADD FIELD "direccion_envio" OF "contratos" AS character 
+  FORMAT "X(50)"
+  INITIAL ""
+  LABEL "Dirección de Envio"
+  POSITION 8
+  SQL-WIDTH 100
+  COLUMN-LABEL "Dir.Envio"
+  ORDER 70
+
+ADD FIELD "id_broker" OF "contratos" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "Broker"
+  POSITION 9
+  SQL-WIDTH 4
+  COLUMN-LABEL "Broker"
+  ORDER 80
+
+ADD FIELD "id_cliente" OF "contratos" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Cliente"
+  POSITION 10
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cliente"
+  ORDER 90
+
+ADD FIELD "id_consignee" OF "contratos" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Consignee"
+  POSITION 11
+  SQL-WIDTH 4
+  COLUMN-LABEL "Consignee"
+  ORDER 100
+
+ADD FIELD "id_notify" OF "contratos" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Notify"
+  POSITION 12
+  SQL-WIDTH 4
+  COLUMN-LABEL "Notify"
+  ORDER 110
+
+ADD FIELD "nombre_envio_doc" OF "contratos" AS character 
+  FORMAT "X(100)"
+  INITIAL ""
+  LABEL "Original Documents"
+  POSITION 13
+  SQL-WIDTH 200
+  COLUMN-LABEL "O.D."
+  ORDER 120
+
+ADD FIELD "direccion_envio_doc" OF "contratos" AS character 
+  FORMAT "X(50)"
+  INITIAL ""
+  LABEL "Dirección Envio"
+  POSITION 14
+  SQL-WIDTH 100
+  COLUMN-LABEL "Dir.Envio"
+  ORDER 130
+
+ADD FIELD "id_banco" OF "contratos" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Banco"
+  POSITION 15
+  SQL-WIDTH 4
+  COLUMN-LABEL "Banco"
+  ORDER 140
+
+ADD FIELD "otros_doc" OF "contratos" AS character 
+  FORMAT "X(230)"
+  INITIAL ""
+  LABEL "Otros Documentos"
+  POSITION 16
+  SQL-WIDTH 460
+  VIEW-AS "VIEW-AS EDITOR
+SIZE 60 BY 5"
+  COLUMN-LABEL "Otros Documentos"
+  ORDER 150
+
+ADD FIELD "c_usuario" OF "contratos" AS character 
+  DESCRIPTION " Nombre del usuario que modificó el registro"
+  FORMAT "x(12)"
+  INITIAL ?
+  LABEL "Usuario"
+  POSITION 17
+  SQL-WIDTH 24
+  COLUMN-LABEL "Usuario"
+  HELP " Nombre del usuario que modificó el registro"
+  ORDER 160
+
+ADD FIELD "c_fecha" OF "contratos" AS date 
+  DESCRIPTION " Fecha de última modificación del registro"
+  FORMAT "99/99/99"
+  INITIAL "today"
+  LABEL "Fecha"
+  POSITION 18
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  HELP " Fecha de última modificación del registro"
+  ORDER 170
+
+ADD FIELD "c_hora" OF "contratos" AS character 
+  DESCRIPTION " Hora de última modificación del registro"
+  FORMAT "x(8)"
+  INITIAL ?
+  LABEL "Hora"
+  POSITION 19
+  SQL-WIDTH 16
+  COLUMN-LABEL "Hora"
+  HELP " Hora de última modificación del registro"
+  ORDER 180
+
+ADD FIELD "plazo" OF "contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "30"
+  LABEL "Plazo"
+  POSITION 20
+  SQL-WIDTH 4
+  COLUMN-LABEL "Plazo"
+  ORDER 230
+
+ADD FIELD "observaciones" OF "contratos" AS character 
+  FORMAT "X(50)"
+  INITIAL ""
+  LABEL "Observaciones"
+  POSITION 21
+  SQL-WIDTH 100
+  COLUMN-LABEL "Observaciones"
+  ORDER 200
+
+ADD FIELD "otros_productos" OF "contratos" AS character 
+  FORMAT "X(100)"
+  INITIAL ""
+  LABEL "Otros Productos"
+  POSITION 22
+  SQL-WIDTH 200
+  VIEW-AS "VIEW-AS EDITOR
+SIZE 50 BY 2"
+  COLUMN-LABEL "Otros Productos"
+  ORDER 210
+
+ADD FIELD "id_tipo_plazo" OF "contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Tipo Plazo"
+  POSITION 23
+  SQL-WIDTH 4
+  COLUMN-LABEL "T.Plazo"
+  ORDER 240
+
+ADD FIELD "detalle_vta" OF "contratos" AS character 
+  FORMAT "X(300)"
+  INITIAL ""
+  POSITION 24
+  SQL-WIDTH 600
+  VIEW-AS "VIEW-AS EDITOR
+SIZE 60 BY 5
+"
+  ORDER 250
+
+ADD FIELD "id_instrumento_pago" OF "contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "1"
+  LABEL "Cod. Ins. Pago"
+  POSITION 25
+  SQL-WIDTH 4
+  COLUMN-LABEL "C.Ins.P."
+  ORDER 260
+
+ADD FIELD "id_documentacion" OF "contratos" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Documentos"
+  POSITION 26
+  SQL-WIDTH 4
+  COLUMN-LABEL "Documentos"
+  ORDER 270
+
+ADD FIELD "obs_comerciales" OF "contratos" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Obs.Comerciales"
+  POSITION 27
+  SQL-WIDTH 60
+  COLUMN-LABEL "Obs.Comerciales"
+  ORDER 280
+
+ADD FIELD "obs_documentacion" OF "contratos" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Obs.Documentacion"
+  POSITION 28
+  SQL-WIDTH 60
+  COLUMN-LABEL "Obs.Documentacion"
+  ORDER 290
+
+ADD FIELD "fax_pl" OF "contratos" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Fax"
+  POSITION 29
+  SQL-WIDTH 40
+  COLUMN-LABEL "Fax"
+  ORDER 300
+
+ADD FIELD "email_pl" OF "contratos" AS character 
+  FORMAT "X(100)"
+  INITIAL ""
+  LABEL "Email"
+  POSITION 30
+  SQL-WIDTH 200
+  COLUMN-LABEL "Email"
+  ORDER 310
+
+ADD FIELD "envia_mail_pl" OF "contratos" AS logical 
+  FORMAT "SI/NO"
+  INITIAL "NO"
+  LABEL "Envia Mail?"
+  POSITION 31
+  SQL-WIDTH 1
+  COLUMN-LABEL "Envia Mail?"
+  ORDER 320
+
+ADD FIELD "envia_fax_pl" OF "contratos" AS logical 
+  FORMAT "SI/NO"
+  INITIAL "NO"
+  LABEL "Envia Fax?"
+  POSITION 32
+  SQL-WIDTH 1
+  COLUMN-LABEL "Envia Fax?"
+  ORDER 330
+
+ADD FIELD "attn_pl" OF "contratos" AS character 
+  FORMAT "X(20)"
+  INITIAL ""
+  LABEL "Attn"
+  POSITION 33
+  SQL-WIDTH 40
+  COLUMN-LABEL "Attn"
+  ORDER 340
+
+ADD FIELD "doc_especiales" OF "contratos" AS logical 
+  FORMAT "SI/NO"
+  INITIAL "SI"
+  LABEL "Doc Especiales?"
+  POSITION 34
+  SQL-WIDTH 1
+  COLUMN-LABEL "Doc Especiales?"
+  ORDER 350
+
+ADD FIELD "id_cliente_documentacion" OF "contratos" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Cliente Doc."
+  POSITION 35
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cliente Doc."
+  ORDER 360
+
+ADD FIELD "adelantar_copia" OF "contratos" AS logical 
+  FORMAT "SI/NO"
+  INITIAL "SI"
+  LABEL "Adelantar Copia?"
+  POSITION 36
+  SQL-WIDTH 1
+  COLUMN-LABEL "Adelantar Copia?"
+  ORDER 370
+
+ADD FIELD "retener_doc" OF "contratos" AS logical 
+  FORMAT "SI/NO"
+  INITIAL "SI"
+  LABEL "Retener Doc?"
+  POSITION 37
+  SQL-WIDTH 1
+  COLUMN-LABEL "Retener Doc?"
+  ORDER 380
+
+ADD FIELD "id_cliente_destino" OF "contratos" AS integer 
+  FORMAT ">>>>9"
+  INITIAL "0"
+  LABEL "Cliente destino"
+  POSITION 38
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cliente destino"
+  ORDER 390
+
+ADD FIELD "id_cliente_final" OF "contratos" AS integer 
+  FORMAT ">>>>>>9"
+  INITIAL "0"
+  LABEL "CodClienteFinal"
+  POSITION 39
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodClienteFinal"
+  ORDER 400
+
+ADD FIELD "id_responsable" OF "contratos" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "CodResponsable"
+  POSITION 40
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodResponsable"
+  ORDER 410
+
+ADD FIELD "id_tipo_venta" OF "contratos" AS integer 
+  FORMAT ">>>>9"
+  INITIAL "0"
+  LABEL "TipoVenta"
+  POSITION 41
+  SQL-WIDTH 4
+  COLUMN-LABEL "TipoVenta"
+  ORDER 420
+
+ADD FIELD "consignacion" OF "contratos" AS logical 
+  FORMAT "si/no"
+  INITIAL "no"
+  LABEL "Consignacion"
+  POSITION 42
+  SQL-WIDTH 1
+  COLUMN-LABEL "Consignacion"
+  ORDER 430
+
+ADD FIELD "id_estado" OF "contratos" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  POSITION 43
+  SQL-WIDTH 4
+  ORDER 440
+
+ADD FIELD "id_documentacion_secundaria" OF "contratos" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "EnvioDocSec"
+  POSITION 44
+  SQL-WIDTH 4
+  COLUMN-LABEL "EnvioDocSec"
+  ORDER 450
+
+ADD FIELD "mercado" OF "contratos" AS logical 
+  FORMAT "externo/interno"
+  INITIAL "externo"
+  LABEL "Mercado"
+  POSITION 45
+  SQL-WIDTH 1
+  COLUMN-LABEL "Mercado"
+  ORDER 460
+
+ADD FIELD "id_direccion_descarga" OF "contratos" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Cod.direc.Desc."
+  POSITION 46
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cod.direc.Desc."
+  ORDER 470
+
+ADD FIELD "obs_delivery" OF "contratos" AS character 
+  FORMAT "X(200)"
+  INITIAL ""
+  POSITION 47
+  SQL-WIDTH 400
+  VIEW-AS "VIEW-AS EDITOR
+SIZE 50 BY 4"
+  ORDER 480
+
+ADD FIELD "obs_factura" OF "contratos" AS character 
+  FORMAT "X(200)"
+  INITIAL ""
+  POSITION 48
+  SQL-WIDTH 400
+  VIEW-AS "VIEW-AS EDITOR
+SIZE 50 BY 4"
+  ORDER 490
+
+ADD FIELD "id_payment_contact" OF "contratos" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Payment Contact"
+  POSITION 49
+  SQL-WIDTH 4
+  ORDER 500
+
+ADD FIELD "id_payment_instruction" OF "contratos" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Payment Instruction"
+  POSITION 50
+  SQL-WIDTH 4
+  COLUMN-LABEL "Payment Instruction"
+  ORDER 510
+
+ADD FIELD "id_delivery_carrier" OF "contratos" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Delivery Carrier"
+  POSITION 51
+  SQL-WIDTH 4
+  COLUMN-LABEL "Del.Carrier"
+  ORDER 520
+
+ADD FIELD "obs_documentos" OF "contratos" AS character 
+  FORMAT "X(200)"
+  INITIAL ""
+  LABEL "Obs Documentos"
+  POSITION 52
+  SQL-WIDTH 400
+  VIEW-AS "VIEW-AS EDITOR
+SIZE 50 BY 4"
+  ORDER 530
+
+ADD FIELD "pre_shipping_samples" OF "contratos" AS logical 
+  FORMAT "SI/NO"
+  INITIAL "NO"
+  LABEL "Pre Shipping Samples"
+  POSITION 53
+  SQL-WIDTH 1
+  COLUMN-LABEL "Pre Shipping Samples"
+  ORDER 540
+
+ADD FIELD "id_color_envase" OF "contratos" AS integer 
+  FORMAT ">9"
+  INITIAL "0"
+  POSITION 54
+  SQL-WIDTH 4
+  ORDER 550
+
+ADD FIELD "datos_adicionales_banco" OF "contratos" AS character 
+  FORMAT "X(50)"
+  INITIAL ""
+  POSITION 55
+  SQL-WIDTH 100
+  ORDER 560
+
+ADD INDEX "contratos" ON "contratos" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "id_contrato" ASCENDING 
+  INDEX-FIELD "id_tipo_contrato" ASCENDING 
+  INDEX-FIELD "anio" ASCENDING 
+
+ADD INDEX "cliente" ON "contratos" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_cliente" ASCENDING 
+
+ADD INDEX "colores_envases" ON "contratos" 
+  AREA "industria"
+  INDEX-FIELD "id_color_envase" ASCENDING 
+
+ADD INDEX "contratos_solo" ON "contratos" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_contrato" ASCENDING 
+
+ADD INDEX "contrato_dist" ON "contratos" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipo_contrato" ASCENDING 
+  INDEX-FIELD "id_contrato" ASCENDING 
+  INDEX-FIELD "anio" ASCENDING 
+
+ADD INDEX "fecha" ON "contratos" 
+  AREA "Schema Area"
+  INDEX-FIELD "fecha" ASCENDING 
+
+ADD INDEX "orden_fab" ON "contratos" 
+  AREA "Schema Area"
+  INDEX-FIELD "orden_fabricacion" ASCENDING 
+
+ADD INDEX "payment_contact" ON "contratos" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_payment_contact" ASCENDING 
+
+ADD INDEX "payment_instruction" ON "contratos" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_payment_instruction" ASCENDING 
+
+ADD TABLE "items_orden_entrega"
+  AREA "Schema Area"
+  LABEL "Items de OE"
+  DUMP-NAME "items_oe"
+
+ADD FIELD "id_orden_entrega" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "OE"
+  POSITION 2
+  SQL-WIDTH 4
+  COLUMN-LABEL "OE"
+  ORDER 10
+
+ADD FIELD "id_contrato" OF "items_orden_entrega" AS character 
+  FORMAT "X(12)"
+  INITIAL ""
+  LABEL "Contract"
+  POSITION 3
+  SQL-WIDTH 24
+  COLUMN-LABEL "Contract"
+  ORDER 20
+
+ADD FIELD "id_tipo_contrato" OF "items_orden_entrega" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Contrato"
+  POSITION 4
+  SQL-WIDTH 4
+  COLUMN-LABEL "T.Contrato"
+  ORDER 30
+
+ADD FIELD "anio" OF "items_orden_entrega" AS integer 
+  FORMAT "9999"
+  INITIAL "2001"
+  LABEL "Año"
+  POSITION 5
+  SQL-WIDTH 4
+  COLUMN-LABEL "Año"
+  ORDER 40
+
+ADD FIELD "item" OF "items_orden_entrega" AS integer 
+  DESCRIPTION "Item"
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Parte"
+  POSITION 6
+  SQL-WIDTH 4
+  COLUMN-LABEL "Parte"
+  ORDER 50
+
+ADD FIELD "fecha" OF "items_orden_entrega" AS date 
+  DESCRIPTION "Fecha "
+  FORMAT "99/99/99"
+  INITIAL "today"
+  LABEL "Fecha"
+  POSITION 7
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  HELP "Fecha"
+  ORDER 60
+
+ADD FIELD "semana_entrega" OF "items_orden_entrega" AS integer 
+  DESCRIPTION "Semana de entrega"
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Semana de entrega"
+  POSITION 8
+  SQL-WIDTH 4
+  COLUMN-LABEL "Semana de entrega"
+  ORDER 70
+
+ADD FIELD "id_cliente" OF "items_orden_entrega" AS integer 
+  FORMAT "->>>>>>9"
+  INITIAL "0"
+  LABEL "Cliente"
+  POSITION 9
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cliente"
+  ORDER 100
+
+ADD FIELD "id_calidad" OF "items_orden_entrega" AS integer 
+  DESCRIPTION "Identificación de la Calidad"
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Calidad"
+  POSITION 10
+  SQL-WIDTH 4
+  COLUMN-LABEL "Calidad"
+  VALEXP "id_calidad > 0"
+  VALMSG "Debe ingresar una calidad válida"
+  ORDER 110
+
+ADD FIELD "id_articulo" OF "items_orden_entrega" AS integer 
+  DESCRIPTION "Identificación del Articulo"
+  FORMAT ">9"
+  INITIAL "0"
+  LABEL "Articulo"
+  POSITION 11
+  SQL-WIDTH 4
+  COLUMN-LABEL "Articulo"
+  VALEXP "id_articulo > 0"
+  VALMSG "Debe ingresar un articulo válido"
+  ORDER 120
+
+ADD FIELD "cantidad_tambores" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Tambores"
+  POSITION 12
+  SQL-WIDTH 4
+  COLUMN-LABEL "Tambores"
+  ORDER 130
+
+ADD FIELD "kgs_netos_tambores" OF "items_orden_entrega" AS decimal 
+  FORMAT ">>>>>>9.9999"
+  INITIAL "0"
+  LABEL "Kgs Netos"
+  POSITION 13
+  SQL-WIDTH 19
+  COLUMN-LABEL "Kgs Netos"
+  DECIMALS 4
+  ORDER 140
+
+ADD FIELD "kgs_brutos_tambores" OF "items_orden_entrega" AS decimal 
+  FORMAT ">>>>>>>9.9999"
+  INITIAL "0"
+  LABEL "Kgs Brutos"
+  POSITION 14
+  SQL-WIDTH 19
+  COLUMN-LABEL "Kgs Brutos"
+  DECIMALS 4
+  ORDER 150
+
+ADD FIELD "id_condicion_venta" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Cod. Cond. Venta"
+  POSITION 15
+  SQL-WIDTH 4
+  COLUMN-LABEL "C.Cond.Vta."
+  ORDER 160
+
+ADD FIELD "precio_x_galon" OF "items_orden_entrega" AS decimal 
+  FORMAT ">>>>>>9.9999"
+  INITIAL "0"
+  LABEL "Precio x Galon u$s"
+  POSITION 16
+  SQL-WIDTH 19
+  COLUMN-LABEL "Precio x Galon u$s"
+  DECIMALS 4
+  ORDER 240
+
+ADD FIELD "total_galones" OF "items_orden_entrega" AS decimal 
+  FORMAT ">>>>>9.9999"
+  INITIAL "0"
+  LABEL "T. Galones"
+  POSITION 17
+  SQL-WIDTH 19
+  COLUMN-LABEL "T. Galones"
+  DECIMALS 4
+  ORDER 250
+
+ADD FIELD "fob_ton_u$s" OF "items_orden_entrega" AS decimal 
+  FORMAT ">>>>>>9.9999"
+  INITIAL "0"
+  LABEL "Fob/Ton u$s"
+  POSITION 18
+  SQL-WIDTH 19
+  COLUMN-LABEL "Fob/Ton u$s"
+  DECIMALS 4
+  ORDER 260
+
+ADD FIELD "id_estado" OF "items_orden_entrega" AS integer 
+  FORMAT ">>9"
+  INITIAL "1"
+  LABEL "Estado"
+  POSITION 19
+  SQL-WIDTH 4
+  COLUMN-LABEL "Estado"
+  ORDER 300
+
+ADD FIELD "total_factura" OF "items_orden_entrega" AS decimal 
+  FORMAT ">>>>>>>9.9999"
+  INITIAL "0"
+  LABEL "Total factura"
+  POSITION 20
+  SQL-WIDTH 19
+  COLUMN-LABEL "Total factura"
+  DECIMALS 4
+  ORDER 310
+
+ADD FIELD "contenedores" OF "items_orden_entrega" AS decimal 
+  FORMAT ">>9.99"
+  INITIAL "0"
+  LABEL "Contenedores"
+  POSITION 21
+  SQL-WIDTH 17
+  COLUMN-LABEL "Cont."
+  DECIMALS 2
+  ORDER 320
+
+ADD FIELD "fob_ton" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>>>>>>9.9999"
+  INITIAL "0"
+  LABEL "Fob/Ton"
+  POSITION 22
+  SQL-WIDTH 19
+  COLUMN-LABEL "Fob/Ton"
+  DECIMALS 4
+  ORDER 330
+
+ADD FIELD "grados_brix" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>>>9.99"
+  INITIAL "0"
+  LABEL "Grados Brix"
+  POSITION 23
+  SQL-WIDTH 19
+  COLUMN-LABEL "Grados Brix"
+  DECIMALS 4
+  ORDER 360
+
+ADD FIELD "c_usuario" OF "items_orden_entrega" AS character 
+  DESCRIPTION " Nombre del usuario que modificó el registro"
+  FORMAT "x(12)"
+  INITIAL ?
+  LABEL "Usuario"
+  POSITION 24
+  SQL-WIDTH 24
+  COLUMN-LABEL "Usuario"
+  HELP " Nombre del usuario que modificó el registro"
+  ORDER 370
+
+ADD FIELD "c_fecha" OF "items_orden_entrega" AS date 
+  DESCRIPTION " Fecha de última modificación del registro"
+  FORMAT "99/99/99"
+  INITIAL "today"
+  LABEL "Fecha"
+  POSITION 25
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  HELP " Fecha de última modificación del registro"
+  ORDER 380
+
+ADD FIELD "c_hora" OF "items_orden_entrega" AS character 
+  DESCRIPTION " Hora de última modificación del registro"
+  FORMAT "x(8)"
+  INITIAL ?
+  LABEL "Hora"
+  POSITION 26
+  SQL-WIDTH 16
+  COLUMN-LABEL "Hora"
+  HELP " Hora de última modificación del registro"
+  ORDER 390
+
+ADD FIELD "id_tipo_contenedor" OF "items_orden_entrega" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo de Contenedor"
+  POSITION 27
+  SQL-WIDTH 4
+  COLUMN-LABEL "T.Cont."
+  ORDER 400
+
+ADD FIELD "plazo" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "30"
+  LABEL "Plazo"
+  POSITION 28
+  SQL-WIDTH 4
+  COLUMN-LABEL "Plazo"
+  ORDER 420
+
+ADD FIELD "id_tipo_plazo" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Tipo Plazo"
+  POSITION 29
+  SQL-WIDTH 4
+  COLUMN-LABEL "T.Plazo"
+  ORDER 430
+
+ADD FIELD "id_instrumento_pago" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "1"
+  LABEL "Cod. Ins. Pago"
+  POSITION 30
+  SQL-WIDTH 4
+  COLUMN-LABEL "C.Ins.P."
+  ORDER 440
+
+ADD FIELD "fob_unitario" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>>>>9.9999"
+  INITIAL "0"
+  LABEL "Fob Unitario"
+  POSITION 31
+  SQL-WIDTH 19
+  COLUMN-LABEL "Fob Unitario"
+  DECIMALS 4
+  ORDER 460
+
+ADD FIELD "observaciones" OF "items_orden_entrega" AS character 
+  FORMAT "X(100)"
+  INITIAL ""
+  LABEL "Observaciones"
+  POSITION 32
+  SQL-WIDTH 200
+  VIEW-AS "VIEW-AS EDITOR
+SIZE 50 BY 2"
+  COLUMN-LABEL "Observaciones"
+  ORDER 470
+
+ADD FIELD "pendiente" OF "items_orden_entrega" AS logical 
+  FORMAT "si/no"
+  INITIAL "si"
+  LABEL "Pendiente"
+  POSITION 33
+  SQL-WIDTH 1
+  COLUMN-LABEL "Pendiente"
+  ORDER 480
+
+ADD FIELD "cotizacion" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "1"
+  LABEL "Cotizacion"
+  POSITION 34
+  SQL-WIDTH 19
+  COLUMN-LABEL "Cotizacion"
+  DECIMALS 4
+  ORDER 490
+
+ADD FIELD "cheque" OF "items_orden_entrega" AS logical 
+  FORMAT "si/no"
+  INITIAL "no"
+  LABEL "Cheque"
+  POSITION 35
+  SQL-WIDTH 1
+  COLUMN-LABEL "Cheque"
+  ORDER 500
+
+ADD FIELD "id_tipo_venta" OF "items_orden_entrega" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "TipoVenta"
+  POSITION 36
+  SQL-WIDTH 4
+  COLUMN-LABEL "TVta"
+  ORDER 510
+
+ADD FIELD "modo_actualizacion" OF "items_orden_entrega" AS logical 
+  FORMAT "auto/manual"
+  INITIAL "auto"
+  LABEL "ModoActual."
+  POSITION 37
+  SQL-WIDTH 1
+  COLUMN-LABEL "ModoActual."
+  ORDER 520
+
+ADD FIELD "id_tipo_orden_entrega" OF "items_orden_entrega" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Cod.TipoOE"
+  POSITION 38
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cod.TipoOE"
+  ORDER 530
+
+ADD FIELD "tambores_pedidos" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Tambores pedidos"
+  POSITION 39
+  SQL-WIDTH 4
+  COLUMN-LABEL "TambPed"
+  ORDER 540
+
+ADD FIELD "cantidad_pallets" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Cantidad Pallets"
+  POSITION 40
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cantidad Pallets"
+  ORDER 550
+
+ADD FIELD "cajas_x_pallets" OF "items_orden_entrega" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Cajas por pallets"
+  POSITION 41
+  SQL-WIDTH 4
+  COLUMN-LABEL "CajasXpallets"
+  ORDER 560
+
+ADD FIELD "id_marca" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Cod.Marca"
+  POSITION 42
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodMarca"
+  ORDER 570
+
+ADD FIELD "id_frigorifico" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "CodFrigorifico"
+  POSITION 43
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodFrig"
+  ORDER 580
+
+ADD FIELD "item_oe" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Parte OE"
+  POSITION 44
+  SQL-WIDTH 4
+  COLUMN-LABEL "Parte OE"
+  ORDER 590
+
+ADD FIELD "cerrado" OF "items_orden_entrega" AS logical 
+  FORMAT "SI/NO"
+  INITIAL "NO"
+  LABEL "Cerrado"
+  POSITION 45
+  SQL-WIDTH 1
+  COLUMN-LABEL "Cerrado"
+  ORDER 600
+
+ADD FIELD "importe_comisiones" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>,>>9.9999"
+  INITIAL "0"
+  LABEL "Importe Comisiones"
+  POSITION 46
+  SQL-WIDTH 19
+  COLUMN-LABEL "Importe Comisiones"
+  DECIMALS 4
+  ORDER 610
+
+ADD FIELD "importe_origen" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>>,>>>,>>>,>>9.9999"
+  INITIAL "0"
+  POSITION 47
+  SQL-WIDTH 19
+  DECIMALS 4
+  ORDER 620
+
+ADD FIELD "id_moneda" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Codigo Moneda Origen"
+  POSITION 48
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodMonOri"
+  ORDER 630
+
+ADD FIELD "id_tipo_unidad_venta" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Unidad Venta"
+  POSITION 49
+  SQL-WIDTH 4
+  COLUMN-LABEL "U.Venta"
+  ORDER 640
+
+ADD FIELD "cert_fito" OF "items_orden_entrega" AS logical 
+  FORMAT "si/no"
+  INITIAL "no"
+  LABEL "Cert.Fitosanitario"
+  POSITION 50
+  SQL-WIDTH 1
+  COLUMN-LABEL "Cert.Fito."
+  ORDER 650
+
+ADD FIELD "coeficiente" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>,>>9.999999"
+  INITIAL "0"
+  LABEL "Coeficiente"
+  POSITION 51
+  SQL-WIDTH 21
+  COLUMN-LABEL "Coeficiente"
+  DECIMALS 6
+  ORDER 660
+
+ADD FIELD "valor_aduana_derechos" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>>,>>9.9999"
+  INITIAL "0"
+  LABEL "Valor Aduana(Derecho)"
+  POSITION 52
+  SQL-WIDTH 19
+  COLUMN-LABEL "Valor Aduana(Derecho)"
+  DECIMALS 4
+  ORDER 670
+
+ADD FIELD "valor_aduana_reintegro" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>>,>>9.9999"
+  INITIAL "0"
+  LABEL "Valor Aduana(Reintegro)"
+  POSITION 53
+  SQL-WIDTH 19
+  COLUMN-LABEL "Valor Aduana(Reintegro)"
+  DECIMALS 4
+  ORDER 680
+
+ADD FIELD "importe_derechos_exportacion" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>>,>>9.9999"
+  INITIAL "0"
+  LABEL "Derechos Exportacion"
+  POSITION 54
+  SQL-WIDTH 19
+  COLUMN-LABEL "Derechos Exportacion"
+  DECIMALS 4
+  ORDER 690
+
+ADD FIELD "importe_reintegro_fijo" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>>,>>9.9999"
+  INITIAL "0"
+  LABEL "Reintegro Fijo"
+  POSITION 55
+  SQL-WIDTH 19
+  COLUMN-LABEL "Reintegro Fijo"
+  DECIMALS 4
+  ORDER 700
+
+ADD FIELD "tipo_cambio" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>,>>9.9999"
+  INITIAL "0"
+  LABEL "Tipo cambio"
+  POSITION 56
+  SQL-WIDTH 19
+  DECIMALS 4
+  ORDER 710
+
+ADD FIELD "id_moneda_cambio" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Moneda cambio"
+  POSITION 57
+  SQL-WIDTH 4
+  ORDER 720
+
+ADD FIELD "importe_factura_dolar" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>>,>>9.9999"
+  INITIAL "0"
+  LABEL "Importe Factura Dolar"
+  POSITION 58
+  SQL-WIDTH 19
+  DECIMALS 4
+  ORDER 730
+
+ADD FIELD "importe_fob_dolar" OF "items_orden_entrega" AS decimal 
+  FORMAT "->>>,>>9.9999"
+  INITIAL "0"
+  LABEL "Fob Dolar"
+  POSITION 59
+  SQL-WIDTH 19
+  COLUMN-LABEL "Fob Dolar"
+  DECIMALS 4
+  ORDER 740
+
+ADD FIELD "x_kilos" OF "items_orden_entrega" AS logical 
+  FORMAT "si/no"
+  INITIAL "si"
+  LABEL "Por Kilos?"
+  POSITION 60
+  SQL-WIDTH 1
+  ORDER 750
+
+ADD FIELD "id_programa_despacho" OF "items_orden_entrega" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 61
+  SQL-WIDTH 4
+  ORDER 760
+
+ADD FIELD "item_programa_despacho" OF "items_orden_entrega" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 62
+  SQL-WIDTH 4
+  ORDER 770
+
+ADD FIELD "id_envase" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "CodEnvase"
+  POSITION 63
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodEnv"
+  ORDER 780
+
+ADD FIELD "id_tipo_pallet" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>>9"
+  INITIAL "0"
+  LABEL "Cod.T.Pallet"
+  POSITION 64
+  SQL-WIDTH 4
+  COLUMN-LABEL "CTPallet"
+  ORDER 790
+
+ADD FIELD "kilos_x_caja" OF "items_orden_entrega" AS decimal 
+  FORMAT ">>>>9.99"
+  INITIAL "0"
+  LABEL "Kilos por Caja"
+  POSITION 65
+  SQL-WIDTH 19
+  COLUMN-LABEL "Kilos por caja"
+  DECIMALS 4
+  ORDER 800
+
+ADD FIELD "precio_x_caja" OF "items_orden_entrega" AS decimal 
+  FORMAT ">>>>9.99"
+  INITIAL "0"
+  LABEL "Precio por caja"
+  POSITION 66
+  SQL-WIDTH 19
+  COLUMN-LABEL "Precioxcaja"
+  DECIMALS 4
+  ORDER 810
+
+ADD FIELD "total_cajas" OF "items_orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Total Cajas"
+  POSITION 67
+  SQL-WIDTH 4
+  COLUMN-LABEL "Total Cajas"
+  ORDER 820
+
+ADD FIELD "id_empresa_ipp" OF "items_orden_entrega" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Empresa ItemPedidoPacking"
+  POSITION 68
+  SQL-WIDTH 4
+  ORDER 830
+
+ADD FIELD "id_orden_ipp" OF "items_orden_entrega" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Orden ItemsPedidoPacking"
+  POSITION 69
+  SQL-WIDTH 4
+  ORDER 840
+
+ADD FIELD "id_punto_emisor_ipp" OF "items_orden_entrega" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 70
+  SQL-WIDTH 4
+  ORDER 850
+
+ADD FIELD "item_ipp" OF "items_orden_entrega" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 71
+  SQL-WIDTH 4
+  ORDER 860
+
+ADD FIELD "id_variedad" OF "items_orden_entrega" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 72
+  SQL-WIDTH 4
+  ORDER 870
+
+ADD FIELD "id_origen_envase" OF "items_orden_entrega" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 73
+  SQL-WIDTH 4
+  ORDER 880
+
+ADD FIELD "kgs_neto_unitario" OF "items_orden_entrega" AS decimal 
+  FORMAT ">>>,>>>,>>9.9999"
+  INITIAL "0"
+  POSITION 74
+  SQL-WIDTH 17
+  DECIMALS 2
+  ORDER 890
+
+ADD FIELD "kgs_bruto_unitario" OF "items_orden_entrega" AS decimal 
+  FORMAT ">>>,>>>,>>9.9999"
+  INITIAL "0"
+  POSITION 75
+  SQL-WIDTH 17
+  DECIMALS 2
+  ORDER 900
+
+ADD INDEX "principal" ON "items_orden_entrega" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "id_orden_entrega" ASCENDING 
+  INDEX-FIELD "item_oe" ASCENDING 
+
+ADD INDEX "cliente" ON "items_orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_cliente" ASCENDING 
+
+ADD INDEX "contrato" ON "items_orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_contrato" ASCENDING 
+  INDEX-FIELD "id_tipo_contrato" ASCENDING 
+  INDEX-FIELD "anio" ASCENDING 
+  INDEX-FIELD "item" ASCENDING 
+
+ADD INDEX "contrato2" ON "items_orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipo_contrato" ASCENDING 
+  INDEX-FIELD "id_contrato" ASCENDING 
+  INDEX-FIELD "anio" ASCENDING 
+  INDEX-FIELD "item" ASCENDING 
+
+ADD INDEX "fecha1" ON "items_orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "fecha" ASCENDING 
+
+ADD INDEX "fecha2" ON "items_orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "fecha" DESCENDING 
+
+ADD INDEX "IPP" ON "items_orden_entrega" 
+  AREA "industria"
+  INDEX-FIELD "id_empresa_ipp" ASCENDING 
+  INDEX-FIELD "id_orden_ipp" ASCENDING 
+  INDEX-FIELD "id_punto_emisor_ipp" ASCENDING 
+  INDEX-FIELD "item_ipp" ASCENDING 
+
+ADD INDEX "marca" ON "items_orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_marca" ASCENDING 
+
+ADD INDEX "modo_actualizacion" ON "items_orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "modo_actualizacion" ASCENDING 
+
+ADD INDEX "pedidos_Packing" ON "items_orden_entrega" 
+  AREA "industria"
+  INDEX-FIELD "id_empresa_ipp" ASCENDING 
+  INDEX-FIELD "id_orden_ipp" ASCENDING 
+  INDEX-FIELD "id_punto_emisor_ipp" ASCENDING 
+
+ADD INDEX "prod_calidad" ON "items_orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_articulo" ASCENDING 
+  INDEX-FIELD "id_calidad" ASCENDING 
+
+ADD INDEX "programa_despacho" ON "items_orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_programa_despacho" ASCENDING 
+  INDEX-FIELD "item_programa_despacho" ASCENDING 
+
+ADD INDEX "semana" ON "items_orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "semana_entrega" ASCENDING 
+
+ADD INDEX "solo_oe" ON "items_orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_orden_entrega" ASCENDING 
+
+ADD INDEX "tipo_pallet" ON "items_orden_entrega" 
+  AREA "industria"
+  INDEX-FIELD "id_tipo_pallet" ASCENDING 
+
+ADD TABLE "orden_entrega"
+  AREA "Schema Area"
+  LABEL "Ordenes de entrega de Aduana"
+  DESCRIPTION "Ordenes de entrega de Aduana"
+  DUMP-NAME "orden_en"
+
+ADD FIELD "id_orden_entrega" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "OE"
+  POSITION 2
+  SQL-WIDTH 4
+  COLUMN-LABEL "OE"
+  ORDER 10
+
+ADD FIELD "id_contrato" OF "orden_entrega" AS character 
+  FORMAT "X(12)"
+  INITIAL ""
+  LABEL "Contract"
+  POSITION 3
+  SQL-WIDTH 24
+  COLUMN-LABEL "Contract"
+  ORDER 20
+
+ADD FIELD "id_tipo_contrato" OF "orden_entrega" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Contrato"
+  POSITION 4
+  SQL-WIDTH 4
+  COLUMN-LABEL "T.Contrato"
+  ORDER 30
+
+ADD FIELD "anio" OF "orden_entrega" AS integer 
+  FORMAT "9999"
+  INITIAL "2001"
+  LABEL "Año"
+  POSITION 5
+  SQL-WIDTH 4
+  COLUMN-LABEL "Año"
+  ORDER 40
+
+ADD FIELD "item" OF "orden_entrega" AS integer 
+  DESCRIPTION "Item"
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Parte"
+  POSITION 6
+  SQL-WIDTH 4
+  COLUMN-LABEL "Parte"
+  ORDER 50
+
+ADD FIELD "fecha" OF "orden_entrega" AS date 
+  DESCRIPTION "Fecha "
+  FORMAT "99/99/99"
+  INITIAL "today"
+  LABEL "Fecha"
+  POSITION 7
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  HELP "Fecha"
+  ORDER 60
+
+ADD FIELD "semana_entrega" OF "orden_entrega" AS integer 
+  DESCRIPTION "Semana de entrega"
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Semana de entrega"
+  POSITION 8
+  SQL-WIDTH 4
+  COLUMN-LABEL "Semana de entrega"
+  ORDER 70
+
+ADD FIELD "id_vapor" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Cod. Vapor"
+  POSITION 9
+  SQL-WIDTH 4
+  COLUMN-LABEL "C.Vapor"
+  ORDER 80
+
+ADD FIELD "id_destino" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Cod.Destino"
+  POSITION 10
+  SQL-WIDTH 4
+  COLUMN-LABEL "C.Dest."
+  ORDER 90
+
+ADD FIELD "id_cliente" OF "orden_entrega" AS integer 
+  FORMAT "->>>>>>9"
+  INITIAL "0"
+  LABEL "Cliente"
+  POSITION 11
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cliente"
+  ORDER 100
+
+ADD FIELD "id_calidad" OF "orden_entrega" AS integer 
+  DESCRIPTION "Identificación de la Calidad"
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Calidad"
+  POSITION 12
+  SQL-WIDTH 4
+  COLUMN-LABEL "Calidad"
+  VALEXP "id_calidad > 0"
+  VALMSG "Debe ingresar una calidad válida"
+  ORDER 110
+
+ADD FIELD "id_articulo" OF "orden_entrega" AS integer 
+  DESCRIPTION "Identificación del Articulo"
+  FORMAT ">9"
+  INITIAL "0"
+  LABEL "Articulo"
+  POSITION 13
+  SQL-WIDTH 4
+  COLUMN-LABEL "Articulo"
+  VALEXP "id_articulo > 0"
+  VALMSG "Debe ingresar un articulo válido"
+  ORDER 120
+
+ADD FIELD "cantidad_tambores" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Tambores"
+  POSITION 14
+  SQL-WIDTH 4
+  COLUMN-LABEL "Tambores"
+  ORDER 130
+
+ADD FIELD "kgs_netos_tambores" OF "orden_entrega" AS decimal 
+  FORMAT ">>>>>>9.999"
+  INITIAL "0"
+  LABEL "Kgs Netos"
+  POSITION 15
+  SQL-WIDTH 19
+  COLUMN-LABEL "Kgs Netos"
+  DECIMALS 4
+  ORDER 140
+
+ADD FIELD "kgs_brutos_tambores" OF "orden_entrega" AS decimal 
+  FORMAT ">>>>>>>9.999"
+  INITIAL "0"
+  LABEL "Kgs Brutos"
+  POSITION 16
+  SQL-WIDTH 19
+  COLUMN-LABEL "Kgs Brutos"
+  DECIMALS 4
+  ORDER 150
+
+ADD FIELD "id_condicion_venta" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Cod. Cond. Venta"
+  POSITION 17
+  SQL-WIDTH 4
+  COLUMN-LABEL "C.Cond.Vta."
+  ORDER 160
+
+ADD FIELD "grados_brix" OF "orden_entrega" AS decimal 
+  FORMAT "->>>>9.99"
+  INITIAL "0"
+  LABEL "Grados Brix"
+  POSITION 18
+  SQL-WIDTH 17
+  COLUMN-LABEL "Grados Brix"
+  DECIMALS 2
+  ORDER 360
+
+ADD FIELD "c_usuario" OF "orden_entrega" AS character 
+  DESCRIPTION " Nombre del usuario que modificó el registro"
+  FORMAT "x(12)"
+  INITIAL ?
+  LABEL "Usuario"
+  POSITION 19
+  SQL-WIDTH 24
+  COLUMN-LABEL "Usuario"
+  HELP " Nombre del usuario que modificó el registro"
+  ORDER 370
+
+ADD FIELD "c_fecha" OF "orden_entrega" AS date 
+  DESCRIPTION " Fecha de última modificación del registro"
+  FORMAT "99/99/99"
+  INITIAL "today"
+  LABEL "Fecha"
+  POSITION 20
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  HELP " Fecha de última modificación del registro"
+  ORDER 380
+
+ADD FIELD "c_hora" OF "orden_entrega" AS character 
+  DESCRIPTION " Hora de última modificación del registro"
+  FORMAT "x(8)"
+  INITIAL ?
+  LABEL "Hora"
+  POSITION 21
+  SQL-WIDTH 16
+  COLUMN-LABEL "Hora"
+  HELP " Hora de última modificación del registro"
+  ORDER 390
+
+ADD FIELD "id_tipo_contenedor" OF "orden_entrega" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo de Contenedor"
+  POSITION 22
+  SQL-WIDTH 4
+  COLUMN-LABEL "T.Cont."
+  ORDER 400
+
+ADD FIELD "id_despachante" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Cod.Despachante"
+  POSITION 23
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cod.Desp."
+  ORDER 410
+
+ADD FIELD "plazo" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "30"
+  LABEL "Plazo"
+  POSITION 24
+  SQL-WIDTH 4
+  COLUMN-LABEL "Plazo"
+  ORDER 420
+
+ADD FIELD "precio_x_galon" OF "orden_entrega" AS decimal 
+  FORMAT ">>>>>>9.999"
+  INITIAL "0"
+  LABEL "Precio x Galon u$s"
+  POSITION 25
+  SQL-WIDTH 17
+  COLUMN-LABEL "Precio x Galon u$s"
+  DECIMALS 2
+  ORDER 240
+
+ADD FIELD "total_galones" OF "orden_entrega" AS decimal 
+  FORMAT ">>>>>9.99"
+  INITIAL "0"
+  LABEL "T. Galones"
+  POSITION 26
+  SQL-WIDTH 17
+  COLUMN-LABEL "T. Galones"
+  DECIMALS 2
+  ORDER 250
+
+ADD FIELD "fob_ton_u$s" OF "orden_entrega" AS decimal 
+  FORMAT ">>>>>>9.999"
+  INITIAL "0"
+  LABEL "Fob/Ton u$s"
+  POSITION 27
+  SQL-WIDTH 17
+  COLUMN-LABEL "Fob/Ton u$s"
+  DECIMALS 2
+  ORDER 260
+
+ADD FIELD "id_agencia" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Cod. Agencia"
+  POSITION 28
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cod. Agencia"
+  ORDER 270
+
+ADD FIELD "semana_embarque" OF "orden_entrega" AS integer 
+  FORMAT ">9"
+  INITIAL "0"
+  LABEL "Semana embarque"
+  POSITION 29
+  SQL-WIDTH 4
+  COLUMN-LABEL "Semana embarque"
+  ORDER 280
+
+ADD FIELD "fecha_embarque" OF "orden_entrega" AS date 
+  FORMAT "99/99/99"
+  INITIAL ?
+  LABEL "Fecha embarque"
+  POSITION 30
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha embarque"
+  ORDER 290
+
+ADD FIELD "id_estado" OF "orden_entrega" AS integer 
+  FORMAT ">>9"
+  INITIAL "1"
+  LABEL "Estado"
+  POSITION 31
+  SQL-WIDTH 4
+  COLUMN-LABEL "Estado"
+  ORDER 300
+
+ADD FIELD "total_factura" OF "orden_entrega" AS decimal 
+  FORMAT ">>>>>>>9.999"
+  INITIAL "0"
+  LABEL "Total factura"
+  POSITION 32
+  SQL-WIDTH 18
+  COLUMN-LABEL "Total factura"
+  DECIMALS 3
+  ORDER 310
+
+ADD FIELD "contenedores" OF "orden_entrega" AS decimal 
+  FORMAT ">>9.99"
+  INITIAL "0"
+  LABEL "Contenedores"
+  POSITION 33
+  SQL-WIDTH 15
+  COLUMN-LABEL "Cont."
+  DECIMALS 0
+  ORDER 320
+
+ADD FIELD "fob_ton" OF "orden_entrega" AS decimal 
+  FORMAT "->>>>>>>9.99"
+  INITIAL "0"
+  LABEL "Fob/Ton"
+  POSITION 34
+  SQL-WIDTH 17
+  COLUMN-LABEL "Fob/Ton"
+  DECIMALS 2
+  ORDER 330
+
+ADD FIELD "id_lugdes" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Cod. Lug. Descarga"
+  POSITION 35
+  SQL-WIDTH 4
+  COLUMN-LABEL "C.Lug.Des."
+  ORDER 340
+
+ADD FIELD "fecha_arribo" OF "orden_entrega" AS date 
+  FORMAT "99/99/99"
+  INITIAL ?
+  LABEL "Fecha arribo"
+  POSITION 36
+  SQL-WIDTH 4
+  COLUMN-LABEL "Fecha Arr."
+  ORDER 350
+
+ADD FIELD "id_tipo_plazo" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Tipo Plazo"
+  POSITION 37
+  SQL-WIDTH 4
+  COLUMN-LABEL "T.Plazo"
+  ORDER 430
+
+ADD FIELD "id_instrumento_pago" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "1"
+  LABEL "Cod. Ins. Pago"
+  POSITION 38
+  SQL-WIDTH 4
+  COLUMN-LABEL "C.Ins.P."
+  ORDER 440
+
+ADD FIELD "fob_unitario" OF "orden_entrega" AS decimal 
+  FORMAT "->>>>>9.999"
+  INITIAL "0"
+  LABEL "Fob Unitario"
+  POSITION 39
+  SQL-WIDTH 17
+  COLUMN-LABEL "Fob Unitario"
+  DECIMALS 2
+  ORDER 460
+
+ADD FIELD "observaciones" OF "orden_entrega" AS character 
+  FORMAT "X(100)"
+  INITIAL ""
+  LABEL "Observaciones"
+  POSITION 40
+  SQL-WIDTH 200
+  VIEW-AS "VIEW-AS EDITOR
+SIZE 50 BY 2"
+  COLUMN-LABEL "Observaciones"
+  ORDER 470
+
+ADD FIELD "pendiente" OF "orden_entrega" AS logical 
+  FORMAT "si/no"
+  INITIAL "si"
+  LABEL "Pendiente"
+  POSITION 41
+  SQL-WIDTH 1
+  COLUMN-LABEL "Pendiente"
+  ORDER 480
+
+ADD FIELD "cotizacion" OF "orden_entrega" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "1"
+  LABEL "Cotizacion"
+  POSITION 42
+  SQL-WIDTH 17
+  COLUMN-LABEL "Cotizacion"
+  DECIMALS 2
+  ORDER 490
+
+ADD FIELD "cheque" OF "orden_entrega" AS logical 
+  FORMAT "si/no"
+  INITIAL "no"
+  LABEL "Cheque"
+  POSITION 43
+  SQL-WIDTH 1
+  COLUMN-LABEL "Cheque"
+  ORDER 500
+
+ADD FIELD "id_tipo_venta" OF "orden_entrega" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "TipoVenta"
+  POSITION 44
+  SQL-WIDTH 4
+  COLUMN-LABEL "TVta"
+  ORDER 510
+
+ADD FIELD "modo_actualizacion" OF "orden_entrega" AS logical 
+  FORMAT "auto/manual"
+  INITIAL "auto"
+  LABEL "ModoActual."
+  POSITION 45
+  SQL-WIDTH 1
+  COLUMN-LABEL "ModoActual."
+  ORDER 520
+
+ADD FIELD "id_tipo_orden_entrega" OF "orden_entrega" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Cod.TipoOE"
+  POSITION 46
+  SQL-WIDTH 4
+  COLUMN-LABEL "Cod.TipoOE"
+  ORDER 530
+
+ADD FIELD "tambores_pedidos" OF "orden_entrega" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Tambores pedidos"
+  POSITION 47
+  SQL-WIDTH 4
+  COLUMN-LABEL "TambPed"
+  ORDER 540
+
+ADD FIELD "pallets" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Pallets"
+  POSITION 48
+  SQL-WIDTH 4
+  COLUMN-LABEL "Pallets"
+  ORDER 590
+
+ADD FIELD "cajas_x_pallets" OF "orden_entrega" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Cajas por pallets"
+  POSITION 49
+  SQL-WIDTH 4
+  COLUMN-LABEL "CajasXpallets"
+  ORDER 560
+
+ADD FIELD "id_marca" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "Cod.Marca"
+  POSITION 50
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodMarca"
+  ORDER 570
+
+ADD FIELD "id_frigorifico" OF "orden_entrega" AS integer 
+  FORMAT ">>>>>9"
+  INITIAL "0"
+  LABEL "CodFrigorifico"
+  POSITION 51
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodFrig"
+  ORDER 580
+
+ADD FIELD "cerrado" OF "orden_entrega" AS logical 
+  FORMAT "SI/NO"
+  INITIAL "NO"
+  LABEL "Cerrado"
+  POSITION 52
+  SQL-WIDTH 1
+  COLUMN-LABEL "Cerrado"
+  ORDER 600
+
+ADD FIELD "importe_comisiones" OF "orden_entrega" AS decimal 
+  FORMAT "->>,>>9.9999"
+  INITIAL "0"
+  LABEL "Importe Comisiones"
+  POSITION 53
+  SQL-WIDTH 19
+  COLUMN-LABEL "Importe Comisiones"
+  DECIMALS 4
+  ORDER 610
+
+ADD FIELD "importe_origen" OF "orden_entrega" AS decimal 
+  FORMAT "->>>,>>>,>>>,>>9.999"
+  INITIAL "0"
+  POSITION 54
+  SQL-WIDTH 18
+  DECIMALS 3
+  ORDER 620
+
+ADD FIELD "id_moneda" OF "orden_entrega" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Codigo Moneda Origen"
+  POSITION 55
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodMonOri"
+  ORDER 630
+
+ADD FIELD "id_tipo_unidad_venta" OF "orden_entrega" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Unidad Venta"
+  POSITION 56
+  SQL-WIDTH 4
+  COLUMN-LABEL "U.Venta"
+  ORDER 640
+
+ADD FIELD "pedido_fondos" OF "orden_entrega" AS logical 
+  FORMAT "si/no"
+  INITIAL "no"
+  LABEL "Pedido de Fondos"
+  POSITION 57
+  SQL-WIDTH 1
+  COLUMN-LABEL "Pedido de Fondos"
+  ORDER 650
+
+ADD FIELD "id_destino_final" OF "orden_entrega" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "CodDestinoFinal"
+  POSITION 58
+  SQL-WIDTH 4
+  COLUMN-LABEL "CodDesFin"
+  ORDER 660
+
+ADD FIELD "forma_transporte" OF "orden_entrega" AS logical 
+  FORMAT "Contenedor/Bodega"
+  INITIAL "Contenedor"
+  LABEL "Forma de Transporte"
+  POSITION 59
+  SQL-WIDTH 1
+  COLUMN-LABEL "Forma de Transporte"
+  ORDER 670
+
+ADD FIELD "fecha_cut_off" OF "orden_entrega" AS date 
+  FORMAT "99/99/9999"
+  INITIAL "CutOff"
+  LABEL "CutOff"
+  POSITION 60
+  SQL-WIDTH 4
+  COLUMN-LABEL "CutOff"
+  ORDER 680
+
+ADD FIELD "booking" OF "orden_entrega" AS character 
+  FORMAT "X(50)"
+  INITIAL ""
+  LABEL "Booking"
+  POSITION 61
+  SQL-WIDTH 100
+  COLUMN-LABEL "Booking"
+  ORDER 690
+
+ADD FIELD "hora_cut_off" OF "orden_entrega" AS character 
+  FORMAT "X(8)"
+  INITIAL ""
+  POSITION 62
+  SQL-WIDTH 16
+  ORDER 700
+
+ADD FIELD "id_terminal_consolidado" OF "orden_entrega" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 63
+  SQL-WIDTH 4
+  ORDER 710
+
+ADD FIELD "id_terminal_carga" OF "orden_entrega" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  POSITION 64
+  SQL-WIDTH 4
+  ORDER 720
+
+ADD INDEX "ordenes_entrega" ON "orden_entrega" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "id_orden_entrega" ASCENDING 
+
+ADD INDEX "articulo" ON "orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_articulo" ASCENDING 
+
+ADD INDEX "cliente" ON "orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_cliente" ASCENDING 
+
+ADD INDEX "contrato" ON "orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_contrato" ASCENDING 
+  INDEX-FIELD "id_tipo_contrato" ASCENDING 
+  INDEX-FIELD "anio" ASCENDING 
+  INDEX-FIELD "item" ASCENDING 
+
+ADD INDEX "cutoff" ON "orden_entrega" 
+  AREA "industria"
+  INDEX-FIELD "fecha_cut_off" ASCENDING 
+
+ADD INDEX "fecha" ON "orden_entrega" 
+  AREA "industria"
+  INDEX-FIELD "fecha" ASCENDING 
+
+ADD INDEX "fecha_asc" ON "orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "fecha" ASCENDING 
+
+ADD INDEX "fecha_desc" ON "orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "fecha" DESCENDING 
+
+ADD INDEX "id_tipo_oe" ON "orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_tipo_orden_entrega" ASCENDING 
+
+ADD INDEX "marca" ON "orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_marca" ASCENDING 
+
+ADD INDEX "nuevo_vapor" ON "orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "id_vapor" ASCENDING 
+
+ADD INDEX "oedesc" ON "orden_entrega" 
+  AREA "industria"
+  INDEX-FIELD "id_orden_entrega" DESCENDING 
+
+ADD INDEX "semanadesc" ON "orden_entrega" 
+  AREA "industria"
+  INDEX-FIELD "semana_entrega" DESCENDING 
+
+ADD INDEX "semana_1" ON "orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "semana_embarque" ASCENDING 
+
+ADD INDEX "semana_2" ON "orden_entrega" 
+  AREA "Schema Area"
+  INDEX-FIELD "semana_entrega" ASCENDING 
+
+ADD INDEX "tipo" ON "orden_entrega" 
+  AREA "industria"
+  INDEX-FIELD "id_tipo_orden_entrega" ASCENDING 
+
+.
+PSC
+cpstream=ISO8859-1
+.
+0000088400

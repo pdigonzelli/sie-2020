@@ -1,0 +1,425 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER AB_v9r12 GUI ADM2
+&ANALYZE-RESUME
+/* Connected Databases 
+          general         PROGRESS
+*/
+&Scoped-define WINDOW-NAME CURRENT-WINDOW
+{adecomm/appserv.i}
+DEFINE VARIABLE h_asbroker1                AS HANDLE          NO-UNDO.
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS dTables 
+/*------------------------------------------------------------------------
+
+  File:  
+
+  Description: from DATA.W - Template For SmartData objects in the ADM
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+  Modified:     February 24, 1999
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress AppBuilder.      */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+
+&glob DATA-LOGIC-PROCEDURE .p
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartDataObject
+&Scoped-define DB-AWARE yes
+
+&Scoped-define ADM-SUPPORTED-LINKS Data-Source,Data-Target,Navigation-Target,Update-Target,Commit-Target,Filter-Target
+
+
+/* Db-Required definitions. */
+&IF DEFINED(DB-REQUIRED) = 0 &THEN
+    &GLOBAL-DEFINE DB-REQUIRED TRUE
+&ENDIF
+&GLOBAL-DEFINE DB-REQUIRED-START   &IF {&DB-REQUIRED} &THEN
+&GLOBAL-DEFINE DB-REQUIRED-END     &ENDIF
+
+&Scoped-define QUERY-NAME Query-Main
+
+/* Internal Tables (found by Frame, Query & Browse Queries)             */
+&Scoped-define INTERNAL-TABLES muestras contactos_muestras items_muestras ~
+envases_muestras couriers r_muestras_protocolos protocolos ~
+aromas_sabores_prot Caracteristicas_quimicas colores_prot contramarcas ~
+cuerpo_prot items_protocolos tipos_protocolos tambores_industria
+
+/* Definitions for QUERY Query-Main                                     */
+&Scoped-Define ENABLED-FIELDS 
+&Scoped-Define DATA-FIELDS  id_muestra anio_muestra fecha directo_cliente id_contacto razon_social~
+ item_muestra caracteristicas cantidad fecha_enviado_tuc fecha_enviado_bue~
+ nro_guia_tuc nro_guia_bue id_envase abreviatura descripcion volumen~
+ id_courier descripcion-2 id_protocolo anio id_articulo descripcion-3~
+ abraviatura fecha-2 estado aprobado fecha_aprobacion cantidad_tambores~
+ desde_tambor hasta_tambor peso_neto peso_bruto_tambor quimico~
+ id_aroma_sabor descripcion-4 abreviatura-2 id_cuerpo abreviatura-3~
+ descripcion-5 id_color descripcion-6 abreviatura-4 id_tipo_protocolo~
+ descripcion-7 abreviatura-5 id_contramarca descripcion-8 abreviatura-6~
+ orden valor valor_caracter descripcion-9 programa calculo id_lote
+&Scoped-define DATA-FIELDS-IN-muestras id_muestra anio_muestra fecha ~
+directo_cliente 
+&Scoped-define DATA-FIELDS-IN-contactos_muestras id_contacto razon_social 
+&Scoped-define DATA-FIELDS-IN-items_muestras item_muestra caracteristicas ~
+cantidad fecha_enviado_tuc fecha_enviado_bue nro_guia_tuc nro_guia_bue 
+&Scoped-define DATA-FIELDS-IN-envases_muestras id_envase abreviatura ~
+descripcion volumen 
+&Scoped-define DATA-FIELDS-IN-couriers id_courier descripcion-2 
+&Scoped-define DATA-FIELDS-IN-protocolos id_protocolo anio id_articulo ~
+descripcion-3 abraviatura fecha-2 estado aprobado fecha_aprobacion ~
+cantidad_tambores desde_tambor hasta_tambor peso_neto peso_bruto_tambor ~
+quimico 
+&Scoped-define DATA-FIELDS-IN-aromas_sabores_prot id_aroma_sabor ~
+descripcion-4 abreviatura-2 
+&Scoped-define DATA-FIELDS-IN-Caracteristicas_quimicas descripcion-9 ~
+programa calculo 
+&Scoped-define DATA-FIELDS-IN-colores_prot id_color descripcion-6 ~
+abreviatura-4 
+&Scoped-define DATA-FIELDS-IN-contramarcas id_contramarca descripcion-8 ~
+abreviatura-6 
+&Scoped-define DATA-FIELDS-IN-cuerpo_prot id_cuerpo abreviatura-3 ~
+descripcion-5 
+&Scoped-define DATA-FIELDS-IN-items_protocolos orden valor valor_caracter 
+&Scoped-define DATA-FIELDS-IN-tipos_protocolos id_tipo_protocolo ~
+descripcion-7 abreviatura-5 
+&Scoped-define DATA-FIELDS-IN-tambores_industria id_lote 
+&Scoped-Define MANDATORY-FIELDS  id_lote
+&Scoped-Define APPLICATION-SERVICE 
+&Scoped-Define ASSIGN-LIST   rowObject.descripcion-2 = couriers.descripcion~
+  rowObject.descripcion-3 = protocolos.descripcion~
+  rowObject.fecha-2 = protocolos.fecha~
+  rowObject.descripcion-4 = aromas_sabores_prot.descripcion~
+  rowObject.abreviatura-2 = aromas_sabores_prot.abreviatura~
+  rowObject.abreviatura-3 = cuerpo_prot.abreviatura~
+  rowObject.descripcion-5 = cuerpo_prot.descripcion~
+  rowObject.descripcion-6 = colores_prot.descripcion~
+  rowObject.abreviatura-4 = colores_prot.abreviatura~
+  rowObject.descripcion-7 = tipos_protocolos.descripcion~
+  rowObject.abreviatura-5 = tipos_protocolos.abreviatura~
+  rowObject.descripcion-8 = contramarcas.descripcion~
+  rowObject.abreviatura-6 = contramarcas.abreviatura~
+  rowObject.descripcion-9 = Caracteristicas_quimicas.descripcion
+&Scoped-Define DATA-FIELD-DEFS "dConsultaMuestras.i"
+&Scoped-define QUERY-STRING-Query-Main FOR EACH muestras NO-LOCK, ~
+      EACH contactos_muestras WHERE TRUE /* Join to muestras incomplete */ NO-LOCK, ~
+      EACH items_muestras OF muestras NO-LOCK, ~
+      EACH envases_muestras OF items_muestras NO-LOCK, ~
+      EACH couriers WHERE TRUE /* Join to items_muestras incomplete */ NO-LOCK, ~
+      EACH r_muestras_protocolos OF muestras NO-LOCK, ~
+      EACH protocolos OF envases_muestras NO-LOCK, ~
+      EACH aromas_sabores_prot WHERE TRUE /* Join to protocolos incomplete */ NO-LOCK, ~
+      EACH Caracteristicas_quimicas WHERE TRUE /* Join to protocolos incomplete */ NO-LOCK, ~
+      EACH colores_prot OF protocolos NO-LOCK, ~
+      EACH contramarcas OF protocolos NO-LOCK, ~
+      EACH cuerpo_prot WHERE TRUE /* Join to protocolos incomplete */ NO-LOCK, ~
+      EACH items_protocolos OF protocolos NO-LOCK, ~
+      EACH tipos_protocolos OF protocolos NO-LOCK, ~
+      EACH tambores_industria OF envases_muestras NO-LOCK
+{&DB-REQUIRED-START}
+&Scoped-define OPEN-QUERY-Query-Main OPEN QUERY Query-Main FOR EACH muestras NO-LOCK, ~
+      EACH contactos_muestras WHERE TRUE /* Join to muestras incomplete */ NO-LOCK, ~
+      EACH items_muestras OF muestras NO-LOCK, ~
+      EACH envases_muestras OF items_muestras NO-LOCK, ~
+      EACH couriers WHERE TRUE /* Join to items_muestras incomplete */ NO-LOCK, ~
+      EACH r_muestras_protocolos OF muestras NO-LOCK, ~
+      EACH protocolos OF envases_muestras NO-LOCK, ~
+      EACH aromas_sabores_prot WHERE TRUE /* Join to protocolos incomplete */ NO-LOCK, ~
+      EACH Caracteristicas_quimicas WHERE TRUE /* Join to protocolos incomplete */ NO-LOCK, ~
+      EACH colores_prot OF protocolos NO-LOCK, ~
+      EACH contramarcas OF protocolos NO-LOCK, ~
+      EACH cuerpo_prot WHERE TRUE /* Join to protocolos incomplete */ NO-LOCK, ~
+      EACH items_protocolos OF protocolos NO-LOCK, ~
+      EACH tipos_protocolos OF protocolos NO-LOCK, ~
+      EACH tambores_industria OF envases_muestras NO-LOCK.
+{&DB-REQUIRED-END}
+&Scoped-define TABLES-IN-QUERY-Query-Main muestras contactos_muestras ~
+items_muestras envases_muestras couriers r_muestras_protocolos protocolos ~
+aromas_sabores_prot Caracteristicas_quimicas colores_prot contramarcas ~
+cuerpo_prot items_protocolos tipos_protocolos tambores_industria
+&Scoped-define FIRST-TABLE-IN-QUERY-Query-Main muestras
+&Scoped-define SECOND-TABLE-IN-QUERY-Query-Main contactos_muestras
+&Scoped-define THIRD-TABLE-IN-QUERY-Query-Main items_muestras
+&Scoped-define FOURTH-TABLE-IN-QUERY-Query-Main envases_muestras
+&Scoped-define FIFTH-TABLE-IN-QUERY-Query-Main couriers
+&Scoped-define SIXTH-TABLE-IN-QUERY-Query-Main r_muestras_protocolos
+&Scoped-define SEVENTH-TABLE-IN-QUERY-Query-Main protocolos
+&Scoped-define EIGHTH-TABLE-IN-QUERY-Query-Main aromas_sabores_prot
+&Scoped-define NINTH-TABLE-IN-QUERY-Query-Main Caracteristicas_quimicas
+&Scoped-define TENTH-TABLE-IN-QUERY-Query-Main colores_prot
+&Scoped-define ELEVENTH-TABLE-IN-QUERY-Query-Main contramarcas
+&Scoped-define TWELFTH-TABLE-IN-QUERY-Query-Main cuerpo_prot
+&Scoped-define THIRTEENTH-TABLE-IN-QUERY-Query-Main items_protocolos
+&Scoped-define FOURTEENTH-TABLE-IN-QUERY-Query-Main tipos_protocolos
+&Scoped-define FIFTEENTH-TABLE-IN-QUERY-Query-Main tambores_industria
+
+
+/* Custom List Definitions                                              */
+/* List-1,List-2,List-3,List-4,List-5,List-6                            */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+/* ***********************  Control Definitions  ********************** */
+
+{&DB-REQUIRED-START}
+
+/* Query definitions                                                    */
+&ANALYZE-SUSPEND
+DEFINE QUERY Query-Main FOR 
+      muestras, 
+      contactos_muestras, 
+      items_muestras, 
+      envases_muestras, 
+      couriers, 
+      r_muestras_protocolos, 
+      protocolos, 
+      aromas_sabores_prot, 
+      Caracteristicas_quimicas, 
+      colores_prot, 
+      contramarcas, 
+      cuerpo_prot, 
+      items_protocolos, 
+      tipos_protocolos, 
+      tambores_industria SCROLLING.
+&ANALYZE-RESUME
+{&DB-REQUIRED-END}
+
+
+/* ************************  Frame Definitions  *********************** */
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartDataObject
+   Allow: Query
+   Frames: 0
+   Add Fields to: Neither
+   Other Settings: PERSISTENT-ONLY COMPILE APPSERVER DB-AWARE
+ */
+
+/* This procedure should always be RUN PERSISTENT.  Report the error,  */
+/* then cleanup and return.                                            */
+IF NOT THIS-PROCEDURE:PERSISTENT THEN DO:
+  MESSAGE "{&FILE-NAME} should only be RUN PERSISTENT.":U
+          VIEW-AS ALERT-BOX ERROR BUTTONS OK.
+  RETURN.
+END.
+
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+/* DESIGN Window definition (used by the UIB) 
+  CREATE WINDOW dTables ASSIGN
+         HEIGHT             = 1.62
+         WIDTH              = 46.6.
+/* END WINDOW DEFINITION */
+                                                                        */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB dTables 
+/* ************************* Included-Libraries *********************** */
+
+{src/adm2/data.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR WINDOW dTables
+  VISIBLE,,RUN-PERSISTENT                                               */
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+
+/* Setting information for Queries and Browse Widgets fields            */
+
+&ANALYZE-SUSPEND _QUERY-BLOCK QUERY Query-Main
+/* Query rebuild information for SmartDataObject Query-Main
+     _TblList          = "general.muestras,industria.contactos_muestras WHERE general.muestras ...,general.items_muestras OF general.muestras,industria.envases_muestras OF general.items_muestras,industria.couriers WHERE general.items_muestras ...,industria.r_muestras_protocolos OF general.muestras,industria.protocolos OF general.envases_muestras,industria.aromas_sabores_prot WHERE general.protocolos ...,industria.Caracteristicas_quimicas WHERE general.protocolos ...,industria.colores_prot OF general.protocolos,industria.contramarcas OF general.protocolos,industria.cuerpo_prot WHERE general.protocolos ...,general.items_protocolos OF general.protocolos,industria.tipos_protocolos OF general.protocolos,industria.tambores_industria OF general.envases_muestras"
+     _Options          = "NO-LOCK"
+     _FldNameList[1]   > general.muestras.id_muestra
+"id_muestra" "id_muestra" ? ? "integer" ? ? ? ? ? ? no ? no 11.4 yes
+     _FldNameList[2]   > general.muestras.anio_muestra
+"anio_muestra" "anio_muestra" ? ? "integer" ? ? ? ? ? ? no ? no 4.8 yes
+     _FldNameList[3]   > general.muestras.fecha
+"fecha" "fecha" ? ? "date" ? ? ? ? ? ? no ? no 9.2 yes
+     _FldNameList[4]   > general.muestras.directo_cliente
+"directo_cliente" "directo_cliente" ? ? "logical" ? ? ? ? ? ? no ? no 7.8 yes
+     _FldNameList[5]   > general.contactos_muestras.id_contacto
+"id_contacto" "id_contacto" ? ? "integer" ? ? ? ? ? ? no ? no 7.6 yes
+     _FldNameList[6]   > general.contactos_muestras.razon_social
+"razon_social" "razon_social" ? ? "character" ? ? ? ? ? ? no ? no 50 yes
+     _FldNameList[7]   > general.items_muestras.item_muestra
+"item_muestra" "item_muestra" ? ? "integer" ? ? ? ? ? ? no ? no 5 yes
+     _FldNameList[8]   > general.items_muestras.caracteristicas
+"caracteristicas" "caracteristicas" ? ? "character" ? ? ? ? ? ? no ? no 200 yes
+     _FldNameList[9]   > general.items_muestras.cantidad
+"cantidad" "cantidad" ? ? "integer" ? ? ? ? ? ? no ? no 8.4 yes
+     _FldNameList[10]   > general.items_muestras.fecha_enviado_tuc
+"fecha_enviado_tuc" "fecha_enviado_tuc" ? ? "date" ? ? ? ? ? ? no ? no 12 yes
+     _FldNameList[11]   > general.items_muestras.fecha_enviado_bue
+"fecha_enviado_bue" "fecha_enviado_bue" ? ? "date" ? ? ? ? ? ? no ? no 14.4 yes
+     _FldNameList[12]   > general.items_muestras.nro_guia_tuc
+"nro_guia_tuc" "nro_guia_tuc" ? ? "character" ? ? ? ? ? ? no ? no 40 yes
+     _FldNameList[13]   > general.items_muestras.nro_guia_bue
+"nro_guia_bue" "nro_guia_bue" ? ? "character" ? ? ? ? ? ? no ? no 40 yes
+     _FldNameList[14]   > general.envases_muestras.id_envase
+"id_envase" "id_envase" ? ? "integer" ? ? ? ? ? ? no ? no 11 yes
+     _FldNameList[15]   > general.envases_muestras.abreviatura
+"abreviatura" "abreviatura" ? ? "character" ? ? ? ? ? ? no ? no 12 yes
+     _FldNameList[16]   > general.envases_muestras.descripcion
+"descripcion" "descripcion" ? ? "character" ? ? ? ? ? ? no ? no 40 yes
+     _FldNameList[17]   > general.envases_muestras.volumen
+"volumen" "volumen" ? ? "character" ? ? ? ? ? ? no ? no 8.2 yes
+     _FldNameList[18]   > general.couriers.id_courier
+"id_courier" "id_courier" ? ? "integer" ? ? ? ? ? ? no ? no 7.6 yes
+     _FldNameList[19]   > general.couriers.descripcion
+"descripcion" "descripcion-2" ? ? "character" ? ? ? ? ? ? no ? no 30 yes
+     _FldNameList[20]   > general.protocolos.id_protocolo
+"id_protocolo" "id_protocolo" ? ? "integer" ? ? ? ? ? ? no ? no 12.8 yes
+     _FldNameList[21]   > general.protocolos.anio
+"anio" "anio" ? ? "integer" ? ? ? ? ? ? no ? no 4.8 yes
+     _FldNameList[22]   > general.protocolos.id_articulo
+"id_articulo" "id_articulo" ? ? "integer" ? ? ? ? ? ? no ? no 10.8 yes
+     _FldNameList[23]   > general.protocolos.descripcion
+"descripcion" "descripcion-3" ? ? "character" ? ? ? ? ? ? no ? no 30 yes
+     _FldNameList[24]   > general.protocolos.abraviatura
+"abraviatura" "abraviatura" ? ? "character" ? ? ? ? ? ? no ? no 12 yes
+     _FldNameList[25]   > general.protocolos.fecha
+"fecha" "fecha-2" ? ? "date" ? ? ? ? ? ? no ? no 9.2 yes
+     _FldNameList[26]   > general.protocolos.estado
+"estado" "estado" ? ? "integer" ? ? ? ? ? ? no ? no 6.6 yes
+     _FldNameList[27]   > general.protocolos.aprobado
+"aprobado" "aprobado" ? ? "logical" ? ? ? ? ? ? no ? no 9.2 yes
+     _FldNameList[28]   > general.protocolos.fecha_aprobacion
+"fecha_aprobacion" "fecha_aprobacion" ? ? "date" ? ? ? ? ? ? no ? no 17.4 yes
+     _FldNameList[29]   > general.protocolos.cantidad_tambores
+"cantidad_tambores" "cantidad_tambores" ? ? "integer" ? ? ? ? ? ? no ? no 9.4 yes
+     _FldNameList[30]   > general.protocolos.desde_tambor
+"desde_tambor" "desde_tambor" ? ? "integer" ? ? ? ? ? ? no ? no 6.2 yes
+     _FldNameList[31]   > general.protocolos.hasta_tambor
+"hasta_tambor" "hasta_tambor" ? ? "integer" ? ? ? ? ? ? no ? no 6 yes
+     _FldNameList[32]   > general.protocolos.peso_neto
+"peso_neto" "peso_neto" ? ? "decimal" ? ? ? ? ? ? no ? no 10 yes
+     _FldNameList[33]   > general.protocolos.peso_bruto_tambor
+"peso_bruto_tambor" "peso_bruto_tambor" ? ? "decimal" ? ? ? ? ? ? no ? no 10.4 yes
+     _FldNameList[34]   > general.protocolos.quimico
+"quimico" "quimico" ? ? "character" ? ? ? ? ? ? no ? no 12 yes
+     _FldNameList[35]   > general.aromas_sabores_prot.id_aroma_sabor
+"id_aroma_sabor" "id_aroma_sabor" ? ? "integer" ? ? ? ? ? ? no ? no 7.6 yes
+     _FldNameList[36]   > general.aromas_sabores_prot.descripcion
+"descripcion" "descripcion-4" ? ? "character" ? ? ? ? ? ? no ? no 40 yes
+     _FldNameList[37]   > general.aromas_sabores_prot.abreviatura
+"abreviatura" "abreviatura-2" ? ? "character" ? ? ? ? ? ? no ? no 12 yes
+     _FldNameList[38]   > general.cuerpo_prot.id_cuerpo
+"id_cuerpo" "id_cuerpo" ? ? "integer" ? ? ? ? ? ? no ? no 8.2 yes
+     _FldNameList[39]   > general.cuerpo_prot.abreviatura
+"abreviatura" "abreviatura-3" ? ? "character" ? ? ? ? ? ? no ? no 12 yes
+     _FldNameList[40]   > general.cuerpo_prot.descripcion
+"descripcion" "descripcion-5" ? ? "character" ? ? ? ? ? ? no ? no 40 yes
+     _FldNameList[41]   > general.colores_prot.id_color
+"id_color" "id_color" ? ? "integer" ? ? ? ? ? ? no ? no 8.4 yes
+     _FldNameList[42]   > general.colores_prot.descripcion
+"descripcion" "descripcion-6" ? ? "character" ? ? ? ? ? ? no ? no 40 yes
+     _FldNameList[43]   > general.colores_prot.abreviatura
+"abreviatura" "abreviatura-4" ? ? "character" ? ? ? ? ? ? no ? no 12 yes
+     _FldNameList[44]   > general.tipos_protocolos.id_tipo_protocolo
+"id_tipo_protocolo" "id_tipo_protocolo" ? ? "integer" ? ? ? ? ? ? no ? no 9 yes
+     _FldNameList[45]   > general.tipos_protocolos.descripcion
+"descripcion" "descripcion-7" ? ? "character" ? ? ? ? ? ? no ? no 30 yes
+     _FldNameList[46]   > general.tipos_protocolos.abreviatura
+"abreviatura" "abreviatura-5" ? ? "character" ? ? ? ? ? ? no ? no 12 yes
+     _FldNameList[47]   > general.contramarcas.id_contramarca
+"id_contramarca" "id_contramarca" ? ? "integer" ? ? ? ? ? ? no ? no 11.2 yes
+     _FldNameList[48]   > general.contramarcas.descripcion
+"descripcion" "descripcion-8" ? ? "character" ? ? ? ? ? ? no ? no 30 yes
+     _FldNameList[49]   > general.contramarcas.abreviatura
+"abreviatura" "abreviatura-6" ? ? "character" ? ? ? ? ? ? no ? no 12 yes
+     _FldNameList[50]   > general.items_protocolos.orden
+"orden" "orden" ? ? "integer" ? ? ? ? ? ? no ? no 5.8 yes
+     _FldNameList[51]   > general.items_protocolos.valor
+"valor" "valor" ? ? "decimal" ? ? ? ? ? ? no ? no 12.6 yes
+     _FldNameList[52]   > general.items_protocolos.valor_caracter
+"valor_caracter" "valor_caracter" ? ? "character" ? ? ? ? ? ? no ? no 100 yes
+     _FldNameList[53]   > general.Caracteristicas_quimicas.descripcion
+"descripcion" "descripcion-9" ? ? "character" ? ? ? ? ? ? no ? no 60 yes
+     _FldNameList[54]   > general.Caracteristicas_quimicas.programa
+"programa" "programa" ? ? "character" ? ? ? ? ? ? no ? no 40 yes
+     _FldNameList[55]   > general.Caracteristicas_quimicas.calculo
+"calculo" "calculo" ? ? "logical" ? ? ? ? ? ? no ? no 7 yes
+     _FldNameList[56]   > general.tambores_industria.id_lote
+"id_lote" "id_lote" ? ? "integer" ? ? ? ? ? ? no ? yes 10.2 yes
+     _Design-Parent    is WINDOW dTables @ ( 1.14 , 2.6 )
+*/  /* QUERY Query-Main */
+&ANALYZE-RESUME
+
+ 
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK dTables 
+
+
+/* ***************************  Main Block  *************************** */
+
+  &IF DEFINED(UIB_IS_RUNNING) <> 0 &THEN          
+    RUN initializeObject.
+  &ENDIF
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI dTables  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Hide all frames. */
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+

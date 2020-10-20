@@ -1,0 +1,26 @@
+            FIND r_productos_calidad_envase OF items_contratos NO-LOCK NO-ERROR.
+            IF AVAILABLE r_productos_calidad_envase THEN DO:
+                    v_kilos_envase = r_productos_calidad_envase.kilos.
+            END.
+            ELSE v_kilos_envase = 250.
+            
+            v_cantidad_contratos = items_contratos.cantidad * v_kilos_envase.
+              
+            IF items_contratos.id_articulo = 52 OR
+               items_contratos.id_articulo = 53 THEN DO:
+                FIND r_productos_calidad WHERE r_productos_calidad.id_articulo = items_contratos.id_articulo 
+                                           AND r_productos_calidad.id_calidad = items_contratos.id_calidad 
+                                         NO-LOCK NO-ERROR.  
+                v_coef = IF AVAILABLE r_productos_calidad THEN r_productos_calidad.coeficiente ELSE 1.
+
+            END.
+            ELSE
+                v_coef = 1.
+              
+
+            IF v_coef >= 1.25 THEN
+                v_pesoref = 260.
+            ELSE
+                v_pesoref = 250.
+
+            v_cantidad_contratos_400 = items_contratos.cantidad * v_kilos_envase * v_coef.

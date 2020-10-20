@@ -1,0 +1,776 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER AB_v9r12 GUI ADM2
+&ANALYZE-RESUME
+/* Connected Databases 
+          industria        PROGRESS
+*/
+&Scoped-define WINDOW-NAME CURRENT-WINDOW
+
+/* Temp-Table and Buffer definitions                                    */
+DEFINE TEMP-TABLE RowObject
+       {"dInspeccionesContenedores.i"}.
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS vTableWin 
+/*------------------------------------------------------------------------
+
+  File:
+
+  Description: from viewer.w - Template for SmartDataViewer objects
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress AppBuilder.      */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartDataViewer
+&Scoped-define DB-AWARE no
+
+&Scoped-define ADM-CONTAINER FRAME
+
+&Scoped-define ADM-SUPPORTED-LINKS Data-Target,Update-Source,TableIO-Target,GroupAssign-Source,GroupAssign-Target
+
+/* Include file with RowObject temp-table definition */
+&Scoped-define DATA-FIELD-DEFS "dInspeccionesContenedores.i"
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME F-Main
+
+/* Standard List Definitions                                            */
+&Scoped-Define ENABLED-FIELDS RowObject.fecha ~
+RowObject.olor_compartimiento_desc RowObject.identificacion_contenedor ~
+RowObject.tipo_contenedor RowObject.empresa_contratista ~
+RowObject.fecha_recepcion RowObject.parte_exterior_desc ~
+RowObject.reacondicionar_container RowObject.reacondicionar_container_desc ~
+RowObject.observaciones RowObject.precinto_seguridad RowObject.nro_precinto ~
+RowObject.precinto_seguridad_desc RowObject.sanidad_estado_desc ~
+RowObject.inspector RowObject.responsable_proveedor RowObject.pat_chasis ~
+RowObject.pat_semi RowObject.lugar 
+&Scoped-define ENABLED-TABLES RowObject
+&Scoped-define FIRST-ENABLED-TABLE RowObject
+&Scoped-Define ENABLED-OBJECTS radOlor radEvidencia radExterior ~
+radCalificacion radSanidad RECT-1 RECT-10 RECT-11 RECT-2 RECT-3 RECT-4 ~
+RECT-5 RECT-6 RECT-7 RECT-8 RECT-9 
+&Scoped-Define DISPLAYED-FIELDS RowObject.olor_compartimiento ~
+RowObject.fecha RowObject.olor_compartimiento_desc ~
+RowObject.identificacion_contenedor RowObject.tipo_contenedor ~
+RowObject.empresa_contratista RowObject.fecha_recepcion ~
+RowObject.evidencia_actividad RowObject.parte_exterior ~
+RowObject.parte_exterior_desc RowObject.reacondicionar_container ~
+RowObject.reacondicionar_container_desc RowObject.observaciones ~
+RowObject.precinto_seguridad RowObject.nro_precinto ~
+RowObject.precinto_seguridad_desc RowObject.calificacion ~
+RowObject.sanidad_estado RowObject.sanidad_estado_desc RowObject.inspector ~
+RowObject.responsable_proveedor RowObject.pat_chasis RowObject.pat_semi ~
+RowObject.lugar 
+&Scoped-define DISPLAYED-TABLES RowObject
+&Scoped-define FIRST-DISPLAYED-TABLE RowObject
+&Scoped-Define DISPLAYED-OBJECTS radOlor radEvidencia radExterior ~
+radCalificacion radSanidad 
+
+/* Custom List Definitions                                              */
+/* ADM-ASSIGN-FIELDS,List-2,List-3,List-4,List-5,List-6                 */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+/* ***********************  Control Definitions  ********************** */
+
+
+/* Definitions of handles for SmartObjects                              */
+DEFINE VARIABLE h_dproductosterminados AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect AS HANDLE NO-UNDO.
+
+/* Definitions of the field level widgets                               */
+DEFINE VARIABLE radCalificacion AS CHARACTER 
+     VIEW-AS RADIO-SET HORIZONTAL
+     RADIO-BUTTONS 
+          "Aceptado", "Aceptado",
+"Aceptado c/Obs", "Aceptado c/Obs",
+"Rechazado", "Rechazado"
+     SIZE 50 BY .95 NO-UNDO.
+
+DEFINE VARIABLE radEvidencia AS CHARACTER 
+     VIEW-AS RADIO-SET HORIZONTAL
+     RADIO-BUTTONS 
+          "Insectos", "Insectos",
+"Roedores", "Roedores",
+"Pajaros", "Pajaros",
+"Ninguna", "Ninguna"
+     SIZE 57 BY .95 NO-UNDO.
+
+DEFINE VARIABLE radExterior AS CHARACTER 
+     VIEW-AS RADIO-SET VERTICAL
+     RADIO-BUTTONS 
+          "Limpia", "Limpia",
+"Fangosa", "Fangosa",
+"Sucia", "Sucia",
+"Aceitosa", "Aceitosa",
+"Con Roturas", "Con Roturas",
+"Desperfectos", "Desperfectos",
+"Otros (Describa)", "Otros"
+     SIZE 22 BY 4.43 NO-UNDO.
+
+DEFINE VARIABLE radOlor AS CHARACTER 
+     VIEW-AS RADIO-SET VERTICAL
+     RADIO-BUTTONS 
+          "Limpio", "Limpio",
+"Olor Desagradable", "Desagradable",
+"Destilado Petroleo", "Petroleo",
+"Podrido", "Podrido",
+"Otros gases (describa)", "Otros"
+     SIZE 29 BY 3.33 NO-UNDO.
+
+DEFINE VARIABLE radSanidad AS CHARACTER 
+     VIEW-AS RADIO-SET VERTICAL
+     RADIO-BUTTONS 
+          "Excelente", "Excelente",
+"Aceptable", "Aceptable",
+"Restos Emb. Ant.", "Restos",
+"Danado", "Danado",
+"Presenta Humedad", "Presenta Humedad",
+"Con Roturas", "Con Roturas",
+"Desperfectos", "Desperfectos",
+"Sucio (Describa)", "Sucio"
+     SIZE 23 BY 5.1 NO-UNDO.
+
+DEFINE RECTANGLE RECT-1
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 62 BY 1.43.
+
+DEFINE RECTANGLE RECT-10
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 62 BY 2.62.
+
+DEFINE RECTANGLE RECT-11
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 62 BY 4.52.
+
+DEFINE RECTANGLE RECT-2
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 62 BY 4.29.
+
+DEFINE RECTANGLE RECT-3
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 62 BY 5.95.
+
+DEFINE RECTANGLE RECT-4
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 62 BY 3.33.
+
+DEFINE RECTANGLE RECT-5
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 62 BY 6.62.
+
+DEFINE RECTANGLE RECT-6
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 62 BY 5.
+
+DEFINE RECTANGLE RECT-7
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 62 BY 2.38.
+
+DEFINE RECTANGLE RECT-8
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 62 BY 2.38.
+
+DEFINE RECTANGLE RECT-9
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 62 BY 4.76.
+
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME F-Main
+     RowObject.olor_compartimiento AT ROW 1.14 COL 83 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 39 BY 1
+     RowObject.fecha AT ROW 1.24 COL 43 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 16 BY 1
+     RowObject.olor_compartimiento_desc AT ROW 2.33 COL 94 NO-LABEL
+          VIEW-AS EDITOR
+          SIZE 30 BY 3.43
+     radOlor AT ROW 2.43 COL 65 NO-LABEL
+     RowObject.identificacion_contenedor AT ROW 2.52 COL 18 COLON-ALIGNED
+          LABEL "Ident. Contenedor"
+          VIEW-AS FILL-IN 
+          SIZE 41 BY 1
+     RowObject.tipo_contenedor AT ROW 3.52 COL 18 COLON-ALIGNED
+          LABEL "Tipo Cont"
+          VIEW-AS FILL-IN 
+          SIZE 41 BY 1
+     RowObject.empresa_contratista AT ROW 4.52 COL 18 COLON-ALIGNED
+          LABEL "Contratista"
+          VIEW-AS FILL-IN 
+          SIZE 41 BY 1
+     RowObject.fecha_recepcion AT ROW 5.52 COL 18 COLON-ALIGNED
+          LABEL "Fecha Recep"
+          VIEW-AS FILL-IN 
+          SIZE 16 BY 1
+     RowObject.evidencia_actividad AT ROW 6.14 COL 88 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 34 BY 1
+     RowObject.parte_exterior AT ROW 6.81 COL 14 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 45 BY 1
+     radEvidencia AT ROW 7.33 COL 67 NO-LABEL
+     radExterior AT ROW 8 COL 2 NO-LABEL
+     RowObject.parte_exterior_desc AT ROW 8 COL 24 NO-LABEL
+          VIEW-AS EDITOR
+          SIZE 37 BY 4.43
+     RowObject.reacondicionar_container AT ROW 8.52 COL 116.2 COLON-ALIGNED
+          LABEL "Se Necesita Reacondicionar Container"
+          VIEW-AS FILL-IN 
+          SIZE 6.4 BY 1
+     RowObject.reacondicionar_container_desc AT ROW 9.62 COL 64.2
+          LABEL "Obs Recondicionamiento"
+          VIEW-AS FILL-IN 
+          SIZE 35.4 BY 1
+     RowObject.observaciones AT ROW 11.24 COL 64 NO-LABEL
+          VIEW-AS EDITOR
+          SIZE 60 BY 4
+     RowObject.precinto_seguridad AT ROW 12.76 COL 52.6 COLON-ALIGNED
+          LABEL "Container Llego c/Precinto Seguridad"
+          VIEW-AS FILL-IN 
+          SIZE 6.4 BY 1
+     RowObject.nro_precinto AT ROW 13.76 COL 37 COLON-ALIGNED
+          LABEL "Nro Precinto"
+          VIEW-AS FILL-IN 
+          SIZE 22 BY 1
+     RowObject.precinto_seguridad_desc AT ROW 14.76 COL 29 COLON-ALIGNED
+          LABEL "Obs Precinto"
+          VIEW-AS FILL-IN 
+          SIZE 30 BY 1
+     RowObject.calificacion AT ROW 15.76 COL 81 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 25 BY 1
+     RowObject.sanidad_estado AT ROW 16.14 COL 18 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 41 BY 1
+     radCalificacion AT ROW 16.95 COL 68 NO-LABEL
+     radSanidad AT ROW 17.33 COL 2 NO-LABEL
+     RowObject.sanidad_estado_desc AT ROW 17.33 COL 25 NO-LABEL
+          VIEW-AS EDITOR
+          SIZE 36 BY 4.86
+     RowObject.inspector AT ROW 18.38 COL 78.4 COLON-ALIGNED
+          LABEL "Inspector"
+          VIEW-AS FILL-IN 
+          SIZE 44 BY 1
+     RowObject.responsable_proveedor AT ROW 19.33 COL 78.4 COLON-ALIGNED
+          LABEL "Resp Prov"
+          VIEW-AS FILL-IN 
+          SIZE 44 BY 1
+     RowObject.pat_chasis AT ROW 20.29 COL 78.4 COLON-ALIGNED
+          LABEL "Pat Chasis"
+          VIEW-AS FILL-IN 
+          SIZE 13.6 BY 1
+     RowObject.pat_semi AT ROW 20.33 COL 108.8 COLON-ALIGNED
+          LABEL "Pat Semi"
+          VIEW-AS FILL-IN 
+          SIZE 13.6 BY 1
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY USE-DICT-EXPS 
+         SIDE-LABELS NO-UNDERLINE THREE-D NO-AUTO-VALIDATE 
+         AT COL 1 ROW 1
+         SIZE 124.4 BY 21.67.
+
+/* DEFINE FRAME statement is approaching 4K Bytes.  Breaking it up   */
+DEFINE FRAME F-Main
+     RowObject.lugar AT ROW 21.33 COL 78.4 COLON-ALIGNED
+          LABEL "Lugar"
+          VIEW-AS FILL-IN 
+          SIZE 44 BY 1
+     RECT-1 AT ROW 1 COL 1
+     RECT-10 AT ROW 15.52 COL 63
+     RECT-11 AT ROW 18.14 COL 63
+     RECT-2 AT ROW 2.43 COL 1
+     RECT-3 AT ROW 6.71 COL 1
+     RECT-4 AT ROW 12.67 COL 1
+     RECT-5 AT ROW 16.05 COL 1
+     RECT-6 AT ROW 1 COL 63
+     RECT-7 AT ROW 6 COL 63
+     RECT-8 AT ROW 8.38 COL 63
+     RECT-9 AT ROW 10.76 COL 63
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY USE-DICT-EXPS 
+         SIDE-LABELS NO-UNDERLINE THREE-D NO-AUTO-VALIDATE 
+         AT COL 1 ROW 1
+         SIZE 124.4 BY 21.67.
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartDataViewer
+   Data Source: "dInspeccionesContenedores.w"
+   Allow: Basic,DB-Fields,Smart
+   Container Links: Data-Target,Update-Source,TableIO-Target,GroupAssign-Source,GroupAssign-Target
+   Frames: 1
+   Add Fields to: Neither
+   Other Settings: PERSISTENT-ONLY COMPILE
+   Temp-Tables and Buffers:
+      TABLE: RowObject D "?" ?  
+      ADDITIONAL-FIELDS:
+          {dInspeccionesContenedores.i}
+      END-FIELDS.
+   END-TABLES.
+ */
+
+/* This procedure should always be RUN PERSISTENT.  Report the error,  */
+/* then cleanup and return.                                            */
+IF NOT THIS-PROCEDURE:PERSISTENT THEN DO:
+  MESSAGE "{&FILE-NAME} should only be RUN PERSISTENT.":U
+          VIEW-AS ALERT-BOX ERROR BUTTONS OK.
+  RETURN.
+END.
+
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+/* DESIGN Window definition (used by the UIB) 
+  CREATE WINDOW vTableWin ASSIGN
+         HEIGHT             = 21.67
+         WIDTH              = 124.4.
+/* END WINDOW DEFINITION */
+                                                                        */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB vTableWin 
+/* ************************* Included-Libraries *********************** */
+
+{src/adm2/viewer.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR WINDOW vTableWin
+  VISIBLE,,RUN-PERSISTENT                                               */
+/* SETTINGS FOR FRAME F-Main
+   NOT-VISIBLE                                                          */
+ASSIGN 
+       FRAME F-Main:HIDDEN           = TRUE.
+
+/* SETTINGS FOR FILL-IN RowObject.calificacion IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN RowObject.empresa_contratista IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.evidencia_actividad IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN RowObject.fecha_recepcion IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.identificacion_contenedor IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.inspector IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.lugar IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.nro_precinto IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.olor_compartimiento IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN RowObject.parte_exterior IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN RowObject.pat_chasis IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.pat_semi IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.precinto_seguridad IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.precinto_seguridad_desc IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.reacondicionar_container IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.reacondicionar_container_desc IN FRAME F-Main
+   ALIGN-L EXP-LABEL                                                    */
+/* SETTINGS FOR FILL-IN RowObject.responsable_proveedor IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* SETTINGS FOR FILL-IN RowObject.sanidad_estado IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN RowObject.tipo_contenedor IN FRAME F-Main
+   EXP-LABEL                                                            */
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+
+/* Setting information for Queries and Browse Widgets fields            */
+
+&ANALYZE-SUSPEND _QUERY-BLOCK FRAME F-Main
+/* Query rebuild information for FRAME F-Main
+     _Options          = "NO-LOCK"
+     _Query            is NOT OPENED
+*/  /* FRAME F-Main */
+&ANALYZE-RESUME
+
+ 
+
+
+
+/* ************************  Control Triggers  ************************ */
+
+&Scoped-define SELF-NAME radCalificacion
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL radCalificacion vTableWin
+ON VALUE-CHANGED OF radCalificacion IN FRAME F-Main
+DO:
+  rowObject.calificacion:SCREEN-VALUE = SELF:SCREEN-VALUE.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME radEvidencia
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL radEvidencia vTableWin
+ON VALUE-CHANGED OF radEvidencia IN FRAME F-Main
+DO:
+  rowObject.evidencia_actividad:SCREEN-VALUE = SELF:SCREEN-VALUE.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME radExterior
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL radExterior vTableWin
+ON VALUE-CHANGED OF radExterior IN FRAME F-Main
+DO:
+  rowObject.parte_exterior:SCREEN-VALUE = SELF:SCREEN-VALUE.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME radOlor
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL radOlor vTableWin
+ON VALUE-CHANGED OF radOlor IN FRAME F-Main
+DO:
+  rowObject.olor_compartimiento:SCREEN-VALUE = SELF:SCREEN-VALUE.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME radSanidad
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL radSanidad vTableWin
+ON VALUE-CHANGED OF radSanidad IN FRAME F-Main
+DO:
+  rowObject.sanidad_estado:SCREEN-VALUE = SELF:SCREEN-VALUE.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&UNDEFINE SELF-NAME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK vTableWin 
+
+
+/* ***************************  Main Block  *************************** */
+  {adm2/support/viewTrg.i}.  
+  &IF DEFINED(UIB_IS_RUNNING) <> 0 &THEN          
+    RUN initializeObject.
+  &ENDIF         
+  
+  /************************ INTERNAL PROCEDURES ********************/
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE addRecord vTableWin 
+PROCEDURE addRecord :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  RUN completeData.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-create-objects vTableWin  _ADM-CREATE-OBJECTS
+PROCEDURE adm-create-objects :
+/*------------------------------------------------------------------------------
+  Purpose:     Create handles for all SmartObjects used in this procedure.
+               After SmartObjects are initialized, then SmartLinks are added.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE currentPage  AS INTEGER NO-UNDO.
+
+  ASSIGN currentPage = getCurrentPage().
+
+  CASE currentPage: 
+
+    WHEN 0 THEN DO:
+       RUN constructObject (
+             INPUT  'dproductosterminados.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedproductosterminadosUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dproductosterminados ).
+       RUN repositionObject IN h_dproductosterminados ( 16.00 , 112.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.86 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventDisplayedFieldArticuloKeyFieldid_articuloDataSourceFilterNumRows20OptionalnoOptionalString':U + '<none>' + 'LabelArticuloSortyesViewAsBrowserToolTipFormatHelpId0BrowseTitleArticulosBrowseFieldsArticulo,id_articuloExitBrowseOnActionyesCancelBrowseOnExityesRepositionDataSourcenoDefineAnyKeyTriggeryesStartBrowseKeysNEXT-FRAMEFieldNameid_articuloDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect ).
+       RUN repositionObject IN h_dynselect ( 1.24 , 10.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect ( 1.00 , 27.00 ) NO-ERROR.
+
+       /* Links to SmartDataField h_dynselect. */
+       RUN addLink ( h_dproductosterminados , 'Data':U , h_dynselect ).
+
+       /* Adjust the tab order of the smart objects. */
+       RUN adjustTabOrder ( h_dynselect ,
+             RowObject.olor_compartimiento:HANDLE IN FRAME F-Main , 'AFTER':U ).
+    END. /* Page 0 */
+
+  END CASE.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE completeData vTableWin 
+PROCEDURE completeData :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE cKey AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE hCnt AS HANDLE     NO-UNDO.
+
+  hCnt = DYNAMIC-FUNCTION('getContainerSource').
+  cKey = DYNAMIC-FUNCTION('getClaveRemito' IN hCnt).
+
+  FOR FIRST remitos
+      WHERE remitos.id_sucursal     = INTEGER(ENTRY(1, cKey, CHR(1)))
+        AND remitos.id_tipo_movsto  = INTEGER(ENTRY(2, cKey, CHR(1)))
+        AND remitos.nro             = INTEGER(ENTRY(3, cKey, CHR(1)))
+      NO-LOCK.
+    FIND FIRST items_orden_entrega OF remitos NO-LOCK NO-ERROR.
+    FIND FIRST tipo_contenedor OF items_orden_entrega NO-LOCK NO-ERROR.
+    FIND FIRST proveedores OF remitos NO-LOCK NO-ERROR.
+    FIND FIRST sucursales OF  remitos NO-LOCK NO-ERROR.
+    FIND FIRST items_factura OF remitos NO-LOCK NO-ERROR.
+
+    ASSIGN rowObject.identificacion_contenedor:SCREEN-VALUE IN FRAME {&FRAME-NAME}  = remitos.nro_contenedor 
+           rowObject.tipo_contenedor:SCREEN-VALUE IN FRAME {&FRAME-NAME}            = tipo_contenedor.descripcion
+           rowObject.empresa_contratista:SCREEN-VALUE IN FRAME {&FRAME-NAME}        = proveedores.razon_social
+           rowObject.responsable_proveedor:SCREEN-VALUE IN FRAME {&FRAME-NAME}      = remitos.chofer
+           rowObject.pat_chasis:SCREEN-VALUE IN FRAME {&FRAME-NAME}                 = remitos.pat_chasis
+           rowObject.pat_semi:SCREEN-VALUE IN FRAME {&FRAME-NAME}                   = remitos.pat_acopla
+           rowObject.lugar:SCREEN-VALUE IN FRAME {&FRAME-NAME}                      = sucursales.nombre
+            .
+
+  END.
+
+
+
+  
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE customEnable vTableWin 
+PROCEDURE customEnable :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER plEnable AS LOGICAL    NO-UNDO.
+
+  radExterior:SENSITIVE IN FRAME F-Main     = plEnable.
+  radEvidencia:SENSITIVE IN FRAME F-Main    = plEnable.
+  radSanidad:SENSITIVE IN FRAME F-Main      = plEnable.
+  radOlor:SENSITIVE IN FRAME F-Main         = plEnable.
+  radCalificacion:SENSITIVE IN FRAME F-Main = plEnable.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disableFields vTableWin 
+PROCEDURE disableFields :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  DEFINE INPUT PARAMETER pcFieldType AS CHARACTER NO-UNDO.
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER( INPUT pcFieldType).
+
+  RUN customEnable(FALSE).
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI vTableWin  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Hide all frames. */
+  HIDE FRAME F-Main.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE displayFields vTableWin 
+PROCEDURE displayFields :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  DEFINE INPUT PARAMETER pcColValues AS CHARACTER NO-UNDO.
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER( INPUT pcColValues).
+
+  DEFINE VARIABLE iLoop          AS INTEGER   NO-UNDO.
+  DEFINE VARIABLE iNumEntries    AS INTEGER   NO-UNDO.
+  DEFINE VARIABLE hField         AS HANDLE    NO-UNDO.
+  DEFINE VARIABLE cFieldHandles  AS CHARACTER NO-UNDO.
+  DEFINE VARIABLE cFieldName     AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE hTableioSource AS HANDLE    NO-UNDO.
+
+  ASSIGN cFieldHandles  = DYNAMIC-FUNCTION('getAllFieldHandles')
+         iNumEntries    = NUM-ENTRIES(cFieldHandles)
+         hTableioSource = DYNAMIC-FUNCTION('getTableIOSource') NO-ERROR.
+  
+  DO iLoop = 1 TO iNumEntries:
+    ASSIGN hField     = WIDGET-HANDLE(ENTRY(iLoop,cFieldHandles))
+           cFieldName = hField:NAME NO-ERROR.
+    
+    
+    IF cFieldName = "parte_exterior" THEN 
+      radExterior:SCREEN-VALUE IN FRAM F-Main = hField:SCREEN-VALUE.
+    
+    IF cFieldName = "evidencia_actividad" THEN 
+      radEvidencia:SCREEN-VALUE IN FRAM F-Main = hField:SCREEN-VALUE.
+
+    IF cFieldName = "sanidad_estado" THEN 
+      radSanidad:SCREEN-VALUE IN FRAM F-Main = hField:SCREEN-VALUE.
+
+    IF cFieldName = "olor_compartimiento" THEN 
+      radOlor:SCREEN-VALUE IN FRAM F-Main = hField:SCREEN-VALUE.
+
+    IF cFieldName = "calificacion" THEN 
+      radCalificacion:SCREEN-VALUE IN FRAM F-Main = hField:SCREEN-VALUE.
+
+  END.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE enableFields vTableWin 
+PROCEDURE enableFields :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  RUN customEnable(TRUE).
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE initializeObject vTableWin 
+PROCEDURE initializeObject :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  RUN customEnable(FALSE).
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+

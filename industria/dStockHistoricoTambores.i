@@ -1,0 +1,22 @@
+  FIELD anio LIKE stock_historico_tambores.anio VALIDATE ~
+  FIELD c_fecha LIKE stock_historico_tambores.c_fecha VALIDATE ~
+  FIELD c_hora LIKE stock_historico_tambores.c_hora VALIDATE ~
+  FIELD c_usuario LIKE stock_historico_tambores.c_usuario VALIDATE ~
+  FIELD datos_adicionales LIKE stock_historico_tambores.datos_adicionales VALIDATE ~
+  FIELD fecha LIKE stock_historico_tambores.fecha VALIDATE ~
+  FIELD id_articulo LIKE stock_historico_tambores.id_articulo VALIDATE ~
+  FIELD id_calidad LIKE stock_historico_tambores.id_calidad VALIDATE ~
+  FIELD id_empresa LIKE stock_historico_tambores.id_empresa VALIDATE ~
+  FIELD id_envase LIKE stock_historico_tambores.id_envase VALIDATE ~
+  FIELD id_lote LIKE stock_historico_tambores.id_lote VALIDATE ~
+  FIELD id_serial LIKE stock_historico_tambores.id_serial VALIDATE ~
+  FIELD id_sucursal LIKE stock_historico_tambores.id_sucursal VALIDATE ~
+  FIELD id_suc_des LIKE stock_historico_tambores.id_suc_des VALIDATE ~
+  FIELD id_suc_origen LIKE stock_historico_tambores.id_suc_origen VALIDATE ~
+  FIELD id_tipotambor LIKE stock_historico_tambores.id_tipotambor VALIDATE ~
+  FIELD id_tipo_movimiento LIKE stock_historico_tambores.id_tipo_movimiento VALIDATE ~
+  FIELD nromov LIKE stock_historico_tambores.nromov VALIDATE ~
+  FIELD obs_movi LIKE stock_historico_tambores.obs_movi VALIDATE ~
+  FIELD signo LIKE stock_historico_tambores.signo VALIDATE ~
+  FIELD tambor_desde LIKE stock_historico_tambores.tambor_desde VALIDATE ~
+  FIELD tambor_hasta LIKE stock_historico_tambores.tambor_hasta VALIDATE 

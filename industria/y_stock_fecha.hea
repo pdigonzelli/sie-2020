@@ -1,0 +1,10 @@
+skip
+"Stock de : " vdesde " a " vfecha  
+" Tipo de movimiento: " vnomtipo
+/*  varticulo   
+ upper(productos_terminados.descripcion) format "x(35)" */
+ " Suc: " vsucursal format ">>9" vnomsuco format "x(30)"
+
+skip
+fill("_",136) format "x(136)"
+skip

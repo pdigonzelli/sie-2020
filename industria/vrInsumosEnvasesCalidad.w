@@ -1,0 +1,316 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER AB_v9r12 GUI ADM2
+&ANALYZE-RESUME
+/* Connected Databases 
+          general          PROGRESS
+          general          PROGRESS
+          general         PROGRESS
+*/
+&Scoped-define WINDOW-NAME CURRENT-WINDOW
+{adecomm/appserv.i}
+DEFINE VARIABLE h_asindustria              AS HANDLE          NO-UNDO.
+
+/* Temp-Table and Buffer definitions                                    */
+DEFINE TEMP-TABLE RowObject
+       {"drInsumosEnvasesCalidad.i"}.
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS vTableWin 
+/*------------------------------------------------------------------------
+
+  File:
+
+  Description: from viewer.w - Template for SmartDataViewer objects
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress AppBuilder.      */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartDataViewer
+&Scoped-define DB-AWARE no
+
+&Scoped-define ADM-CONTAINER FRAME
+
+&Scoped-define ADM-SUPPORTED-LINKS Data-Target,Update-Source,TableIO-Target,GroupAssign-Source,GroupAssign-Target
+
+/* Include file with RowObject temp-table definition */
+&Scoped-define DATA-FIELD-DEFS "drInsumosEnvasesCalidad.i"
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME F-Main
+
+/* Custom List Definitions                                              */
+/* ADM-ASSIGN-FIELDS,List-2,List-3,List-4,List-5,List-6                 */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+/* ***********************  Control Definitions  ********************** */
+
+
+/* Definitions of handles for SmartObjects                              */
+DEFINE VARIABLE h_dcarticulos2 AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dccalidad AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dcconfeccionesinsumos AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_denvasesprod AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect-2 AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect-3 AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_dynselect-4 AS HANDLE NO-UNDO.
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME F-Main
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY USE-DICT-EXPS 
+         SIDE-LABELS NO-UNDERLINE THREE-D NO-AUTO-VALIDATE 
+         AT COL 1 ROW 1
+         SIZE 64 BY 5.35.
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartDataViewer
+   Data Source: "drInsumosEnvasesCalidad.w"
+   Allow: Basic,DB-Fields,Smart
+   Container Links: Data-Target,Update-Source,TableIO-Target,GroupAssign-Source,GroupAssign-Target
+   Frames: 1
+   Add Fields to: Neither
+   Other Settings: PERSISTENT-ONLY COMPILE APPSERVER
+   Temp-Tables and Buffers:
+      TABLE: RowObject D "?" ?  
+      ADDITIONAL-FIELDS:
+          {drInsumosEnvasesCalidad.i}
+      END-FIELDS.
+   END-TABLES.
+ */
+
+/* This procedure should always be RUN PERSISTENT.  Report the error,  */
+/* then cleanup and return.                                            */
+IF NOT THIS-PROCEDURE:PERSISTENT THEN DO:
+  MESSAGE "{&FILE-NAME} should only be RUN PERSISTENT.":U
+          VIEW-AS ALERT-BOX ERROR BUTTONS OK.
+  RETURN.
+END.
+
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+/* DESIGN Window definition (used by the UIB) 
+  CREATE WINDOW vTableWin ASSIGN
+         HEIGHT             = 5.35
+         WIDTH              = 64.
+/* END WINDOW DEFINITION */
+                                                                        */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB vTableWin 
+/* ************************* Included-Libraries *********************** */
+
+{src/adm2/viewer.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR WINDOW vTableWin
+  VISIBLE,,RUN-PERSISTENT                                               */
+/* SETTINGS FOR FRAME F-Main
+   NOT-VISIBLE                                                          */
+ASSIGN 
+       FRAME F-Main:HIDDEN           = TRUE.
+
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+
+/* Setting information for Queries and Browse Widgets fields            */
+
+&ANALYZE-SUSPEND _QUERY-BLOCK FRAME F-Main
+/* Query rebuild information for FRAME F-Main
+     _Options          = "NO-LOCK"
+     _Query            is NOT OPENED
+*/  /* FRAME F-Main */
+&ANALYZE-RESUME
+
+ 
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK vTableWin 
+
+
+/* ***************************  Main Block  *************************** */
+  {adm2/support/viewTrg.i}.  
+  &IF DEFINED(UIB_IS_RUNNING) <> 0 &THEN          
+    RUN initializeObject.
+  &ENDIF         
+  
+  /************************ INTERNAL PROCEDURES ********************/
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-create-objects vTableWin  _ADM-CREATE-OBJECTS
+PROCEDURE adm-create-objects :
+/*------------------------------------------------------------------------------
+  Purpose:     Create handles for all SmartObjects used in this procedure.
+               After SmartObjects are initialized, then SmartLinks are added.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE currentPage  AS INTEGER NO-UNDO.
+
+  ASSIGN currentPage = getCurrentPage().
+
+  CASE currentPage: 
+
+    WHEN 0 THEN DO:
+       RUN constructObject (
+             INPUT  'dccalidad.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedccalidadUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dccalidad ).
+       RUN repositionObject IN h_dccalidad ( 4.35 , 12.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.87 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventDisplayedFielddescripcionKeyFieldid_calidadDataSourceFilterNumRows15OptionalnoOptionalString':U + '<none>' + 'LabelCalidadSortyesViewAsBrowserToolTipFormatHelpId0BrowseTitleBrowseFieldsid_calidad,descripcionExitBrowseOnActionyesCancelBrowseOnExityesRepositionDataSourcenoDefineAnyKeyTriggeryesStartBrowseKeysNEXT-FRAMEFieldNameid_calidadDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect-2 ).
+       RUN repositionObject IN h_dynselect-2 ( 2.13 , 15.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect-2 ( 1.00 , 50.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'dcarticulos2.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedcarticulos2UpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dcarticulos2 ).
+       RUN repositionObject IN h_dcarticulos2 ( 4.39 , 2.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.74 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventDisplayedFielddescripcionKeyFieldid_articuloDataSourceFilterNumRows20OptionalnoOptionalString':U + '<none>' + 'LabelArticuloSortyesViewAsBrowserToolTipFormatHelpId0BrowseTitleBrowseFieldsid_articulo,descripcionExitBrowseOnActionyesCancelBrowseOnExityesRepositionDataSourcenoDefineAnyKeyTriggeryesStartBrowseKeysNEXT-FRAMEFieldNameid_articulo_insumoDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect ).
+       RUN repositionObject IN h_dynselect ( 1.00 , 15.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect ( 1.00 , 50.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'dcconfeccionesinsumos.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedcconfeccionesinsumosUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_dcconfeccionesinsumos ).
+       RUN repositionObject IN h_dcconfeccionesinsumos ( 4.57 , 34.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.74 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventDisplayedFielddescripcionKeyFieldid_confeccionDataSourceFilterNumRows5OptionalnoOptionalString':U + '<none>' + 'LabelConfeccionSortyesViewAsCombo-box:drop-down-listToolTipFormatHelpId0BrowseTitleBrowseFieldsExitBrowseOnActionnoCancelBrowseOnExitnoRepositionDataSourceyesDefineAnyKeyTriggeryesStartBrowseKeysFieldNameid_confeccionDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect-4 ).
+       RUN repositionObject IN h_dynselect-4 ( 4.44 , 15.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect-4 ( 0.96 , 50.00 ) NO-ERROR.
+
+       RUN constructObject (
+             INPUT  'denvasesprod.wDB-AWARE':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AppServiceASUsePromptASInfoForeignFieldsRowsToBatch200CheckCurrentChangedyesRebuildOnReposnoServerOperatingModeNONEDestroyStatelessnoDisconnectAppServernoObjectNamedenvasesprodUpdateFromSourcenoToggleDataTargetsyesOpenOnInityes':U ,
+             OUTPUT h_denvasesprod ).
+       RUN repositionObject IN h_denvasesprod ( 4.57 , 22.00 ) NO-ERROR.
+       /* Size in AB:  ( 1.74 , 10.80 ) */
+
+       RUN constructObject (
+             INPUT  'adm2/dynselect.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'AutoRefreshnoChangedEventDisplayedFielddescripcionKeyFieldid_envaseDataSourceFilterNumRows15OptionalnoOptionalString':U + '<none>' + 'LabelEnvaseSortyesViewAsBrowserToolTipFormatHelpId0BrowseTitleBrowseFieldsid_envase,descripcionExitBrowseOnActionyesCancelBrowseOnExityesRepositionDataSourcenoDefineAnyKeyTriggeryesStartBrowseKeysNEXT-FRAMEFieldNameid_envaseDisplayFieldyesEnableFieldyesHideOnInitnoDisableOnInitnoObjectLayout':U ,
+             OUTPUT h_dynselect-3 ).
+       RUN repositionObject IN h_dynselect-3 ( 3.30 , 15.00 ) NO-ERROR.
+       RUN resizeObject IN h_dynselect-3 ( 1.00 , 50.00 ) NO-ERROR.
+
+       /* Links to SmartDataField h_dynselect-2. */
+       RUN addLink ( h_dccalidad , 'Data':U , h_dynselect-2 ).
+
+       /* Links to SmartDataField h_dynselect. */
+       RUN addLink ( h_dcarticulos2 , 'Data':U , h_dynselect ).
+
+       /* Links to SmartDataField h_dynselect-4. */
+       RUN addLink ( h_dcconfeccionesinsumos , 'Data':U , h_dynselect-4 ).
+
+       /* Links to SmartDataField h_dynselect-3. */
+       RUN addLink ( h_denvasesprod , 'Data':U , h_dynselect-3 ).
+
+       /* Adjust the tab order of the smart objects. */
+       RUN adjustTabOrder ( h_dynselect-2 ,
+             h_dynselect , 'AFTER':U ).
+       RUN adjustTabOrder ( h_dynselect-3 ,
+             h_dynselect-2 , 'AFTER':U ).
+       RUN adjustTabOrder ( h_dynselect-4 ,
+             h_dynselect-3 , 'AFTER':U ).
+    END. /* Page 0 */
+
+  END CASE.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI vTableWin  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Hide all frames. */
+  HIDE FRAME F-Main.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+

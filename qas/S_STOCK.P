@@ -1,0 +1,37 @@
+/****************************************************************************/
+/*  NOMBRE PROGRAMA......:   s_stock.p -subprograma-                        */
+/****************************************************************************/
+/*  Devuelve un n£mero serial para el sistema de stock                      */
+/****************************************************************************/
+/*  PROGRAMADOR..........:   Alejandro Di Crist¢fano                        */
+/*  FECHA CREACION.......:   04/11/94                                       */
+/*  REVISION.............:   2.10                                           */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   02/01/95                                       */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os                               */
+/*  MODIFICACION.........:   No se utiliza m s el archivo serial_stock, en  */
+/*  reemplazo se genera el n£mero serial a partir de la hora y un n£mero    */
+/*  aleatorio.                                                              */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   20/10/95                                       */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os                               */
+/*  MODIFICACION.........:   El n£mero RANDOM debe ser mayor a cero. Serial */
+/*  vale cero cuando el tipo de movimiento de stock es saldo inicial.       */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:                                                  */
+/*  PROGRAMADOR..........:                                                  */
+/*  MODIFICACION.........:                                                  */
+/*                                                                          */
+/****************************************************************************/
+
+DEFINE OUTPUT PARAMETER serial LIKE items_stock.id_serial.
+
+/* COMENTADO POR EL MOMENTO PORQUE HABIA PROBLEMAS EN STOCK E
+   INVENTARIOS (Una fecha de distribucion es compartida por dos dias y 
+                este serial esta calculado en base solo a la hora ...)
+serial = time * 1000 + random(1,999).
+*/
+
+serial = NEXT-VALUE(stock,general).
+
+RETURN.

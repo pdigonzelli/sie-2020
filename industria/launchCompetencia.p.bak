@@ -1,0 +1,9 @@
+
+PROPATH = "..\,..\industria\,m:\,m:\src," + PROPATH.
+
+RUN ..\industria\wRegCompetencia.w
+
+
+
+
+

@@ -1,0 +1,533 @@
+ADD TABLE "liq_items_tarjas_compensa"
+  AREA "Datos"
+  DUMP-NAME "liq_items_tarjas_compensa"
+
+ADD FIELD "id_empresa" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Empresa"
+  POSITION 2
+  MAX-WIDTH 4
+  COLUMN-LABEL "Empresa"
+  ORDER 10
+
+ADD FIELD "id_sucursal" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Sucursal"
+  POSITION 3
+  MAX-WIDTH 4
+  COLUMN-LABEL "Suc."
+  ORDER 20
+
+ADD FIELD "id_sector" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Sector"
+  POSITION 4
+  MAX-WIDTH 4
+  COLUMN-LABEL "Sector"
+  ORDER 30
+
+ADD FIELD "fecha" OF "liq_items_tarjas_compensa" AS date 
+  FORMAT "99/99/9999"
+  INITIAL ?
+  POSITION 5
+  MAX-WIDTH 4
+  ORDER 40
+
+ADD FIELD "id_proveedor" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>,>>9"
+  INITIAL "0"
+  LABEL "Cod. Proveedor"
+  POSITION 6
+  MAX-WIDTH 4
+  COLUMN-LABEL "Cod. Proveedor"
+  ORDER 50
+  MANDATORY
+
+ADD FIELD "id_origen" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">,>>9"
+  INITIAL "0"
+  LABEL "Origen"
+  POSITION 7
+  MAX-WIDTH 4
+  COLUMN-LABEL "Origen"
+  ORDER 60
+  MANDATORY
+
+ADD FIELD "id_grupo" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Grupo"
+  POSITION 8
+  MAX-WIDTH 4
+  COLUMN-LABEL "Grupo"
+  ORDER 70
+
+ADD FIELD "legajo" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Legajo"
+  POSITION 9
+  MAX-WIDTH 4
+  COLUMN-LABEL "Legajo"
+  ORDER 80
+
+ADD FIELD "nombre" OF "liq_items_tarjas_compensa" AS character 
+  FORMAT "x(30)"
+  INITIAL ""
+  LABEL "Apellido y Nombres"
+  POSITION 10
+  MAX-WIDTH 60
+  COLUMN-LABEL "Apellido y Nombres"
+  VALEXP "nombre <> """""
+  VALMSG "Debe ingresar un nombre"
+  ORDER 90
+
+ADD FIELD "id_tarea" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Tarea"
+  POSITION 11
+  MAX-WIDTH 4
+  COLUMN-LABEL "Tarea"
+  ORDER 100
+
+ADD FIELD "id_lote" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Lote"
+  POSITION 12
+  MAX-WIDTH 4
+  COLUMN-LABEL "Lote"
+  HELP "Lote Agricola"
+  ORDER 110
+
+ADD FIELD "cant_jornal" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT ">>9.99"
+  INITIAL "0"
+  LABEL "Jornal"
+  POSITION 13
+  MAX-WIDTH 17
+  COLUMN-LABEL "Jornal"
+  DECIMALS 2
+  ORDER 120
+
+ADD FIELD "cant_horas" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT ">>9.99"
+  INITIAL "0"
+  LABEL "Horas"
+  POSITION 14
+  MAX-WIDTH 17
+  COLUMN-LABEL "Horas"
+  DECIMALS 2
+  ORDER 130
+
+ADD FIELD "id_unidad_liquidacion" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Unid. Liquidacion"
+  POSITION 15
+  MAX-WIDTH 4
+  COLUMN-LABEL "Unid. Liq."
+  ORDER 140
+
+ADD FIELD "cantidad" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  POSITION 16
+  MAX-WIDTH 17
+  DECIMALS 2
+  ORDER 150
+
+ADD FIELD "id_centro_costo" OF "liq_items_tarjas_compensa" AS character 
+  FORMAT "99.99.99.999.999"
+  INITIAL ""
+  LABEL "Centro de Costo"
+  POSITION 17
+  MAX-WIDTH 32
+  COLUMN-LABEL "Cen.Cos."
+  HELP "Centro de Costo"
+  ORDER 160
+
+ADD FIELD "nro_tractor" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Nro Tractor"
+  POSITION 18
+  MAX-WIDTH 4
+  COLUMN-LABEL "Nro Tractor"
+  ORDER 170
+
+ADD FIELD "nro_maquina" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "Nro Maquina"
+  POSITION 19
+  MAX-WIDTH 4
+  COLUMN-LABEL "Nro Maquina"
+  ORDER 180
+
+ADD FIELD "dni_cuil" OF "liq_items_tarjas_compensa" AS character 
+  FORMAT "X(12)"
+  INITIAL ""
+  LABEL "CUIL"
+  POSITION 20
+  MAX-WIDTH 24
+  COLUMN-LABEL "CUIL"
+  ORDER 190
+
+ADD FIELD "total_horas" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Total Hs"
+  POSITION 21
+  MAX-WIDTH 17
+  COLUMN-LABEL "Total Hs"
+  DECIMALS 2
+  ORDER 200
+
+ADD FIELD "tipo_turno" OF "liq_items_tarjas_compensa" AS logical 
+  DESCRIPTION "D-Diurno N-Nocturno"
+  FORMAT "D/N"
+  INITIAL "D"
+  LABEL "Turno"
+  POSITION 22
+  MAX-WIDTH 1
+  COLUMN-LABEL "Turno"
+  ORDER 201
+
+ADD FIELD "cant_jornal_norm" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Jornal Norm"
+  POSITION 23
+  MAX-WIDTH 17
+  COLUMN-LABEL "Jornal Norm"
+  DECIMALS 2
+  ORDER 205
+
+ADD FIELD "cant_hs_norm" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Hs.Norm."
+  POSITION 24
+  MAX-WIDTH 17
+  COLUMN-LABEL "Hs.Norm."
+  DECIMALS 2
+  ORDER 210
+
+ADD FIELD "cant_hs_compensa" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Hs.Comp."
+  POSITION 25
+  MAX-WIDTH 17
+  COLUMN-LABEL "Hs.Comp."
+  DECIMALS 2
+  ORDER 230
+
+ADD FIELD "cant_hs_extras" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Hs.Extras"
+  POSITION 26
+  MAX-WIDTH 17
+  COLUMN-LABEL "Hs.Extras"
+  DECIMALS 2
+  ORDER 250
+
+ADD FIELD "hora_inicio" OF "liq_items_tarjas_compensa" AS character 
+  FORMAT "x(12)"
+  INITIAL ""
+  LABEL "Hora Inicio"
+  POSITION 27
+  MAX-WIDTH 24
+  COLUMN-LABEL "Hora Inicio"
+  ORDER 260
+
+ADD FIELD "hora_fin" OF "liq_items_tarjas_compensa" AS character 
+  FORMAT "x(12)"
+  INITIAL ""
+  LABEL "Hora Fin"
+  POSITION 28
+  MAX-WIDTH 24
+  COLUMN-LABEL "Hora Fin"
+  ORDER 270
+
+ADD FIELD "c_usuario" OF "liq_items_tarjas_compensa" AS character 
+  FORMAT "X(8)"
+  INITIAL ""
+  LABEL "Usuario"
+  POSITION 29
+  MAX-WIDTH 16
+  COLUMN-LABEL "Usrio."
+  HELP "Usuario"
+  ORDER 280
+
+ADD FIELD "c_fecha" OF "liq_items_tarjas_compensa" AS date 
+  FORMAT "99/99/99"
+  INITIAL ?
+  LABEL "Fecha"
+  POSITION 30
+  MAX-WIDTH 4
+  COLUMN-LABEL "Fecha"
+  HELP "Fecha"
+  ORDER 290
+
+ADD FIELD "c_hora" OF "liq_items_tarjas_compensa" AS character 
+  FORMAT "X(8)"
+  INITIAL ""
+  LABEL "Hora"
+  POSITION 31
+  MAX-WIDTH 16
+  COLUMN-LABEL "Hora"
+  HELP "Hora"
+  ORDER 300
+
+ADD FIELD "id_tipo_planilla" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Planilla"
+  POSITION 32
+  MAX-WIDTH 4
+  COLUMN-LABEL "Tipo Planilla"
+  ORDER 310
+
+ADD FIELD "hora_inicio-1" OF "liq_items_tarjas_compensa" AS character 
+  FORMAT "x(12)"
+  INITIAL ""
+  LABEL "Hora Inicio"
+  POSITION 33
+  MAX-WIDTH 24
+  COLUMN-LABEL "Hora Inicio"
+  ORDER 320
+
+ADD FIELD "hora_fin-1" OF "liq_items_tarjas_compensa" AS character 
+  FORMAT "x(12)"
+  INITIAL ""
+  LABEL "Hora Fin"
+  POSITION 34
+  MAX-WIDTH 24
+  COLUMN-LABEL "Hora Fin"
+  ORDER 330
+
+ADD FIELD "compensa_hs" OF "liq_items_tarjas_compensa" AS logical 
+  FORMAT "si/no"
+  INITIAL "no"
+  LABEL "Compensa Hs"
+  POSITION 35
+  MAX-WIDTH 1
+  COLUMN-LABEL "Compensa Hs"
+  ORDER 340
+
+ADD FIELD "id_reserva" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Reserva"
+  POSITION 36
+  MAX-WIDTH 4
+  COLUMN-LABEL "Reserva"
+  ORDER 350
+
+ADD FIELD "ajuste_categoria" OF "liq_items_tarjas_compensa" AS logical 
+  FORMAT "si/no"
+  INITIAL "no"
+  LABEL "Ajuste"
+  POSITION 37
+  MAX-WIDTH 1
+  COLUMN-LABEL "Ajuste"
+  ORDER 360
+
+ADD FIELD "id_unidad_adicional" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Unid Adic"
+  POSITION 38
+  MAX-WIDTH 4
+  COLUMN-LABEL "Unid Adic"
+  ORDER 370
+
+ADD FIELD "cantidad_adicional" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Cant.Adic"
+  POSITION 39
+  MAX-WIDTH 17
+  COLUMN-LABEL "Cant.Adic"
+  DECIMALS 2
+  ORDER 380
+
+ADD FIELD "cantidad_adicional-1" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Cant.Adic"
+  POSITION 40
+  MAX-WIDTH 17
+  COLUMN-LABEL "Cant.Adic"
+  DECIMALS 2
+  ORDER 390
+
+ADD FIELD "id_turno" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT "->,>>>,>>9"
+  INITIAL "0"
+  LABEL "Turno"
+  POSITION 41
+  MAX-WIDTH 4
+  COLUMN-LABEL "Turno"
+  ORDER 400
+
+ADD FIELD "id_diferencial" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Diferencial"
+  POSITION 42
+  MAX-WIDTH 4
+  COLUMN-LABEL "Diferencial"
+  ORDER 410
+
+ADD FIELD "hs_adicionales" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Hs Adic"
+  POSITION 43
+  MAX-WIDTH 17
+  COLUMN-LABEL "Hs Adic"
+  DECIMALS 2
+  ORDER 420
+
+ADD FIELD "id_codigo_abacus" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Cod.Abacus"
+  POSITION 44
+  MAX-WIDTH 4
+  COLUMN-LABEL "Cod.Abacus"
+  ORDER 430
+
+ADD FIELD "id_codigo_abacus_diferencial" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Cod.Abacus Dif"
+  POSITION 45
+  MAX-WIDTH 4
+  COLUMN-LABEL "Cod.Abacus Dif"
+  ORDER 440
+
+ADD FIELD "id_codigo_abacus_cantidad" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Cod.Cant"
+  POSITION 46
+  MAX-WIDTH 4
+  COLUMN-LABEL "Cod.Cant"
+  ORDER 450
+
+ADD FIELD "id_codigo_abacus_adicional" OF "liq_items_tarjas_compensa" AS integer 
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Cod.Adic"
+  POSITION 47
+  MAX-WIDTH 4
+  COLUMN-LABEL "Cod.Adic"
+  ORDER 460
+
+ADD FIELD "hs_acond_finca" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Hs Acond.Finca"
+  POSITION 48
+  MAX-WIDTH 17
+  COLUMN-LABEL "Hs Acond.Finca"
+  DECIMALS 2
+  ORDER 470
+
+ADD FIELD "hs_plus_tareas_automatico" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Hs.Plus Tareas Autom tico"
+  POSITION 49
+  MAX-WIDTH 17
+  COLUMN-LABEL "Hs.Plus Tareas Autom tico"
+  DECIMALS 2
+  ORDER 480
+
+ADD FIELD "hs_plus_tareas_trabajadas" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Hs Plus Tareas Trabajadas"
+  POSITION 50
+  MAX-WIDTH 17
+  COLUMN-LABEL "Hs Plus Tareas Trabajadas"
+  DECIMALS 2
+  ORDER 490
+
+ADD FIELD "hs_adicionales_tareas_trabajadas" OF "liq_items_tarjas_compensa" AS decimal 
+  FORMAT "->>,>>9.99"
+  INITIAL "0"
+  LABEL "Hs Adicionales Tareas Trabajadas"
+  POSITION 51
+  MAX-WIDTH 17
+  COLUMN-LABEL "Hs Adicionales Tareas Trabajadas"
+  DECIMALS 2
+  ORDER 500
+
+ADD FIELD "hs_compensadas" OF "liq_items_tarjas_compensa" AS logical 
+  FORMAT "si/no"
+  INITIAL "no"
+  LABEL "Hs Compensadas?"
+  POSITION 53
+  MAX-WIDTH 1
+  COLUMN-LABEL "Hs Compensadas?"
+  ORDER 520
+
+ADD FIELD "fecha_hs_compensada" OF "liq_items_tarjas_compensa" AS date 
+  FORMAT "99/99/99"
+  INITIAL ?
+  LABEL "Fecha Hs Compensadas"
+  POSITION 54
+  MAX-WIDTH 4
+  COLUMN-LABEL "Fecha Hs Compensadas"
+  ORDER 530
+
+ADD FIELD "autoriza_hs" OF "liq_items_tarjas_compensa" AS logical 
+  FORMAT "si/no"
+  INITIAL "no"
+  LABEL "Autoriza Hs"
+  POSITION 55
+  MAX-WIDTH 1
+  COLUMN-LABEL "Autoriza Hs"
+  ORDER 540
+
+ADD FIELD "por_compensacion" OF "liq_items_tarjas_compensa" AS logical 
+  FORMAT "si/no"
+  INITIAL "no"
+  LABEL "Por Compensaci¢n"
+  POSITION 56
+  MAX-WIDTH 1
+  COLUMN-LABEL "Por Compensaci¢n"
+  ORDER 550
+
+ADD INDEX "liq_items_tarjas_compensa" ON "liq_items_tarjas_compensa" 
+  AREA "Datos"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "id_empresa" ASCENDING 
+  INDEX-FIELD "id_sucursal" ASCENDING 
+  INDEX-FIELD "id_sector" ASCENDING 
+  INDEX-FIELD "fecha" ASCENDING 
+  INDEX-FIELD "id_proveedor" ASCENDING 
+  INDEX-FIELD "id_origen" ASCENDING 
+  INDEX-FIELD "id_grupo" ASCENDING 
+  INDEX-FIELD "id_tipo_planilla" ASCENDING 
+  INDEX-FIELD "legajo" ASCENDING 
+  INDEX-FIELD "nombre" ASCENDING 
+  INDEX-FIELD "id_tarea" ASCENDING 
+  INDEX-FIELD "id_lote" ASCENDING 
+
+.
+PSC
+cpstream=IBM850
+.
+0000011364

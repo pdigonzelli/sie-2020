@@ -1,0 +1,15 @@
+  FIELD articulo LIKE lotesdepext.articulo~
+  FIELD calidad LIKE lotesdepext.calidad~
+  FIELD cantidad LIKE lotesdepext.cantidad~
+  FIELD envase LIKE lotesdepext.envase~
+  FIELD id_empresa LIKE lotesdepext.id_empresa~
+  FIELD id_lote LIKE lotesdepext.id_lote~
+  FIELD id_lote_deposito LIKE lotesdepext.id_lote_deposito~
+  FIELD id_sucursal LIKE lotesdepext.id_sucursal~
+  FIELD id_sucursal_ubicacion LIKE lotesdepext.id_sucursal_ubicacion~
+  FIELD id_tipotambor LIKE lotesdepext.id_tipotambor~
+  FIELD lote LIKE lotesdepext.lote~
+  FIELD nromov LIKE lotesdepext.nromov~
+  FIELD show LIKE lotesdepext.show~
+  FIELD tambor_desde LIKE lotesdepext.tambor_desde~
+  FIELD tambor_hasta LIKE lotesdepext.tambor_hasta

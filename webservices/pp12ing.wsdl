@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="pp12ing" targetNamespace="urn:services-sie-com:sap:pp12ing" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:prodata="urn:schemas-progress-com:xml-prodata:0001" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:services-sie-com:sap:pp12ing" xmlns:S2="urn:services-sie-com:sap:pp12ing:pp12ing" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:S1="urn:soap-fault:details" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+<wsdl:documentation>EncodingType=DOC_LITERAL, WSA_Product=10.2B - N/A</wsdl:documentation>
+  <types>
+<schema elementFormDefault="unqualified" targetNamespace="urn:soap-fault:details" xmlns="http://www.w3.org/2001/XMLSchema"><element name="FaultDetail"><complexType><sequence><element name="errorMessage" type="xsd:string"/><element name="requestID" type="xsd:string"/></sequence></complexType></element></schema>
+<schema elementFormDefault="qualified" targetNamespace="urn:services-sie-com:sap:pp12ing:pp12ing" xmlns="http://www.w3.org/2001/XMLSchema"><complexType name="pp12ing_POSICIONRow"><sequence><element name="POSICION" nillable="true" type="xsd:int"/><element name="PUNIDAD" nillable="true" type="xsd:string"/><element name="PMARCA" nillable="true" type="xsd:string"/><element name="PCONTRAMARCA" nillable="true" type="xsd:string"/><element name="PENVASE" nillable="true" type="xsd:string"/><element name="PESPECIE" nillable="true" type="xsd:string"/><element name="PVARIEDAD" nillable="true" type="xsd:string"/><element name="PCALIDAD" nillable="true" type="xsd:string"/><element name="PCATEGORIA" nillable="true" type="xsd:string"/><element name="PTIPOPALLET" nillable="true" type="xsd:string"/><element name="PTIPOESQUINERO" nillable="true" type="xsd:string"/><element name="PMERCADO" nillable="true" type="xsd:string"/><element name="PFECHASEMANA" nillable="true" type="xsd:string"/><element name="PVAPOR" nillable="true" type="xsd:string"/><element name="PDESCRIPCIONVAPOR" nillable="true" type="xsd:string"/><element name="PLUGARDESCARGA" nillable="true" type="xsd:string"/><element name="PAGENCIA" nillable="true" type="xsd:string"/><element name="PDESCRIPCIONAGENCIA" nillable="true" type="xsd:string"/></sequence></complexType><complexType name="pp12ing_POSICIONParam"><sequence><element maxOccurs="unbounded" minOccurs="0" name="POSICIONRow" type="S2:pp12ing_POSICIONRow"/></sequence></complexType><complexType name="pp12ing_CALIBRERow"><sequence><element name="POSICION" nillable="true" type="xsd:int"/><element name="PCALIBRESTD" nillable="true" type="xsd:string"/><element name="PCANTIDAD" nillable="true" type="xsd:string"/></sequence></complexType><complexType name="pp12ing_CALIBREParam"><sequence><element maxOccurs="unbounded" minOccurs="0" name="CALIBRERow" type="S2:pp12ing_CALIBRERow"/></sequence></complexType><element name="pp12ing"><complexType><sequence><element name="SORDEN" nillable="true" type="xsd:string"/><element name="SDOCUMENTOVENTA" nillable="true" type="xsd:string"/><element name="SSOLICITANTE" nillable="true" type="xsd:string"/><element name="SNOMBRE" nillable="true" type="xsd:string"/><element name="SMATERIAL" nillable="true" type="xsd:string"/><element name="SCANTIDAD" nillable="true" type="xsd:string"/><element name="SUNIDAD" nillable="true" type="xsd:string"/><element name="SFECHADOCUMENTO" nillable="true" type="xsd:string"/><element name="SPUERTOORIGEN" nillable="true" type="xsd:string"/><element name="SDESCRIPCIONPUERTOORIGEN" nillable="true" type="xsd:string"/><element name="SDESTINO" nillable="true" type="xsd:string"/><element name="SDESCRIPCIONDESTINO" nillable="true" type="xsd:string"/><element name="SPUERTOLLEGADA" nillable="true" type="xsd:string"/><element name="SDESCRIPCIONPUERTOLLEGADA" nillable="true" type="xsd:string"/><element name="POSICION" nillable="true" type="S2:pp12ing_POSICIONParam"/><element name="CALIBRE" nillable="true" type="S2:pp12ing_CALIBREParam"/></sequence></complexType></element><element name="pp12ingResponse"><complexType><sequence><element name="result" nillable="true" type="xsd:string"/></sequence></complexType></element></schema>
+  </types>
+  <message name="FaultDetailMessage">
+    <part name="FaultDetail" element="S1:FaultDetail"/>
+  </message>
+  <message name="pp12ing_pp12ingResponse">
+    <part name="parameters" element="S2:pp12ingResponse"/>
+  </message>
+  <message name="pp12ing_pp12ing">
+    <part name="parameters" element="S2:pp12ing"/>
+  </message>
+  <portType name="pp12ing">
+    <operation name="pp12ing">
+      <input message="tns:pp12ing_pp12ing"/>
+      <output message="tns:pp12ing_pp12ingResponse"/>
+      <fault name="pp12ingFault" message="tns:FaultDetailMessage"/>
+    </operation>
+  </portType>
+  <binding name="pp12ing" type="tns:pp12ing">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="pp12ing">
+      <soap:operation soapAction="" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="pp12ingFault">
+        <soap:fault name="pp12ingFault" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="pp12ing">
+    <port name="pp12ing" binding="tns:pp12ing">
+<wsdl:documentation></wsdl:documentation>
+      <soap:address location="http://localhost:8080/wsa/wsa1"/>
+    </port>
+  </service>
+</definitions>

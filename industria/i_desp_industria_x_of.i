@@ -1,0 +1,133 @@
+IF AVAILABLE contratos THEN DO:
+    
+    FOR EACH b_tambores WHERE b_tambores.id_contrato_of     = contratos.id_contrato
+                          AND b_tambores.id_tipocontrato_of = contratos.id_tipo_contrato
+                          AND b_tambores.anio_of            = contratos.anio
+                        NO-LOCK
+                        BREAK BY b_tambores.id_sucursal_remito
+                              BY b_tambores.id_tipo_movsto
+                              BY b_tambores.nro_remito.
+        
+        IF LAST-OF(b_tambores.nro_remito) THEN DO:
+            
+            FIND FIRST remitos WHERE remitos.id_sucursal    = b_tambores.id_sucursal_remito
+                                 AND remitos.id_tipo_movsto = b_tambores.id_tipo_movsto
+                                 AND remitos.nro            = b_tambores.nro_remito
+                                NO-LOCK NO-ERROR.
+            IF AVAILABLE remitos THEN DO:
+                
+                FOR EACH items_factura OF remitos NO-LOCK.
+                    v_lote = integer(substring(items_factura.nro_lote,1,4)).
+                    v_anio_lote = integer(substring(items_factura.nro_lote,6,2)).
+                    v_anio_lote = v_anio_lote + 2000.
+                    
+                    total_tambores = 0.
+                    total_kilos = 0.
+                    
+                    FOR EACH tambores_industria where tambores_industria.id_tambor >= items_factura.desde_lote
+                                                  and tambores_industria.id_tambor <= items_factura.hasta_lote
+                                                  and tambores_industria.id_lote = v_lote
+                                                  and year(tambores_industria.fecha) = v_anio_lote
+                                                  and tambores_industria.id_articulo = items_factura.id_articulo
+                                                  AND tambores_industria.id_sucursal_remito <> 0
+                                                NO-LOCK.
+                    
+                            total_tambores = total_tambores + 1.
+                            total_kilos = total_kilos + tambores_industria.kilos_tambor.
+                    end.
+            
+                    IF total_tambores = 0 OR 
+                       total_tambores <> (items_factura.hasta_lote - items_factura.desde_lote + 1) THEN DO:
+                        
+                        total_tambores = 0.
+                        total_kilos = 0.
+                        FOR EACH tambores_industria where tambores_industria.id_tambor >= items_factura.desde_lote
+                                                      and tambores_industria.id_tambor <= items_factura.hasta_lote
+                                                      and tambores_industria.id_lote = v_lote
+                                                      and year(tambores_industria.fecha) = v_anio_lote
+                                                      and tambores_industria.id_articulo = items_factura.id_articulo
+                                                    NO-LOCK.
+                        
+                                total_tambores = total_tambores + 1.
+                                total_kilos = total_kilos + tambores_industria.kilos_tambor.
+                        END.
+                    END.
+                                                  
+                    find clientes of remitos no-lock no-error.
+                    find destinos of remitos no-lock no-error.
+                    find proveedores of remitos no-lock no-error.
+            
+                    FIND FIRST tambores_industria where tambores_industria.id_tambor = items_factura.desde_lote
+                                                    and tambores_industria.id_lote = v_lote
+                                                    and year(tambores_industria.fecha) = v_anio_lote
+                                                    and tambores_industria.id_articulo = items_factura.id_articulo
+                                                  no-lock no-error.
+                    IF AVAILABLE tambores_industria THEN DO:
+                        v_con = tambores_industria.id_contrato_of.
+                        v_tip = tambores_industria.id_tipocontrato_of.
+                        v_ani = tambores_industria.anio_of.
+                        v_con = TRIM(v_con,"").
+                    END.
+                    FIND FIRST contratos where contratos.id_contrato      = v_con
+                                           and contratos.id_tipo_contrato = v_tip
+                                           and contratos.anio             = v_ani
+                                            no-lock no-error.
+                                         
+                    find r_productos_calidad where r_productos_calidad.id_articulo = tambores_industria.id_articulo
+                                               and r_productos_calidad.id_calidad = tambores_industria.id_calidad
+                                               no-lock no-error.
+            
+                    find comercial.sucursales of remitos no-lock no-error.
+                    find envases_prod of items_factura no-lock no-error.
+                    find productos_terminados of items_factura no-lock no-error.
+                    find calidades of items_factura no-lock no-error.
+                    FIND lugar_descarga OF remitos NO-LOCK NO-ERROR.
+            
+                    IF AVAILABLE lugar_descarga THEN DO:
+                        IF lugar_descarga.id_sucursal <> 95 AND
+                           lugar_descarga.id_sucursal <> 96 THEN DO:
+                            MESSAGE "Si se crean los despachos_industria" VIEW-AS ALERT-BOX.
+                            create despachos_industria.
+                            assign despachos_industria.id_sucursal       = remitos.id_sucursal
+                                   despachos_industria.sucursal          = comercial.sucursales.abreviatura
+                                   despachos_industria.fecha             = remitos.fecha
+                                   despachos_industria.nro_comprobante   = remitos.nro_comprobante
+                                   despachos_industria.id_cliente        = remitos.id_cliente
+                                   despachos_industria.cliente           = clientes.nombre
+                                   despachos_industria.id_destino        = remitos.id_destino
+                                   despachos_industria.destino           = destinos.abreviatura
+                                   despachos_industria.id_proveedor      = remitos.id_proveedor
+                                   despachos_industria.proveedor         = proveedores.nombre
+                                   despachos_industria.chofer            = remitos.chofer
+                                   despachos_industria.chasis            = remitos.pat_chasis
+                                   despachos_industria.acoplado          = remitos.pat_acopla
+                                   despachos_industria.id_envase         = items_factura.id_envase
+                                   despachos_industria.envase            = envases_prod.abreviatura
+                                   despachos_industria.id_articulo       = items_factura.id_articulo
+                                   despachos_industria.articulo          = productos_terminados.abreviatura
+                                   despachos_industria.id_lote           = v_lote
+                                   despachos_industria.anio_lote         = integer(substring(string(v_anio_lote),3,2))
+                                   despachos_industria.tambores          = total_tambores
+                                   despachos_industria.kilos             = total_kilos
+                                   despachos_industria.nro_per_embarque  = remitos.nro_per_embarque
+                                   despachos_industria.id_lugdes         = remitos.id_lugdes
+                                   despachos_industria.lugdes            = lugar_descarga.descripcion
+                                   despachos_industria.id_orden_entrega  = remitos.id_orden_entrega.
+                                   
+                                   if available calidades then
+                                        assign despachos_industria.id_calidad = items_factura.id_calidad
+                                               despachos_industria.calidad = calidades.abreviatura.
+                                   
+                                   if available contratos then
+                                        assign despachos_general.orden_fabricacion = string(contratos.orden_fabricacion)
+                                               despachos_industria.id_contrato = contratos.id_contrato.
+                     
+                                   if available r_productos_calidad then
+                                        assign despachos_industria.kilos_400 = total_kilos * r_productos_calidad.coeficiente.
+                        END.
+                    END.
+                END.
+            END.
+        END.
+    END.
+END.

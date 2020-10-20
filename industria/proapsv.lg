@@ -1,0 +1,58 @@
+09:36:50 15 Jul 2003 Application Broker 2624
+  Application Broker Startup. (5473)
+09:36:50 15 Jul 2003 Application Broker 2624
+  Starting application server for appindust. (5560)
+13:07:26 15 Jul 2003 Application Broker 2624
+  Shutdown request received. (5465)
+13:07:26 15 Jul 2003 Application Broker 2624
+  Application Broker Shutdown. (5476)
+13:13:12 15 Jul 2003 Application Broker 2229
+  Application Broker Startup. (5473)
+13:13:12 15 Jul 2003 Application Broker 2229
+  Starting application server for appindust. (5560)
+23:12:36 25 Aug 2003 Application Broker 2229
+  'CTRL_LOGOFF_EVENT' console event received. (5406)
+05:49:43 01 Sep 2003 Application Broker 2229
+  'CTRL_LOGOFF_EVENT' console event received. (5406)
+05:49:49 01 Sep 2003 Application Broker 2229
+  'CTRL_SHUTDOWN_EVENT' console event received. (5406)
+06:22:28 01 Sep 2003 Application Broker 551
+  Application Broker Startup. (5473)
+06:22:28 01 Sep 2003 Application Broker 551
+  Starting application server for appindust. (5560)
+05:13:45 12 Sep 2003 Application Broker 551
+  'CTRL_LOGOFF_EVENT' console event received. (5406)
+05:15:04 12 Sep 2003 Application Broker 551
+  'CTRL_SHUTDOWN_EVENT' console event received. (5406)
+05:26:56 12 Sep 2003 Application Broker 423
+  Application Broker Startup. (5473)
+05:26:56 12 Sep 2003 Application Broker 423
+  Starting application server for appindust. (5560)
+13:29:27 26 Sep 2003 Application Broker 423
+  Shutdown request received. (5465)
+13:29:27 26 Sep 2003 Application Broker 423
+  Application Broker Shutdown. (5476)
+13:34:18 26 Sep 2003 Application Broker 526
+  Application Broker Startup. (5473)
+13:34:18 26 Sep 2003 Application Broker 526
+  Starting application server for appindust. (5560)
+20:09:02 14 Nov 2003 Application Broker 526
+  'CTRL_LOGOFF_EVENT' console event received. (5406)
+20:09:11 14 Nov 2003 Application Broker 526
+  'CTRL_SHUTDOWN_EVENT' console event received. (5406)
+21:48:02 14 Nov 2003 Application Broker 457
+  Application Broker Startup. (5473)
+21:48:02 14 Nov 2003 Application Broker 457
+  Starting application server for appindust. (5560)
+07:04:54 17 Nov 2003 Application Broker 457
+  'CTRL_LOGOFF_EVENT' console event received. (5406)
+07:05:06 17 Nov 2003 Application Broker 457
+  'CTRL_SHUTDOWN_EVENT' console event received. (5406)
+07:05:19 17 Nov 2003 Application Broker 457
+  Shutdown request received. (5465)
+07:05:19 17 Nov 2003 Application Broker 457
+  Application Broker Shutdown. (5476)
+07:13:55 17 Nov 2003 Application Broker 234
+  Application Broker Startup. (5473)
+07:13:55 17 Nov 2003 Application Broker 234
+  Starting application server for appindust. (5560)

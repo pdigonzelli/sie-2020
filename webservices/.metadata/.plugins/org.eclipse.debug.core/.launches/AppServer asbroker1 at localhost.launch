@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launchConfiguration type="com.openedge.pdt.server.appserver.launchconfig">
+<stringAttribute key="abl.debug.PROPATH" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&lt;propath version=&quot;10.2B&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;schema/propath.xsd&quot;&gt;&#13;&#10;&lt;propathentry env=&quot;all&quot; kind=&quot;ini&quot; path=&quot;@{WinChar Startup\PROPATH}&quot;/&gt;&#13;&#10;&lt;propathentry env=&quot;all&quot; kind=&quot;ini&quot; path=&quot;@{WorkPath}&quot;/&gt;&#13;&#10;&lt;/propath&gt;&#13;&#10;"/>
+<booleanAttribute key="abl.debug.PROPATH_USE_DEFAULT" value="false"/>
+<stringAttribute key="abl.startup.WORKING_DIRECTORY" value="C:\OpenEdge\WRK102b"/>
+<stringAttribute key="server-id" value="OpenEdge AppServer asbroker1"/>
+</launchConfiguration>

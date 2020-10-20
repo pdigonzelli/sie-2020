@@ -1,0 +1,6 @@
+repeat contador = 1 to num-dbs:
+  respuesta = setuserid(userid("userdb"),vlc_misc,ldbname(contador)).
+ /* if not respuesta then
+    message color white/green
+            "No se pudo cambiar el usuario en base de datos '" + ldbname(contador) "'." view-as alert-box warning.  */
+end.

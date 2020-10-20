@@ -1,0 +1,711 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER AB_v9r12 GUI ADM2
+&ANALYZE-RESUME
+&Scoped-define WINDOW-NAME wWin
+{adecomm/appserv.i}
+DEFINE VARIABLE h_asindustria              AS HANDLE          NO-UNDO.
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS wWin 
+/*------------------------------------------------------------------------
+
+  File: 
+
+  Description: from cntnrwin.w - ADM SmartWindow Template
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+  History: New V9 Version - January 15, 1998
+          
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress AB.              */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+
+DEFINE VAR queryText1   AS CHARACTER INITIAL " "NO-UNDO.
+DEFINE VAR querysort1   AS CHARACTER INITIAL " "NO-UNDO.
+DEFINE VAR qh           AS HANDLE NO-UNDO.
+
+DEFINE VAR iOldPage     AS INTEGER INITIAL 0.
+DEFINE VARIABLE hLib AS HANDLE     NO-UNDO.
+
+DEFINE TEMP-TABLE ttGestion
+  RCODE-INFORMATION
+  FIELD product                 AS CHARACTER COLUMN-LABEL "Product"
+  FIELD id_lote                 AS CHARACTER COLUMN-LABEL "LotNum"
+  FIELD id_lote_deposito        AS CHARACTER COLUMN-LABEL "WarehouseLot"
+  FIELD kilos                   AS CHARACTER COLUMN-LABEL "KgsNeto"
+  FIELD container               AS CHARACTER COLUMN-LABEL "Container"
+  FIELD qtyxdrum                AS CHARACTER COLUMN-LABEL "Qty/Drum"
+  FIELD id_orden_entrega        AS INTEGER   COLUMN-LABEL "OE"
+  FIELD nro_proforma            AS CHARACTER COLUMN-LABEL "Proforma"
+  FIELD facturado_a             AS CHARACTER COLUMN-LABEL "InvoiceTo"
+  FIELD id_contrato             AS CHARACTER COLUMN-LABEL "Contract"
+  FIELD vapor                   AS CHARACTER COLUMN-LABEL "Vessel"
+  FIELD etd                     AS CHARACTER COLUMN-LABEL "ETD"
+  FIELD fecha_entrada_deposito  AS CHARACTER COLUMN-LABEL "InWarehouse"
+  FIELD numero_release          AS CHARACTER COLUMN-LABEL "Release"
+  FIELD fecha_release           AS CHARACTER COLUMN-LABEL "Release Date"
+  FIELD fecha_salida_deposito   AS CHARACTER COLUMN-LABEL "OutWarehouse"
+  FIELD vendido_a               AS CHARACTER COLUMN-LABEL "SoldTo"
+  FIELD numero_factura          AS CHARACTER COLUMN-LABEL "Invoice"
+  FIELD permiso_embarque        AS CHARACTER COLUMN-LABEL "DatosPermisoEmbarque"
+  FIELD warehouse               AS CHARACTER COLUMN-LABEL "WareHouse"
+  FIELD region                  AS CHARACTER COLUMN-LABEL "Region".
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartWindow
+&Scoped-define DB-AWARE no
+
+&Scoped-define ADM-CONTAINER WINDOW
+
+&Scoped-define ADM-SUPPORTED-LINKS Data-Target,Data-Source,Page-Target,Update-Source,Update-Target,Filter-target,Filter-Source
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME fMain
+
+/* Standard List Definitions                                            */
+&Scoped-Define ENABLED-OBJECTS BUTTON-41 BUTTON-6 ideposito BUTTON-42 ~
+edtProgress RECT-3 
+&Scoped-Define DISPLAYED-OBJECTS ideposito edtProgress 
+
+/* Custom List Definitions                                              */
+/* List-1,List-2,List-3,List-4,List-5,List-6                            */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* ************************  Function Prototypes ********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD queryName wWin 
+FUNCTION queryName RETURNS CHARACTER
+  ( /* parameter-definitions */ )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* ***********************  Control Definitions  ********************** */
+
+/* Define the widget handle for the window                              */
+DEFINE VAR wWin AS WIDGET-HANDLE NO-UNDO.
+
+/* Menu Definitions                                                     */
+DEFINE MENU POPUP-MENU-fMain 
+       MENU-ITEM m_Query_Constructor LABEL "Query Constructor".
+
+
+/* Definitions of the field level widgets                               */
+DEFINE BUTTON BUTTON-41  NO-FOCUS
+     LABEL "Stock" 
+     SIZE 14 BY 1.14.
+
+DEFINE BUTTON BUTTON-42 
+     LABEL "Excell" 
+     SIZE 14 BY 1.14.
+
+DEFINE BUTTON BUTTON-6 
+     LABEL "Ingresos" 
+     SIZE 14 BY 1.14.
+
+DEFINE VARIABLE edtProgress AS CHARACTER FORMAT "X(256)":U 
+      VIEW-AS TEXT 
+     SIZE 30 BY .62 NO-UNDO.
+
+DEFINE VARIABLE ideposito AS INTEGER FORMAT ">>9":U INITIAL 0 
+     LABEL "Deposito" 
+     VIEW-AS FILL-IN 
+     SIZE 9 BY 1 NO-UNDO.
+
+DEFINE RECTANGLE RECT-3
+     EDGE-PIXELS 2 GRAPHIC-EDGE  NO-FILL 
+     SIZE 50 BY 5.24.
+
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME fMain
+     BUTTON-41 AT ROW 3.14 COL 34
+     BUTTON-6 AT ROW 1.48 COL 34
+     ideposito AT ROW 2.91 COL 18 COLON-ALIGNED
+     BUTTON-42 AT ROW 4.76 COL 34
+     edtProgress AT ROW 5.05 COL 2 NO-LABEL
+     RECT-3 AT ROW 1 COL 1
+     "Reporte de Ingresos" VIEW-AS TEXT
+          SIZE 28 BY .62 AT ROW 1.48 COL 5
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY 
+         SIDE-LABELS NO-UNDERLINE THREE-D 
+         AT COL 1 ROW 1
+         SIZE 50 BY 5.38.
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartWindow
+   Allow: Basic,Browse,DB-Fields,Query,Smart,Window
+   Container Links: Data-Target,Data-Source,Page-Target,Update-Source,Update-Target,Filter-target,Filter-Source
+   Other Settings: COMPILE APPSERVER
+ */
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+IF SESSION:DISPLAY-TYPE = "GUI":U THEN
+  CREATE WINDOW wWin ASSIGN
+         HIDDEN             = YES
+         TITLE              = "Reportes"
+         HEIGHT             = 5.38
+         WIDTH              = 50
+         MAX-HEIGHT         = 28.81
+         MAX-WIDTH          = 146.2
+         VIRTUAL-HEIGHT     = 28.81
+         VIRTUAL-WIDTH      = 146.2
+         RESIZE             = no
+         SCROLL-BARS        = no
+         STATUS-AREA        = no
+         BGCOLOR            = ?
+         FGCOLOR            = ?
+         THREE-D            = yes
+         MESSAGE-AREA       = no
+         SENSITIVE          = yes.
+ELSE {&WINDOW-NAME} = CURRENT-WINDOW.
+/* END WINDOW DEFINITION                                                */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB wWin 
+/* ************************* Included-Libraries *********************** */
+
+{src/adm2/containr.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR WINDOW wWin
+  VISIBLE,,RUN-PERSISTENT                                               */
+/* SETTINGS FOR FRAME fMain
+                                                                        */
+ASSIGN 
+       FRAME fMain:POPUP-MENU       = MENU POPUP-MENU-fMain:HANDLE.
+
+/* SETTINGS FOR FILL-IN edtProgress IN FRAME fMain
+   ALIGN-L                                                              */
+ASSIGN 
+       edtProgress:READ-ONLY IN FRAME fMain        = TRUE.
+
+IF SESSION:DISPLAY-TYPE = "GUI":U AND VALID-HANDLE(wWin)
+THEN wWin:HIDDEN = yes.
+
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+ 
+
+
+
+/* ************************  Control Triggers  ************************ */
+
+&Scoped-define SELF-NAME wWin
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL wWin wWin
+ON END-ERROR OF wWin /* Reportes */
+OR ENDKEY OF {&WINDOW-NAME} ANYWHERE DO:
+  /* This case occurs when the user presses the "Esc" key.
+     In a persistently run window, just ignore this.  If we did not, the
+     application would exit. */
+  IF THIS-PROCEDURE:PERSISTENT THEN RETURN NO-APPLY.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL wWin wWin
+ON WINDOW-CLOSE OF wWin /* Reportes */
+DO:
+  /* This ADM code must be left here in order for the SmartWindow
+     and its descendents to terminate properly on exit. */
+  APPLY "CLOSE":U TO THIS-PROCEDURE.
+  RETURN NO-APPLY.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-41
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-41 wWin
+ON CHOOSE OF BUTTON-41 IN FRAME fMain /* Stock */
+DO:
+  define vari v_general as character.
+  define vari vceros as logical.
+  define vari vdetallado as LOGICAL INITIAL FALSE.
+
+  for each repstockr. delete repstockr. end.
+  for each repstock. delete repstock. end.
+
+  vceros = false.
+  vdetallado = false.
+  
+
+  run y_proceso_stock_f.p (input 0,
+                           input ideposito:screen-value,
+                           input 0,
+                           input 0,
+                           input 0,
+                           input "01/01/" + STRING(YEAR(TODAY)),
+                           input "31/12/" + STRING(YEAR(TODAY)),
+                           input vdetallado,
+                           input vceros).
+  /*agrego los datos que necesita yurgen en el campo dato_adicional de la tabla del reporte*/
+  FOR EACH repstockr, 
+      EACH lotes_ubicacion WHERE repstockr.id_lote = lotes_ubicacion.id_lote, 
+      EACH ITEM_ingreso_lote_ubicacion WHERE ITEM_ingreso_lote_ubicacion.nromov = lotes_ubicacion.nromov, 
+      EACH ingreso_lote_ubicacion WHERE ingreso_lote_ubicacion.nromov_ingreso = ITEM_ingreso_lote_ubicacion.nromov_ingreso.
+    
+    ASSIGN repstockr.datos_adicional = STRING(ingreso_lote_ubicacion.fecha, "99/99/9999") + "     " + 
+                                       STRING(ITEM_ingreso_lote_ubicacion.id_lote_deposito).
+                                       
+  END.
+  FIND FIRST sucursales WHERE sucursales.id_sucursal = INTEGER(ideposito:SCREEN-VALUE) NO-LOCK NO-ERROR.
+
+  v_general = "0" + ";" + 
+              "0" + ";" +
+              "0" + ";" +
+              "Aqui va la Descripcion " + ";" +
+              STRING(ideposito:SCREEN-VALUE) + ";" +
+              sucursales.nombre.
+                
+  run p_reportes.p (input "stock_fecha_resumido_lotes_ubi", 
+                    input "STOCK A FECHA...",
+                    input "",
+                    input v_general).           
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-42
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-42 wWin
+ON CHOOSE OF BUTTON-42 IN FRAME fMain /* Excell */
+DO:
+  IF iDeposito:SCREEN-VALUE <> "0" THEN DO:
+    RUN fillTempTable.
+    FIND FIRST sucursales WHERE sucursales.id_sucursal = INTEGER(iDeposito:SCREEN-VALUE).
+  
+    RUN generateExcel.p (INPUT TABLE ttGestion,
+                          INPUT " Stock Externo " + sucursales.nombre,
+                          INPUT " ",
+                          INPUT 7,
+                          INPUT 8,
+                          INPUT "Century Gothic",
+                          INPUT 7).
+  END.  
+  ELSE 
+    MESSAGE "Debe Ingresar el Cod. de Deposito" VIEW-AS ALERT-BOX.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+&Scoped-define SELF-NAME BUTTON-6
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-6 wWin
+ON CHOOSE OF BUTTON-6 IN FRAME fMain /* Ingresos */
+DO:
+    IF INTEGER(ideposito:SCREEN-VALUE IN FRAME FMain) <> 0 THEN DO:
+      RUN p_reportes_9.p (INPUT "stockLoteUbicacion",
+                          INPUT "Reporte de Ingresos a Deposito",
+                          INPUT "lotes_ubicacion.id_sucursal_ubicacion = " + ideposito:SCREEN-VALUE IN FRAME FMain,
+                          INPUT "").
+    END.
+    ELSE MESSAGE "Por favor ingrese un deposito." VIEW-AS ALERT-BOX.
+     
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME m_Query_Constructor
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL m_Query_Constructor wWin
+ON CHOOSE OF MENU-ITEM m_Query_Constructor /* Query Constructor */
+DO:
+    DEFINE VAR xSDOS        AS CHARACTER    NO-UNDO.
+    DEFINE VAR i            AS INTEGER      NO-UNDO.
+    DEFINE VAR iPage        AS INTEGER      NO-UNDO.
+    DEFINE VAR iActualPage  AS INTEGER      NO-UNDO.
+    DEFINE VAR xDataSource  AS CHARACTER    NO-UNDO.
+    DEFINE VAR hDataSource  AS HANDLE       NO-UNDO.
+
+    xSDOS = DYNAMIC-FUNCTION ('getSDO').
+    {get CurrentPage iActualPage}.
+
+    DO i = 1 TO NUM-ENTRIES(xSDOS):
+        qh = WIDGET-HANDLE(ENTRY(i,xSDOS)).
+        {get ObjectPage iPage qh}.
+        {get DataSource xDataSource qh}.
+        hDataSource = WIDGET-HANDLE(xDataSource).
+        IF ( iPage = iActualPage OR iPage = 0 ) AND NOT valid-handle(hDataSource)THEN
+            RUN adm2/support/wquery.w ( INPUT qh ).
+        ELSE
+            MESSAGE 'No puede ejecutar consulta en el detalle' VIEW-AS ALERT-BOX WARNING.
+
+    END.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&UNDEFINE SELF-NAME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK wWin 
+
+
+/* ***************************  Main Block  *************************** */
+
+/* Include custom  Main Block code for SmartWindows. */
+{src/adm2/windowmn.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-create-objects wWin  _ADM-CREATE-OBJECTS
+PROCEDURE adm-create-objects :
+/*------------------------------------------------------------------------------
+  Purpose:     Create handles for all SmartObjects used in this procedure.
+               After SmartObjects are initialized, then SmartLinks are added.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE changePage wWin 
+PROCEDURE changePage :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+  {adm2/support/changePage.i}.  
+  
+  RUN SUPER.
+
+  /* Code placed here will execute AFTER standard behavior.    */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI wWin  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Delete the WINDOW we created */
+  IF SESSION:DISPLAY-TYPE = "GUI":U AND VALID-HANDLE(wWin)
+  THEN DELETE WIDGET wWin.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE enable_UI wWin  _DEFAULT-ENABLE
+PROCEDURE enable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     ENABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we display/view/enable the widgets in the
+               user-interface.  In addition, OPEN all queries
+               associated with each FRAME and BROWSE.
+               These statements here are based on the "Other 
+               Settings" section of the widget Property Sheets.
+------------------------------------------------------------------------------*/
+  DISPLAY ideposito edtProgress 
+      WITH FRAME fMain IN WINDOW wWin.
+  ENABLE BUTTON-41 BUTTON-6 ideposito BUTTON-42 edtProgress RECT-3 
+      WITH FRAME fMain IN WINDOW wWin.
+  {&OPEN-BROWSERS-IN-QUERY-fMain}
+  VIEW wWin.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE exitObject wWin 
+PROCEDURE exitObject :
+/*------------------------------------------------------------------------------
+  Purpose:  Window-specific override of this procedure which destroys 
+            its contents and itself.
+    Notes:  
+------------------------------------------------------------------------------*/
+
+  APPLY "CLOSE":U TO THIS-PROCEDURE.
+  RETURN.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE fillTempTable wWin 
+PROCEDURE fillTempTable :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE cRegion       AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cProduct      AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cWarehouse    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cLote         AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cContainer    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE iQty          AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE cLoteDeposito AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE iOE           AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE cProforma     AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cFacturadoA   AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cContrato     AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cVapor        AS CHARACTER  NO-UNDO.  
+  DEFINE VARIABLE cEtd          AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cBl           AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cFechaInWhs   AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE iNroRelease   AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE cFechaRelease AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cVendidoA     AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cNroFactura   AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cFechaOutWhs  AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE iKgsNeto      AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE cPermiso      AS CHARACTER  NO-UNDO.
+
+  DEFINE VARIABLE cReturn AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cRet    AS CHARACTER  NO-UNDO INITIAL ",,,,,,".
+  DEFINE VARIABLE i       AS INTEGER    NO-UNDO.
+  
+  FOR EACH lotes_ubicacion WHERE lotes_ubicacion.id_sucursal_ubicacion = INTEGER(ideposito:SCREEN-VALUE IN FRAME fMain) NO-LOCK.
+    edtProgress:SCREEN-VALUE = "Procesando Lote " + STRING(lotes_ubicacion.id_lote) + "/" + STRING(lotes_ubicacion.anio) + " ...".
+    RUN getPackingList IN hLib (lotes_ubicacion.id_empresa, 
+                                lotes_ubicacion.id_sucursal, 
+                                lotes_ubicacion.id_tipotambor, 
+                                lotes_ubicacion.nromov, 
+                                OUTPUT cRet).
+    cContainer = STRING(ENTRY(4, cRet)).
+    cProforma = ENTRY(6, cRet).
+    cNroFactura = ENTRY(8, cRet).
+    cPermiso = ENTRY(9, cRet).
+    FIND FIRST vapores WHERE vapores.id_vapor = INTEGER(ENTRY(3, cRet)) NO-LOCK NO-ERROR.
+    cVapor = vapores.descripcion.
+    FIND FIRST clientes_ventas WHERE clientes.id_cliente = INTEGER(ENTRY(7,cRet)) NO-LOCK NO-ERROR.
+    IF AVAILABLE clientes_ventas THEN
+      cFacturadoA = clientes.razon_social.
+    ELSE
+      cFacturadoA = "NO CUSTOMER INFO".
+    RUN getLoteDeposito IN hLib (lotes_ubicacion.id_empresa, 
+                                 lotes_ubicacion.id_sucursal, 
+                                 lotes_ubicacion.id_tipotambor, 
+                                 lotes_ubicacion.nromov, 
+                                 OUTPUT cReturn). 
+    cLoteDeposito = cReturn.
+    RUN getOrdenEntrega IN hLib (lotes_ubicacion.id_empresa, 
+                                 lotes_ubicacion.id_sucursal, 
+                                 lotes_ubicacion.id_tipotambor, 
+                                 lotes_ubicacion.nromov, 
+                                 OUTPUT cRet). 
+    iOE  = INTEGER(ENTRY(1,cRet)).
+    cEtd = ENTRY(2, cRet).
+    RUN getContrato IN hLib (lotes_ubicacion.id_empresa, 
+                             lotes_ubicacion.id_sucursal, 
+                             lotes_ubicacion.id_tipotambor, 
+                             lotes_ubicacion.nromov, 
+                             OUTPUT cReturn). 
+    cContrato = cReturn.
+    RUN getFechaIngresoADeposito IN hLib (lotes_ubicacion.id_empresa, 
+                                          lotes_ubicacion.id_sucursal, 
+                                          lotes_ubicacion.id_tipotambor, 
+                                          lotes_ubicacion.nromov, 
+                                          OUTPUT cReturn). 
+    cFechaInWhs = cReturn.
+    RUN getPesoLote IN hLib (lotes_ubicacion.id_empresa, 
+                             lotes_ubicacion.id_sucursal, 
+                             lotes_ubicacion.id_tipotambor, 
+                             lotes_ubicacion.nromov, 
+                             lotes_ubicacion.id_sucursal_ubicacion, 
+                             OUTPUT iKgsNeto). 
+    RUN getRelease IN hLib (lotes_ubicacion.id_empresa, 
+                            lotes_ubicacion.id_sucursal, 
+                            lotes_ubicacion.id_tipotambor, 
+                            lotes_ubicacion.nromov, 
+                            lotes_ubicacion.id_sucursal_ubicacion, 
+                            OUTPUT cRet).
+    iNroRelease   = INTEGER(ENTRY(1,cRet)).
+    cFechaRelease = ENTRY(2, cRet).
+    cFechaOutWhs  = ENTRY(3, cRet).
+    
+    FIND FIRST sucursales WHERE sucursales.id_sucursal = INTEGER(iDeposito:SCREEN-VALUE).
+    cWarehouse    = sucursales.nombre.
+    cProduct      = lotes_ubicacion.calidad.
+    cLote         = STRING(lotes_ubicacion.id_lote) + "/" + STRING(lotes_ubicacion.anio).
+    iQty          = lotes_ubicacion.cantidad.
+
+    CREATE ttGestion.
+    ASSIGN 
+      ttGestion.region                 = "EUROPE"
+      ttGestion.product                = cProduct
+      ttGestion.warehouse              = cWarehouse
+      ttGestion.id_lote                = cLote 
+      ttGestion.container              = cContainer
+      ttGestion.qtyxdrum               = STRING(iQty)
+      ttGestion.id_lote_deposito       = cLoteDeposito
+      ttGestion.id_orden_entrega       = iOE
+      ttGestion.nro_proforma           = cProforma
+      ttGestion.facturado_a            = cFacturadoA
+      ttGestion.id_contrato            = cContrato
+      ttGestion.vapor                  = cVapor
+      ttGestion.etd                    = cEtd
+      ttGestion.fecha_entrada_deposito = cFechaInWhs
+      ttGestion.numero_release         = STRING(iNroRelease)
+      ttGestion.fecha_release          = cFechaRelease
+      ttGestion.vendido_a              = cFacturadoA
+      ttGestion.numero_factura         = cNroFactura
+      ttGestion.permiso_embarque       = cPermiso
+      ttGestion.fecha_salida_deposito  = cFechaOutWhs
+      ttGestion.kilos                  = STRING(iKgsNeto).
+  
+  END.
+  edtProgress:SCREEN-VALUE = "".
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE getQuery wWin 
+PROCEDURE getQuery :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE OUTPUT PARAMETER queryText AS CHARACTER NO-UNDO.
+    queryText = queryText1.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE getSort wWin 
+PROCEDURE getSort :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE OUTPUT PARAMETER querySort AS CHARACTER NO-UNDO.
+    querySort = querySort1.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE initializeObject wWin 
+PROCEDURE initializeObject :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  RUN SUPER.
+
+  /* Code placed here will execute AFTER standard behavior.    */
+  RUN libItemsReleaseDelivery.p PERSISTENT SET hLib.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE setSort wWin 
+PROCEDURE setSort :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE INPUT PARAMETER xSort AS CHARACTER NO-UNDO.
+
+querySort1 = xSort.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+/* ************************  Function Implementations ***************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION queryName wWin 
+FUNCTION queryName RETURNS CHARACTER
+  ( /* parameter-definitions */ ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+
+  RETURN "".   /* Function return value. */
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+

@@ -1,0 +1,10 @@
+DEF VAR v_anio AS INTEGER.
+DEF VAR v_semana AS INTEGER.
+DEF VAR v_fecha AS DATE.
+
+v_fecha = DATE("27/12/2002").
+
+RUN n:\produccion\semana_anio.p (INPUT v_fecha,
+                                 OUTPUT v_anio, OUTPUT v_semana).
+
+MESSAGE v_fecha v_anio v_semana VIEW-AS ALERT-BOX.

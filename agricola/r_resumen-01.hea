@@ -1,0 +1,8 @@
+skip(1)
+"Empresa: " v_empresa
+skip
+"Sucursal:" v_nombre_sucursal format "x(30)"
+skip
+"Sector : " v_id_sector format ">9" " " v_sector
+skip
+"Periodo: " v_fecha_desde " - " v_fecha_hasta

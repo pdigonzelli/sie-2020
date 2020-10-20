@@ -1,0 +1,15 @@
+<SYSID>DEV130</SYSID>
+<momento1>
+   <sucursal>1010</sucursal>
+   <partida>10000</partida>
+   <material_sap>'LIMON001         '</material_sap>
+   <lote_sap>15FF001111</lote_sap>
+   <peso>2000</peso>
+   <UM>KG</UM>
+   <almacen>1010</almacen>
+</momento1>
+<momento2>
+   <documentoMaterial>?</documentoMaterial>
+   <ejercicio>?</ejercicio>
+   <fechaContabilizacion>?</fechaContabilizacion>
+</momento2>

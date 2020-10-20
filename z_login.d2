@@ -1,0 +1,34 @@
+path = "".
+repeat cc = 1 to num-entries(lista_grupos):
+  path = path + vlc_dir_fuentes + entry(cc,lista_grupos) + ",".
+end.
+if path <> "" then
+  path = (if substring(path,length(path),1) = "," then substring(path,1,length(path) - 1) else path).
+for each xxx_grupos where xxx_grupos.agrega_propath = yes and xxx_grupos.letra_inicial <> par_grupos.letra_inicial no-lock:
+  path = path + "," + vlc_dir_fuentes + lc(xxx_grupos.nombre_grupo).
+end.
+if path <> "" then
+  path = (if substring(path,length(path),1) = "," then substring(path,1,length(path) - 1) else path).
+if defpropath <> ? and defpropath <> "" then
+  assign propath = vlc_dir_fuentes + "especificos," +
+                   vlc_dir_fuentes + "supervisor,"  +
+                   path + "," +
+                   &IF "{&SISTEMA}" = "contacto" OR "{&SISTEMA}" = "core" &THEN
+                     (if lc(par_grupos.nombre_grupo) <> "contacto" then 
+                        vlc_dir_fuentes + "contacto,"
+                      else
+                        "")
+                      +
+                   &ENDIF
+                   defpropath.
+else
+  assign propath = vlc_dir_fuentes + "especificos," +
+                   vlc_dir_fuentes + "supervisor,"  +
+                   path
+                   &IF "{&SISTEMA}" = "contacto" OR "{&SISTEMA}" = "core" &THEN
+                     + (if lc(par_grupos.nombre_grupo) <> "contacto" then 
+                          "," + vlc_dir_fuentes + "contacto"
+                        else
+                          "")
+                   &ENDIF
+                   .

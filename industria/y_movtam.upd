@@ -1,0 +1,10 @@
+movimientos_tambores.fecha
+movimientos_tambores.id_lote 
+movimientos_tambores.anio 
+movimientos_tambores.id_tipotambor 
+movimientos_tambores.id_articulo 
+movimientos_tambores.id_suc_origen 
+movimientos_tambores.id_suc_des 
+movimientos_tambores.id_tipo_movimiento 
+movimientos_tambores.tambor_desde 
+movimientos_tambores.tambor_hasta

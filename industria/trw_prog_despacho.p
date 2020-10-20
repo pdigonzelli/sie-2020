@@ -1,0 +1,2 @@
+TRIGGER PROCEDURE FOR WRITE OF programa_despacho.
+

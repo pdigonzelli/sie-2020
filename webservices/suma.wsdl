@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="suma" targetNamespace="urn:tempuri-org" xmlns:tns="urn:tempuri-org" xmlns:S2="urn:tempuri-org:suma" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:prodata="urn:schemas-progress-com:xml-prodata:0001" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:S1="urn:soap-fault:details" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:documentation>EncodingType=DOC_LITERAL, Proxygen_Product=Progress Version 10.2B</wsdl:documentation>
+  <wsdl:types>
+<schema elementFormDefault="unqualified" targetNamespace="urn:soap-fault:details" xmlns="http://www.w3.org/2001/XMLSchema"><element name="FaultDetail"><complexType><sequence><element name="errorMessage" type="xsd:string"/><element name="requestID" type="xsd:string"/></sequence></complexType></element></schema>
+<schema elementFormDefault="qualified" targetNamespace="urn:tempuri-org:suma" xmlns="http://www.w3.org/2001/XMLSchema"><element name="suma"><complexType><sequence><element name="NRO1" nillable="true" type="xsd:decimal"/><element name="NRO2" nillable="true" type="xsd:decimal"/></sequence></complexType></element><element name="sumaResponse"><complexType><sequence><element name="result" nillable="true" type="xsd:string"/><element name="RESULTADO" nillable="true" type="xsd:decimal"/></sequence></complexType></element></schema>
+  </wsdl:types>
+  <wsdl:message name="FaultDetailMessage">
+    <wsdl:part name="FaultDetail" element="S1:FaultDetail"/>
+  </wsdl:message>
+  <wsdl:message name="suma_sumaResponse">
+    <wsdl:part name="parameters" element="S2:sumaResponse"/>
+  </wsdl:message>
+  <wsdl:message name="suma_suma">
+    <wsdl:part name="parameters" element="S2:suma"/>
+  </wsdl:message>
+  <wsdl:portType name="sumaObj">
+    <wsdl:operation name="suma">
+      <wsdl:input message="tns:suma_suma"/>
+      <wsdl:output message="tns:suma_sumaResponse"/>
+      <wsdl:fault name="sumaFault" message="tns:FaultDetailMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="sumaObj" type="tns:sumaObj">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="suma">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="sumaFault">
+        <soap:fault name="sumaFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="sumaService">
+    <wsdl:port name="sumaObj" binding="tns:sumaObj">
+<wsdl:documentation></wsdl:documentation>
+      <soap:address location="http://www.tempuri.org/wsa/wsa1"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,180 @@
+/*--- LISTA DE MODULOS A CONECTAR ---*/
+lista = "".
+if index("0123456789", substring(userid("userdb"),1,1)) > 0 then
+  for each par_agrupados where par_agrupados.letra_grupo = substring(userid("userdb"),1,1) no-lock:
+    if lista = "" then
+      lista = par_agrupados.letra_inicial.
+    else
+      lista = lista + "," + par_agrupados.letra_inicial.
+  end.
+else
+  lista = substring(userid("userdb"),1,1).
+
+/*--- CONEXI‡N A BASES DE DATOS DEL SISTEMA EN FUNCI‡N DEL M‡DULO ACCEDIDO ---*/
+conexion = "".
+for each par_grupos where lookup(par_grupos.letra_inicial, lista) > 0 no-lock,
+    each par_rel_grupos_bases
+         where par_rel_grupos_bases.letra_inicial = par_grupos.letra_inicial and
+               par_rel_grupos_bases.conexion      = yes no-lock,
+    first par_bases where par_bases.id_base = par_rel_grupos_bases.id_base and 
+                          par_bases.estado  = yes and
+                          not connected(par_bases.id_base) no-lock:
+
+  /*--- PREFIJO ---*/
+  if vlc_host <> par_bases.id_host then 
+    archivo = "pr".
+  else
+    archivo = "pd".
+
+  /*--- NOMBRE DE ARCHIVO ---*/
+  archivo = archivo + "_" + par_bases.id_base + ".pf".
+
+  /*--- PATH DEL ARCHIVO ---*/
+  if search(vlc_dir_objetos + "supervisor/" + archivo) <> ? then
+    archivo = vlc_dir_objetos + "supervisor/" + archivo.
+  else
+    if search(vlc_dir_objetos + lc(par_grupos.nombre_grupo) + "/" + archivo) <> ? then
+      archivo = search(vlc_dir_objetos + lc(par_grupos.nombre_grupo) + "/" + archivo).
+    else
+      if search(vlc_dir_fuentes + lc(par_grupos.nombre_grupo) + "/" + archivo) <> ? then
+        archivo = search(vlc_dir_fuentes + lc(par_grupos.nombre_grupo) + "/" + archivo).
+
+  /*--- CONEXION DE LA BASE DE DATOS ---*/
+  connect value("-pf " + archivo + " -U " + userid("userdb") + " -P " + vlc_misc) no-error.
+  if not connected(par_bases.id_base) then
+    connect value("-pf " + archivo) no-error.
+  if not connected(par_bases.id_base) and esdemo then
+    do:
+      if index(archivo,"pd_") > 0 then
+        archivo = replace(archivo,"pd_","su_").
+      if index(archivo,"pr_") > 0 then
+        archivo = replace(archivo,"pr_","su_").
+    end.
+  connect value("-pf " + archivo + " -U " + userid("userdb") + " -P " + vlc_misc) no-error.
+  if not connected(par_bases.id_base) then
+    connect value("-pf " + archivo) no-error.
+  if not connected(par_bases.id_base) then
+    message color white/red
+            "La Base de Datos [" + par_bases.id_base + "] No se ha Podido Conectar !!!" skip(1)
+            "Algunas Opciones de la Aplicaci¢n NO Estar†n Disponibles !!!" skip(1)
+            "Referencia para Sistemas:" archivo view-as alert-box warning.
+  else
+    conexion = conexion + par_bases.id_base + ",".
+
+end.
+if conexion <> "" then
+  conexion = substring(conexion,1,length(conexion) - 1).
+
+/*--- EJECUTA PROCESO INICIAL DEL M‡DULO ACCEDIDO ---*/
+input clear.
+for each par_grupos where lookup(par_grupos.letra_inicial, lista) > 0 and
+                          par_grupos.nombre_programa <> "" and par_grupos.nombre_programa <> ? 
+                     no-lock
+                     break by par_grupos.nombre_programa:
+  if first-of(par_grupos.nombre_programa) then
+    do:
+      run value("../" + par_grupos.nombre_programa) (output salida).
+      if salida = no then
+        do:
+          message "Error en Ejecuci¢n de Programa de Inicio de M¢dulo !!!" skip
+                  "Programa que termin¢ con error:" par_grupos.nombre_programa
+                  view-as alert-box error.
+          quit.
+        end.
+    end.
+end.
+
+/*--- CARGA TABLA "par_usuarios_logueo" UTILIZADA POR TUCUMAN ---*/
+c3 = (if substring(userid('userdb'),2,1) = "_" then substring(userid('userdb'),3) else userid('userdb')).
+for each par_usuarios_logueo where par_usuarios_logueo.id_usuario = c3 and par_usuarios_logueo.c_fecha <> today:
+  delete par_usuarios_logueo.
+end.     
+find par_usuarios_logueo where par_usuarios_logueo.id_usuario = c3 and par_usuarios_logueo.modulo = vlc_grupo no-lock no-error.
+if not available par_usuarios_logueo then
+  do transaction:
+    create par_usuarios_logueo.
+    assign par_usuarios_logueo.id_usuario = c3
+           par_usuarios_logueo.modulo     = vlc_grupo
+           par_usuarios_logueo.c_fecha    = today.
+    release par_usuarios_logueo.
+  end.
+release par_usuarios_logueo.
+
+/*--- CONTROLES DE LICENCIAMIENTO ---*/
+&IF "{&SISTEMA}" = "core" OR "{&SISTEMA}" = "contacto" &THEN
+
+  /*--- BORRO TABLA TEMPORARIA ---*/
+  for each auxlic: delete auxlic. end.
+
+  /*--- COPIO TABLA TEMPORARIA ---*/
+  for each est_grupos no-lock:
+    create auxlic.
+    buffer-copy est_grupos to auxlic.
+    assign auxlic.cantidad = auxlic.cantidad + 1. /* AGREGO UNO MµS PARA MOSTRAR ALERTA Y DEJAR ENTRAR */
+  end.
+
+  /*--- SI NO LA TIENE, AGREGO LA LETRA DEL GRUPO A LA TABLA TEMPORARIA DE AQUELLOS M‡DULOS QUE LO REQUIERAN ---*/
+  for each auxlic:
+    repeat c1 = 1 to num-entries(auxlic.lista):
+      for each par_agrupados where par_agrupados.letra_inicial = entry(c1,auxlic.lista) no-lock:
+        if lookup(par_agrupados.letra_grupo, auxlic.lista) = 0 then
+          assign auxlic.lista = auxlic.lista + "," + par_agrupados.letra_grupo.
+      end.
+    end.
+  end.
+    
+  /*--- DEJO S‡LO AQUELLOS REGISTROS QUE DEBO CONTROLAR ---*/
+  for each auxlic where lookup(substring(userid("userdb"),1,1), auxlic.lista) = 0:
+    delete auxlic.
+  end.
+
+  /* DESARROLLO
+  for each auxlic:
+    message auxlic.lista skip auxlic.cantidad view-as alert-box.
+  end.
+  */
+  
+  /*--- CONTROLA EL LICENCIAMIENTO ACTUAL DEL SISTEMA ---*/
+  for each auxlic:
+    c1 = 0.
+    repeat c2 = 1 to num-entries(auxlic.lista):
+      for each _Connect where _Connect._Connect-name <> ? and _Connect._Connect-name <> "" and 
+                              (_Connect._Connect-Type = "REMC" or _Connect._Connect-Type = "SELF") and
+                              substring(_Connect._Connect-Name,1,2) = entry(c2,auxlic.lista) + "_" no-lock:
+        c1 = c1 + 1.
+      end.
+    end.
+    do transaction:
+      create hist_grupos.
+      assign hist_grupos.id_grupo_est = auxlic.id_grupo_est
+             hist_grupos.cantidad     = (if c1 > auxlic.cantidad then auxlic.cantidad else c1)
+             hist_grupos.c_usuario    = userid("userdb")
+             hist_grupos.c_fecha      = today
+             hist_grupos.c_hora       = string(time,"HH:MM:SS").
+    end.
+    find current hist_grupos no-lock.
+    if c1 >= auxlic.cantidad then
+      do:
+        /* DEMORA UNOS 20 SEGUNDOS POR ESO LO COMENTO
+        run s_canusr.p (auxlic.id_grupo_est).
+        */
+        if c1 = auxlic.cantidad then
+          do:
+            message "Atenci¢n !!! Se Permite S¢lo este Acceso !!!" skip(1) 
+                    "Se Ha Exedido el N£mero de Usuarios Licenciados para estos M¢dulos !!!" skip(1)
+                    "Por Favor, Avise a Gerencia de Sistemas." view-as alert-box warning.
+            run s_inform.p (12, "ID-Ref: " + string(auxlic.id_grupo_est)).
+          end.
+        else
+          do:
+            message "ATENCI‡N !!! NO PUEDE ACCEDER A LA APLICACI‡N !!!" skip(1) 
+                    "Se Ha Exedido el N£mero de Usuarios Licenciados para estos M¢dulos !!!" skip(1)
+                    "Por Favor, Avise a Gerencia de Sistemas." view-as alert-box error.
+            run s_inform.p (13, "ID-Ref: " + string(auxlic.id_grupo_est)).
+            quit.
+            return no-apply.
+          end.
+      end.
+  end.
+
+&ENDIF

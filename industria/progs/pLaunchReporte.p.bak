@@ -1,0 +1,32 @@
+DEFINE VARIABLE hLib AS HANDLE     NO-UNDO.
+
+DEFINE VARIABLE hLibCom AS HANDLE.
+RUN libCommonFunctions.p PERSISTENT SET hLibCom.
+hLib   = DYNAMIC-FUNCTION('getPersistentLib' IN hLibCom, 'libReportes.p'). 
+DELETE OBJECT hLibCom.
+
+
+  RUN callComposicionLoteJugo IN hLib (1, 95, 3, 87575).
+                                         
+
+  RUN  aderb\_prntrb2("n:\industria\reports_9.prl", /* RB-REPORT-LIBRARY */
+                       "compo_lote_jugo",                    /* RB-REPORT-NAME */
+                       "",                             /* RB-DB-CONNECTION */
+                       "O",                             /* RB-INCLUDE-RECORDS */
+                       "",                              /* RB-FILTER */
+                       "",                              /* RB-MEMO-FILE */
+                       "pdf995",                             /* RB-PRINT-DESTINATION */
+                       "pdf995",                              /* RB-PRINTER-NAME */
+                       "",                              /* RB-PRINTER-PORT */
+                       "d:\temp\test.pdf",                              /* RB-OUTPUT-FILE */
+                       1,                              /* RB-NUMBER-COPIES  - zero */                  
+                       0,                              /* RB-BEGIN-PAGE - zero */
+                       0,                              /* RB-END-PAGE - zero */
+                       no,                              /* RB-TEST-PATTERN */
+                       "Conformacion Lote Jugo",         /* RB-WINDOW-TITLE */
+                       yes,                           /* RB-DISPLAY-ERRORS */
+                       yes,                           /* RB-DISPLAY-STATUS */
+                       no,                              /* RB-NO-WAIT */
+                       "" /* RB-OTHER-PARAMETERS */,
+                       ""
+                       ).  

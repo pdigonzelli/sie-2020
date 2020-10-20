@@ -1,0 +1,20 @@
+<html>
+<head>
+    <title>Prueba de lectura de datos en formato JSON</title>
+    <script src="Scripts/jquery-1.8.0.min.js" type="text/javascript"></script> 
+    <script type="text/javascript">
+        function lee_json() {
+            alert("2");
+            $.getJSON("file:///D:/sanmiguel/desarrollos/webservices/datos.json", function(datos) {
+                alert("1");
+                alert("Dato: " + datos["dato"]);
+                $.each(datos["primos"], function(idx,primo) {
+                    alert("Numero primo: " + primo);
+                });
+            });
+        }
+    </script>
+</head>
+<body onload="lee_json();">
+</body>
+</html>

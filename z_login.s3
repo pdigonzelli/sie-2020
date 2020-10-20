@@ -1,0 +1,14 @@
+if opsys = "UNIX" or opsys = "WIN32" then
+  do:
+    if defpropath <> ? and defpropath <> "" then
+      assign propath = vlc_dir_objetos + "gui" + c-sep + "especificos" + c-sep + "especificos.pl," +
+                       vlc_dir_objetos + "gui" + c-sep + "especificos," +
+                       vlc_dir_objetos + "gui" + c-sep + "supervisor" + c-sep + "supervisor.pl," +
+                       vlc_dir_objetos + "gui" + c-sep + "supervisor," +
+                       defpropath.
+    else
+      assign propath = vlc_dir_objetos + "gui" + c-sep + "especificos" + c-sep + "especificos.pl," +
+                       vlc_dir_objetos + "gui" + c-sep + "especificos," +
+                       vlc_dir_objetos + "gui" + c-sep + "supervisor" + c-sep + "supervisor.pl," +
+                       vlc_dir_objetos + "gui" + c-sep + "supervisor,".
+  end.

@@ -1,0 +1,51 @@
+/****************************************************************************/
+/*  NOMBRE PROGRAMA......:   d_pallet.p                                     */
+/****************************************************************************/
+/*  Permite agregar y modificar registros completos (abmc tipo-5)           */
+/****************************************************************************/
+/*  PROGRAMADOR..........:   Gabriel Navarro                                */
+/****************************************************************************/
+
+{ d_pallet.i
+ &archivo1            = "pallets"
+ &archivo2            = "items_pallets"
+ &use_index1          = "use-index suc_orden_item"
+ &use_index2          = "use-index items_pallets"
+ &otros_archivos1     = ", turnos_packing, colores, aux_prov "
+ &archivos_relacion1  = ", first turnos_packing OF pallets no-lock, ~
+            FIRST colores OF pallets no-lock, ~
+            FIRST aux_prov no-lock where ~
+            aux_prov.id_proveedor = pallets.id_proveedor_caja outer-join "
+ &otros_archivos2     = ", proveedores, origenes, lote "
+ &archivos_relacion2  = ", FIRST proveedores OF items_pallets no-lock, ~
+            FIRST origenes of items_pallets no-lock, ~
+            FIRST lote of items_pallets no-lock "
+ &campo_choose        = "semana"
+ &maxdown             = "3"
+ &with_form_trabajo   = "row 4 side-labels title color white/red "" Carga de Pallets """
+ &color_trabajo       = "white/green"
+ &color_choose        = "white/red"
+ &puede_modificar     = "yes"
+ &archivo_cabecera    = "items_pedidos_packing"
+ &use_index_cabecera  = "use-index items_pedidos_packing"
+ &condicion_where_cab = " where items_pedidos_packing.id_empresa = x_empresa and ~
+            items_pedidos_packing.id_punto_emisor = x_puntoem and ~
+            items_pedidos_packing.id_orden = x_orden and ~
+            items_pedidos_packing.item = x_item "
+
+ &condicion_where1    = "d_palle1.whe"
+ &condicion_where2    = "d_palle2.whe"
+ &variables_busqueda  = "d_pallet.vbu"
+ &form_relacionadas   = "s_nada.fre"
+ &campos_display      = "d_pallet.dis"
+ &campos_display1     = "d_palle1.dis"
+ &campos_display2     = "d_palle2.dis"
+ &campos_update       = "d_pallet.upd"
+ &relaciones          = "d_pallet.rel"
+ &creacion            = "d_pallet.alt"
+ &campos_create       = "d_pallet.cre"
+ &modificacion        = "d_pallet.mod"
+ &proceso_display_cab = "d_palcab.dpy"
+ &campos_display_cab  = "d_palcab.dis"  
+ &funciones           = "d_palcab.fun"
+}

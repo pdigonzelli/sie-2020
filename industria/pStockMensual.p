@@ -1,0 +1,12 @@
+DEFINE VARIABLE hLib AS HANDLE     NO-UNDO.
+
+DEFINE VARIABLE hLibCom AS HANDLE.
+RUN libCommonFunctions.p PERSISTENT SET hLibCom.
+hLib   = DYNAMIC-FUNCTION('getPersistentLib' IN hLibCom, 'libTareasAutomaticas.p'). 
+DELETE OBJECT hLibCom.
+
+PROPATH = PROPATH + ",..\industria\prowinapi".
+
+RUN stockMensual IN hLib.
+
+QUIT.

@@ -1,0 +1,226 @@
+if frame-field = "id_articulo" then
+  do:
+    if keyfunction(lastkey) = "ENTER-MENUBAR" then
+      do:
+        assign movimientos_tambores.id_articulo.
+        run x_proter.p (input-output movimientos_tambores.id_articulo).
+        display movimientos_tambor.id_articulo with frame trabajo.
+      end.
+    find productos_terminados
+         where productos_terminados.id_articulo = 
+               input movimientos_tambor.id_articulo
+               and productos_terminados.fecha_baja = ? no-lock no-error.
+    if available productos_terminados then
+       message color green productos_terminados.descripcion. pause 0.
+end.
+
+if frame-field = "id_tipo_movimiento" then
+  do:
+    if keyfunction(lastkey) = "ENTER-MENUBAR" then
+      do:
+        assign movimientos_tambores.id_tipo_movimiento.
+        run x_tiposm.p (input-output movimientos_tambores.id_tipo_movimiento).
+        display movimientos_tambores.id_tipo_movimiento with frame trabajo.
+      end.
+    find tipos_movimientos 
+         where tipos_movimientos.id_tipo_movimiento = 
+               movimientos_tambores.id_tipo_movimiento
+         no-lock no-error.
+    if available tipos_movimientos then
+       message color green tipos_movimientos.descripcion. pause 0.
+end.
+
+
+
+on return of movimientos_tambores.id_articulo in frame trabajo do:
+            assign v_id_calidad      = 0
+                   v_kilos_tambor    = 0
+                   v_id_envase       = 0
+                   v_id_ordenentrega = 0.
+/*            run y_vallote.p (input (input movimientos_tambores.id_lote),
+                             input (input movimientos_tambores.anio),
+                             input (input movimientos_tambores.id_articulo),
+                             input movimientos_tambores.id_suc_origen,
+                             input 1,
+                             input-output v_ok_lote,
+                             input-output v_id_calidad,
+                             input-output v_kilos_tambor,
+                             input-output v_id_envase,
+                             input-output v_id_ordenentrega).
+             if not v_ok_lote then do:
+                message "POR FAVOR INGRESE UN NUMERO DE LOTE VALIDO !!"
+                view-as alert-box.
+             end.                */
+end.             
+
+
+
+
+/*
+if frame-field = "desde_lote" then
+do:
+   if keyfunction(lastkey) = "ENTER-MENUBAR" then
+   do:
+      run r_vertamb.p (input (input v_nrolote),
+                       input (input v_aniolote),
+                       input (input items_factura.id_articulo),
+                       input vlc_suc_desp,
+                       input-output v_item
+                      ).
+      display v_item @ items_factura.desde_lote
+              with frame trabajo.
+   end.
+end.
+
+on "return" of items_factura.desde_lote 
+do:
+   assign v_ok_deslote = true.
+   /*--- VALIDACION DE LOTES CARGADOS ---*/
+   if input v_nrolote <> 0 and
+      input items_factura.id_articulo <> 54 and
+      input items_factura.id_articulo <> 55 and
+      input items_factura.id_articulo <> 22 and
+      input items_factura.desde_lote  <> 0 then
+   do:
+      /*--- EL CAMPO V_NROMOV SOLAMENTE ES USADO PARA SOBRANTES -----*/
+      assign v_nromov = 0.
+      run r_valtamb.p (input (input v_nrolote),
+                       input (input v_aniolote),
+                       input (input items_factura.desde_lote),
+                       input (input items_factura.id_articulo),
+                       input vlc_suc_desp,
+                       input-output v_kilos_tambor,
+                       input-output v_ok_deslote,
+                       input-output v_nromov).
+      if v_kilos_tambor <> 0 then
+         display v_kilos_tambor @ items_factura.peso
+                 with frame trabajo.
+   end.
+end.
+
+if frame-field = "hasta_lote" then
+do:
+   if keyfunction(lastkey) = "ENTER-MENUBAR" then
+   do:
+      run r_vertamb.p (input (input v_nrolote),
+                       input (input v_aniolote),
+                       input (input items_factura.id_articulo),
+                       input vlc_suc_desp,
+                       input-output v_item
+                      ).
+      display v_item @ items_factura.hasta_lote
+              with frame trabajo.
+   end.
+end.
+
+on "return" of items_factura.hasta_lote 
+do:
+   assign v_ok_haslote = true.
+   items_factura.bultos = (input items_factura.hasta_lote -
+                           input items_factura.desde_lote) + 1.
+   display items_factura.bultos @ items_factura.bultos
+           with frame trabajo.
+               
+   /*--- VALIDACION DE LOTES CARGADOS ---*/
+   if input v_nrolote                 <> 0 and
+      input items_factura.id_articulo <> 54 and
+      input items_factura.id_articulo <> 55 and
+      input items_factura.id_articulo <> 22 and
+      input items_factura.hasta_lote  <> 0 then
+     do v_item = input items_factura.desde_lote to
+                 input items_factura.hasta_lote:
+        /*--- PARA BUSCAR AQUELLOS TAMBORES DE ARRASTRE ---------------*/
+        find first tambores_industria where
+          substring(string(tambores_industria.anio,"9999"),3,2) 
+                                       = string(input v_aniolote,"99") and
+          tambores_industria.id_lote   = input v_nrolote and
+          tambores_industria.id_tambor = v_item and
+          tambores_industria.id_tipotambor = 5 and
+          tambores_industria.id_articulo   =
+                                input items_factura.id_articulo and
+          tambores_industria.id_sucursal_ubicacion = vlc_suc_desp and
+          tambores_industria.id_locacion_ubicacion <> 10
+          no-lock no-error.
+           
+        if not available tambores_industria then
+           find tambores_industria where
+             substring(string(tambores_industria.anio,"9999"),3,2) 
+                                      = string(input v_aniolote,"99") and
+             tambores_industria.id_lote = input v_nrolote and
+             tambores_industria.id_tambor   = v_item and
+             tambores_industria.id_articulo = 
+                      input items_factura.id_articulo and
+             (if v_nromov <> 0 then tambores_industria.nromov = v_nromov
+              else true) and
+             tambores_industria.id_sucursal_ubicacion <> 85 and
+             tambores_industria.id_sucursal_ubicacion = vlc_suc_desp and
+             tambores_industria.id_locacion_ubicacion <> 10
+             no-lock no-error.
+        if not available tambores_industria then
+           find tambores_industria where
+             substring(string(tambores_industria.anio,"9999"),3,2) 
+                                    = string(input v_aniolote,"99") and
+             tambores_industria.id_lote = input v_nrolote and
+             tambores_industria.id_tambor   = v_item and
+             tambores_industria.id_articulo = 
+                                input items_factura.id_articulo and
+             (if v_nromov <> 0 then tambores_industria.nromov = v_nromov
+              else true) and
+             tambores_industria.id_sucursal_ubicacion <> 85 and
+             tambores_industria.id_sucursal_ubicacion = vlc_suc_desp and
+             tambores_industria.id_locacion_ubicacion <> 10 and
+             tambores_industria.kilos_tambor          = v_kilos_tambor
+             no-lock no-error.
+        if not available tambores_industria and
+        v_ok_haslote then
+        do:
+           message "TAMBORES NO ESTAN EN CONDICIONES DE DESPACHAR !!"
+                 view-as alert-box.
+           assign v_ok_haslote = false.
+        end.
+     end.
+   else
+     if input items_factura.id_articulo = 411 or
+        input items_factura.id_articulo = 471 or
+        input items_factura.id_articulo = 481 or
+        input items_factura.id_articulo = 511 or
+        input items_factura.id_articulo = 581 or
+        input items_factura.id_articulo = 582 or
+        input items_factura.id_articulo = 571 then
+     do:  
+        assign v_ok_haslote = true.
+        do v_item = input items_factura.desde_lote to
+                    input items_factura.hasta_lote:
+                    
+           if v_item = input items_factura.desde_lote then
+             find first tambores_industria where
+               tambores_industria.id_articulo    =
+                            input items_factura.id_articulo and
+               tambores_industria.id_tipotambor         = 2 and
+               tambores_industria.id_sucursal_ubicacion = 
+                            vpi_id_sucursal and
+               tambores_industria.id_locacion_ubicacion = 4
+               no-lock no-error.
+           else
+             find next tambores_industria where
+               tambores_industria.id_articulo    =
+                            input items_factura.id_articulo and
+               tambores_industria.id_tipotambor         = 2 and
+               tambores_industria.id_sucursal_ubicacion =
+                            vpi_id_sucursal and
+               tambores_industria.id_locacion_ubicacion = 4
+               no-lock no-error.
+                   
+           if not available tambores_industria then
+           do:
+              message "NO SE DISPONE DE TAMBORES PARA DESPACHAR !!!"
+                view-as alert-box.
+              assign v_ok_haslote = false.
+              release tambores_industria.
+              leave.
+           end.
+        end.
+     end.
+end.
+
+*/

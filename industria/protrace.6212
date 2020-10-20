@@ -1,0 +1,123 @@
+=====================================================
+PROGRESS stack trace as of Thu Aug 16 09:30:53 2018
+=====================================================
+
+Progress OpenEdge Release 11.7 build 1388 on WINNT 
+
+Startup parameters:
+-pf C:\Progress\OpenEdge117\startup.pf,-cpinternal ISO8859-1,-cpstream ISO8859-1,-cpcoll Basic,-cpcase Basic,-d dmy,-numsep 44,-numdec 46,(end .pf),-wy,-nosplash,-debugalert,-inp 16000,-tok 4000,-rereadnolock,-s 200,-mmax 65534,-T C:/OpenEdge/WRK117,-basekey ini,-ininame F:\sistemas\etc\progress11.ini,-T c:\temp,-debugalert,-inp 16000,-tok 4000,-rereadnolock,-s 300,-mmax 65534,-h 10,-p C:\Progress\OpenEdge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_server.p
+
+Exception code: C0000005 ACCESS_VIOLATION
+Fault address:  00007FFEAC40133A 01:000000000071033A C:\Progress\OpenEdge117\bin\prow.dll
+
+Registers:
+RAX:00007FFEAC816050
+RBX:0000021C6D42CA20
+RCX:0000000000000000
+RDX:000000A04A98D348
+RSI:0000021C6D42CA20
+RDI:0000000000020002
+R8 :0000000069760000
+R9 :000000A0000002D3
+R10:00000000AC401000
+R11:00007FFEABCF0000
+R12:0000000000000080
+R13:00000000001DC000
+R14:0000002000001000
+R15:0000000001000000
+CS:RIP:0033:00007FFEAC40133A
+SS:RSP:002B:000000A04A98D270  RBP:000000A04A98D420
+DS:002B  ES:002B  FS:0053  GS:002B
+Flags:00010202
+
+
+Debugging dll: C:\Progress\OpenEdge117\bin\DBGHELP.DLL
+Symbol Path:
+ C:\Progress\OpenEdge117\bin;C:\Progress\OpenEdge117\pdbfiles
+
+
+Call Stack:
+Address           Frame
+00007FFEAC40133A  000000A04A98D310  wwProxInterfaceReadIconW+C56A
+00007FFEABFACC51  000000A04A98D470  updateImmutableProperty+183851
+00007FFEABF413F9  000000A04A98D500  updateImmutableProperty+117FF9
+00007FFEABFAC640  000000A04A98D5A0  updateImmutableProperty+183240
+00007FFEABFAF052  000000A04A98D6B0  updateImmutableProperty+185C52
+00007FFEABF40AC8  000000A04A98D720  updateImmutableProperty+1176C8
+00007FFEABF3E31C  000000A04A98D760  updateImmutableProperty+114F1C
+00007FFEAC0EA8FD  000000A04A98D7E0  DllUnregisterServer+90A5D
+00007FFEAC0EB018  000000A04A98D840  DllUnregisterServer+91178
+00007FFEABDDD3D1  000000A04A98D900  dsmObjectTruncate+3ED31
+00007FFEAC0EB756  000000A04A98DA00  DllUnregisterServer+918B6
+00007FFEAC1242C1  000000A04A98DAB0  DllUnregisterServer+CA421
+00007FFEAC12F27A  000000A04A98DAE0  DllUnregisterServer+D53DA
+00007FFEABF45397  000000A04A98DB80  updateImmutableProperty+11BF97
+00007FFEAC3AF73C  000000A04A98DC60  rcUpgradeRecord+D51AC
+00007FFEAC3B9871  000000A04A98DC90  rcUpgradeRecord+DF2E1
+00007FFEAC493692  000000A04A98DCF0  Progress::ClrBridge::rnProFromClr::runEventDispatcher+12
+00007FFE6E2F3B4D  000000A04A98DCF8  0000:0000000000000000 
+0000000000000001  000000A04A98DD00  0000:0000000000000000 
+00007FFEC0000005  000000A04A98DD08  0000:0000000000000000 
+000000A04A98C1B0  000000A04A98DD10  0000:0000000000000000 
+0000021C697F3CE8  000000A04A98DD18  0000:0000000000000000 
+000048EE39BE43C8  000000A04A98DD20  0000:0000000000000000 
+00007FFECDFD9918  000000A04A98DD28  LegacyNGenTryEnumerateFusionCache+D21D8
+000000A04A98E388  000000A04A98DD30  0000:0000000000000000 
+0000FFFD58926D01  000000A04A98DD38  0000:0000000000000000 
+0000FFFD58926D01  000000A04A98DD40  0000:0000000000000000 
+000000A04A98DD00  000000A04A98DD48  0000:0000000000000000 
+00007FFE6E2F3B4D  000000A04A98DD50  0000:0000000000000000 
+000000A04A98DDA0  000000A04A98DD58  0000:0000000000000000 
+0000FFFD58926D01  000000A04A98DD60  0000:0000000000000000 
+0000000000000001  000000A04A98DD68  0000:0000000000000000 
+000000A04A98DF48  000000A04A98DD70  0000:0000000000000000 
+000000A04A98DFD0  000000A04A98DD78  0000:0000000000000000 
+
+
+** ABL Stack Trace **
+
+--> adeuib/_undsdo.p at line 1716  (adeuib/_undsdo.r)
+    adeuib/_rdqury.p at line 2976  (adeuib/_rdqury.r)
+    analyze-suspend-reader adeuib/_qssuckr.p at line 4765  (adeuib/_qssuckr.r)
+    adeuib/_qssuckr.p at line 4373  (adeuib/_qssuckr.r)
+    adeuib/_open-w.p at line 1785  (adeuib/_open-w.r)
+    openDesignWindow adeuib/_oeideuib.p at line 772  (adeuib/_oeideuib.r)
+    executeCmd C:\Progress\OpenEdge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_server.p at line 255  (C:\Progress\OpenEdge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_server.p)
+    ReceiveCommand C:\Progress\OpenEdge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_socketclient.p at line 497  (C:\Progress\OpenEdge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_socketclient.p)
+    adeuib/_uibmain.p at line 5845  (adeuib/_uibmain.r)
+    _ab.p at line 394  (C:\Progress\OpenEdge117\gui\_ab.r)
+    runAppBuilder c:/progress/openedge117/oeide/eclipse/plugins/com.openedge.pdt.oestudio_11.7.0.00/runtime/_abruntime.p at line 151  (c:\progress\openedge117\oeide\eclipse\plugins\com.openedge.pdt.oestudio_11.7.0.00\runtime\_abruntime.p)
+    executeCmd C:\Progress\OpenEdge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_server.p at line 255  (C:\Progress\OpenEdge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_server.p)
+    ReceiveCommand C:\Progress\OpenEdge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_socketclient.p at line 497  (C:\Progress\OpenEdge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_socketclient.p)
+    C:\Progress\OpenEdge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_server.p at line 174  (C:\Progress\OpenEdge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_server.p)
+
+** Persistent procedures/Classes **
+
+Handle  File Name
+001758  adeuib/ide/request/_requestmanager.r
+000000  adeuib/ide/request/_request.r (STATIC)
+001731  adeuib/_oeideuib.r
+001730  adecomm/as-utils.r
+001686  adecomm/_palette.r
+001685  protools/_protool.r
+001147  adecomm/_winmenu.r
+001146  adeshar/_mlmgr.r
+001027  adeuib/_oeidesync.r
+001011  adeuib/_abfuncs.r
+001010  adecomm/oeideservice.r
+001009  c:\progress\openedge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_serverdefault.p
+001008  c:\progress\openedge117\oeide\eclipse\plugins\com.openedge.pdt.ve_11.7.0.00\runtime\_ideveruntime.p
+001007  c:\progress\openedge117\oeide\eclipse\plugins\com.openedge.pdt.text_11.7.0.00\runtime\_idetxtruntime.p
+001006  c:\progress\openedge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_idewsruntime.p
+001005  c:\progress\openedge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_idedbruntime.p
+001004  c:\progress\openedge117\oeide\eclipse\plugins\com.openedge.pdt.oestudio_11.7.0.00\runtime\_abruntime.p
+001002  C:\Progress\OpenEdge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_socketclient.p
+001000  C:\Progress\OpenEdge117\oeide\eclipse\plugins\com.openedge.pdt.project_11.7.0.00\runtime\_oeidecontext.p
+
+** PROPATH **
+F:\sistemas\programas\industria,C:\Progress\OpenEdge117\gui\,C:\Progress\OpenEdge117\gui\adecomm.pl,C:\Progress\OpenEdge117\gui\adecomp.pl,C:\Progress\OpenEdge117\gui\adedict.pl,C:\Progress\OpenEdge117\gui\adeedit.pl,C:\Progress\OpenEdge117\gui\adeicon.pl,C:\Progress\OpenEdge117\gui\adeshar.pl,C:\Progress\OpenEdge117\gui\adeuib.pl,C:\Progress\OpenEdge117\gui\adeweb.pl,C:\Progress\OpenEdge117\gui\adexml.pl,C:\Progress\OpenEdge117\gui\dataadmin.pl,C:\Progress\OpenEdge117\gui\prodict.pl,C:\Progress\OpenEdge117\gui\protools.pl,C:\Progress\OpenEdge117\gui\OpenEdge.Core.pl,C:\Progress\OpenEdge117\gui\OpenEdge.BusinessLogic.pl,C:\Progress\OpenEdge117\gui\netlib\OpenEdge.Net.pl,C:\Progress\OpenEdge117,C:\Progress\OpenEdge117\bin,F:\sistemas\programas,F:\sistemas\programas\supervisor\core\src,F:\sistemas\programas\supervisor\core\gui,F:\sistemas\programas\supervisor\core\custom,F:\sistemas\programas\supervisor\core,F:\sistemas\programas\supervisor,C:\Progress\OpenEdge117\gui,C:\Progress\OpenEdge117\gui\ablunit.pl,C:\Progress\OpenEdge117\gui\adedesk.pl,C:\Progress\OpenEdge117\gui\OpenEdge.ServerAdmin.pl
+
+** Databases (logical/type/physical) **
+   general             PROGRESS  general
+
+** End of Protrace **

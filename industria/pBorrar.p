@@ -1,0 +1,13 @@
+
+
+&SCOPED-DEFINE PublicVersion  0
+
+
+
+&IF DEFINED(PublicVersion) > 1 
+&THEN
+  MESSAGE "mayor que 1" VIEW-AS ALERT-BOX INFO BUTTONS OK.
+&ELSE
+  MESSAGE "menor que 1" VIEW-AS ALERT-BOX INFO BUTTONS OK.
+
+&ENDIF

@@ -1,0 +1,296 @@
+UPDATE DATABASE "?"
+
+ADD TABLE "productos_sap"
+  LABEL "Productos Terminados Sap"
+  DUMP-NAME "prod_sap"
+  FILE-MISC26 "Productos Terminados Sap"
+
+ADD FIELD "especie" OF "productos_sap" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Especie"
+  COLUMN-LABEL "Especie"
+  ORDER 80
+
+ADD FIELD "esp_abrev" OF "productos_sap" AS character 
+  FORMAT "X(12)"
+  INITIAL ""
+  LABEL "Esp.Abrev."
+  COLUMN-LABEL "Esp.Abrev."
+  ORDER 90
+
+ADD FIELD "id_marca" OF "productos_sap" AS integer 
+  DESCRIPTION "Marca del producto"
+  FORMAT "->>9"
+  INITIAL "0"
+  LABEL "Marca"
+  COLUMN-LABEL "Marca"
+  HELP "Marca del producto"
+  ORDER 140
+
+ADD FIELD "id_articulo" OF "productos_sap" AS integer 
+  DESCRIPTION " Código del producto"
+  FORMAT ">>>>>>>>9"
+  INITIAL "0"
+  LABEL "Código"
+  COLUMN-LABEL "Código"
+  HELP " Código del producto"
+  ORDER 70
+
+ADD FIELD "id_variedad" OF "productos_sap" AS integer 
+  DESCRIPTION "Código de variedad"
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "variedad"
+  COLUMN-LABEL "variedad"
+  HELP "Código de variedad del producto"
+  ORDER 100
+
+ADD FIELD "variedad" OF "productos_sap" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Variedad"
+  COLUMN-LABEL "Variedad"
+  ORDER 110
+
+ADD FIELD "id_envase" OF "productos_sap" AS integer 
+  DESCRIPTION "Codigo de envase"
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Envase"
+  COLUMN-LABEL "Envase"
+  HELP "Codigo de envase"
+  ORDER 170
+
+ADD FIELD "id_calidad" OF "productos_sap" AS integer 
+  DESCRIPTION "Código de calidad del producto"
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Calidad"
+  COLUMN-LABEL "Calidad"
+  HELP "Código de calidad del producto"
+  ORDER 200
+
+ADD FIELD "var_abrev" OF "productos_sap" AS character 
+  FORMAT "X(12)"
+  INITIAL ""
+  LABEL "Var.Abrev."
+  COLUMN-LABEL "Var.Abrev."
+  ORDER 120
+
+ADD FIELD "marca" OF "productos_sap" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Marca"
+  COLUMN-LABEL "Marca"
+  ORDER 150
+
+ADD FIELD "mar_abrev" OF "productos_sap" AS character 
+  FORMAT "X(12)"
+  INITIAL ""
+  LABEL "Mar.Abrev."
+  COLUMN-LABEL "Mar.Abrev."
+  ORDER 160
+
+ADD FIELD "envase" OF "productos_sap" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Envase"
+  COLUMN-LABEL "Envase"
+  ORDER 180
+
+ADD FIELD "env_abrev" OF "productos_sap" AS character 
+  FORMAT "X(12)"
+  INITIAL ""
+  LABEL "Env.Abrev."
+  COLUMN-LABEL "Env.Abrev."
+  ORDER 190
+
+ADD FIELD "calidad" OF "productos_sap" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Calidad"
+  COLUMN-LABEL "Calidad"
+  ORDER 210
+
+ADD FIELD "cal_abrev" OF "productos_sap" AS character 
+  FORMAT "X(10)"
+  INITIAL ""
+  LABEL "Cal.Abrev."
+  COLUMN-LABEL "Cal.Abrev."
+  ORDER 220
+
+ADD FIELD "pallet" OF "productos_sap" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Tipo Pallet"
+  COLUMN-LABEL "Tipo Pallet"
+  ORDER 250
+
+ADD FIELD "pal_abrev" OF "productos_sap" AS character 
+  FORMAT "X(5)"
+  INITIAL ""
+  LABEL "T.P..Abrev."
+  COLUMN-LABEL "T.P..Abrev."
+  ORDER 260
+
+ADD FIELD "esquinero" OF "productos_sap" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  LABEL "Esquinero"
+  COLUMN-LABEL "Esquinero"
+  ORDER 280
+
+ADD FIELD "id_tipo_pallet" OF "productos_sap" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Pallet"
+  COLUMN-LABEL "Tipo Pallet"
+  ORDER 240
+
+ADD FIELD "id_tipo_esquinero" OF "productos_sap" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Esquinero"
+  COLUMN-LABEL "Tipo Esquinero"
+  ORDER 270
+
+ADD FIELD "esq_abrev" OF "productos_sap" AS character 
+  FORMAT "X(5)"
+  INITIAL ""
+  LABEL "Esq.Abrev."
+  COLUMN-LABEL "Esq.Abrev."
+  ORDER 290
+
+ADD FIELD "id_producto_sap" OF "productos_sap" AS character 
+  FORMAT "X(18)"
+  INITIAL ""
+  LABEL "Cod.Producto SAP"
+  COLUMN-LABEL "Cod.Producto SAP"
+  ORDER 50
+
+ADD FIELD "descripcion_sap" OF "productos_sap" AS character 
+  FORMAT "X(80)"
+  INITIAL ""
+  LABEL "Descripcion Producto SAP"
+  COLUMN-LABEL "Descripcion Producto SAP"
+  ORDER 60
+
+ADD FIELD "nro_calidad" OF "productos_sap" AS character 
+  FORMAT "X(8)"
+  INITIAL ""
+  LABEL "Nro.Calidad"
+  COLUMN-LABEL "Nro.Calidad"
+  ORDER 230
+
+ADD FIELD "id_articulo_sap" OF "productos_sap" AS character 
+  FORMAT "X(5)"
+  INITIAL ""
+  LABEL "Cod.Especie SAP"
+  COLUMN-LABEL "Cod.Esp.SAP"
+  ORDER 10
+
+ADD FIELD "id_confeccion_sap" OF "productos_sap" AS character 
+  FORMAT "X(4)"
+  INITIAL ""
+  LABEL "Cod.Conf.SAP"
+  COLUMN-LABEL "Cod.Conf.SAP"
+  ORDER 20
+
+ADD FIELD "id_tipo_pallet_sap" OF "productos_sap" AS character 
+  FORMAT "X(2)"
+  INITIAL ""
+  LABEL "Cod.Pal.SAP"
+  COLUMN-LABEL "Cod.Pal.SAP"
+  ORDER 30
+
+ADD FIELD "id_confeccion" OF "productos_sap" AS integer 
+  FORMAT ">>>,>>9"
+  INITIAL "0"
+  LABEL "Confeccion"
+  COLUMN-LABEL "Confec."
+  ORDER 130
+
+ADD FIELD "id_tipo_esquinero_sap" OF "productos_sap" AS character 
+  FORMAT "X(2)"
+  INITIAL ""
+  LABEL "Cod.Esq.SAP"
+  COLUMN-LABEL "Cod.Esq.SAP"
+  ORDER 40
+
+ADD INDEX "productos_sap" ON "productos_sap" 
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "id_articulo" ASCENDING 
+  INDEX-FIELD "id_variedad" ASCENDING 
+  INDEX-FIELD "id_confeccion" ASCENDING 
+  INDEX-FIELD "id_tipo_pallet" ASCENDING 
+  INDEX-FIELD "id_tipo_esquinero" ASCENDING 
+
+ADD INDEX "calidades" ON "productos_sap" 
+  INDEX-FIELD "id_calidad" ASCENDING 
+
+ADD INDEX "confecciones_packing" ON "productos_sap" 
+  INDEX-FIELD "id_confeccion" ASCENDING 
+
+ADD INDEX "envases_prod" ON "productos_sap" 
+  INDEX-FIELD "id_envase" ASCENDING 
+
+ADD INDEX "marcas_prod" ON "productos_sap" 
+  INDEX-FIELD "id_marca" ASCENDING 
+
+ADD INDEX "productos_terminados" ON "productos_sap" 
+  INDEX-FIELD "id_articulo" ASCENDING 
+
+ADD INDEX "tipo_esquinero" ON "productos_sap" 
+  INDEX-FIELD "id_tipo_esquinero" ASCENDING 
+
+ADD INDEX "tipo_pallet" ON "productos_sap" 
+  INDEX-FIELD "id_tipo_pallet" ASCENDING 
+
+ADD INDEX "variedades" ON "productos_sap" 
+  INDEX-FIELD "id_variedad" ASCENDING 
+
+ADD TABLE "tipo_pallets_sap"
+  LABEL "Tipo Pallets SAP"
+  DUMP-NAME "pall_sap"
+  FILE-MISC26 "Tipo Pallets SAP"
+
+ADD FIELD "id_tipo_pallet" OF "tipo_pallets_sap" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Pallet"
+  COLUMN-LABEL "Tipo Pallet"
+  ORDER 10
+
+ADD FIELD "descripcion" OF "tipo_pallets_sap" AS character 
+  FORMAT "X(30)"
+  INITIAL ""
+  ORDER 30
+
+ADD FIELD "id_tipo_pallet_sap" OF "tipo_pallets_sap" AS integer 
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Tipo Pallet"
+  COLUMN-LABEL "Tipo Pallet"
+  ORDER 20
+
+ADD FIELD "abreviatura" OF "tipo_pallets_sap" AS character 
+  FORMAT "X(5)"
+  INITIAL ""
+  LABEL "Abreviatura"
+  COLUMN-LABEL "Abreviatura"
+  VALEXP "abreviatura <> """""
+  VALMSG "Debe ingresar la abreviatura"
+  ORDER 40
+
+ADD INDEX "tipo_pallets" ON "tipo_pallets_sap" 
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "id_tipo_pallet" ASCENDING 
+
+.
+PSC
+codepage=iso8859-1
+.
+0000006903

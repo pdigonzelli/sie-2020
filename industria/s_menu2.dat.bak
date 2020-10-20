@@ -1,0 +1,183 @@
+y   001  Actividades
+y      011  Lotes --- Contrato
+y         111  Lotes Jugo-Contratos                             s_noinst.p
+y         112  Lot.Aceite-Contratos                             s_noinst.p
+y         113  Tambores Items OE                                s_noinst.p
+y         114  Lotes Jugo-ItemOE                                s_noinst.p
+y         115  LotesAceite-ItemOE                               s_noinst.p
+y      012  Movimientos Fisicos
+y         120  Locaciones                                       s_noinst.p
+y         121  Posiciones                                       s_noinst.p
+y         122  Tipos Movimientos                                s_noinst.p
+y         123  Ubicaciones                                      s_noinst.p
+y         124  Mov. Existentes                                  s_noinst.p
+y         125  Movimientos                                      s_noinst.p
+y         126  Ubicacion Tambores                               s_noinst.p
+y         127  Inventario                                       s_noinst.p
+y         128  Mov. Manuales                                    s_noinst.p
+y         129  Transferencias                                   s_noinst.p
+y         230  Transf. Terpeno                                  s_noinst.p
+y      013  Control Calidad
+y         231  Ctrol Calidad Jugo                               s_noinst.p
+y         232  Ctrol Calidad Aceite                             s_noinst.p
+y         233  Ctrol Calidad Microb                             s_noinst.p
+y         234  AprobacionProtocolos                             s_noinst.p
+y      140  Contratos
+y         141  Contratos                                        s_noinst.p
+y         142  Contratos Consulta                               s_noinst.p
+y         143  Tipos de Plazo                                   s_noinst.p
+y         144  Contactos                                        s_noinst.p
+y         145  Gastos Ventas                                    s_noinst.p
+y         146  Bancos                                           s_noinst.p
+y         147  Tipos Contratos                                  s_noinst.p
+y         148  Instrumentos Pagos                               s_noinst.p
+y      160  Aduana
+y         161  Orden Entrega                                    s_noinst.p
+y         162  Consulta OE Tambores                             s_noinst.p
+y         163  Estados OE                                       s_noinst.p
+y         164  Gastos Fijos                                     s_noinst.p
+y         165  Gastos Fletes                                    s_noinst.p
+y         166  Gastos Seguros                                   s_noinst.p
+y         167  Clausulas-Gastos                                 s_noinst.p
+y         168  LiberarPartesContrat                             s_noinst.p
+y         169  OE Fruta Fresca                                  s_noinst.p
+y         294  Pedido Fondos OE                                 s_noinst.p
+y      015  Permisos Embarque
+y         150  PE Prod Elaborados                               s_noinst.p
+y         151  PE Fruta Fresca                                  s_noinst.p
+y         152  Permisos Embarque                                s_noinst.p
+y         153  Rep.EnvioTucxFecha                               s_noinst.p
+y         154  Posicion Arancelaria                             s_noinst.p
+y         155  Permisos Embarque 9                              s_noinst.p
+y         156  Gestion de Cobranzas                             s_noinst.p
+y      027  Remitos
+y         040  Remito                                           s_noinst.p
+y         041  ProcesamientoRemito                              s_noinst.p
+y         042  Anulacion Remito                                 s_noinst.p
+y         043  Consulta Remitos                                 s_noinst.p
+y      028  Depositos Externos
+y         170  Ingreso Lote Dep Ext                             s_noinst.p
+y         171  Release                                          s_noinst.p
+y         172  Confirmacion Release                             s_noinst.p
+y         173  Ajustes                                          s_noinst.p
+y         175  Movimientos Stock                                s_noinst.p
+y         174  Envios                                           s_noinst.p
+y         177  Graficos Dist. Stock                             s_noinst.p
+y         178  Cta. Lotes Rel                                   s_noinst.p
+y         179  Modif. Lote Deposito                             s_noinst.p
+y         105  Facturas Provee Exte                             s_noinst.p
+y         106  Calculo Gastos Relea                             s_noinst.p
+y      026  Cascara
+y         190  Produccion Cascara                               s_noinst.p
+y         191  Lotes Cascara                                    s_noinst.p
+y         192  Asoc. Lotes a OEs                                s_noinst.p
+y         193  Ctrl. Calidad Casc.                              s_noinst.p
+y         194  Reprocesos Cascara                               s_noinst.p
+y         196  Trazabilidad Lotes                               s_noinst.p
+y         195  Reprocesos Produc.                               s_noinst.p
+y         197  Recepcion MTuc                                   s_noinst.p
+y      016  Lotes de Jugos                                      s_noinst.p
+y      017  Lotes de Aceites                                    s_noinst.p
+y      018  Produccion Aceite                                   s_noinst.p
+y      019  Produccion Jugos                                    s_noinst.p
+y      020  Productos Terceros                                  s_noinst.p
+y      014  Cargas                                              s_noinst.p
+y      021  Foldeado                                            s_noinst.p
+y      022  Protocolos                                          s_noinst.p
+y      023  Muestras BUE                                        s_noinst.p
+y      024  Muestras TUC                                        s_noinst.p
+y      176  Competencia                                         s_noinst.p
+y   003  Mantenimientos
+y      031  Varios
+y         290  Listas de Correo                                 s_noinst.p
+y         291  Usuarios de Listas                               s_noinst.p
+y         292  MoviTambAceite                                   s_noinst.p
+y         293  MoviTambAceiteStok                               s_noinst.p
+y      032  Control Calidad
+y         241  Quimicos Ctrol Calid                             s_noinst.p
+y      033  Comercial
+y         250  Clausulas                                        s_noinst.p
+y         251  clientes_ventas                                         s_noinst.p
+y         252  Contratos Modi                                   s_noinst.p
+y         253  Baja Contratos                                   s_noinst.p
+y         254  Tipos Contacto Ind                               s_noinst.p
+y      034  Laboratorios
+y         260  Estados Lotes                                    s_noinst.p
+y         261  ProductosTerminados                              s_noinst.p
+y         262  Calidades - Origenes
+y            135  Calidades                                     s_noinst.p
+y            136  Rel.Prod.Calidades                            s_noinst.p
+y            137  Rel.Prod.Cal.Env.                             s_noinst.p
+y            138  Origenes MP                                   s_noinst.p
+y            139  Tipos Origenes MP                             s_noinst.p
+y         263  Envases                                          s_noinst.p
+y      035  Logistica
+y         270  LotesJ-Estado                                    s_noinst.p
+y         271  Agencias Contenedor                              s_noinst.p
+y         272  Agencias                                         s_noinst.p
+y         273  Contenedores                                     s_noinst.p
+y         274  Sucursales                                       s_noinst.p
+y         275  Porc ReintegroArticu                             s_noinst.p
+y         276  Destinos                                         s_noinst.p
+y         277  Destinos Grupos                                  s_noinst.p
+y         278  Entry                                            s_noinst.p
+y         279  Lugar Descarga                                   s_noinst.p
+y         280  Vapores                                          s_noinst.p
+y         281  Despachantes                                     s_noinst.p
+y         282  Manejo Aduanas                                   s_noinst.p
+y         283  Manejo Compañias                                 s_noinst.p
+y         284  Insumos Lote                                     s_noinst.p
+y      036  Reimp. Etiquetas                                    s_noinst.p
+y      037  Consulta Remitos                                    s_noinst.p
+y      038  Protocolos
+y         243  Contramarcas                                     s_noinst.p
+y         244  Chemical Characteris                             s_noinst.p
+y         245  Relacion Char - Art                              s_noinst.p
+y         246  Colores Protocolos                               s_noinst.p
+y         247  Body Protocolos                                  s_noinst.p
+y         248  Smell/FlavorProtocol                             s_noinst.p
+y         249  Tipos Protocolos                                 s_noinst.p
+y      039  Muestras
+y         180  Envases Muestras                                 s_noinst.p
+y         181  Tipos Contactos                                  s_noinst.p
+y         182  Contactos Muestras                               s_noinst.p
+y         183  Couriers                                         s_noinst.p
+y         184  Prioridades                                      s_noinst.p
+y   005  Reportes
+y      050  Stock
+y         082  Reporte Stock                                    s_noinst.p
+y         083  Stock a Fecha                                    s_noinst.p
+y         084  Rp. Stock Filtros                                s_noinst.p
+y         085  Stock a Fecha N                                  y_stock_f.p
+y      051  Despachos
+y         087  Reporte Despachos                                s_noinst.p
+y      052  Comercial
+y         090  Reporte Contratos                                s_noinst.p
+y         091  Reporte Suzzy                                    s_noinst.p
+y         092  Reportes Excell                                  s_noinst.p
+y      053  Finanzas
+y         096  Estado Contratos                                 s_noinst.p
+y         097  Exporta PE                                       s_noinst.p
+y      054  Logistica
+y         101  Despachos Martin                                 s_noinst.p
+y         102  Presupuesto Finanzas                             s_noinst.p
+y      059  Parte Produccion                                    s_noinst.p
+y   006  Consultas
+y      061  Despacho
+y         299  LotesJ-Estado                                    s_noinst.p
+y      067  Comercial
+y         220  Contratos - OE                                   s_noinst.p
+y         221  OE - Contratos                                   s_noinst.p
+y         222  Muestras - Lotes                                 s_noinst.p
+y         223  Contratos - Release                              s_noinst.p
+y      068  Consulta Stock                                      s_noinst.p
+y      062  Consulta Gall/Drum                                  s_noinst.p
+y      063  Lotes Jugo(Todos)                                   s_noinst.p
+y      064  Lotes Aceite(Todos)                                 s_noinst.p
+y      065  L.Ac.-Oe-Todos                                      s_noinst.p
+y      066  L.Ju.-Oe-Todos                                      s_noinst.p
+y      069  Nuevo Lotes Aceite                                  s_noinst.p
+y   007  Ayuda
+y      071  Teclado                                             s_noinst.p
+y      072  Utilidades                                          s_noinst.p
+y      070  Sistema                                             s_noinst.p

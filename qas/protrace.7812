@@ -1,0 +1,78 @@
+=====================================================
+PROGRESS stack trace as of Sat May 20 09:28:22 2017
+=====================================================
+Startup parameters:
+-pf C:\Progress\OpenEdge102b\startup.pf,-cpinternal ISO8859-1,-cpstream ISO8859-1,-cpcoll Spanish9,-cpcase Basic,-d dmy,-numsep 44,-numdec 46,(end .pf),-wy,-debugalert,-inp 16000,-tok 4000,-rereadnolock,-s 200,-mmax 65534,-T C:\OpenEdge\WRK102b,-p C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_server.p
+
+Exception code: C0000005 ACCESS_VIOLATION
+Fault address:  003D0000 211:01CD009C $fŸ¥þÿÿÿQ†Ww~RXw
+
+Registers:
+EAX:D5295814
+EBX:05230000
+ECX:003D0000
+EDX:003D0000
+ESI:003D0000
+EDI:003D0000
+CS:EIP:0023:003D0000
+SS:ESP:002B:05B0FF84  EBP:05B0FF94
+DS:002B  ES:002B  FS:0053  GS:002B
+Flags:00010246
+
+
+Debugging dll C:\Windows\SYSTEM32\DBGHELP.DLL
+Symbol Path:
+ C:\Progress\OpenEdge102b\bin;C:\Progress\OpenEdge102b\pdbfiles
+
+
+Call Stack:
+Address   Frame
+003D0000  00000000  0000:00000000 
+75237C04  00000000  BaseThreadInitThunk+24
+7758AB8F  00000000  RtlInitializeExceptionChain+8F
+7758AB5A  00000000  RtlInitializeExceptionChain+5A
+
+
+** ABL Stack Trace **
+
+--> C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_server.p (C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_server.p) at line 141
+
+** Persistent procedures/Classes **
+
+Handle  File Name
+001744  adecomm/as-utils.r
+001144  adecomm/_winmenu.r
+001011  adecomm/oeideservice.r
+001008  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_serverDEFAULT.p
+001007  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.ve_10.2.1.08\runtime\_ideveruntime.p
+001006  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.text_10.2.1.08\runtime\_idetxtruntime.p
+001005  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_idewsruntime.p
+001004  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_idedbruntime.p
+001003  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.oestudio_10.2.1.08\runtime\_abruntime.p
+001000  C:\Progress\OpenEdge102b\oeide\eclipse\plugins\com.openedge.pdt.project_10.2.1.08\runtime\_oeidecontext.p
+
+//=====================================================
+PROGRESS stack trace as of Sat May 20 09:28:29 2017
+//=====================================================
+Exception code: C0000005 ACCESS_VIOLATION
+Fault address:  003D0000 00:002829D8 
+
+Registers:
+EAX:D5295814
+EBX:05230000
+ECX:003D0000
+EDX:003D0000
+ESI:003D0000
+EDI:003D0000
+CS:EIP:0023:003D0000
+SS:ESP:002B:05B0FF84  EBP:05B0FF94
+DS:002B  ES:002B  FS:0053  GS:002B
+Flags:00010246
+
+Call Stack:
+Address   Frame
+003D0000  05B0FF80  0000:00000000 
+75237C04  05B0FF94  BaseThreadInitThunk+24
+7758AB8F  05B0FFDC  RtlInitializeExceptionChain+8F
+7758AB5A  05B0FFEC  RtlInitializeExceptionChain+5A
+

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AppContainer xmlns="urn:schemas-progress-com:WSAD:0009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FriendlyName xsi:nil="true"/>
+  <ApplicationRuntimeProperties xsi:nil="true"/>
+  <WSAD>
+    <AppObject>
+      <PGVersion>
+        <PXGVersion>03</PXGVersion>
+      </PGVersion>
+      <PGGenInfo isSessionFree="true">
+        <Author></Author>
+        <VersionString></VersionString>
+        <VersionNumber>1</VersionNumber>
+        <Package></Package>
+        <Service>sap1</Service>
+        <WorkDir>C:\webservices\</WorkDir>
+        <VerboseLogging>true</VerboseLogging>
+        <SaveBeforeGen>true</SaveBeforeGen>
+        <DotNetClient>false</DotNetClient>
+        <JavaClient>false</JavaClient>
+        <WebServicesClient>true</WebServicesClient>
+        <ESBClient>false</ESBClient>
+        <ESBClient2>false</ESBClient2>
+        <UserDefinedAppService>true</UserDefinedAppService>
+        <JavaCompilerType>1</JavaCompilerType>
+        <JavaCompiler>&lt;Install Dir&gt;\jdk\bin\javac</JavaCompiler>
+        <JavaSwitches></JavaSwitches>
+        <JavaClasspathSwitch>-classpath</JavaClasspathSwitch>
+        <JavaClasspath>&lt;Proxy Dir&gt;;&lt;Install Dir&gt;\java\progress.jar;&lt;Install Dir&gt;\java\messages.jar;;&lt;Default classes.zip&gt;;&lt;Install Dir&gt;\java\ext\ecore.sdo.jar;&lt;Install Dir&gt;\java\ext\ecore.change.jar;&lt;Install Dir&gt;\java\ext\commonj.sdo.jar;&lt;Install Dir&gt;\java\ext\ecore.jar;&lt;Install Dir&gt;\java\ext\ecore.resources.jar;&lt;Install Dir&gt;\java\ext\common.jar;&lt;Install Dir&gt;\java\ext\ecore.xmi.jar</JavaClasspath>
+        <DotNetCompilerType>4</DotNetCompilerType>
+        <DotNetCompiler>csc</DotNetCompiler>
+        <DotNetSwitches></DotNetSwitches>
+        <DotNetXSDGenerator>xsd</DotNetXSDGenerator>
+        <DotNetNamespace></DotNetNamespace>
+        <DotNetTitle></DotNetTitle>
+        <DotNetVersion></DotNetVersion>
+        <DotNetDesc></DotNetDesc>
+        <DotNetCompany></DotNetCompany>
+        <DotNetProduct></DotNetProduct>
+        <DotNetPublicKey></DotNetPublicKey>
+        <DotNetDelaySign>false</DotNetDelaySign>
+        <DotNetRuntime>digitally signed</DotNetRuntime>
+        <DotNetDataSetNamespace>StrongTypesNS</DotNetDataSetNamespace>
+        <DNUseDefaultDSNamespace>true</DNUseDefaultDSNamespace>
+        <DNUseNamespaceAsDirs>true</DNUseNamespaceAsDirs>
+        <DotNetUseNullableTypes>false</DotNetUseNullableTypes>
+      </PGGenInfo>
+      <DeploymentWizard>
+        <CurrentEncoding>3</CurrentEncoding>
+        <SoapEndpointURL>http://localhost:8080/wsa/wsa1</SoapEndpointURL>
+        <WebServiceNamespace userDefined="true">http://localhost:8080/wsa/wsa1/orden</WebServiceNamespace>
+        <SoapAction appendToSoapAction="false"/>
+        <ConnectReturnString userDefined="false"/>
+        <TestWSDL RPCEncoded="false" RPCLiteral="false" DocLiteral="true"/>
+        <ESBEncoding>3</ESBEncoding>
+        <EntryEndpoint useDefault="true"/>
+        <FaultEndpoint useDefault="true"/>
+        <RejectedEndpoint useDefault="true"/>
+        <Container></Container>
+        <AppserverURL>AppServerDC://localhost:3091</AppserverURL>
+        <FileName overWrite="false">OrdenProduccion</FileName>
+        <ResourceDirectory>/Resources/OpenEdgeServices</ResourceDirectory>
+        <SonicAppService useFileSystem="false" deployToDS="false" createXAR="false">
+          <ResourceDirectory overWrite="false"></ResourceDirectory>
+          <XARName></XARName>
+        </SonicAppService>
+      </DeploymentWizard>
+      <Name>OrdenProduccion</Name>
+      <ProPath>C:\webservices\</ProPath>
+      <HelpString></HelpString>
+      <ObjectType>false</ObjectType>
+      <AllowUnknown>true</AllowUnknown>
+      <IsTTResultSet>false</IsTTResultSet>
+      <WriteDatasetBeforeImage>false</WriteDatasetBeforeImage>
+      <Procedure isPersistent="false" useFullName="false">
+        <Name>ordenproduccion</Name>
+        <ProcPath></ProcPath>
+        <ProPath>C:\webservices\</ProPath>
+        <ProcExt>p</ProcExt>
+        <ProcDetail isCustomized="true" usesUnknownDefault="true" useRetVal="false" usesTTMappingDefault="true" IsTTResultSet="true" usesBeforeImageDefault="true">
+          <Name>ordenproduccion</Name>
+          <HelpString></HelpString>
+          <ReturnValue allowUnknown="true" ordinal="0" writeXmlBeforeImage="false">
+            <Name>result</Name>
+            <OrigName>result</OrigName>
+            <Type>1</Type>
+            <Mode>0</Mode>
+          </ReturnValue>
+          <Parameter allowUnknown="true" ordinal="1" writeXmlBeforeImage="false">
+            <Name>SORDEN</Name>
+            <OrigName>SORDEN</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="2" writeXmlBeforeImage="false">
+            <Name>SDOCUMENTOVENTA</Name>
+            <OrigName>SDOCUMENTOVENTA</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="3" writeXmlBeforeImage="false">
+            <Name>SSOLICITANTE</Name>
+            <OrigName>SSOLICITANTE</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="4" writeXmlBeforeImage="false">
+            <Name>SNOMBRE</Name>
+            <OrigName>SNOMBRE</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="5" writeXmlBeforeImage="false">
+            <Name>SPOSICIONDOCUMENTOVENTA</Name>
+            <OrigName>SPOSICIONDOCUMENTOVENTA</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="6" writeXmlBeforeImage="false">
+            <Name>SMATERIAL</Name>
+            <OrigName>SMATERIAL</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="7" writeXmlBeforeImage="false">
+            <Name>SESPECIE</Name>
+            <OrigName>SESPECIE</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="8" writeXmlBeforeImage="false">
+            <Name>SVARIEDAD</Name>
+            <OrigName>SVARIEDAD</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="9" writeXmlBeforeImage="false">
+            <Name>SCANTIDAD</Name>
+            <OrigName>SCANTIDAD</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="10" writeXmlBeforeImage="false">
+            <Name>SUNIDAD</Name>
+            <OrigName>SUNIDAD</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="11" writeXmlBeforeImage="false">
+            <Name>SCALIDAD</Name>
+            <OrigName>SCALIDAD</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="12" writeXmlBeforeImage="false">
+            <Name>SCATEGORIA</Name>
+            <OrigName>SCATEGORIA</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="13" writeXmlBeforeImage="false">
+            <Name>STIPOPALLET</Name>
+            <OrigName>STIPOPALLET</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="14" writeXmlBeforeImage="false">
+            <Name>STIPOESQUINERO</Name>
+            <OrigName>STIPOESQUINERO</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="15" writeXmlBeforeImage="false">
+            <Name>SPUERTOLLEGADA</Name>
+            <OrigName>SPUERTOLLEGADA</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="16" writeXmlBeforeImage="false">
+            <Name>SDESCRIPCIONPUERTOLELGADA</Name>
+            <OrigName>SDESCRIPCIONPUERTOLELGADA</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="17" writeXmlBeforeImage="false">
+            <Name>SDESTINO</Name>
+            <OrigName>SDESTINO</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="18" writeXmlBeforeImage="false">
+            <Name>SDESCRIPCIONDESTINO</Name>
+            <OrigName>SDESCRIPCIONDESTINO</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="19" writeXmlBeforeImage="false">
+            <Name>SFECHADOCUMENTO</Name>
+            <OrigName>SFECHADOCUMENTO</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="20" writeXmlBeforeImage="false">
+            <Name>SVAPOR</Name>
+            <OrigName>SVAPOR</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="21" writeXmlBeforeImage="false">
+            <Name>SDESCRIPCIONVAPOR</Name>
+            <OrigName>SDESCRIPCIONVAPOR</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="22" writeXmlBeforeImage="false">
+            <Name>SLUGARDESCARGA</Name>
+            <OrigName>SLUGARDESCARGA</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="23" writeXmlBeforeImage="false">
+            <Name>SPUERTOORIGEN</Name>
+            <OrigName>SPUERTOORIGEN</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="24" writeXmlBeforeImage="false">
+            <Name>SDESCRIPCIONPUERTOORIGEN</Name>
+            <OrigName>SDESCRIPCIONPUERTOORIGEN</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="25" writeXmlBeforeImage="false">
+            <Name>SMERCADO</Name>
+            <OrigName>SMERCADO</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="26" writeXmlBeforeImage="false">
+            <Name>SCONTRAMARCA</Name>
+            <OrigName>SCONTRAMARCA</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="27" writeXmlBeforeImage="false">
+            <Name>SAGENCIA</Name>
+            <OrigName>SAGENCIA</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="28" writeXmlBeforeImage="false">
+            <Name>SDESCRIPCIONAGENCIA</Name>
+            <OrigName>SDESCRIPCIONAGENCIA</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="true" ordinal="29" writeXmlBeforeImage="false">
+            <Name>SFECHAREPARTO</Name>
+            <OrigName>SFECHAREPARTO</OrigName>
+            <Type>1</Type>
+            <Mode>1</Mode>
+          </Parameter>
+          <Parameter allowUnknown="false" ordinal="30" writeXmlBeforeImage="false">
+            <Name>TTITEMS</Name>
+            <OrigName>TTITEMS</OrigName>
+            <Type>15</Type>
+            <Mode>1</Mode>
+            <NamespaceUri xsi:nil="true"/>
+            <MetaData>
+              <FieldName>TDOCVENTAS</FieldName>
+              <Type>1</Type>
+              <Extent>0</Extent>
+              <TypeName>character</TypeName>
+              <XmlNodeType>0</XmlNodeType>
+            </MetaData>
+            <MetaData>
+              <FieldName>TPOSICIONDOCVENTAS</FieldName>
+              <Type>1</Type>
+              <Extent>0</Extent>
+              <TypeName>character</TypeName>
+              <XmlNodeType>0</XmlNodeType>
+            </MetaData>
+            <MetaData>
+              <FieldName>TMATERIAL</FieldName>
+              <Type>1</Type>
+              <Extent>0</Extent>
+              <TypeName>character</TypeName>
+              <XmlNodeType>0</XmlNodeType>
+            </MetaData>
+            <MetaData>
+              <FieldName>TENVASE</FieldName>
+              <Type>1</Type>
+              <Extent>0</Extent>
+              <TypeName>character</TypeName>
+              <XmlNodeType>0</XmlNodeType>
+            </MetaData>
+            <MetaData>
+              <FieldName>TCALIBRESTD</FieldName>
+              <Type>1</Type>
+              <Extent>0</Extent>
+              <TypeName>character</TypeName>
+              <XmlNodeType>0</XmlNodeType>
+            </MetaData>
+            <MetaData>
+              <FieldName>TCALIBREEQU</FieldName>
+              <Type>1</Type>
+              <Extent>0</Extent>
+              <TypeName>character</TypeName>
+              <XmlNodeType>0</XmlNodeType>
+            </MetaData>
+            <MetaData>
+              <FieldName>TCANTIDAD</FieldName>
+              <Type>1</Type>
+              <Extent>0</Extent>
+              <TypeName>character</TypeName>
+              <XmlNodeType>0</XmlNodeType>
+            </MetaData>
+            <MetaData>
+              <FieldName>TUNIDAD</FieldName>
+              <Type>1</Type>
+              <Extent>0</Extent>
+              <TypeName>character</TypeName>
+              <XmlNodeType>0</XmlNodeType>
+            </MetaData>
+            <MetaData>
+              <FieldName>TORDER</FieldName>
+              <Type>1</Type>
+              <Extent>0</Extent>
+              <TypeName>character</TypeName>
+              <XmlNodeType>0</XmlNodeType>
+            </MetaData>
+          </Parameter>
+        </ProcDetail>
+      </Procedure>
+    </AppObject>
+  </WSAD>
+</AppContainer>

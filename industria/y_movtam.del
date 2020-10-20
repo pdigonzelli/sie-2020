@@ -1,0 +1,8 @@
+for each stock where 
+    stock.id_empresa    = movimientos_tambores.id_empresa and
+    stock.id_sucursal   = movimientos_tambores.id_sucursal and
+    stock.id_tipotambor = movimientos_tambores.id_tipotambor and
+    stock.nromov        = movimientos_tambores.nromov_mov 
+    :
+    delete stock.
+end.

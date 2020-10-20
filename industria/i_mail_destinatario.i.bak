@@ -1,0 +1,141 @@
+DEFINE VAR r AS ROWID.
+DEFINE VAR v_subject AS CHAR.
+DEFINE VAR v_body AS CHAR.
+DEFINE VAR v_usuarios AS CHAR.
+DEFINE VAR v_usuarios_com AS CHAR.
+DEFINE VAR v_protocolos AS CHAR.
+DEFINE VAR v_carac AS CHAR.
+DEFINE VAR v_mes AS CHAR.
+DEFINE VARIABLE cArchivo AS CHARACTER  NO-UNDO.
+
+
+IF AVAILABLE protocolos THEN
+  FIND FIRST tambores_industria WHERE tambores_industria.id_empresa    = protocolos.id_empresa
+                                  AND tambores_industria.id_sucursal   = protocolos.id_sucursal
+                                  AND tambores_industria.id_tipotambor = protocolos.id_tipotambor
+                                  AND tambores_industria.nromov        = protocolos.nromov
+                                NO-LOCK NO-ERROR.
+ELSE 
+  MESSAGE "no entra por el find de tambores_industria" VIEW-AS ALERT-BOX INFO BUTTONS OK.
+
+FIND FIRST contramarcas OF protocolos NO-LOCK NO-ERROR.
+FIND FIRST productos_terminados OF protocolos NO-LOCK NO-ERROR.
+FIND FIRST envases_muestras OF items_muestras NO-LOCK NO-ERROR.
+FIND FIRST muestras OF items_muestras NO-LOCK NO-ERROR.
+FIND FIRST contactos_muestras WHERE contactos_muestras.id_contacto = 
+                                    muestras.id_destinatario NO-LOCK NO-ERROR.
+IF contactos_muestras.email <> "" THEN DO:
+    v_subject = "Protocol " + STRING(protocolos.id_protocolo,">>999") + "-" + 
+                               STRING(protocolos.anio,"99").
+    
+    IF items_muestras.fecha_enviado_bue = ? THEN DO:
+        RUN mes_largo.p (INPUT MONTH(industria.items_muestras.fecha_enviado_tuc),
+                         INPUT "ing",
+                         OUTPUT v_mes).
+    
+        FIND FIRST couriers WHERE items_muestras.id_courier_tuc = couriers.id_courier NO-LOCK NO-ERROR.
+        v_body = "On " + v_mes + "/" + STRING(DAY(industria.items_muestras.fecha_enviado_tuc)) + 
+                 " we sent " + STRING(items_muestras.cantidad) + " " + envases_muestras.descripcion_ingles + 
+                 " of " + envases_muestras.volume + " of " + CAPS(productos_terminados.descripcion_ingles) +
+                 " Samples to your attention. " + CHR(10) + "The courier was " + couriers.descripcion + 
+                 " and the AWB# was " + items_muestras.nro_guia_tuc + CHR(10) +
+                 "Please find in this mail the certificate of analysis." + CHR(10) +
+                 "Best regards" +
+                 CHR(10) + CHR(10) + CHR(10).
+    END.
+    ELSE DO:
+        FIND FIRST couriers WHERE items_muestras.id_courier_bue = couriers.id_courier NO-LOCK NO-ERROR.
+        v_body = "This sample was dispached on " + STRING(industria.items_muestras.fecha_enviado_bue) + 
+                 " from Tucuman through " + couriers.descripcion + " with guia number " +
+                                            items_muestras.nro_guia_bue + CHR(10) + CHR(10) + CHR(10).
+    END.
+    
+    v_body = v_body +
+             "GENERAL INFORMATION FOR THE CUSTOMER:" + CHR(10) + 
+             "DATE: " + STRING(MONTH(tambores_industria.fecha)) + "/" +
+                        STRING(DAY(tambores_industria.fecha)) + "/" +
+                        STRING(YEAR(tambores_industria.fecha)) + CHR(10) +
+             "COUNTERMARK: " + CAPS(contramarcas.descripcion) + CHR(10) +
+             "LOT NUMBER: " + STRING(tambores_industria.id_lote,">999") + "/"
+                            + STRING(tambores_industria.anio) + 
+             CHR(10) + CHR(10) +
+             "SAMPLE DESCRIPTION: " + CHR(10) +
+             "IDENTIFICATION LABEL: " + CAPS(productos_terminados.descripcion_ingles) + CHR(10) +
+             "PACKAGING SAMPLE: " + envases_muestras.descripcion_ingles + CHR(10) +
+             "VOLUME: " + STRING(items_muestra.cantidad) + " X " + envases_muestras.volume + CHR(10) +
+             CHR(10) + CHR(10) +
+             "BATCH DESCRIPTION: " + CHR(10) +
+             "NUMBER OF DRUMS: " + STRING(industria.protocolos.cantidad_tambores) + "/" + STRING(industria.protocolos.cantidad_tambores) + CHR(10) +
+             "NET WEIGHT PER DRUM: " + STRING(industria.protocolos.peso_neto) + "KG" + CHR(10) +
+             "DRUMS PER BATCH: " + STRING(industria.protocolos.desde_tambor) + "/" + STRING(industria.protocolos.cantidad_tambores) + " TO " + 
+                                   STRING(industria.protocolos.hasta_tambor) + "/" + STRING(industria.protocolos.cantidad_tambores) + CHR(10) +
+             CHR(10) + CHR(10) +
+             "PHYSICO-CHEMICAL PROPERTIES: " + CHR(10) 
+             .
+    FOR EACH items_protocolo OF protocolos NO-LOCK.
+        FIND FIRST caracteristicas_quimicas WHERE caracteristicas_quimicas.id_caracteristica = items_protocolo.id_caracteristica NO-LOCK NO-ERROR.
+        IF AVAILABLE caracteristicas_quimicas THEN DO:
+            v_carac = v_carac + caracteristicas_quimicas.descripcion + "      " + items_protocolos.valor_caracter + CHR(10).
+        END.
+    END.
+    
+    v_body = v_body + v_carac.
+    v_subject = v_subject + " - " + contactos_muestras.email .
+   
+    FIND FIRST usuarios_listas WHERE usuarios_listas.usuario_sistema = USERID("userdb")
+                               NO-LOCK NO-ERROR.
+    IF AVAILABLE usuarios_listas THEN DO: 
+      v_usuarios = usuarios_listas.email.
+    END.
+    
+    
+    IF TRIM(v_usuarios) = "" THEN DO:
+      v_usuarios = "facundoj@sa-sanmiguel.com".
+      v_subject  = v_subject + " (NO SE ENCONTRO LA DIR DE MAIL DEL DESTINATARIO)".
+    END.
+    /*generar archivo pdf de protocolo*/
+    RUN ..\web\pImpProtocoloPDF.p (cNombreRep,
+                                   "pdfweb",
+                                   "protocolos.id_protocolo = " + STRING(protocolos.id_protocolo) + " and " +
+                                   "protocolos.anio = " + STRING(protocolos.anio) + " and " +
+                                   "protocolos.id_articulo = " + STRING(protocolos.id_articulo) ,
+                                   vof + ";").    
+
+    cArchivo = "..\industria\SAMI.jpg".
+
+    RUN apiSendMail.p (v_usuarios,    /*destinatario*/
+                       v_subject,     /*asunto*/
+                       v_body,        /*cuerpo del mail*/
+                       cArchivo).     /*archivo adjunto*/
+
+    
+    /*
+    RUN SendMail.p(INPUT "",                                      /* SIEMPRE TIENE QUE IR */
+                   INPUT 2,                                       /* PRIORIDAD */
+                   INPUT v_subject,                               /* SUBJECT */
+                   INPUT v_body,                                  /* BODY     */
+                   INPUT v_usuarios,                              /* DEST. SEP COMAS */
+                   INPUT cArchivo).                               /* ARCHIVOS ATTACHED SEP POR COMAS */
+    */
+    /*
+    FOR EACH usuarios_listas where usuarios_listas.id_lista = 8 no-lock.
+        v_usuarios_com = usuarios_listas.email.
+
+        RUN SendMail_BCC.p(INPUT "",                       /* SIEMPRE TIENE QUE IR */
+                           INPUT 2,                                                   /* PRIORIDAD */
+                           INPUT v_subject,                                           /* SUBJECT */
+                           INPUT v_body,                                              /* BODY     */
+                           INPUT v_usuarios,                                          /* DEST. SEP COMAS */
+                           INPUT v_usuarios_com,                                      /* destinatarios CCO */
+                           INPUT ""                                      /* ARCHIVOS ATTACHED SEP POR COMAS */
+                          ).
+    END.
+    */
+    /*
+    IF v_usuarios_com <> "" THEN v_usuarios_com = SUBSTRING(v_usuarios_com,2,LENGTH(v_usuarios_com) - 1).
+    */
+    
+END.
+ELSE MESSAGE "El destinatario " contactos_muestras.nombre " no tiene cargado la direccion de correo electronico." VIEW-AS ALERT-BOX.
+                         
+    

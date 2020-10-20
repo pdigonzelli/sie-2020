@@ -1,0 +1,733 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER UIB_v8r12 GUI
+&ANALYZE-RESUME
+/* Connected Databases 
+          general         PROGRESS
+*/
+&Scoped-define WINDOW-NAME CURRENT-WINDOW
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS V-table-Win 
+/*------------------------------------------------------------------------
+
+  File:
+
+  Description: from VIEWER.W - Template for SmartViewer Objects
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress UIB.             */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartViewer
+
+&Scoped-define ADM-SUPPORTED-LINKS Record-Source,Record-Target,TableIO-Target
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME F-Main
+
+/* External Tables                                                      */
+&Scoped-define EXTERNAL-TABLES r_agencias_contenedores
+&Scoped-define FIRST-EXTERNAL-TABLE r_agencias_contenedores
+
+
+/* Need to scope the external tables to this procedure                  */
+DEFINE QUERY external_tables FOR r_agencias_contenedores.
+/* Standard List Definitions                                            */
+&Scoped-Define ENABLED-FIELDS r_agencias_contenedores.id_agencia ~
+r_agencias_contenedores.id_tipo_contenedor r_agencias_contenedores.importe 
+&Scoped-define FIELD-PAIRS~
+ ~{&FP1}id_agencia ~{&FP2}id_agencia ~{&FP3}~
+ ~{&FP1}id_tipo_contenedor ~{&FP2}id_tipo_contenedor ~{&FP3}~
+ ~{&FP1}importe ~{&FP2}importe ~{&FP3}
+&Scoped-define ENABLED-TABLES r_agencias_contenedores
+&Scoped-define FIRST-ENABLED-TABLE r_agencias_contenedores
+&Scoped-Define DISPLAYED-FIELDS r_agencias_contenedores.id_agencia ~
+r_agencias_contenedores.id_tipo_contenedor r_agencias_contenedores.importe 
+&Scoped-Define DISPLAYED-OBJECTS fi-agencias-descripcion ~
+fi-tipo_contenedor-descripcion 
+
+/* Custom List Definitions                                              */
+/* ADM-CREATE-FIELDS,ADM-ASSIGN-FIELDS,List-3,List-4,List-5,List-6      */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "Foreign Keys" V-table-Win _INLINE
+/* Actions: ? adm/support/keyedit.w ? ? ? */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+/* ************************  Function Prototypes ********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD valida V-table-Win 
+FUNCTION valida RETURNS LOGICAL
+  (input nombre as character, input valor as character , output mensaje as character )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* ***********************  Control Definitions  ********************** */
+
+
+/* Definitions of the field level widgets                               */
+DEFINE VARIABLE fi-agencias-descripcion AS CHARACTER FORMAT "X(256)":U 
+     VIEW-AS FILL-IN 
+     SIZE 29 BY .95
+     FGCOLOR 1  NO-UNDO.
+
+DEFINE VARIABLE fi-tipo_contenedor-descripcion AS CHARACTER FORMAT "X(256)":U 
+     VIEW-AS FILL-IN 
+     SIZE 34 BY .95
+     FGCOLOR 1  NO-UNDO.
+
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME F-Main
+     r_agencias_contenedores.id_agencia AT ROW 1 COL 22 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 11.8 BY 1
+     fi-agencias-descripcion AT ROW 1 COL 34 COLON-ALIGNED NO-LABEL
+     fi-tipo_contenedor-descripcion AT ROW 1.95 COL 29 COLON-ALIGNED NO-LABEL
+     r_agencias_contenedores.id_tipo_contenedor AT ROW 2 COL 22 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 6.2 BY 1
+     r_agencias_contenedores.importe AT ROW 3 COL 22 COLON-ALIGNED
+          VIEW-AS FILL-IN 
+          SIZE 16 BY 1
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY 
+         SIDE-LABELS NO-UNDERLINE THREE-D 
+         AT COL 1 ROW 1 SCROLLABLE .
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartViewer
+   External Tables: general.r_agencias_contenedores
+   Allow: Basic,DB-Fields
+   Frames: 1
+   Add Fields to: EXTERNAL-TABLES
+   Other Settings: PERSISTENT-ONLY
+ */
+
+/* This procedure should always be RUN PERSISTENT.  Report the error,  */
+/* then cleanup and return.                                            */
+IF NOT THIS-PROCEDURE:PERSISTENT THEN DO:
+  MESSAGE "{&FILE-NAME} should only be RUN PERSISTENT."
+          VIEW-AS ALERT-BOX ERROR BUTTONS OK.
+  RETURN.
+END.
+
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+/* DESIGN Window definition (used by the UIB) 
+  CREATE WINDOW V-table-Win ASSIGN
+         HEIGHT             = 3.19
+         WIDTH              = 82.
+/* END WINDOW DEFINITION */
+                                                                        */
+&ANALYZE-RESUME
+
+
+/* ***************  Runtime Attributes and UIB Settings  ************** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR WINDOW V-table-Win
+  VISIBLE,,RUN-PERSISTENT                                               */
+/* SETTINGS FOR FRAME F-Main
+   NOT-VISIBLE Size-to-Fit                                              */
+ASSIGN 
+       FRAME F-Main:SCROLLABLE       = FALSE
+       FRAME F-Main:HIDDEN           = TRUE.
+
+/* SETTINGS FOR FILL-IN fi-agencias-descripcion IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN fi-tipo_contenedor-descripcion IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+
+/* Setting information for Queries and Browse Widgets fields            */
+
+&ANALYZE-SUSPEND _QUERY-BLOCK FRAME F-Main
+/* Query rebuild information for FRAME F-Main
+     _Options          = "NO-LOCK"
+     _Query            is NOT OPENED
+*/  /* FRAME F-Main */
+&ANALYZE-RESUME
+
+ 
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "campos" V-table-Win _INLINE
+/* Actions: custom/support/cuscampv.p custom/support/cuscampv.p ? ? ? */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "relaciones" V-table-Win _INLINE
+/* Actions: custom/support/keyedit.w custom/support/keyedit.w ? ? ? */
+/* campos relacionados con tablas externas 
+general.r_agencias_contenedores.id_agencia;wc_agencias.w;agencias.descripcion;;
+general.r_agencias_contenedores.id_tipo_contenedor;wc_tipo_contenedor.w;tipo_contenedor.descripcion;;
+*/
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "borrado" V-table-Win _INLINE
+/* Actions: ? custom/support/cusborfv.p ? ? ? */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "Cabecera" V-table-Win _INLINE
+/* Actions: ? custom/support/set-cabecera.p ? ? ? */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "Detalle" V-table-Win _INLINE
+/* Actions: ? custom/support/set-detalle.p ? ? ? */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "Items" V-table-Win _INLINE
+/* Actions: ? custom/support/set-items.p ? ? ? */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "SmartViewerCues" V-table-Win _INLINE
+/* Actions: adecomm/_so-cue.w ? adecomm/_so-cued.p ? adecomm/_so-cuew.p */
+/* SmartViewer,uib,49270
+Destroy on next read */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB V-table-Win 
+/* ************************* Included-Libraries *********************** */
+
+{custom/method/cviewer.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ************************  Control Triggers  ************************ */
+
+&Scoped-define SELF-NAME r_agencias_contenedores.id_agencia
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL r_agencias_contenedores.id_agencia V-table-Win
+ON GO OF r_agencias_contenedores.id_agencia IN FRAME F-Main /* Cod.Agencia */
+DO:
+{custom/support/validacion.i}
+     run descriptivos.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL r_agencias_contenedores.id_agencia V-table-Win
+ON LEAVE OF r_agencias_contenedores.id_agencia IN FRAME F-Main /* Cod.Agencia */
+DO:
+{custom/support/validacion.i}
+     run descriptivos.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL r_agencias_contenedores.id_agencia V-table-Win
+ON MOUSE-SELECT-DBLCLICK OF r_agencias_contenedores.id_agencia IN FRAME F-Main /* Cod.Agencia */
+do: 
+define var r as rowid no-undo.
+run wc_agencias.w(output r).
+find agencias where rowid(agencias) = r no-lock no-error.
+if available agencias then 
+general.r_agencias_contenedores.id_agencia:screen-value = string(agencias.id_agencia).
+apply 'U1' to self.
+end.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL r_agencias_contenedores.id_agencia V-table-Win
+ON U1 OF r_agencias_contenedores.id_agencia IN FRAME F-Main /* Cod.Agencia */
+DO:
+{custom/support/validacion.i}
+     run descriptivos.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME r_agencias_contenedores.id_tipo_contenedor
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL r_agencias_contenedores.id_tipo_contenedor V-table-Win
+ON GO OF r_agencias_contenedores.id_tipo_contenedor IN FRAME F-Main /* Tipo de Contenedor */
+DO:
+{custom/support/validacion.i}
+     run descriptivos.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL r_agencias_contenedores.id_tipo_contenedor V-table-Win
+ON LEAVE OF r_agencias_contenedores.id_tipo_contenedor IN FRAME F-Main /* Tipo de Contenedor */
+DO:
+{custom/support/validacion.i}
+     run descriptivos.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL r_agencias_contenedores.id_tipo_contenedor V-table-Win
+ON MOUSE-SELECT-DBLCLICK OF r_agencias_contenedores.id_tipo_contenedor IN FRAME F-Main /* Tipo de Contenedor */
+do: 
+define var r as rowid no-undo.
+run wc_tipo_contenedor.w(output r).
+find tipo_contenedor where rowid(tipo_contenedor) = r no-lock no-error.
+if available tipo_contenedor then 
+general.r_agencias_contenedores.id_tipo_contenedor:screen-value = string(tipo_contenedor.id_tipo_contenedor).
+apply 'U1' to self.
+end.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL r_agencias_contenedores.id_tipo_contenedor V-table-Win
+ON U1 OF r_agencias_contenedores.id_tipo_contenedor IN FRAME F-Main /* Tipo de Contenedor */
+DO:
+{custom/support/validacion.i}
+     run descriptivos.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME r_agencias_contenedores.importe
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL r_agencias_contenedores.importe V-table-Win
+ON LEAVE OF r_agencias_contenedores.importe IN FRAME F-Main /* Importe */
+DO:
+{custom/support/validacion.i}
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&UNDEFINE SELF-NAME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK V-table-Win 
+
+
+/* ***************************  Main Block  *************************** */
+
+  &IF DEFINED(UIB_IS_RUNNING) <> 0 &THEN          
+    RUN dispatch IN THIS-PROCEDURE ('initialize':U).        
+  &ENDIF         
+ 
+ 
+  /************************ INTERNAL PROCEDURES ********************/
+{custom/support/vinternal.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-post-create V-table-Win 
+PROCEDURE adm-post-create :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-post-delete V-table-Win 
+PROCEDURE adm-post-delete :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-post-update V-table-Win 
+PROCEDURE adm-post-update :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-pre-create V-table-Win 
+PROCEDURE adm-pre-create :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-pre-delete V-table-Win 
+PROCEDURE adm-pre-delete :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-row-available V-table-Win _ADM-ROW-AVAILABLE
+PROCEDURE adm-row-available :
+/*------------------------------------------------------------------------------
+  Purpose:     Dispatched to this procedure when the Record-
+               Source has a new row available.  This procedure
+               tries to get the new row (or foriegn keys) from
+               the Record-Source and process it.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+
+  /* Define variables needed by this internal procedure.             */
+  {src/adm/template/row-head.i}
+
+  /* Create a list of all the tables that we need to get.            */
+  {src/adm/template/row-list.i "r_agencias_contenedores"}
+
+  /* Get the record ROWID's from the RECORD-SOURCE.                  */
+  {src/adm/template/row-get.i}
+
+  /* FIND each record specified by the RECORD-SOURCE.                */
+  {src/adm/template/row-find.i "r_agencias_contenedores"}
+
+  /* Process the newly available records (i.e. display fields,
+     open queries, and/or pass records on to any RECORD-TARGETS).    */
+  {src/adm/template/row-end.i}
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE agregar V-table-Win 
+PROCEDURE agregar :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+    define var ch as character no-undo.
+    define var i as integer no-undo.
+    define var h as handle no-undo.
+    run get-link-handle in adm-broker-hdl 
+        ( input this-procedure , input 'TABLEIO-SOURCE' , output ch). 
+    do i = 1 to num-entries(ch) :
+        h = widget-handle(entry(i,ch)).
+        if valid-handle(h) then
+            run agregar in h.     
+    end. 
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE descriptivos V-table-Win 
+PROCEDURE descriptivos :
+find first agencias where agencias.id_agencia = integer(r_agencias_contenedores.id_agencia:screen-value in frame F-Main)  no-lock no-error .
+if available agencias then 
+fi-agencias-descripcion:screen-value in frame F-Main = string(agencias.descripcion).
+else
+fi-agencias-descripcion:screen-value in frame F-Main = ''.
+
+find first tipo_contenedor where tipo_contenedor.id_tipo_contenedor = integer(r_agencias_contenedores.id_tipo_contenedor:screen-value in frame F-Main)  no-lock no-error .
+if available tipo_contenedor then 
+fi-tipo_contenedor-descripcion:screen-value in frame F-Main = string(tipo_contenedor.descripcion).
+else
+fi-tipo_contenedor-descripcion:screen-value in frame F-Main = ''.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE deshabilita_campos V-table-Win 
+PROCEDURE deshabilita_campos :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter lista_campos as character.
+define var i as integer no-undo.
+define var f as handle no-undo.
+define var h as handle no-undo.
+
+
+do i = 1 to num-entries(lista_campos):
+    f = frame f-main:first-child.
+    h = f:first-tab-item.
+    do while valid-handle(h):
+        if h:name = entry(i,lista_campos) then
+        do:
+            h:sensitive = false.
+            leave.
+        end.    
+        h = h:next-tab-item.
+    end.
+end.
+
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI V-table-Win _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Hide all frames. */
+  HIDE FRAME F-Main.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE grabar V-table-Win 
+PROCEDURE grabar :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+    define var ch as character no-undo.
+    define var i as integer no-undo.
+    define var h as handle no-undo.
+    run get-link-handle in adm-broker-hdl 
+        ( input this-procedure , input 'TABLEIO-SOURCE' , output ch). 
+    do i = 1 to num-entries(ch) :
+        h = widget-handle(entry(i,ch)).
+        if valid-handle(h) then
+        do:
+            run activa in h.
+            run grabar in h.
+        end.        
+    end. 
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE habilitar_relacion V-table-Win 
+PROCEDURE habilitar_relacion :
+define var field-group as handle.
+define var cur-control as handle.
+define var lista_relacion as character no-undo initial "id_agencia,id_tipo_contenedor".
+field-group = frame {&FRAME-NAME}:first-child.
+cur-control = field-group:first-tab-item.
+do while valid-handle(cur-control): 
+
+    if cur-control:visible and cur-control:type = "fill-in"
+    and lookup(cur-control:name,lista_relacion) <> 0 then 
+        cur-control:load-mouse-pointer("glove").
+    cur-control = cur-control:next-tab-item.
+end.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE local-initialize V-table-Win 
+PROCEDURE local-initialize :
+/*------------------------------------------------------------------------------
+  Purpose:     Override standard ADM method
+  Notes:       
+------------------------------------------------------------------------------*/
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  DEFINE VAR CVINCULADO AS CHARACTER NO-UNDO.
+  RUN GET-LINK-HANDLE IN ADM-BROKER-HDL ( THIS-PROCEDURE , 'VINCULADO-SOURCE' , OUTPUT CVINCULADO ).
+  HVINCULADO = WIDGET-HANDLE(CVINCULADO).
+  /* Dispatch standard ADM method.                             */
+  RUN dispatch IN THIS-PROCEDURE ( INPUT 'initialize':U ) .
+
+  /* Code placed here will execute AFTER standard behavior.    */
+  run habilitar_relacion.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE local-row-available V-table-Win 
+PROCEDURE local-row-available :
+/*------------------------------------------------------------------------------
+  Purpose:     Override standard ADM method
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+
+  /* Dispatch standard ADM method.                             */
+  RUN dispatch IN THIS-PROCEDURE ( INPUT 'row-available':U ) .
+
+  /* Code placed here will execute AFTER standard behavior.    */
+  run descriptivos.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE send-records V-table-Win _ADM-SEND-RECORDS
+PROCEDURE send-records :
+/*------------------------------------------------------------------------------
+  Purpose:     Send record ROWID's for all tables used by
+               this file.
+  Parameters:  see template/snd-head.i
+------------------------------------------------------------------------------*/
+
+  /* Define variables needed by this internal procedure.               */
+  {src/adm/template/snd-head.i}
+
+  /* For each requested table, put it's ROWID in the output list.      */
+  {src/adm/template/snd-list.i "r_agencias_contenedores"}
+
+  /* Deal with any unexpected table requests before closing.           */
+  {src/adm/template/snd-end.i}
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE state-changed V-table-Win 
+PROCEDURE state-changed :
+/* -----------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+-------------------------------------------------------------*/
+  DEFINE INPUT PARAMETER p-issuer-hdl AS HANDLE    NO-UNDO.
+  DEFINE INPUT PARAMETER p-state      AS CHARACTER NO-UNDO.
+
+  CASE p-state:
+      /* Object instance CASEs can go here to replace standard behavior
+         or add new cases. */
+      {src/adm/template/vstates.i}
+  END CASE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* ************************  Function Implementations ***************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION valida V-table-Win 
+FUNCTION valida RETURNS LOGICAL
+  (input nombre as character, input valor as character , output mensaje as character ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+  case nombre:
+    when "id_sucursal" then
+        if integer(valor) = 0 then 
+        do:
+            mensaje = "error".
+            return false.
+         end.
+    end case.
+  RETURN true.   /* Function return value. */
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+

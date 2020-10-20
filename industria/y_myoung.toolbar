@@ -1,0 +1,108 @@
+<BUTTON>
+  <NAME>btnOrdenEntrega</NAME>
+  <LABEL>Ordenes de Entrega</LABEL>
+  <TOOLTIP>Ordenes de Entrega</TOOLTIP>
+  <PICTURE>1026.bmp</PICTURE>
+  <PROGRAM>w_new_orden_entrega.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnPartesPendientes</NAME>
+  <LABEL>Liberar Partes Peneientes</LABEL>
+  <TOOLTIP>Liberar Partes de Contratos Pendientes</TOOLTIP>
+  <PICTURE>1057.bmp</PICTURE>
+  <PROGRAM>wItemsPendienteOE.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnGastosAgencias</NAME>
+  <LABEL>Gastos Agencias</LABEL>
+  <TOOLTIP>Gastos Agencias</TOOLTIP>
+  <PICTURE>671.bmp</PICTURE>
+  <PROGRAM>wGastosAgencias.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnConsultaOEs</NAME>
+  <LABEL>Consulta OEs</LABEL>
+  <TOOLTIP>Consulta OEs Estado 2</TOOLTIP>
+  <PICTURE>properties_doc16_h.bmp</PICTURE>
+  <PROGRAM>wqConultaOEs.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnOEIndustria</NAME>
+  <LABEL>OEs Industria</LABEL>
+  <TOOLTIP>OEs Industria</TOOLTIP>
+  <PICTURE>1026.bmp</PICTURE>
+  <PROGRAM>wOEIndustria.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnRemitos</NAME>
+  <LABEL>Remitos</LABEL>
+  <TOOLTIP>Remitos</TOOLTIP>
+  <PICTURE>203.bmp</PICTURE>
+  <PROGRAM>p_new_remitos.p</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnRemitosProc</NAME>
+  <LABEL>Procesamiento Remitos</LABEL>
+  <TOOLTIP>Procesamiento de Remitos</TOOLTIP>
+  <PICTURE>205.bmp</PICTURE>
+  <PROGRAM>p_procesamiento_remito.p</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnRemitosAnul</NAME>
+  <LABEL>Anulacion Remitos</LABEL>
+  <TOOLTIP>Anulacion de Remitos</TOOLTIP>
+  <PICTURE>207.bmp</PICTURE>
+  <PROGRAM>p_anulacion_remito.p</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnRemitosQry</NAME>
+  <LABEL>Consulta Remitos</LABEL>
+  <TOOLTIP>Consulta de Remitos</TOOLTIP>
+  <PICTURE>206.bmp</PICTURE>
+  <PROGRAM>wRemitos.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnStock</NAME>
+  <LABEL>Reportes Stock</LABEL>
+  <TOOLTIP>Reportes Stock</TOOLTIP>
+  <PICTURE>rpt-u.bmp</PICTURE>
+  <PROGRAM>w_consulta_stock_rapido_fam.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnProduccion</NAME>
+  <LABEL>Produccion</LABEL>
+  <TOOLTIP>Reporte de Produccion</TOOLTIP>
+  <PICTURE>591.bmp</PICTURE>
+  <PROGRAM>w_reporte_produccion_rapido.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnDespachos</NAME>
+  <LABEL>Despachos</LABEL>
+  <TOOLTIP>Reporte de Despachos</TOOLTIP>
+  <PICTURE>1057.bmp</PICTURE>
+  <PROGRAM>w_reporte_despachos_rapido.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnTrazaIndust</NAME>
+  <LABEL>Trazabilidad</LABEL>
+  <TOOLTIP>Trazabilidad Productos Industria</TOOLTIP>
+  <PICTURE>sort-u.bmp</PICTURE>
+  <PROGRAM>wTrazaIndust.w</PROGRAM>
+</BUTTON>
+
+
+
+
+

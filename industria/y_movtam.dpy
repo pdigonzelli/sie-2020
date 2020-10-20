@@ -1,0 +1,9 @@
+/*--- PROCESO DISPLAY ---*/
+if funcion = no then
+ do:
+    display {y_movtam.for} with frame trabajo.
+ end.
+else
+  do:
+    display {y_movtam.for} with frame trabajo.
+  end.

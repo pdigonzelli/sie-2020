@@ -1,0 +1,332 @@
+/****************************************************************************/
+/*  NOMBRE PROGRAMA......:   d_etipal.p                                     */
+/****************************************************************************/
+/*  Imprime etiquetas de pallets                                            */
+/****************************************************************************/
+/*  PROGRAMADOR..........:   Gabriel Navarro                                */
+/****************************************************************************/
+
+propath = propath + ",n:/supervisor".
+SESSION:DATA-ENTRY-RETURN = TRUE.
+
+/*********** Parametros ****************/
+define input parameter x_sucursal   as integer.
+define input parameter x_pal_ini    as integer format "zzzzzzz9".
+define input parameter x_pal_fin    as integer format "zzzzzzz9".
+define input parameter x_empresa    as integer.
+define input parameter x_orden      as integer.
+define input parameter x_imprime    as logical.
+
+/*
+define variable x_sucursal   as integer initial 98.
+define variable x_pal_ini    as integer format "zzzzzzz9" initial 4409.
+define variable x_pal_fin    as integer format "zzzzzzz9" initial 4409.
+define variable x_empresa    as integer initial 1.
+define variable x_orden      as integer initial 1.
+*/
+
+/*********** Variables Generales ****************/
+define variable x_cant_etiq         as integer   format "z9" initial 4.
+define variable x_nropal            as character format "99999999".
+define variable x_sucurs            as character format "999".
+define variable x_fecha             as character format "x(8)".
+define variable x_cant_caj          as character format "x(8)".
+define variable x_kil_enva          as character format "x(6)".
+define variable x_calibre           as character format "x(5)".
+
+x_sucurs = string(x_sucursal,"999").
+
+/* Buffer para pallets correlativos */
+define buffer aux_pallets for pallets. 
+
+define button b_aceptar label "&Aceptar"
+size 12 by 1.19.  
+
+define button b_salir label "&Salir"
+size 12 by 1.19.  
+
+form
+    "Cantidad"                          at row 2    col 7
+    x_cant_etiq                         at row 2    col 25
+    b_aceptar                           at row 4    col 7
+    b_salir                             at row 4    col 32  skip(1)
+    with frame ing centered no-labels overlay
+        title " Imprime Etiquetas de Pallets "
+        width 50 three-d view-as dialog-box.
+
+/********** Habilita radio buttons y botones **********/
+enable b_aceptar    with frame ing.
+enable b_salir      with frame ing.
+
+/********** Cierre de Windows **********/
+on window-close of frame ing do:
+    apply "END-ERROR" to frame ing.
+end.
+on "END-ERROR" of frame ing do:
+    hide frame ing.
+    leave.
+end.
+
+/************ Acepta los datos ************/
+on CHOOSE of b_aceptar or RETURN of b_aceptar in frame ing do:
+    run busca_pallets.
+    apply "END-ERROR" to frame ing.
+end.  
+
+/************ Sale del programa ************/
+on CHOOSE of b_salir or RETURN of b_salir in frame ing do:
+    apply "END-ERROR" to frame ing.
+end.
+
+/********** Principal Carga de Datos **********/
+    run display_inputs.
+
+    set x_cant_etiq
+        with frame ing.
+
+ 
+/*********************************************************/
+/*   Imprime etiquetas codigo barras de pallets          */
+/*********************************************************/
+procedure busca_pallets:
+
+    x_cant_etiq = integer(x_cant_etiq:screen-value in frame ing).
+    if x_cant_etiq > 5 then x_cant_etiq = 5.
+
+    if x_cant_etiq <> 0 then do:
+
+        for each pallets no-lock where
+            pallets.id_sucursal = x_sucursal and
+            pallets.id_pallet >= x_pal_ini and
+            pallets.id_pallet <= x_pal_fin,
+            first pedidos_packing no-lock where
+            pedidos_packing.id_empresa = x_empresa and
+            pedidos_packing.id_orden = x_orden,
+            first clientes no-lock where
+            clientes.id_cliente = pedidos_packing.id_cliente_remito,
+            first packing OF pallets no-lock,
+            first proveedores OF pallets no-lock,
+            first marcas_prod of pallets no-lock,
+            first productos_terminados of pallets no-lock,
+            first variedades of pallets no-lock,
+            first colores of pallets no-lock,
+            first envases_prod of pallets no-lock,
+            first categorias_packing of pallets,
+            first r_envases_prod no-lock where
+            r_envases_prod.id_envase = pallets.id_envase and
+            r_envases_prod.id_articulo = pallets.id_articulo:
+    
+            x_nropal    = string(pallets.id_pallet,"99999999").
+            x_fecha     = string(day(pallets.fecha_prod),"99") +
+                string(month(pallets.fecha_prod),"99") +
+                substr(string(year(pallets.fecha_prod),"9999"),3).
+            x_cant_caj  = string(envases_prod.pallets,"99999999").
+            x_kil_enva  = string(r_envases_prod.kilos_nominal,"999999").
+            x_calibre   = substr(pallets.calibre,1,3) + "/" +
+                          substr(pallets.calibre,4,1) + "-" + colores.letra_color.
+    
+            run imprime_etiquetas.
+    
+        end.
+
+    end.
+
+end procedure.
+
+
+/*********************************************************/
+/*   Imprime etiquetas codigo barras de pallets          */
+/*********************************************************/
+/*   Impresora Zebra 140XiII                             */
+/*********************************************************/
+procedure imprime_etiquetas:
+
+    output to c:\lpt1.
+/*
+    output to \\pcmateu\zebra.
+*/
+    put control "^XA".
+    put control "^PQ" x_cant_etiq "^FS".
+    put control "^PR6,6,6^FS". /** velocidad de impresion 6 pulgadas por segundo**/
+
+    put control "^FO80,40,^BY3^B3N,N,170,N,N^FD" x_sucurs + x_nropal "^FS".
+
+    put control "^FO50,232^A0N,72,48^FD" clientes.nombre "^FS".
+
+    put control "^FO48,322^A0N,36,42^FDPallet^FS".
+    put control "^FO320,322^A0N,36,42^FDPedido^FS".
+    put control "^FO632,322^A0N,36,42^FDOrden^FS".
+
+    put control "^FO24,362^A0N,72,42^FD" x_nropal "^FS".
+    put control "^FO304,362^A0N,72,42^FD" string(pallets.id_orden,"99999999") "^FS".
+    put control "^FO632,362^A0N,72,42^FD" string(pallets.nro_orden,"99999") "^FS".
+
+    if x_imprime then
+        put control "^FO24,458^A0N,36,42^FDUnidad Productora^FS".
+    else
+        put control "^FO24,458^A0N,36,42^FDCod.Trazabilidad^FS".
+
+    put control "^FO500,458^A0N,36,42^FDLetra^FS".
+    put control "^FO650,458^A0N,36,42^FDCalibre^FS".
+
+    if x_imprime then
+        put control "^FO24,498^A0N,72,42^FD" pallets.cod_prod + '-' +
+                            string(pallets.id_packing,'99') + '-' +
+                            pallets.unidad_productora "^FS".
+    else
+        put control "^FO24,498^A0N,72,42^FD" pallets.cod_prod + '-' +
+                            string(pallets.id_packing,'99') + '-' +
+                            pallets.cod_trazabilidad "^FS".
+
+    put control "^FO500,498^A0N,72,42^FD" pallets.contramarca "^FS".
+    put control "^FO630,498^A0N,72,42^FD" x_calibre "^FS".
+
+    put control "^FO24,586^A0N,36,42^FDEspecie^FS".
+    put control "^FO304,586^A0N,36,42^FDVariedad^FS".
+    put control "^FO600,586^A0N,36,42^FDCalidad^FS".
+
+    put control "^FO24,626^A0N,72,42^FD" productos_terminados.abreviatura "^FS".
+    put control "^FO304,626^A0N,72,42^FD" variedades.abreviatura "^FS".
+    put control "^FO600,626^A0N,72,42^FD" categorias_packing.descripcion "^FS".
+
+    put control "^FO24,722^A0N,36,42^FDMarca^FS".
+    put control "^FO304,722^A0N,36,42^FDEnvase^FS".
+    put control "^FO672,722^A0N,36,42^FDCant.^FS".
+
+    put control "^FO24,762^A0N,72,42^FD"  marcas_prod.descripcion "^FS".
+    put control "^FO304,762^A0N,72,42^FD" envases_prod.descripcion "^FS".
+    put control "^FO692,762^A0N,72,42^FD" envases_prod.pallets "^FS".
+
+    put control "^FO10,215^GB780,0,3^FS".
+    put control "^FO10,306^GB780,0,3^FS".
+    put control "^FO10,434^GB780,0,3^FS".
+    put control "^FO10,570^GB780,0,3^FS".
+    put control "^FO10,698^GB780,0,3^FS".
+    put control "^FO10,826^GB780,0,3^FS". 
+
+    put control "^BY3,3.0^FO70,842^BCN,130,N,N,Y,N".
+    put control "^FD>;>800100000000" + x_nropal "130000" + pallets.calibre "^FS". 
+    put control "^FO70,978^A0N,24,30^CI13^FD(00)10000000" x_nropal "1(30)0000" pallets.calibre "^FS".
+
+    put control "^BY3,3.0^FO70,1005^BCN,130,N,N,Y,N".
+    put control "^FD>;>811" + x_fecha + "37" + x_cant_caj + "3100" + x_kil_enva "^FS".
+    put control "^FO70,1140^A0N,24,30^CI13^FD(11)" x_fecha "(37)" x_cant_caj "(3100)" x_kil_enva "^FS".
+
+    put control "^XZ".
+
+    output close.
+
+end procedure.
+
+
+/***********************************************************************************
+/*********************************************************/
+/*   Imprime etiquetas codigo barras de pallets          */
+/*********************************************************/
+/*   Impresora Intermec 3400C                            */
+/*********************************************************/
+procedure imprime_etiquetas:
+
+    output to c:\lpt1.
+/*
+    output to \\pcmateu\easycoder.
+*/
+    put control chr(2) chr(27) "P;E19;F19" chr(3).
+    put control chr(2) "L39;D0;" chr(3).
+    
+    put control chr(2) "B50;f3;o1125,80;c0,3;w3;h180;r0;d3," x_sucurs + x_nropal chr(3).
+
+    put control chr(2) "L51,lin01;o930,8;f3;l784;w4;" chr(3).
+
+    put control chr(2) "H52,Empresa;o930,50;f3;r0;c21;h2;w1;b0;d0,30;" chr(3).
+    
+    put control chr(2) "L1,lin00;o830,8;f3;l784;w4;" chr(3).
+    
+    put control chr(2) "H2,;o820,45;f3;r0;c21;h1;w1;b0;d3,Pallet;" chr(3).
+    put control chr(2) "D39;" chr(3).
+    put control chr(2) "H3,;o820,320;f3;r0;c21;h1;w1;b0;d3,Pedido;" chr(3).
+    put control chr(2) "H4,;o820,630;f3;r0;c21;h1;w1;b0;d3,Orden;" chr(3).
+    put control chr(2) "H5,NroPal;o790,24;f3;r0;c21;h2;w1;b0;d0,14;" chr(3).
+    put control chr(2) "H6,Pedido;o790,300;f3;r0;c21;h2;w1;b0;d0,8;" chr(3).
+    put control chr(2) "H7,Orden;o790,630;f3;r0;c21;h2;w1;b0;d0,5;" chr(3).
+
+    put control chr(2) "L8,lin0;o700,8;f3;l784;w4;" chr(3).
+
+    put control chr(2) "H9,;o690,24;f3;r0;c21;h1;w1;b0;d3,Cod.Trazabilidad;" chr(3).
+    put control chr(2) "H16,;o690,600;f3;r0;c21;h1;w1;b0;d3,Calibre;" chr(3).
+    put control chr(2) "H11,CodTraz;o660,24;f3;r0;c21;h2;w1;b0;d0,25;" chr(3).
+    put control chr(2) "H19,Calibre;o660,600;f3;r0;c21;h2;w1;b0;d0,7;" chr(3).
+    
+    put control chr(2) "L13,lin1;o570,8;f3;l784;w4;" chr(3).
+
+    put control chr(2) "H14,;o560,24;f3;r0;c21;h1;w1;b0;d3,Especie;" chr(3).
+    put control chr(2) "H15,;o560,300;f3;r0;c21;h1;w1;b0;d3,Variedad;" chr(3).
+    put control chr(2) "H22,;o560,595;f3;r0;c21;h1;w1;b0;d3,Calidad;" chr(3).
+    put control chr(2) "H17,Especie;o530,24;f3;r0;c21;h2;w1;b0;d0,15;" chr(3).
+    put control chr(2) "H18,Variedad;o530,300;f3;r0;c21;h2;w1;b0;d0,15;" chr(3).
+    put control chr(2) "H24,Categ;o530,595;f3;r0;c21;h2;w1;b0;d0,15;" chr(3).
+  
+    put control chr(2) "L25,lin3;o440,8;f3;l784;w4;" chr(3).
+
+    put control chr(2) "H21,;o430,24;f3;r0;c21;h1;w1;b0;d3,Marca;" chr(3).
+    put control chr(2) "H26,;o430,300;f3;r0;c21;h1;w1;b0;d3,Envase;" chr(3).
+    put control chr(2) "H27,;o430,670;f3;r0;c21;h1;w1;b0;d3,Cant.;" chr(3).
+    put control chr(2) "H23,Marca;o400,24;f3;r0;c21;h2;w1;b0;d0,10;" chr(3).
+    put control chr(2) "H28,Envase;o400,300;f3;r0;c21;h2;w1;b0;d0,16;" chr(3).
+    put control chr(2) "H29,Cantid;o400,690;f3;r0;c21;h2;w1;b0;d0,3;" chr(3).
+
+    put control chr(2) "L30,lin4;o310,8;f3;l784;w4;" chr(3).
+    
+    put control chr(2) "B31,barra1;o290,60;f3;c6,0;h110;w3;r1;i0;d0,38;" chr(3).
+    put control chr(2) "H32,int1;o176,60;f3;r0;c2;h1;w1;b0;d0,38;" chr(3).
+    put control chr(2) "B33,barra2;o140,60;f3;c6,0;h110;w3;r1;i0;d0,38;" chr(3).
+    put control chr(2) "H34,int2;o26,60;f3;r0;c2;h1;w1;b0;d0,38;" chr(3).
+    
+    put control chr(2) "R" chr(3).
+    put control chr(2) chr(15) "S50" chr(3).
+    put control chr(2) chr(27) "G0"  chr(27) "E19" chr(24) chr(3).
+    
+    put control chr(2) chr(27) "F52" chr(127) clientes.nombre chr(3).
+
+    put control chr(2) chr(27) "F5"  chr(127) x_nropal chr(3).
+    put control chr(2) chr(27) "F6"  chr(127) string(pallets.id_orden,"99999999") chr(3).
+    put control chr(2) chr(27) "F7"  chr(127) string(pallets.nro_orden,"99999") chr(3).
+    
+    put control chr(2) chr(27) "F11" chr(127) pallets.cod_prod + "-" +
+                        string(pallets.id_packing,"99") + "-" +
+                        pallets.cod_trazabilidad chr(3).
+
+    put control chr(2) chr(27) "F17" chr(127) productos_terminados.abreviatura chr(3).
+    put control chr(2) chr(27) "F18" chr(127) variedades.abreviatura chr(3).
+    put control chr(2) chr(27) "F19" chr(127) x_calibre chr(3).
+
+    put control chr(2) chr(27) "F23" chr(127) marcas_prod.descripcion chr(3).
+    put control chr(2) chr(27) "F24" chr(127) categorias_packing.descripcion chr(3).
+
+    put control chr(2) chr(27) "F28" chr(127) envases_prod.descripcion chr(3).
+    put control chr(2) chr(27) "F29" chr(127) envases_prod.pallets chr(3).
+
+    put control chr(2) chr(27) "F31" chr(127) chr(26) chr(26)
+        "100100000000" + x_nropal + "130000" + pallets.calibre chr(3).
+    put control chr(2) chr(27) "F32" chr(127)
+        "(00)100000000" + x_nropal + "1 (30)000" + pallets.calibre chr(3).
+    put control chr(2) chr(27) "F33" chr(127) chr(26) chr(26)
+        "11" + x_fecha + "37" + x_cant_caj + "3100" + x_kil_enva chr(3).
+    put control chr(2) chr(27) "F34" chr(127)
+        "(11)" + x_fecha + " (37)" + x_cant_caj + " (3100)" + x_kil_enva chr(3).
+    
+    put control chr(2) chr(30) x_cant_etiq chr(31) "1" chr(23) chr(3).
+    put control chr(2) chr(12) chr(3).
+    
+    output close.
+
+end procedure.
+***********************************************************************************/
+
+
+/*********** Display de campos de inputs ***********/
+procedure display_inputs:
+    display
+        x_cant_etiq
+        with frame ing.
+end procedure.

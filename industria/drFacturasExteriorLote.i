@@ -1,0 +1,19 @@
+  FIELD id_empresa LIKE r_facturas_exterior_lote.id_empresa VALIDATE ~
+  FIELD id_gasto LIKE r_facturas_exterior_lote.id_gasto VALIDATE ~
+  FIELD id_moneda_origen LIKE r_facturas_exterior_lote.id_moneda_origen VALIDATE ~
+  FIELD id_operacion LIKE r_facturas_exterior_lote.id_operacion VALIDATE ~
+  FIELD id_sucursal LIKE r_facturas_exterior_lote.id_sucursal VALIDATE ~
+  FIELD id_sucursal_ubicacion LIKE r_facturas_exterior_lote.id_sucursal_ubicacion VALIDATE ~
+  FIELD id_tipocomp LIKE r_facturas_exterior_lote.id_tipocomp VALIDATE ~
+  FIELD id_tipotambor LIKE r_facturas_exterior_lote.id_tipotambor VALIDATE ~
+  FIELD id_unidad_medida LIKE r_facturas_exterior_lote.id_unidad_medida VALIDATE ~
+  FIELD importe LIKE r_facturas_exterior_lote.importe VALIDATE ~
+  FIELD item LIKE r_facturas_exterior_lote.item VALIDATE ~
+  FIELD nromov LIKE r_facturas_exterior_lote.nromov VALIDATE ~
+  FIELD nromov_lote LIKE r_facturas_exterior_lote.nromov_lote VALIDATE ~
+  FIELD desde_tambor LIKE r_facturas_exterior_lote.desde_tambor VALIDATE ~
+  FIELD hasta_tambor LIKE r_facturas_exterior_lote.hasta_tambor VALIDATE ~
+  FIELD id_lote LIKE tambores_industria.id_lote VALIDATE ~
+  FIELD Anio LIKE tambores_industria.Anio VALIDATE ~
+  FIELD abreviatura LIKE productos_terminados.abreviatura VALIDATE ~
+  FIELD abreviatura-2 LIKE calidades.abreviatura VALIDATE 

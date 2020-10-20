@@ -1,0 +1,25 @@
+  FIELD bultos LIKE ingresos_varios.bultos VALIDATE ~
+  FIELD chofer LIKE ingresos_varios.chofer VALIDATE ~
+  FIELD c_fecha LIKE ingresos_varios.c_fecha VALIDATE ~
+  FIELD c_hora LIKE ingresos_varios.c_hora VALIDATE ~
+  FIELD c_usuario LIKE ingresos_varios.c_usuario VALIDATE ~
+  FIELD estado LIKE ingresos_varios.estado VALIDATE ~
+  FIELD fecha LIKE ingresos_varios.fecha VALIDATE ~
+  FIELD fecha_descarga LIKE ingresos_varios.fecha_descarga VALIDATE ~
+  FIELD hora_llegada LIKE ingresos_varios.hora_llegada VALIDATE ~
+  FIELD id_cliente LIKE ingresos_varios.id_cliente VALIDATE ~
+  FIELD id_sucursal LIKE ingresos_varios.id_sucursal VALIDATE ~
+  FIELD id_tipo_movsto LIKE ingresos_varios.id_tipo_movsto VALIDATE ~
+  FIELD nro LIKE ingresos_varios.nro VALIDATE ~
+  FIELD id_punto_venta LIKE ingresos_varios.id_punto_venta VALIDATE ~
+  FIELD id_proveedor LIKE ingresos_varios.id_proveedor VALIDATE ~
+  FIELD nro_comprobante LIKE ingresos_varios.nro_comprobante VALIDATE ~
+  FIELD observaciones LIKE ingresos_varios.observaciones VALIDATE ~
+  FIELD Pat_acopla LIKE ingresos_varios.Pat_acopla VALIDATE ~
+  FIELD pat_chasis LIKE ingresos_varios.pat_chasis VALIDATE ~
+  FIELD peso LIKE ingresos_varios.peso VALIDATE ~
+  FIELD Peso_bruto LIKE ingresos_varios.Peso_bruto VALIDATE ~
+  FIELD Peso_neto LIKE ingresos_varios.Peso_neto VALIDATE ~
+  FIELD Tara LIKE ingresos_varios.Tara VALIDATE ~
+  FIELD tipo_remito LIKE ingresos_varios.tipo_remito VALIDATE ~
+  FIELD id_lugdes LIKE ingresos_varios.id_lugdes VALIDATE 

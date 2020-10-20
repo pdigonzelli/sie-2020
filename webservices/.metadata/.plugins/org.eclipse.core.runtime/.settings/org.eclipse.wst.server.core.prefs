@@ -1,0 +1,4 @@
+#Wed Feb 10 09:11:17 ACT 2016
+module-start-timeout=300000
+runtimes=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<runtimes>\r\n<runtime id\="OpenEdge 10.2B" id-set\="true" location\="C\:/Progress/OpenEdge102b" name\="OpenEdge 10.2B" runtime-type-id\="com.openedge.pdt.server.runtime" timestamp\="0"/>\r\n</runtimes>\r\n
+eclipse.preferences.version=1

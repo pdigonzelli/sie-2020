@@ -1,0 +1,6046 @@
+               Wed Sep 28 12:28:46 2005
+
+Execution buffer map:			12:28:47
+    Size		Name
+    ----		----
+     440		c:\temp\p03312r.ped
+    6235		adeshar/_taskbar.r
+    1450		adecomm/_locdwb.r
+    2826		adecomm/_kwhelp.r
+    5113		_desk.r
+     746		adecomm/_setcurs.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+   60259		adedesk/_desktop.r
+    3144		adeshar/_ablic.r
+     942		adecomm/_osfext.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   14413		../z2_login.w
+  294076		adeedit/_proedit.r
+   28003		adecomm/_runcode.r
+    4003		adecomm/_ossfnam.r
+    3100		adecomm/_kvlist.r
+    3311		adecomm/_adeevnt.r
+    1741		adecomm/_wfrun.r
+    8118		adecomm/_toollic.r
+    5331		adecomm/_adehelp.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:             0        0
+Saves of compilation .r's:        0        0
+Compilations of .p's:             1      440
+Checks of files with stat:        2        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):              3420      122864      122880
+Local buffer usage:            6784        6848
+R-code Execution Buffer:     436330      438524     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      272 	Limit:      480
+
+------------------------------------------------
+
+Execution buffer map:			12:28:48
+    Size		Name
+    ----		----
+     440		c:\temp\p03312r.ped
+    6235		adeshar/_taskbar.r
+    1450		adecomm/_locdwb.r
+    2826		adecomm/_kwhelp.r
+    5113		_desk.r
+     746		adecomm/_setcurs.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+   60259		adedesk/_desktop.r
+    3144		adeshar/_ablic.r
+     942		adecomm/_osfext.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   14413		../z2_login.w
+  294076		adeedit/_proedit.r
+   28003		adecomm/_runcode.r
+    4003		adecomm/_ossfnam.r
+    3100		adecomm/_kvlist.r
+    3311		adecomm/_adeevnt.r
+    1741		adecomm/_wfrun.r
+    8118		adecomm/_toollic.r
+    5331		adecomm/_adehelp.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:             0        0
+Saves of compilation .r's:        0        0
+Compilations of .p's:             2      880
+Checks of files with stat:        4        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):              3420      122864      122880
+Local buffer usage:            6784        6848
+R-code Execution Buffer:     436330      438524     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      272 	Limit:      480
+
+------------------------------------------------
+               Tue Jun 27 10:13:39 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			13:12:16
+    Size		Name
+    ----		----
+    5777		adecomm/_tbllist.r
+   33508		adeuib/_advsrun.r
+    1991		adecomm/_getdbid.r
+    2430		adecomm/_adeobj.r
+   30561		custom\objects\cus-misc.w
+   34231		adeuib/_vldwin.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   34555		adeuib/_wintitl.r
+   33111		adeuib/_adm-row.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+   36329		adeuib/_loadbc.r
+    1450		adecomm/_locdwb.r
+   81262
+ -noindexhint =      0      
+
+
+Execution buffer map:			13:12:19
+    Size		Name
+    ----		----
+    1450		adecomm/_locdwb.r
+     746		adecomm/_setcurs.r
+    1787		c:\temp\p93625r.ped
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+     942		adecomm/_osfext.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   14626		../z2_login.w
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   28003		adecomm/_runcode.r
+    3100		adecomm/_kvlist.r
+    6769		_login.r
+    3311		adecomm/_adeevnt.r
+    9238		adecomm/_pwexit.r
+    1741		adecomm/_wfrun.r
+    8118		adecomm/_toollic.r
+    5331		adecomm/_adehelp.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            19   402697
+Saves of compilation .r's:        0        0
+Compilations of .p's:            13    36486
+Checks of files with stat:      243        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1824       24768
+R-code Execution Buffer:     388825      388825     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      252 	Limit:      480
+
+------------------------------------------------
+ria\v_protocolos_1.r
+   80333		adeuib/_rdfram.r
+    4178		adeuib/_uibmode.r
+  114832		n:\industria\v_items_protocolos.r
+   11719		adeuib/_dbtbnam.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   59168		adeshar/_qenable.r
+    5888		C:\progress\gui\adm\support\_key-snd.r
+   22745		adeuib/_initpal.r
+   56025		adeuib/_callqry.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+    3081		adecomm/_relname.r
+    4003		adecomm/_ossfnam.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+   68762		adeuib/_rdrect.r
+   98351		n:\industria\b_inspecciones_lote_jugo_protocolo.r
+    3100		adecomm/_kvlist.r
+  219614		adeshar/_query.r
+  169872		n:\industria\v_protocolos.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   61579		adeuib/_writedf.r
+   21484		adeuib/_edtmstr.r
+   37626		adeuib/_rdproc.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+  168193		adm/objects/broker.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+   71266		adeuib/_rdbutt.r
+   31164		adeuib/_putpref.r
+   55704		adeuib/_seltrg.r
+   43396		adeuib/_accsect.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   78508		adeuib/_rdwind.r
+   20724		adeuib/_isa.r
+   95668		adeshar/_coddflt.r
+   12275		adecomm/_s-schem.r
+   98475		adeuib/_cr_cust.r
+    8948		adexml/_winexit.r
+    1209		_rbuild.r
+   56617		adeshar/_qset.r
+  432210		adeuib/_prpobj.r
+   38975		adeuib/_qbuild.r
+   14617		adeshar/_mrulist.r
+    4245		adm/support/_tagdat.r
+   99031		n:\industria\b_lote_aceite_protocolo.r
+   11176		protools/_protool.r
+  246797		adeshar/_gendefs.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   29810		adeuib/_setsize.r
+    1675		adecomm/_statdsp.r
+    2401		c:\temp\p10281ct.ab
+    5331		adecomm/_adehelp.r
+  102775		n:\industria\b_protocolos.r
+   36561		adeuib/_tabordr.r
+  115153		n:\industria\v_protocolo_cascara.r
+  103137		n:\industria\b_items_protocolos.r
+   19450		C:\progress\gui\adm\support\_adm-opn.r
+  109333		n:\industria\b_lote_jugo_protocolo.r
+   50086		adeuib/_undbrow.r
+    7689		adeuib/_fldinfo.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+    2854		adecomm/_dblist.r
+   51275		custom\objects\cus-updsav.w
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+    2495		adeuib/_seresz.r
+   75142		adeuib/_realizesmart.r
+    1880		adm/support/_xgetdat.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:            20    83318
+Writes to temp file:            119   220563
+Loads of .r programs:           145  7502996
+Saves of compilation .r's:        2   206043
+Compilations of .p's:            14   388814
+Checks of files with stat:     1391        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2080       74176
+R-code Execution Buffer:    6291145     6291429     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     2552 	Limit:     2784
+
+------------------------------------------------
+               Wed Jun 28 08:21:04 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			17:04:05
+    Size		Name
+    ----		----
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   30561		custom\objects\cus-misc.w
+   34231		adeuib/_vldwin.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   34555		adeuib/_wintitl.r
+   47020		adeuib/_showlbl.r
+   33111		adeuib/_adm-row.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+   36329		adeuib/_loadbc.r
+    1450		adecomm/_locdwb.r
+   69937		adeuib/_rdtext.r
+   81262		adeuib/_rdbrow.r
+   79963		adeshar/_mlmgr.r
+   60643		adeuib/_uibstrt.r
+   33085		adeuib/_windpos.r
+  358200		adeuib/_semain.r
+   21379		adeuib/_cr_cmnu.r
+   36920		adeuib/_sim_lbl.r
+   33329		adeuib/_open-w.r
+   21069		adeuib/_admpset.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+    2411		adecomm/_osfrw.r
+    5607		adecomm/_relfile.r
+    3133		adecomm/_valpnam.r
+   79309		adeuib/_rdfill.r
+   11199		adecomm/_adeload.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+    3144		adeshar/_ablic.r
+   13125		adm/support/_wizard.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+    1575		c:\temp\p03641r.ped
+     942		adecomm/_osfext.r
+  323005		adeuib/_qssuckr.r
+   58033		adeuib/_sanitiz.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+   77625		adeuib/_rdqury.r
+    7054		../s_inicio1.p
+   33284		adeshar/_contbnm.r
+   14626		../z2_login.w
+   38617		adeuib/_proprty.r
+   39089		c:\temp\p65328cf.ab
+   73594		adeuib/_adm-crt.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+    3984		pInconsistenciasStockLotesProcesos.r
+   28003		adecomm/_runcode.r
+   16862		adeedit/_dlggetf.r
+    4178		adeuib/_uibmode.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+    3081		adecomm/_relname.r
+    4003		adecomm/_ossfnam.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+   68762		adeuib/_rdrect.r
+    3100		adecomm/_kvlist.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   21484		adeuib/_edtmstr.r
+   37626		adeuib/_rdproc.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   33520		adeuib/_setpntr.r
+   10262		adecomm/_getfile.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+    5113		_comp.r
+  168193		adm/objects/broker.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+   71266		adeuib/_rdbutt.r
+   31164		adeuib/_putpref.r
+   43396		adeuib/_accsect.r
+   55704		adeuib/_seltrg.r
+   13711		adeuib/_getwebp.r
+   78508		adeuib/_rdwind.r
+    9238		adecomm/_pwexit.r
+   20724		adeuib/_isa.r
+   95668		adeshar/_coddflt.r
+   12275		adecomm/_s-schem.r
+   98475		adeuib/_cr_cust.r
+    1741		adecomm/_wfrun.r
+    8948		adexml/_winexit.r
+  432210		adeuib/_prpobj.r
+   38975		adeuib/_qbuild.r
+    1209		_rbuild.r
+   14617		adeshar/_mrulist.r
+   11176		protools/_protool.r
+    1818		adecomm/_convert.r
+  246797		adeshar/_gendefs.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   29810		adeuib/_setsize.r
+   39405		w_destinos_grupos.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+   85247		adecomp/_procomp.r
+  150004		N:\industria\w_consulta_stock_rapido_fam.w
+   50086		adeuib/_undbrow.r
+    7689		adeuib/_fldinfo.r
+     484		c:\temp\p71609r.ped
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+     504		c:\temp\p38609r.ped
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   69880		adeuib/_rdtogg.r
+   75142		adeuib/_realizesmart.r
+    2495		adeuib/_seresz.r
+    2729		c:\temp\p43750r.ped
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:           127  6075607
+Saves of compilation .r's:        1   150004
+Compilations of .p's:            15   252261
+Checks of files with stat:     1311        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1856       53664
+R-code Execution Buffer:    5307562     5307562     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     1656 	Limit:     1760
+
+------------------------------------------------
+               Thu Jun 29 08:19:51 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0                     Thu Jun 29 08:40:16 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			09:21:04
+    Size		Name
+    ----		----
+   27111		adeuib/_newfunc.r
+   48892		adm2/dynselect.r
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   23495		adeuib/_delmenu.r
+  145317		dcontratos.r
+   75506		vgastosordenentrega.r
+   98332		N:\industria\wOEIndustria.w
+   34231		adeuib/_vldwin.r
+   13978		adecomm/_somatch.r
+  209328		dtamboresindustria.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+  111749		N:\industria\dgastosordenentrega_cl.w
+  311395		adm2/toolbar.r
+   34555		adeuib/_wintitl.r
+   68455		adm2\dyntoolbar.w
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+   77469		adeuib/_qikcomp.r
+   36329		adeuib/_loadbc.r
+    1450		adecomm/_locdwb.r
+   49779		ftotalesgastosoe.r
+  145923		drproductocalidad.r
+  105750		btamboresindustria.r
+  143010		dgastositemsordenentrega.r
+   79963		adeshar/_mlmgr.r
+  133367		adm2/datavis.r
+   60643		adeuib/_uibstrt.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   21379		adeuib/_cr_cmnu.r
+   86823		vtotalesitemoe.r
+   33329		adeuib/_open-w.r
+  155314		dgastosordenentrega.r
+   89633		bgastositemsordenentrega.r
+    3679		adm2/actioncustom.p
+    1041		adeuib/_undsmar.r
+   21069		adeuib/_admpset.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+    2411		adecomm/_osfrw.r
+   94762		adm2/dataext.r
+  142812		adeuib/_tview.r
+    5607		adecomm/_relfile.r
+    3133		adecomm/_valpnam.r
+   98203		bgastosordenentrega.r
+   11199		adecomm/_adeload.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+   24514		adm2/querycustom.p
+   22106		adeuib/_tbllist.r
+   26455		adm2/browsercustom.p
+  136169		dproductosterminados.r
+    3144		adeshar/_ablic.r
+    4874		c:\temp\p32015cf.ab
+  141496		dagencias.r
+  141392		dinstrumentospagos.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+   38824		N:\industria\libOrdenEntrega.p
+     942		adecomm/_osfext.r
+  323005		adeuib/_qssuckr.r
+   67102		adeuib/_recreat.r
+   58033		adeuib/_sanitiz.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+   77625		adeuib/_rdqury.r
+   85948		voeindustria.r
+    7054		../s_inicio1.p
+   33284		adeshar/_contbnm.r
+   14626		../z2_login.w
+   73594		adeuib/_adm-crt.r
+   38617		adeuib/_proprty.r
+  143347		dvapores.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+   42334		adeuib/_undsdo.r
+    7524		adm2/containrcustom.p
+    4178		adeuib/_uibmode.r
+  127211		adm2/filter.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   50703		adm2/viewer.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+  134994		ddespachantes.r
+    3081		adecomm/_relname.r
+    4003		adecomm/_ossfnam.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+  161414		adm2/query.r
+  143140		dtipomoneda.r
+    3100		adecomm/_kvlist.r
+  160135		adm2/smart.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   21484		adeuib/_edtmstr.r
+  142086		dclausulas.r
+   37626		adeuib/_rdproc.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   59809		adeuib/_prpsdo.r
+   80054		adeuib/_abfuncs.r
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   24092		adm2/field.r
+   94165		bordenentrega.r
+  112083		N:\industria\dgastositemsordenentrega_cl.w
+   98656		adm2/action.r
+  359411		adm2/data.r
+   53026		adm2/visual.r
+  170286		dordenentrega.r
+   43124		adeuib/_cr_pal.r
+  155314		N:\industria\dgastosordenentrega.w
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+  141264		dtiposplazo.r
+   31164		adeuib/_putpref.r
+   37146		adeuib/_updmenu.r
+    9776		adm2/dataviscustom.p
+   55704		adeuib/_seltrg.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+  225898		ditemsordenentrega.r
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   48672		adm2/queryext.r
+  140940		dtipocontenedor.r
+   20724		adeuib/_isa.r
+   95668		adeshar/_coddflt.r
+  142221		dgastosventa.r
+   12275		adecomm/_s-schem.r
+   98475		adeuib/_cr_cust.r
+   51946		adm2\dynfilter.r
+    8948		adexml/_winexit.r
+  143010		N:\industria\dgastositemsordenentrega.w
+   38975		adeuib/_qbuild.r
+    1209		_rbuild.r
+  101158		bitemsoe.r
+   14617		adeshar/_mrulist.r
+  240814		adm2/containr.r
+   11176		protools/_protool.r
+  246797		adeshar/_gendefs.r
+    1818		adecomm/_convert.r
+  157003		adeuib/_coledit.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   29810		adeuib/_setsize.r
+  144473		ddestinos.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+    7689		adeuib/_fldinfo.r
+    4657		prodict/_dctsget.r
+   12398		adm2/datacustom.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   82521		adm2\folder.r
+   75142		adeuib/_realizesmart.r
+    2495		adeuib/_seresz.r
+  114038		vitemsoe.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:           481  3566532
+Writes to temp file:           2140  7404078
+Loads of .r programs:           174 12070381
+Saves of compilation .r's:       12  1266762
+Compilations of .p's:            39  1810050
+Checks of files with stat:     2067        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1856      172352
+R-code Execution Buffer:    6255721     6291456     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     2664 	Limit:     2784
+
+------------------------------------------------
+               Thu Jun 29 09:27:34 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			17:22:27
+    Size		Name
+    ----		----
+    4624		adeuib/_strfmt.r
+   27111		adeuib/_newfunc.r
+   48892		adm2/dynselect.r
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   23495		adeuib/_delmenu.r
+   32404		adeuib/_undomov.r
+   30561		custom\objects\cus-misc.w
+  145317		dcontratos.r
+   75506		vgastosordenentrega.r
+   95829		N:\industria\wOEIndustria.w
+   67208		adeuib/_vrfyqry.r
+   34231		adeuib/_vldwin.r
+   13978		adecomm/_somatch.r
+  2
+ -noindexhint =      0      
+
+
+Execution buffer map:			17:57:14
+    Size		Name
+    ----		----
+    1450		adecomm/_locdwb.r
+    2826		adecomm/_kwhelp.r
+     746		adecomm/_setcurs.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+     942		adecomm/_osfext.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   14626		../z2_login.w
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   28003		adecomm/_runcode.r
+    2861		c:\temp\p74031r.ped
+    3100		adecomm/_kvlist.r
+    6769		_login.r
+    3311		adecomm/_adeevnt.r
+    9238		adecomm/_pwexit.r
+    1741		adecomm/_wfrun.r
+    8118		adecomm/_toollic.r
+    5331		adecomm/_adehelp.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            20   405523
+Saves of compilation .r's:        0        0
+Compilations of .p's:            12    38832
+Checks of files with stat:      251        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1824       24768
+R-code Execution Buffer:     392549      392549     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      258 	Limit:      480
+
+------------------------------------------------
+/_osfrw.r
+   94762		adm2/dataext.r
+  142812		adeuib/_tview.r
+    5607		adecomm/_relfile.r
+    3133		adecomm/_valpnam.r
+   53229		adeuib/_prpsmar.r
+   79309		adeuib/_rdfill.r
+    9750		c:\temp\p28609cf.ab
+   37460		custom\template\cfolder.w
+   98203		bgastosordenentrega.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+   24514		adm2/querycustom.p
+   22106		adeuib/_tbllist.r
+   26455		adm2/browsercustom.p
+  136169		dproductosterminados.r
+    3144		adeshar/_ablic.r
+   35816		adeuib/_drwrect.r
+  141496		dagencias.r
+  141392		dinstrumentospagos.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+   41497		N:\industria\libOrdenEntrega.p
+   14475		adeuib/_wrrott.r
+   23625		adeuib/_minsize.r
+     942		adecomm/_osfext.r
+   85675		N:\industria\voeindustria.w
+  323005		adeuib/_qssuckr.r
+   67102		adeuib/_recreat.r
+   58033		adeuib/_sanitiz.r
+   48833		adeshar/_calcfld.r
+   46109		adm2/support/selectd.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+   77625		adeuib/_rdqury.r
+   85675		voeindustria.r
+   79664		adeuib/_rdcomb.r
+   43077		adm2/support/filterd.r
+   33284		adeshar/_contbnm.r
+   38617		adeuib/_proprty.r
+   73594		adeuib/_adm-crt.r
+  143347		dvapores.r
+    2509		adecomm/_getpdbs.r
+    1780		adecomm/_pwdelpw.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+  113140		n:\industria\v_protocolos_1.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+  139823		N:\industria\ditemsordenentrega_cl.w
+   42334		adeuib/_undsdo.r
+    7524		adm2/containrcustom.p
+    4178		adeuib/_uibmode.r
+    1257		adecomm/_pwgeteh.r
+  114832		n:\industria\v_items_protocolos.r
+  127211		adm2/filter.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   50703		adm2/viewer.r
+   22745		adeuib/_initpal.r
+  226538		N:\industria\ditemsordenentrega.w
+   48892		adm2\dynselect.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+   38005		adeuib/_undrect.r
+    1919		adecomm/_pwresz.r
+  134994		ddespachantes.r
+    3081		adecomm/_relname.r
+    4003		adecomm/_ossfnam.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+   25775		adeuib/_gotopag.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+   47882		adeuib/_drawobj.r
+   45800		adeuib/_undo.r
+   98351		n:\industria\b_inspecciones_lote_jugo_protocolo.r
+  161414		adm2/query.r
+  143140		dtipomoneda.r
+    3100		adecomm/_kvlist.r
+  169872		n:\industria\v_protocolos.r
+  160135		adm2/smart.r
+   74148		adeuib/_cr_prop.r
+   61579		adeuib/_writedf.r
+   33020		adeuib/_undosiz.r
+   43666		adeuib/_delet_u.r
+   21484		adeuib/_edtmstr.r
+  142086		dclausulas.r
+   37626		adeuib/_rdproc.r
+    1318		adecomm/_pwfmod.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   59809		adeuib/_prpsdo.r
+   80054		adeuib/_abfuncs.r
+   39081		adeuib/_rszwind.r
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+    4298		adecomm/_chkfmt.r
+   86823		N:\industria\vtotalesitemoe.w
+   24092		adm2/field.r
+   94165		bordenentrega.r
+  171009		dOrdenEntrega.r
+   98656		adm2/action.r
+  359411		adm2/data.r
+  168193		adm/objects/broker.r
+  171009		dordenentrega.r
+   53026		adm2/visual.r
+   43124		adeuib/_cr_pal.r
+  155326		N:\industria\dgastosordenentrega.w
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+   71266		adeuib/_rdbutt.r
+   11662		adeuib/_windsdn.r
+  238935		adeshar/_gen4gl.r
+  141264		dtiposplazo.r
+   31164		adeuib/_putpref.r
+   37146		adeuib/_updmenu.r
+    9776		adm2/dataviscustom.p
+   55704		adeuib/_seltrg.r
+   13711		adeuib/_getwebp.r
+  226538		ditemsordenentrega.r
+    9238		adecomm/_pwexit.r
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   48672		adm2/queryext.r
+  108336		N:\industria\vitemsoe.w
+  140940		dtipocontenedor.r
+   20724		adeuib/_isa.r
+   33938		adeuib/_showpag.r
+   95668		adeshar/_coddflt.r
+  142221		dgastosventa.r
+   12275		adecomm/_s-schem.r
+   98475		adeuib/_cr_cust.r
+   51946		adm2\dynfilter.r
+    8948		adexml/_winexit.r
+    1821		adecomm/_pwgetwh.r
+  171009		N:\industria\dordenentrega.w
+  432210		adeuib/_prpobj.r
+    1209		_rbuild.r
+   38975		adeuib/_qbuild.r
+  101158		bitemsoe.r
+   14617		adeshar/_mrulist.r
+   99031		n:\industria\b_lote_aceite_protocolo.r
+  240814		adm2/containr.r
+   11176		protools/_protool.r
+    1818		adecomm/_convert.r
+  246797		adeshar/_gendefs.r
+  157003		adeuib/_coledit.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   59122		adeuib/_tabedit.r
+   29810		adeuib/_setsize.r
+   39182		adeuib/_undfill.r
+  144473		ddestinos.r
+    3556		adeuib/_roflds.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   14830		adecomm/_pwmbar.r
+  115153		n:\industria\v_protocolo_cascara.r
+  103137		n:\industria\b_items_protocolos.r
+  102775		n:\industria\b_protocolos.r
+   36561		adeuib/_tabordr.r
+  109333		n:\industria\b_lote_jugo_protocolo.r
+    7689		adeuib/_fldinfo.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   20672		adecomm/_pwcreat.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   51275		custom\objects\cus-updsav.w
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    9264		adecomm/_pwrdfl.r
+  131547		N:\industria\dordenentrega_cl.w
+   82521		adm2\folder.r
+   75142		adeuib/_realizesmart.r
+    2495		adeuib/_seresz.r
+  108336		vitemsoe.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:          3424 24440747
+Writes to temp file:           4482 13774062
+Loads of .r programs:           247 17057200
+Saves of compilation .r's:       37  3415837
+Compilations of .p's:           101  4376408
+Checks of files with stat:     5095        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1856      205728
+R-code Execution Buffer:    6288329     6291456     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     4378 	Limit:     4576
+
+------------------------------------------------
+               Thu Jun 29 17:22:39 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			17:57:09
+    Size		Name
+    ----		----
+   48892		adm2/dynselect.r
+    1991		adecomm/_getdbid.r
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   23495		adeuib/_delmenu.r
+  145317		dcontratos.r
+   75506		vgastosordenentrega.r
+   95829		N:\industria\wOEIndustria.w
+   67208		adeuib/_vrfyqry.r
+   34231		adeuib/_vldwin.r
+   13978		adecomm/_somatch.r
+  209328		dtamboresindustria.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+  311395		adm2/toolbar.r
+   34555		adeuib/_wintitl.r
+   47020		adeuib/_showlbl.r
+   68455		adm2\dyntoolbar.w
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+    1450		adecomm/_locdwb.r
+   69937		adeuib/_rdtext.r
+   81262		adeuib/_rdbrow.r
+   49779		ftotalesgastosoe.r
+  145923		drproductocalidad.r
+  105750		btamboresindustria.r
+   79963		adeshar/_mlmgr.r
+  133367		adm2/datavis.r
+   60643		adeuib/_uibstrt.r
+    1102		adecomm/_finddb.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   21379		adeuib/_cr_cmnu.r
+   87086		vtotalesitemoe.r
+  226538		dItemsOrdenEntrega.r
+   33329		adeuib/_open-w.r
+    3679		adm2/actioncustom.p
+  155326		dgastosordenentrega.r
+    1041		adeuib/_undsmar.r
+   21069		adeuib/_admpset.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+    2411		adecomm/_osfrw.r
+   94762		adm2/dataext.r
+    5607		adecomm/_relfile.r
+    3133		adecomm/_valpnam.r
+   79309		adeuib/_rdfill.r
+   34870		adeuib/_chklbls.r
+   98203		bgastosordenentrega.r
+   11199		adecomm/_adeload.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+   24514		adm2/querycustom.p
+   26455		adm2/browsercustom.p
+   12507		adecomm/_mfldlst.r
+  136169		dproductosterminados.r
+    3144		adeshar/_ablic.r
+  141496		dagencias.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+  101189		N:\industria\bitemsoe.w
+     942		adecomm/_osfext.r
+  323005		adeuib/_qssuckr.r
+   67102		adeuib/_recreat.r
+   58033		adeuib/_sanitiz.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+   77625		adeuib/_rdqury.r
+    7920		adecomm/_getdlst.r
+   79664		adeuib/_rdcomb.r
+   85675		voeindustria.r
+    7054		../s_inicio1.p
+   33284		adeshar/_contbnm.r
+   14626		../z2_login.w
+   38617		adeuib/_proprty.r
+   73594		adeuib/_adm-crt.r
+  143347		dvapores.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+    7524		adm2/containrcustom.p
+    4178		adeuib/_uibmode.r
+  127211		adm2/filter.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   50703		adm2/viewer.r
+   22745		adeuib/_initpal.r
+   48892		adm2\dynselect.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+  134994		ddespachantes.r
+    3081		adecomm/_relname.r
+    4003		adecomm/_ossfnam.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+   25775		adeuib/_gotopag.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+    1563		adecomm/_delitem.r
+   47882		adeuib/_drawobj.r
+  161414		adm2/query.r
+  143140		dtipomoneda.r
+    3100		adecomm/_kvlist.r
+  160135		adm2/smart.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   21484		adeuib/_edtmstr.r
+  142086		dclausulas.r
+   37626		adeuib/_rdproc.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   87086		N:\industria\vtotalesitemoe.w
+   24092		adm2/field.r
+   94165		bordenentrega.r
+   98656		adm2/action.r
+  359411		adm2/data.r
+   53026		adm2/visual.r
+  171009		dordenentrega.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+   31164		adeuib/_putpref.r
+   37146		adeuib/_updmenu.r
+    9776		adm2/dataviscustom.p
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+  226538		ditemsordenentrega.r
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   48672		adm2/queryext.r
+  108367		N:\industria\vitemsoe.w
+   20724		adeuib/_isa.r
+  140940		dtipocontenedor.r
+   33938		adeuib/_showpag.r
+   95668		adeshar/_coddflt.r
+  142221		dgastosventa.r
+   98475		adeuib/_cr_cust.r
+   51946		adm2\dynfilter.r
+    8948		adexml/_winexit.r
+  432210		adeuib/_prpobj.r
+   38975		adeuib/_qbuild.r
+    1209		_rbuild.r
+  101189		bitemsoe.r
+   14617		adeshar/_mrulist.r
+  240814		adm2/containr.r
+   11176		protools/_protool.r
+  246797		adeshar/_gendefs.r
+    1818		adecomm/_convert.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   59122		adeuib/_tabedit.r
+   56341		adeuib/_drwflds.r
+   29810		adeuib/_setsize.r
+  144473		ddestinos.r
+    1675		adecomm/_statdsp.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+   50086		adeuib/_undbrow.r
+    4657		prodict/_dctsget.r
+   12398		adm2/datacustom.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   28344		adecomm/_mfldsel.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   82521		adm2\folder.r
+    2495		adeuib/_seresz.r
+   75142		adeuib/_realizesmart.r
+  108367		vitemsoe.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:          1349 10881096
+Writes to temp file:           2272  8520792
+Loads of .r programs:           181 12306684
+Saves of compilation .r's:        6   609213
+Compilations of .p's:            25   837758
+Checks of files with stat:     3092        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1856      157504
+R-code Execution Buffer:    6291016     6291456     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     2598 	Limit:     2784
+
+------------------------------------------------
+               Fri Jun 30 08:10:01 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			17:26:38
+    Size		Name
+    ----		----
+   48892		adm2/dynselect.r
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   23495		adeuib/_delmenu.r
+  169964		c:\temp\p78594cf.ab
+  145317		dcontratos.r
+   75506		vgastosordenentrega.r
+   16380		libCommonFunctions.r
+   34231		adeuib/_vldwin.r
+   95289		N:\industria\wOEIndustria.w
+   13978		adecomm/_somatch.r
+  209328		dtamboresindustria.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+
+ -noindexhint =      0      
+
+
+Execution buffer map:			17:26:47
+    Size		Name
+    ----		----
+    1450		adecomm/_locdwb.r
+     979		N:\triggers\trd_tambores_industria.p
+     746		adecomm/_setcurs.r
+    3133		adecomm/_valpnam.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+     942		adecomm/_osfext.r
+    5337		n:\audit\ptrDelete.p
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   14626		../z2_login.w
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   16862		adeedit/_dlggetf.r
+   28003		adecomm/_runcode.r
+    4003		adecomm/_ossfnam.r
+    3100		adecomm/_kvlist.r
+   10262		adecomm/_getfile.r
+    6769		_login.r
+    3311		adecomm/_adeevnt.r
+    9238		adecomm/_pwexit.r
+    1741		adecomm/_wfrun.r
+    2733		c:\temp\p73438r.ped
+    8118		adecomm/_toollic.r
+    5331		adecomm/_adehelp.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            24   521942
+Saves of compilation .r's:        0        0
+Compilations of .p's:            39    90472
+Checks of files with stat:      391        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2080       24768
+R-code Execution Buffer:     496201      496201     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      300 	Limit:      480
+
+------------------------------------------------
+
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+     942		adecomm/_osfext.r
+  323005		adeuib/_qssuckr.r
+   74096		adeuib/_rdsele.r
+   67102		adeuib/_recreat.r
+   58033		adeuib/_sanitiz.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+   77625		adeuib/_rdqury.r
+   79664		adeuib/_rdcomb.r
+   85675		voeindustria.r
+    7054		../s_inicio1.p
+   82521		adm2/folder.r
+   33284		adeshar/_contbnm.r
+   14626		../z2_login.w
+   73594		adeuib/_adm-crt.r
+   38617		adeuib/_proprty.r
+  143347		dvapores.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+  139823		N:\industria\ditemsordenentrega_cl.w
+   42334		adeuib/_undsdo.r
+    7524		adm2/containrcustom.p
+    4178		adeuib/_uibmode.r
+    3044		adm2/support/getRelations.p
+  127211		adm2/filter.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   83538		adeuib/_rdradi.r
+   50703		adm2/viewer.r
+   22745		adeuib/_initpal.r
+  228267		N:\industria\ditemsordenentrega.w
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+  134994		ddespachantes.r
+    3081		adecomm/_relname.r
+    4003		adecomm/_ossfnam.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+   25775		adeuib/_gotopag.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+  161414		adm2/query.r
+  401171		N:\industria\libReportes.p
+  143140		dtipomoneda.r
+    3100		adecomm/_kvlist.r
+    2279		adeuib/_rbtns.r
+  160135		adm2/smart.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   21484		adeuib/_edtmstr.r
+  142086		dclausulas.r
+   37626		adeuib/_rdproc.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   59809		adeuib/_prpsdo.r
+   80054		adeuib/_abfuncs.r
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   24092		adm2/field.r
+   94165		bordenentrega.r
+   98656		adm2/action.r
+  359411		adm2/data.r
+   53026		adm2/visual.r
+  171009		dordenentrega.r
+   43124		adeuib/_cr_pal.r
+   24288		adeuib/_advisor.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+   71266		adeuib/_rdbutt.r
+   11662		adeuib/_windsdn.r
+  238935		adeshar/_gen4gl.r
+   31164		adeuib/_putpref.r
+    3990		adecomm/_dbconnx.r
+   37146		adeuib/_updmenu.r
+   55704		adeuib/_seltrg.r
+    9776		adm2/dataviscustom.p
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+  228267		ditemsordenentrega.r
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   48672		adm2/queryext.r
+   20724		adeuib/_isa.r
+  140940		dtipocontenedor.r
+   33938		adeuib/_showpag.r
+   95668		adeshar/_coddflt.r
+  142221		dgastosventa.r
+   12275		adecomm/_s-schem.r
+   98475		adeuib/_cr_cust.r
+  169684		dttoildrums.r
+   51946		adm2\dynfilter.r
+    8948		adexml/_winexit.r
+   38975		adeuib/_qbuild.r
+    1209		_rbuild.r
+  101120		bttoildrums.r
+   14617		adeshar/_mrulist.r
+  101189		bitemsoe.r
+  240814		adm2/containr.r
+   11176		protools/_protool.r
+  155834		dsobranteaceite.r
+    1818		adecomm/_convert.r
+  246797		adeshar/_gendefs.r
+  157003		adeuib/_coledit.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   29810		adeuib/_setsize.r
+  144473		ddestinos.r
+    1675		adecomm/_statdsp.r
+   91489		bsobranteaceite.r
+   90752		blotesind.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+  154008		dlotesind.r
+    7689		adeuib/_fldinfo.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  136316		denvasesprod.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   51639		ftotalesorigenes.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   30344		adecomm/_dbconng.r
+   82521		adm2\folder.r
+    2495		adeuib/_seresz.r
+   75142		adeuib/_realizesmart.r
+   81323		vsobranteaceite.r
+  108367		vitemsoe.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:          1220  9114870
+Writes to temp file:           2583 10527843
+Loads of .r programs:           205 14784807
+Saves of compilation .r's:        9  1693155
+Compilations of .p's:            35  2775198
+Checks of files with stat:     2698        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1856      179392
+R-code Execution Buffer:    6287123     6291456     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     3132 	Limit:     3296
+
+------------------------------------------------
+               Sat Jul 01 09:52:25 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			12:27:24
+    Size		Name
+    ----		----
+   96557		N:\industria\libImpresionEtiquetas.p
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   34231		adeuib/_vldwin.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   34555		adeuib/_wintitl.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+   77469		adeuib/_qikcomp.r
+    1450		adecomm/_locdwb.r
+   79963		adeshar/_mlmgr.r
+   60643		adeuib/_uibstrt.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   21379		adeuib/_cr_cmnu.r
+   33329		adeuib/_open-w.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+    2411		adecomm/_osfrw.r
+  142812		adeuib/_tview.r
+    3133		adecomm/_valpnam.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+    2211		c:\temp\p13672r.ped
+    3144		adeshar/_ablic.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+     942		adecomm/_osfext.r
+  323005		adeuib/_qssuckr.r
+   58033		adeuib/_sanitiz.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   12274		c:\temp\p31937cf.ab
+   33284		adeshar/_contbnm.r
+   14626		../z2_login.w
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   28003		adecomm/_runcode.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+    3100		adecomm/_kvlist.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   37626		adeuib/_rdproc.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+   31164		adeuib/_putpref.r
+   55704		adeuib/_seltrg.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   78508		adeuib/_rdwind.r
+   20724		adeuib/_isa.r
+   98475		adeuib/_cr_cust.r
+    1741		adecomm/_wfrun.r
+    8948		adexml/_winexit.r
+   14617		adeshar/_mrulist.r
+   11176		protools/_protool.r
+  246797		adeshar/_gendefs.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            87  3923326
+Saves of compilation .r's:        2   193114
+Compilations of .p's:             9   230459
+Checks of files with stat:      898        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400       54016
+R-code Execution Buffer:    3496575     3496575     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     1118 	Limit:     1248
+
+------------------------------------------------
+               Mon Jul 03 09:12:25 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			18:04:35
+    Size		Name
+    ----		----
+   48892		adm2/dynselect.r
+   33508		adeuib/_advsrun.r
+   43686		adeuib/_undcont.r
+    2430		adecomm/_adeobj.r
+   23495		adeuib/_delmenu.r
+  145317		dcontratos.r
+   75506		vgastosordenentrega.r
+   13978		adecomm/_somatch.r
+   95381		N:\industria\wOEIndustria.w
+   67208		adeuib/_vrfyqry.r
+   34231		adeuib/_vldwin.r
+  209328		dTamboresIndustria.r
+  209328		dtamboresindustria.r
+    6235		adeshar/_taskbar.r
+   
+ -noindexhint =      0      
+
+
+Execution buffer map:			18:04:44
+    Size		Name
+    ----		----
+   48892		adm2/dynselect.r
+   17524		libCommonFunctions.r
+  209328		dtamboresindustria.r
+  311395		adm2/toolbar.r
+    1450		adecomm/_locdwb.r
+    2826		adecomm/_kwhelp.r
+   41497		libOrdenEntrega.r
+  133367		adm2/datavis.r
+    3679		adm2/actioncustom.p
+     746		adecomm/_setcurs.r
+   94762		adm2/dataext.r
+    3133		adecomm/_valpnam.r
+  278954		libTamboresIndustria.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+  141596		dparpermisos.r
+   24514		adm2/querycustom.p
+   26455		adm2/browsercustom.p
+   78578		vparpermisos2.r
+   78578		vparpermisos1.r
+     942		adecomm/_osfext.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+     748		c:\temp\p27187r.ped
+   82521		adm2/folder.r
+  182444		ditemscontratos.r
+   14626		../z2_login.w
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   16862		adeedit/_dlggetf.r
+   28003		adecomm/_runcode.r
+    7524		adm2/containrcustom.p
+  127211		adm2/filter.r
+    3044		adm2/support/getRelations.p
+  151844		dparmenugrupos.r
+   50703		adm2/viewer.r
+    4003		adecomm/_ossfnam.r
+   11137		adm2/smartcustom.p
+  161414		adm2/query.r
+    3100		adecomm/_kvlist.r
+  160135		adm2/smart.r
+   39907		adm2/dataextcols.r
+   10262		adecomm/_getfile.r
+    7871		adm2/toolbarcustom.p
+   68455		adm2/dyntoolbar.w
+    6769		_login.r
+   24092		adm2/field.r
+   94165		bordenentrega.r
+   79907		vitemscontroloe.r
+   98656		adm2/action.r
+  359411		adm2/data.r
+  171009		dordenentrega.r
+   89903		vparmenugrupos.r
+   53026		adm2/visual.r
+    3311		adecomm/_adeevnt.r
+   95604		bitemsordenentrega.r
+   86890		wparmenugruponew.r
+    9776		adm2/dataviscustom.p
+    9238		adecomm/_pwexit.r
+  141330		dtipounidadventa.r
+  228267		ditemsordenentrega.r
+   79677		wControlOE.r
+   48672		adm2/queryext.r
+    1741		adecomm/_wfrun.r
+  240814		adm2/containr.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+    8118		adecomm/_toollic.r
+  148473		dttgastosoe.r
+    5331		adecomm/_adehelp.r
+   51946		adm2/dynfilter.r
+    2158		adecomm/_pwwinst.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   19346		adecomm/as-utils.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            68  5528543
+Saves of compilation .r's:        0        0
+Compilations of .p's:            40   245053
+Checks of files with stat:     8591        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400       58208
+R-code Execution Buffer:    5136062     5136062     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     1292 	Limit:     1504
+
+------------------------------------------------
+am.r
+   25775		adeuib/_gotopag.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+   47882		adeuib/_drawobj.r
+  161414		adm2/query.r
+  143140		dtipomoneda.r
+    3100		adecomm/_kvlist.r
+   46544		adeuib/_chsxprt.r
+  160135		adm2/smart.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   21484		adeuib/_edtmstr.r
+  142086		dclausulas.r
+   37626		adeuib/_rdproc.r
+    1318		adecomm/_pwfmod.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   16052		adeuib/_abprint.r
+   39081		adeuib/_rszwind.r
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   17524		N:\industria\libCommonFunctions.p
+   24092		adm2/field.r
+   94165		bordenentrega.r
+   18264		adecomm/_so-cue.r
+   68662		adeuib/_ttmaint.r
+   79907		vitemscontroloe.r
+   98656		adm2/action.r
+  359411		adm2/data.r
+  171009		dordenentrega.r
+   53026		adm2/visual.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+   71266		adeuib/_rdbutt.r
+   31164		adeuib/_putpref.r
+   95604		bitemsordenentrega.r
+   37146		adeuib/_updmenu.r
+   43396		adeuib/_accsect.r
+    9776		adm2/dataviscustom.p
+   55704		adeuib/_seltrg.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   51606		N:\industria\libApiMenu.p
+   95604		N:\industria\bitemsordenentrega.w
+  141330		dtipounidadventa.r
+  228267		ditemsordenentrega.r
+   78508		adeuib/_rdwind.r
+   90560		vitemscontrolcontrato.r
+   24800		adeuib/_outpmen.r
+   48672		adm2/queryext.r
+   19221		adeuib/_chksel.r
+  140940		dtipocontenedor.r
+   20724		adeuib/_isa.r
+   33938		adeuib/_showpag.r
+  142221		dgastosventa.r
+   95668		adeshar/_coddflt.r
+   65808		adeuib/_inscall.r
+   98475		adeuib/_cr_cust.r
+   51946		adm2\dynfilter.r
+    8948		adexml/_winexit.r
+    1821		adecomm/_pwgetwh.r
+   38975		adeuib/_qbuild.r
+  432210		adeuib/_prpobj.r
+   40498		adeuib/_selevnt.r
+  101189		bitemsoe.r
+   14617		adeshar/_mrulist.r
+  240814		adm2/containr.r
+   11176		protools/_protool.r
+  246797		adeshar/_gendefs.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   59122		adeuib/_tabedit.r
+   29810		adeuib/_setsize.r
+  102205		bttgastosoe.r
+  144473		ddestinos.r
+   39474		adeuib/_ldicont.r
+   31942		protools/_ppmgr.r
+  148473		dttgastosoe.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   14830		adecomm/_pwmbar.r
+   36561		adeuib/_tabordr.r
+   50086		adeuib/_undbrow.r
+   34796		adeshar/_contbin.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   43271		adecomm/_pwsrch.r
+   20672		adecomm/_pwcreat.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+    9264		adecomm/_pwrdfl.r
+   82521		adm2\folder.r
+   75142		adeuib/_realizesmart.r
+    2495		adeuib/_seresz.r
+   39669		adeuib/_undbutt.r
+  108367		vitemsoe.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:          1964 14048987
+Writes to temp file:           2956 11221819
+Loads of .r programs:           219 14634521
+Saves of compilation .r's:       46  2319037
+Compilations of .p's:           102  2762662
+Checks of files with stat:     2861        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:           13216      179968
+R-code Execution Buffer:    6285412     6291456     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     3252 	Limit:     3296
+
+------------------------------------------------
+               Tue Jul 04 09:00:30 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			10:11:57
+    Size		Name
+    ----		----
+   43686		adeuib/_undcont.r
+    2430		adecomm/_adeobj.r
+   34231		adeuib/_vldwin.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   34555		adeuib/_wintitl.r
+   47020		adeuib/_showlbl.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+    1450		adecomm/_locdwb.r
+   79963		adeshar/_mlmgr.r
+   60643		adeuib/_uibstrt.r
+   77776		adeuib/_rdcont.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   21379		adeuib/_cr_cmnu.r
+   36920		adeuib/_sim_lbl.r
+   33329		adeuib/_open-w.r
+   21069		adeuib/_admpset.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+    3133		adecomm/_valpnam.r
+   79309		adeuib/_rdfill.r
+   11199		adecomm/_adeload.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+    3144		adeshar/_ablic.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+     942		adecomm/_osfext.r
+  323005		adeuib/_qssuckr.r
+   58033		adeuib/_sanitiz.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   14626		../z2_login.w
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   80333		adeuib/_rdfram.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+   68762		adeuib/_rdrect.r
+    3100		adecomm/_kvlist.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   37626		adeuib/_rdproc.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+   71266		adeuib/_rdbutt.r
+   31164		adeuib/_putpref.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   78508		adeuib/_rdwind.r
+   98475		adeuib/_cr_cust.r
+    8948		adexml/_winexit.r
+    1209		_rbuild.r
+   14617		adeshar/_mrulist.r
+   11176		protools/_protool.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+    1675		adecomm/_statdsp.r
+    5331		adecomm/_adehelp.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            86  3709241
+Saves of compilation .r's:        0        0
+Compilations of .p's:             4    22860
+Checks of files with stat:      875        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400       30112
+R-code Execution Buffer:    3170156     3170156     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      946 	Limit:      992
+
+------------------------------------------------
+               Tue Jul 04 10:24:15 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			11:30:22
+    Size		Name
+    ----		----
+   48892		adm2/dynselect.r
+   33508		adeuib/_advsrun.r
+   43686		adeuib/_undcont.r
+    2430		adecomm/_adeobj.r
+   23495		adeuib/_delmenu.r
+   34231		adeuib/_vldwin.r
+   17524		libCommonFunctions.r
+  209328		dtamboresindustria.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+  311395		adm2/toolbar.r
+   34555		adeuib/_wintitl.r
+   47020		adeuib/_showlbl.r
+   68455		adm2\dyntoolbar.w
+    2091		proto
+ -noindexhint =      0      
+
+
+Execution buffer map:			14:20:00
+    Size		Name
+    ----		----
+   48892		adm2/dynselect.r
+   17524		libCommonFunctions.r
+  209328		dtamboresindustria.r
+  311395		adm2/toolbar.r
+     773		c:\temp\p33547r.ped
+    1450		adecomm/_locdwb.r
+    2826		adecomm/_kwhelp.r
+   41497		libOrdenEntrega.r
+  133367		adm2/datavis.r
+   51606		libApiMenu.r
+    3679		adm2/actioncustom.p
+     746		adecomm/_setcurs.r
+   94762		adm2/dataext.r
+  278954		libTamboresIndustria.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+   24514		adm2/querycustom.p
+   26455		adm2/browsercustom.p
+     942		adecomm/_osfext.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   82521		adm2/folder.r
+  182444		ditemscontratos.r
+   14626		../z2_login.w
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   28003		adecomm/_runcode.r
+    7524		adm2/containrcustom.p
+    3044		adm2/support/getRelations.p
+  127211		adm2/filter.r
+   50703		adm2/viewer.r
+    4003		adecomm/_ossfnam.r
+   11137		adm2/smartcustom.p
+  161414		adm2/query.r
+    3100		adecomm/_kvlist.r
+  160135		adm2/smart.r
+   39907		adm2/dataextcols.r
+    7871		adm2/toolbarcustom.p
+   68455		adm2/dyntoolbar.w
+    6769		_login.r
+   24092		adm2/field.r
+   94165		bordenentrega.r
+   79907		vitemscontroloe.r
+   98656		adm2/action.r
+  359411		adm2/data.r
+  171009		dordenentrega.r
+   53026		adm2/visual.r
+    3311		adecomm/_adeevnt.r
+   95604		bitemsordenentrega.r
+    9776		adm2/dataviscustom.p
+    9238		adecomm/_pwexit.r
+  141330		dtipounidadventa.r
+  228267		ditemsordenentrega.r
+   48672		adm2/queryext.r
+   79677		wControlOE.r
+   85260		wInicioIndustria.r
+    1741		adecomm/_wfrun.r
+  240814		adm2/containr.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+    8118		adecomm/_toollic.r
+  148473		dttgastosoe.r
+    5331		adecomm/_adehelp.r
+   51946		adm2/dynfilter.r
+   12398		adm2/datacustom.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   19346		adecomm/as-utils.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            59  4843180
+Saves of compilation .r's:        0        0
+Compilations of .p's:            28   243020
+Checks of files with stat:     1601        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400       59520
+R-code Execution Buffer:    4586958     4586958     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     1188 	Limit:     1248
+
+------------------------------------------------
+148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+  131984		protools/_scrcap.r
+   37626		adeuib/_rdproc.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   36720		adexml/_xmlprops.r
+   80054		adeuib/_abfuncs.r
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   68455		adm2/dyntoolbar.w
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   50601		c:\temp\p20250cf.ab
+   18367		adeuib/_rsz_wp.r
+   24092		adm2/field.r
+   94165		bordenentrega.r
+   79907		vitemscontroloe.r
+   98656		adm2/action.r
+  359411		adm2/data.r
+  171009		dordenentrega.r
+   53026		adm2/visual.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+   71266		adeuib/_rdbutt.r
+   31164		adeuib/_putpref.r
+   37146		adeuib/_updmenu.r
+   95604		bitemsordenentrega.r
+   55704		adeuib/_seltrg.r
+    9776		adm2/dataviscustom.p
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   52006		N:\industria\libApiMenu.p
+  141330		dtipounidadventa.r
+  228267		ditemsordenentrega.r
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   90560		vitemscontrolcontrato.r
+   48672		adm2/queryext.r
+   79677		wControlOE.r
+   20724		adeuib/_isa.r
+   95668		adeshar/_coddflt.r
+   98475		adeuib/_cr_cust.r
+   51946		adm2\dynfilter.r
+    1741		adecomm/_wfrun.r
+    8948		adexml/_winexit.r
+   38975		adeuib/_qbuild.r
+   14617		adeshar/_mrulist.r
+  240814		adm2/containr.r
+   11176		protools/_protool.r
+  246797		adeshar/_gendefs.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   29810		adeuib/_setsize.r
+  102205		bttgastosoe.r
+   39474		adeuib/_ldicont.r
+   31942		protools/_ppmgr.r
+  148473		dttgastosoe.r
+    1675		adecomm/_statdsp.r
+    1720		ToolBarButtonAdd.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+   34796		adeshar/_contbin.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   33684		protools/_walker.r
+   60559		adecomm/xmlschema.r
+   51946		adm2/dynfilter.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   82521		adm2\folder.r
+   73212		protools/waspartn.r
+   75142		adeuib/_realizesmart.r
+   44452		protools/_prospy9.r
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:          1047  8049395
+Writes to temp file:           2515  9536682
+Loads of .r programs:           187 11902158
+Saves of compilation .r's:        2   131657
+Compilations of .p's:            26   747515
+Checks of files with stat:     3884        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            5984      144800
+R-code Execution Buffer:    6255843     6291456     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     2772 	Limit:     2784
+
+------------------------------------------------
+               Tue Jul 04 11:30:31 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			14:12:06
+    Size		Name
+    ----		----
+   48892		adm2/dynselect.r
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   23495		adeuib/_delmenu.r
+   34231		adeuib/_vldwin.r
+  209328		dtamboresindustria.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+  311395		adm2/toolbar.r
+   34555		adeuib/_wintitl.r
+   68455		adm2\dyntoolbar.w
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+   77469		adeuib/_qikcomp.r
+    1450		adecomm/_locdwb.r
+  105750		btamboresindustria.r
+   79963		adeshar/_mlmgr.r
+  133367		adm2/datavis.r
+   60643		adeuib/_uibstrt.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   21379		adeuib/_cr_cmnu.r
+   94645		adeuib/_edtproc.r
+   36920		adeuib/_sim_lbl.r
+   33329		adeuib/_open-w.r
+   84975		adeuib/_vprint.r
+    3679		adm2/actioncustom.p
+   21069		adeuib/_admpset.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+    2411		adecomm/_osfrw.r
+   94762		adm2/dataext.r
+  142812		adeuib/_tview.r
+    5607		adecomm/_relfile.r
+    3133		adecomm/_valpnam.r
+   11199		adecomm/_adeload.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+   24514		adm2/querycustom.p
+   26455		adm2/browsercustom.p
+    3144		adeshar/_ablic.r
+   19147		protools/_custmi2.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+     942		adecomm/_osfext.r
+  323005		adeuib/_qssuckr.r
+   58033		adeuib/_sanitiz.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   82521		adm2/folder.r
+   79704		N:\industria\wControlOE.w
+   33284		adeshar/_contbnm.r
+  182444		ditemscontratos.r
+   14626		../z2_login.w
+  137944		adeuib/_attr-ed.r
+   73594		adeuib/_adm-crt.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+    7524		adm2/containrcustom.p
+    4178		adeuib/_uibmode.r
+   97233		bitemscontratos.r
+  127211		adm2/filter.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   50703		adm2/viewer.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+    3081		adecomm/_relname.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+  161414		adm2/query.r
+  143140		dtipomoneda.r
+    3100		adecomm/_kvlist.r
+   73468		adeuib/_edtpref.r
+  160135		adm2/smart.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   37626		adeuib/_rdproc.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   53963		adeuib/_vgrid.r
+   18367		adeuib/_rsz_wp.r
+   17448		N:\industria\libCommonFunctions.p
+   24092		adm2/field.r
+   94165		bordenentrega.r
+   79907		vitemscontroloe.r
+   98656		adm2/action.r
+  359411		adm2/data.r
+   53026		adm2/visual.r
+  171009		dordenentrega.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+   71266		adeuib/_rdbutt.r
+   31164		adeuib/_putpref.r
+   37146		adeuib/_updmenu.r
+   95604		bitemsordenentrega.r
+    9776		adm2/dataviscustom.p
+   55704		adeuib/_seltrg.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   52094		N:\industria\libApiMenu.p
+   31979		protools/_custmiz.r
+  141330		dtipounidadventa.r
+  228267		ditemsordenentrega.r
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   90560		vitemscontrolcontrato.r
+   48672		adm2/queryext.r
+   20724		adeuib/_isa.r
+   95668		adeshar/_coddflt.r
+   98475		adeuib/_cr_cust.r
+   51946		adm2\dynfilter.r
+    8948		adexml/_winexit.r
+   50681		c:\temp\p97859cf.ab
+   14617		adeshar/_mrulist.r
+  240814		adm2/containr.r
+   11176		protools/_protool.r
+  246797		adeshar/_gendefs.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   29810		adeuib/_setsize.r
+  102205		bttgastosoe.r
+  148473		dttgastosoe.r
+   31942		protools/_ppmgr.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   97377		adeuib/_vgenrl.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   82521		adm2\folder.r
+   75142		adeuib/_realizesmart.r
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:           325  1838325
+Writes to temp file:           1354  4570462
+Loads of .r programs:           151  9894718
+Saves of compilation .r's:       15   857564
+Compilations of .p's:            37  1204274
+Checks of files with stat:     1586        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400      134016
+R-code Execution Buffer:    6287516     6291454     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     2212 	Limit:     2272
+
+------------------------------------------------
+               Tue Jul 04 14:17:57 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			14:19:50
+    Size		Name
+    ----		----
+    1450		adecomm/_locdwb.r
+     746		adecomm/_setcurs.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+     942		adecomm/_osfext.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   14626		../z2_login.w
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+    4003		adecomm/_ossfnam.r
+    3100		adecomm/_kvlist.r
+    6769		_login.r
+    3311		adecomm/_adeevnt.r
+    9238		adecomm/_pwexit.r
+    8118		adecomm/_toollic.r
+    5331		adecomm/_adehelp.r
+    7237		adecomm/_mnkvals.r
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            17   374798
+Saves of compilation .r's:        0        0
+Compilations of .p's:             3    22860
+Checks of files with stat:      185        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2080       28128
+R-code Execution Buffer:     362336      362336     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      228 	Limit:      480
+
+------------------------------------------------
+               Tue Jul 04 15:46:17 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			17:36:22
+    Size		Name
+    ----		----
+   27111		adeuib/_newfunc.r
+   48892		adm2/dynselect.r
+   33508		adeuib/_advsrun.r
+   43686		adeuib/_undcont.r
+    2430		adecomm/_adeobj.r
+   23495		adeuib/_delmenu.r
+  145317		dcontratos.r
+   75506		vgastosordenentrega.r
+   67208		adeuib/_vrfyqry.r
+   34231		adeuib/_vldwin.r
+  209328		dtamboresindustria.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+  311395		adm2/toolbar.r
+   34555		adeuib/_wintitl.r
+   47020		adeuib/_showlbl.r
+   68455		adm2\dyntoolbar.w
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+   77469		adeuib/_qikcomp.r
+    1450		adecomm/_locdwb.r
+   49779		ftotalesgastosoe.r
+  145923		drproductocalidad.r
+  105750		btamboresindustria.r
+   79963		adeshar/_mlmgr.r
+  133367		adm2/datavis.r
+   60643		adeuib/_uibstrt.r
+   77776		adeuib/_rdcont.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   21379		adeuib/_cr_cmnu.r
+   94645		adeuib/_edtproc.r
+   87086		vtotalesitemoe.r
+   36920		adeuib/_sim_lbl.r
+   33329		adeuib/_open-w.r
+    3679		adm2/actioncustom.p
+  155326		dgastosordenentrega.r
+   21069		adeuib/_admpset.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+   94762		adm2/dataext.r
+    2411		adecomm/_osfrw.r
+  142812		adeuib/_tview.r
+    5607		adecomm/_relfile.r
+    3133		adecomm/_valpnam.r
+   79309		adeuib/_rdfill.r
+   98203		bgastosordenentrega.r
+   11199		adecomm/_adeload.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+   24514		adm2/querycustom.p
+   86288		N:\industria\wInicioIndustria.w
+   26455		adm2/browsercustom.p
+  136169		dproductosterminados.r
+    3144		adeshar/_ablic.r
+  141496		dagencias.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    9905		c:\temp\p45110cf.ab
+    4977		_ab.r
+   49031		adeuib/_wrcont.r
+   23625		adeuib/_minsize.r
+     942		adecomm/_osfext.r
+   20231		prohelp/_msgs.r
+  323005		adeuib/_qssuckr.r
+   58033		adeuib/_sanitiz.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+   85675		voeindustria.r
+    7054		../s_inicio1.p
+   27676		adeuib/_newproc.r
+     547		_winevnt.r
+   78931		N:\industria\wControlOE.w
+  182444		ditemscontratos.r
+   33284		adeshar/_contbnm.r
+   14626		../z2_login.w
+   38617		adeuib/_proprty.r
+   73594		adeuib/_adm-crt.r
+  143347		dvapores.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+    7524		adm2/containrcustom.p
+    4178		adeuib/_uibmode.r
+   97233		bitemscontratos.r
+  127211		adm2/filter.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   50703		adm2/viewer.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+  134994		ddespachantes.r
+    3081		adecomm/_relname.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+  161414		adm2/query.r
+  143140		dtipomoneda.r
+    3100		adecomm/_kvlist.r
+   65183		adeuib/_inscal8.r
+  160135		adm2/smart.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+  142086		dclausulas.r
+   37626		adeuib/_rdproc.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   39081		adeuib/_rszwind.r
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   17542		N:\industria\libCommonFunctions.p
+   24092		adm2/field.r
+   94165		bordenentrega.r
+   79907		vitemscontroloe.r
+   98656		adm2/action.r
+  359411		adm2/data.r
+   53026		adm2/visual.r
+  171009		dordenentrega.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+   71266		adeuib/_rdbutt.r
+   31164		adeuib/_putpref.r
+   95604		bitemsordenentrega.r
+   37146		adeuib/_updmenu.r
+    9776		adm2/dataviscustom.p
+   55704		adeuib/_seltrg.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   53278		N:\industria\libApiMenu.p
+  141330		dtipounidadventa.r
+  228267		ditemsordenentrega.r
+   31979		protools/_custmiz.r
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   90560		vitemscontrolcontrato.r
+   48672		adm2/queryext.r
+  140940		dtipocontenedor.r
+   20724		adeuib/_isa.r
+   95668		adeshar/_coddflt.r
+  142221		dgastosventa.r
+   65808		adeuib/_inscall.r
+   98475		adeuib/_cr_cust.r
+   51946		adm2\dynfilter.r
+    8948		adexml/_winexit.r
+  432210		adeuib/_prpobj.r
+  101189		bitemsoe.r
+   14617		adeshar/_mrulist.r
+  240814		adm2/containr.r
+   11176		protools/_protool.r
+  246797		adeshar/_gendefs.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   29810		adeuib/_setsize.r
+  102205		bttgastosoe.r
+  144473		ddestinos.r
+   39474		adeuib/_ldicont.r
+  148473		dttgastosoe.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+   34796		adeshar/_contbin.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   82521		adm2\folder.r
+   75142		adeuib/_realizesmart.r
+    2495		adeuib/_seresz.r
+  108367		vitemsoe.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:           852  5584976
+Writes to temp file:           2246  8671120
+Loads of .r programs:           179 12669867
+Saves of compilation .r's:       33  2057136
+Compilations of .p's:            57  2426559
+Checks of files with stat:     2338        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2656      140736
+R-code Execution Buffer:    6287453     6291454     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     2860 	Limit:     3040
+
+------------------------------------------------
+               Tue Jul 04 17:38:11 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			17:38:15
+    Size		Name
+    ----		----
+    1450		adecomm/_locdwb.r
+     746		adecomm/_setcurs.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+     942		adecomm/_osfext.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   14626		../z2_login.w
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+    4003		adecomm/_ossfnam.r
+    3100		adecomm/_kvlist.r
+    6769		_login.r
+    3311		adecomm/_adeevnt.r
+    9238		adecomm/_pwexit.r
+    8118		adecomm/_toollic.r
+    5331		adecomm/_adehelp.r
+    7237		adecomm/_mnkvals.r
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            17   374798
+Saves of compilation .r's:        0        0
+Compilations of .p's:             3    22860
+Checks of files with stat:      185        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2080       28128
+R-code Execution Buffer:     362336      362336     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      228 	Limit:      480
+
+------------------------------------------------
+               Wed Jul 05 08:46:27 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0                     Wed Jul 05 13:00:04 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			13:57:56
+    Size		Name
+    ----		----
+   48892		adm2/dynselect.r
+   33508		adeuib/_advsrun.r
+   43686		adeuib/_undcont.r
+    2430		adecomm/_adeobj.r
+   23495		adeuib/_delmenu.r
+  145317		dcontratos.r
+   75506		vgastosordenentrega.r
+   34231		adeuib/_vldwin.r
+  209328		dtamboresindustria.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+  311395		adm2/toolbar.r
+   34555		adeuib/_wintitl.r
+   47020		adeuib/_showlbl.r
+   68455		adm2\dyntoolbar.w
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+    1450		adecomm/_locdwb.r
+   49779		ftotalesgastosoe.r
+  145923		drproductocalidad.r
+  105750		btamboresindustria.r
+   79963		adeshar/_mlmgr.r
+  133367		adm2/datavis.r
+   60643		adeuib/_uibstrt.r
+   77776		adeuib/_rdcont.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   21379		adeuib/_cr_cmnu.r
+   36920		adeuib/_sim_lbl.r
+   87086		vtotalesitemoe.r
+   33329		adeuib/_open-w.r
+    3679		adm2/actioncustom.p
+  155326		dgastosordenentrega.r
+   21069		adeuib/_admpset.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+    2411		adecomm/_osfrw.r
+  142812		adeuib/_tview.r
+   94762		adm2/dataext.r
+    5607		adecomm/_relfile.r
+    3133		adecomm/_valpnam.r
+   79309		adeuib/_rdfill.r
+   98203		bgastosordenentrega.r
+   11199		adecomm/_adeload.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+   24514		adm2/querycustom.p
+   86393		N:\industria\wInicioIndustria.w
+   26455		adm2/browsercustom.p
+  136169		dproductosterminados.r
+    3144		adeshar/_ablic.r
+  141496		dagencias.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+   49031		adeuib/_wrcont.r
+   41565		N:\industria\libOrdenEntrega.p
+     942		adecomm/_osfext.r
+  323005		adeuib/_qssuckr.r
+   58033		adeuib/_sanitiz.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+   85675		voeindustria.r
+    7054		../s_inicio1.p
+   33284		adeshar/_contbnm.r
+   14626		../z2_login.w
+   73594		adeuib/_adm-crt.r
+  143347		dvapores.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+    7524		adm2/containrcustom.p
+    4178		adeuib/_uibmode.r
+  127211		adm2/filter.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   50703		adm2/viewer.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+  134994		ddespachantes.r
+    3081		adecomm/_relname.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+  161414		adm2/query.r
+  143140		dtipomoneda.r
+    3100		adecomm/_kvlist.r
+  160135		adm2/smart.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+  142086		dclausulas.r
+   37626		adeuib/_rdproc.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   24092		adm2/field.r
+   94165		bordenentrega.r
+   98656		adm2/action.r
+  359411		adm2/data.r
+   53026		adm2/visual.r
+  171009		dordenentrega.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+   71266		adeuib/_rdbutt.r
+   31164		adeuib/_putpref.r
+   37146		adeuib/_updmenu.r
+   55704		adeuib/_seltrg.r
+    9776		adm2/dataviscustom.p
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+  228267		ditemsordenentrega.r
+   78508		adeuib/_rdwind.r
+   48672		adm2/queryext.r
+   20724		adeuib/_isa.r
+  140940		dtipocontenedor.r
+   95668		adeshar/_coddflt.r
+  142221		dgastosventa.r
+   98475		adeuib/_cr_cust.r
+   51946		adm2\dynfilter.r
+    8948		adexml/_winexit.r
+   14617		adeshar/_mrulist.r
+  101189		bitemsoe.r
+  240814		adm2/containr.r
+   11176		protools/_protool.r
+  246797		adeshar/_gendefs.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   29810		adeuib/_setsize.r
+  144473		ddestinos.r
+   39474		adeuib/_ldicont.r
+    1675		adecomm/_statdsp.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+   34796		adeshar/_contbin.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   82521		adm2\folder.r
+    2495		adeuib/_seresz.r
+   75142		adeuib/_realizesmart.r
+  108367		vitemsoe.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:           275  2547024
+Writes to temp file:           1641  5928437
+Loads of .r programs:           155 10693018
+Saves of compilation .r's:        9   598692
+Compilations of .p's:            26   827237
+Checks of files with stat:     1910        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400      135904
+R-code Execution Buffer:    6290769     6291451     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     2342 	Limit:     2528
+
+------------------------------------------------
+               Wed Jul 05 15:37:37 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			17:12:54
+    Size		Name
+    ----		----
+    5777		adecomm/_tbllist.r
+   48892		adm2/dynselect.r
+    1991		adecomm/_getdbid.r
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   23495		adeuib/_delmenu.r
+  145317		dcontratos.r
+   75506		vgastosordenentrega.r
+   34231		adeuib/_vldwin.r
+  209328		dtamboresindustria.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+  311395		adm2/toolbar.r
+   34555		adeuib/_wintitl.r
+   47020		adeuib/_showlbl.r
+    2181		adecomm/_pwclosf.r
+   68455		adm2\dyntoolbar.w
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+   36329		adeuib/_loadbc.r
+   77469		adeuib/_qikcomp.r
+    1450		adecomm/_locdwb.r
+   69937		adeuib/_rdtext.r
+    2826		adecomm/_kwhelp.r
+   49779		ftotalesgastosoe.r
+  145923		drproductocalidad.r
+  105750		btamboresindustria.r
+   10726		adecomm/_pwmain.r
+   79963		adeshar/_mlmgr.r
+    2866		adecomm/_pwclose.r
+  133367		adm2/datavis.r
+   60643		adeuib/_uibstrt.r
+    1102		adecomm/_finddb.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   21379		adeuib/_cr_cmnu.r
+   94645		adeuib/_edtproc.r
+   87086		vtotalesitemoe.r
+  228267		dItemsOrdenEntrega.r
+   33329		adeuib/_open-w.r
+    3679		adm2/actioncustom.p
+  155326		dgastosordenentrega.r
+    2182		adecomm/_pwfchg.r
+   21069		adeuib/_admpset.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+    2411		adecomm/_osfrw.r
+  142812		adeuib/_tview.r
+   94762		adm2/dataext.r
+    5607		adecomm/_relfile.r
+    3133		adecomm/_valpnam.r
+   79309		adeuib/_rdfill.r
+   98203		bgastosordenentrega.r
+   11199		adecomm/_adeload.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+   24514		adm2/querycustom.p
+   22106		adeuib/_tbllist.r
+   26455		adm2/browsercustom.p
+  136169		dproductosterminados.r
+    3144		adeshar/_ablic.r
+    1072		adecomm/_filter7.r
+  141496		dagencias.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+   42193		N:\industria\libOrdenEntrega.p
+     942		adecomm/_osfext.r
+  323005		adeuib/_qssuckr.r
+   58033		adeuib/_sanitiz.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+   77625		adeuib/_rdqury.r
+   10148		c:\temp\p26453cf.ab
+   85675		voeindustria.r
+    7054		../s_inicio1.p
+   33284		adeshar/_contbnm.r
+   14626		../z2_login.w
+   38617		adeuib/_proprty.r
+  143347		dvapores.r
+    2509		adecomm/_getpdbs.r
+    1780		adecomm/_pwdelpw.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   80333		adeuib/_rdfram.r
+   42334		adeuib/_undsdo.r
+    7524		adm2/containrcustom.p
+    4178		adeuib/_uibmode.r
+    1257		adecomm/_pwgeteh.r
+  127211		adm2/filter.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   59168		adeshar/_qenable.r
+   50703		adm2/viewer.r
+   22745		adeuib/_initpal.r
+   56025		adeuib/_callqry.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+  134994		ddespachantes.r
+    3081		adecomm/_relname.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+   25775		adeuib/_gotopag.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+  161414		adm2/query.r
+  143140		dtipomoneda.r
+    3100		adecomm/_kvlist.r
+  219614		adeshar/_query.r
+  160135		adm2/smart.r
+   74148		adeuib/_cr_prop.r
+   21484		adeuib/_edtmstr.r
+   43666		adeuib/_delet_u.r
+  142086		dclausulas.r
+   37626		adeuib/_rdproc.r
+    1318		adecomm/_pwfmod.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   59809		adeuib/_prpsdo.r
+   80054		adeuib/_abfuncs.r
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   24092		adm2/field.r
+   94165		bordenentrega.r
+   98656		adm2/action.r
+  359411		adm2/data.r
+   53026		adm2/visual.r
+  171009		dordenentrega.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+   31164		adeuib/_putpref.r
+   37146		adeuib/_updmenu.r
+   55704		adeuib/_seltrg.r
+    9776		adm2/dataviscustom.p
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   54898		N:\industria\libApiMenu.p
+  228267		ditemsordenentrega.r
+   78508		adeuib/_rdwind.r
+   48672		adm2/queryext.r
+   20724		adeuib/_isa.r
+  140940		dtipocontenedor.r
+   33938		adeuib/_showpag.r
+  142221		dgastosventa.r
+   12275		adecomm/_s-schem.r
+   98475		adeuib/_cr_cust.r
+   51946		adm2\dynfilter.r
+    8948		adexml/_winexit.r
+   56617		adeshar/_qset.r
+   38975		adeuib/_qbuild.r
+    1821		adecomm/_pwgetwh.r
+   14617		adeshar/_mrulist.r
+  101189		bitemsoe.r
+  240814		adm2/containr.r
+   11176		protools/_protool.r
+    1818		adecomm/_convert.r
+  246797		adeshar/_gendefs.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   29810		adeuib/_setsize.r
+  144473		ddestinos.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   14830		adecomm/_pwmbar.r
+    7689		adeuib/_fldinfo.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   20672		adecomm/_pwcreat.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+    2854		adecomm/_dblist.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+    9264		adecomm/_pwrdfl.r
+   82521		adm2\folder.r
+    2495		adeuib/_seresz.r
+   75142		adeuib/_realizesmart.r
+  108367		vitemsoe.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:           369  3042933
+Writes to temp file:           1832  6541674
+Loads of .r programs:           183 11465380
+Saves of compilation .r's:       19   913307
+Compilations of .p's:            38  1152000
+Checks of files with stat:     2157        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2624      170976
+R-code Execution Buffer:    6286645     6291454     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     2614 	Limit:     2784
+
+------------------------------------------------
+               Thu Jul 06 07:56:36 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			16:59:11
+    Size		Name
+    ----		----
+    5777		adecomm/_tbllist.r
+    4624		adeuib/_strfmt.r
+   27111		adeuib/_newfunc.r
+   48892		adm2/dynselect.r
+    1991		adecomm/_getdbid.r
+   43686		adeuib/_undcont.r
+   33508		adeuib/_advsrun.r
+   60988		custom/support/keyedit.w
+   23495		adeuib/_delmenu.r
+  145317		dcontratos.r
+   75506		vgastosordenentrega.r
+   67208		adeuib/_vrfyqry.r
+   13978		adecomm/_somatch.r
+   97422		N:\industria\wOEIndustria.w
+   34231		adeuib/_vldwin.r
+  209328		dtamboresindustria.r
+   29591		adecomm/_winmenu.r
+  311395		adm2/toolbar.r
+   34555		adeuib/_wintitl.r
+   47020		adeuib/_showlbl.r
+    2181		adecomm/_pwclosf.r
+   68455		adm2\dyntoolbar.w
+    1166		adecomm/_bstfnam.r
+   36329		adeuib/_loadbc.r
+   77469		adeuib/_qikcomp.r
+    2826		adecomm/_kwhelp.r
+   69937		adeuib/_rdtext.r
+   49779		ftotalesgastosoe.r
+  145923		drproductocalidad.r
+  105750		btamboresindustria.r
+   10726		adecomm/_pwmain.r
+   79963		adeshar/_mlmgr.r
+    2866		adecomm/_pwclose.r
+    5992		custom/support/cusprim.p
+  133367		adm2/datavis.r
+   77776		adeuib/_rdcont.r
+    1102		adecomm/_finddb.r
+   70633		adeuib/_rdedit.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   94645		adeuib/_edtproc.r
+   36920		adeuib/_sim_lbl.r
+   87086		vtotalesitemoe.r
+  228307		dItemsOrdenEntrega.r
+    3218		adecomm/_valname.r
+   33329		adeuib/_open-w.r
+    3679		adm2/actioncustom.p
+  155326		dgastosordenentrega.r
+    2182		adecomm/_pwfchg.r
+   24599		adeshar/_bstfnam.r
+    1041		adeuib/_undsmar.r
+   21069		adeuib/_admpset.r
+     746		adecomm/_setcurs.r
+   38914		adeuib/_drwradi.r
+   23752		adeuib/_edtsmar.r
+   11833		adeshar/_cntrsdm.r
+    2411		adecomm/_osfrw.r
+  142812		adeuib/_tview.r
+   94762		adm2/dataext.r
+    3974		adm2/support/_wizntro.r
+    1941		adeuib/_keygues.r
+    5607		adecomm/_relfile.r
+    3133		adecomm/_valpnam.r
+   79309		adeuib/_rdfill.r
+   34870		adeuib/_chklbls.r
+   98203		bgastosordenentrega.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+  112385		N:\industria\dTiposOrdenEntrega_cl.w
+   24514		adm2/querycustom.p
+   14468		custom/support/cuswfld.p
+   22106		adeuib/_tbllist.r
+   26455		adm2/browsercustom.p
+   12507		adecomm/_mfldlst.r
+  136169		dproductosterminados.r
+    1072		adecomm/_filter7.r
+  141496		dagencias.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+   21935		adeuib/_ok_name.r
+   49031		adeuib/_wrcont.r
+   34371		adeuib/_uib_dlg.r
+     942		adecomm/_osfext.r
+   92477		N:\industria\voeindustria.w
+  323005		adeuib/_qssuckr.r
+  142136		N:\industria\dTiposOrdenEntrega.w
+    2930		adecomm/_gttblid.r
+   67102		adeuib/_recreat.r
+   58033		adeuib/_sanitiz.r
+   12949		adecomm/_collaps.r
+   46109		adm2/support/selectd.r
+   19900		adecomm/_getflst.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+   77625		adeuib/_rdqury.r
+   92477		voeindustria.r
+    7920		adecomm/_getdlst.r
+   79664		adeuib/_rdcomb.r
+   27676		adeuib/_newproc.r
+   33284		adeshar/_contbnm.r
+   49528		adeuib/_drwsmar.r
+   27074		custom/support/cuscampv.p
+     530		c:\temp\p81641cf.ab
+   38617		adeuib/_proprty.r
+   73594		adeuib/_adm-crt.r
+  143347		dvapores.r
+    2509		adecomm/_getpdbs.r
+    1780		adecomm/_pwdelpw.r
+   62824		adecomm/_chosobj.r
+  294076		adeedit/_proedit.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+  139823		N:\industria\ditemsordenentrega_cl.w
+   24515		adm2/support/_wizard.r
+   42334		adeuib/_undsdo.r
+    7524		adm2/containrcustom.p
+    4178		adeuib/_uibmode.r
+   66418		N:\industria\libProceduresReglas.p
+    1257		adecomm/_pwgeteh.r
+   64804		adeuib/_linked.r
+  127211		adm2/filter.r
+  145427		.\dlugardescargas.r
+   59168		adeshar/_qenable.r
+   83538		adeuib/_rdradi.r
+   50703		adm2/viewer.r
+  228307		N:\industria\ditemsordenentrega.w
+   56025		adeuib/_callqry.r
+   48892		adm2\dynselect.r
+    2082		adecomm/_osprefx.r
+  134994		ddespachantes.r
+    3081		adecomm/_relname.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+   25775		adeuib/_gotopag.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+   41557		adeuib/_undradi.r
+    1563		adecomm/_delitem.r
+   47882		adeuib/_drawobj.r
+  145427		dlugardescargas.r
+   45800		adeuib/_undo.r
+  161414		adm2/query.r
+  401171		N:\industria\libReportes.p
+  143140		dtipomoneda.r
+    3100		adecomm/_kvlist.r
+  219614		adeshar/_query.r
+   42826		adeuib/_uib_crt.r
+    2279		adeuib/_rbtns.r
+  160135		adm2/smart.r
+   21484		adeuib/_edtmstr.r
+   43666		adeuib/_delet_u.r
+  142086		dclausulas.r
+   37626		adeuib/_rdproc.r
+    1318		adecomm/_pwfmod.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   59809		adeuib/_prpsdo.r
+   80054		adeuib/_abfuncs.r
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+   85165		adeuib/_advslnk.r
+   24092		adm2/field.r
+   94165		bordenentrega.r
+  172062		dOrdenEntrega.r
+   98656		adm2/action.r
+  359411		adm2/data.r
+  172062		dordenentrega.r
+    7841		adeuib/_keygus2.r
+  168193		adm/objects/broker.r
+   53026		adm2/visual.r
+   11306		adm2/support/_wizfld.r
+   24288		adeuib/_advisor.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+   11662		adeuib/_windsdn.r
+  238935		adeshar/_gen4gl.r
+   71266		adeuib/_rdbutt.r
+   31164		adeuib/_putpref.r
+   37146		adeuib/_updmenu.r
+   43396		adeuib/_accsect.r
+   55704		adeuib/_seltrg.r
+    9776		adm2/dataviscustom.p
+  228307		ditemsordenentrega.r
+   57114		N:\industria\libApiMenu.p
+    9238		adecomm/_pwexit.r
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   48672		adm2/queryext.r
+    1615		adecomm/_scroll.r
+   20724		adeuib/_isa.r
+  140940		dtipocontenedor.r
+   33938		adeuib/_showpag.r
+   95668		adeshar/_coddflt.r
+  142221		dgastosventa.r
+   65808		adeuib/_inscall.r
+   12275		adecomm/_s-schem.r
+   51946		adm2\dynfilter.r
+    8948		adexml/_winexit.r
+    1209		_rbuild.r
+    1821		adecomm/_pwgetwh.r
+   56617		adeshar/_qset.r
+  432210		adeuib/_prpobj.r
+   38975		adeuib/_qbuild.r
+   40498		adeuib/_selevnt.r
+   14617		adeshar/_mrulist.r
+  101189		bitemsoe.r
+   10526		adm2/support/_wizend.r
+  240814		adm2/containr.r
+    1818		adecomm/_convert.r
+  246797		adeshar/_gendefs.r
+  142136		dtiposordenentrega.r
+  157003		adeuib/_coledit.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+   59122		adeuib/_tabedit.r
+   11503		adecomm/_tblbrws.r
+   56341		adeuib/_drwflds.r
+   29810		adeuib/_setsize.r
+  144473		ddestinos.r
+   39474		adeuib/_ldicont.r
+   11857		adm2/support/_wizqry.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   14830		adecomm/_pwmbar.r
+  142136		.\dtiposordenentrega.r
+   18106		adecomm/_tblsel.r
+   36561		adeuib/_tabordr.r
+   13546		adeuib/_sel_fn.r
+    5092		adecomm/_solink.r
+   34796		adeshar/_contbin.r
+    7689		adeuib/_fldinfo.r
+    2158		adecomm/_pwwinst.r
+   20672		adecomm/_pwcreat.r
+    7063		adm2/support/visuald.r
+   12398		adm2/datacustom.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+    2854		adecomm/_dblist.r
+    6784		c:\temp\p58844cf.ab
+   28344		adecomm/_mfldsel.r
+   46274		adm2/viewercustom.p
+    9264		adecomm/_pwrdfl.r
+  131547		N:\industria\dordenentrega_cl.w
+   82521		adm2\folder.r
+   75142		adeuib/_realizesmart.r
+  108367		vitemsoe.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:          5668 39086446
+Writes to temp file:           4492 16264074
+Loads of .r programs:           285 18209214
+Saves of compilation .r's:       99  8294163
+Compilations of .p's:           199  9678463
+Checks of files with stat:     6761        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            8096      230176
+R-code Execution Buffer:    6287127     6291456     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     3894 	Limit:     4064
+
+------------------------------------------------
+               Fri Jul 07 08:42:15 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0                     Fri Jul 07 09:39:22 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			17:06:34
+    Size		Name
+    ----		----
+  311395		adm2/toolbar.r
+    1450		adecomm/_locdwb.r
+  133367		adm2/datavis.r
+    3679		adm2/actioncustom.p
+    1986		getHuecoMenu.p
+     746		adecomm/_setcurs.r
+   94762		adm2/dataext.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+  141596		dparpermisos.r
+   24514		adm2/querycustom.p
+   78578		vparpermisos2.r
+   78578		vparpermisos1.r
+     942		adecomm/_osfext.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   14915		../z2_login.w
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   28003		adecomm/_runcode.r
+    7524		adm2/containrcustom.p
+    3044		adm2/support/getRelations.p
+  151844		dparmenugrupos.r
+   50703		adm2/viewer.r
+    4003		adecomm/_ossfnam.r
+   11137		adm2/smartcustom.p
+  161414		adm2/query.r
+    3100		adecomm/_kvlist.r
+  160135		adm2/smart.r
+   39907		adm2/dataextcols.r
+    7871		adm2/toolbarcustom.p
+   68455		adm2/dyntoolbar.w
+    6769		_login.r
+   98656		adm2/action.r
+  359223		adm2/data.r
+   89903		vparmenugrupos.r
+   53026		adm2/visual.r
+     484		c:\temp\p14828r.ped
+    3311		adecomm/_adeevnt.r
+   86890		wParMenuGrupoNew.r
+    9776		adm2/dataviscustom.p
+    9238		adecomm/_pwexit.r
+   48672		adm2/queryext.r
+    1741		adecomm/_wfrun.r
+  240814		adm2/containr.r
+   73317		adm2/panel.r
+    8118		adecomm/_toollic.r
+    5331		adecomm/_adehelp.r
+   12398		adm2/datacustom.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+   53039		adm2/appserver.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   19346		adecomm/as-utils.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            42  2944263
+Saves of compilation .r's:        0        0
+Compilations of .p's:            17   212717
+Checks of files with stat:     1548        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400       34176
+R-code Execution Buffer:    2857628     2857628     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      780 	Limit:      992
+
+------------------------------------------------
+ocdwb.r
+   69937		adeuib/_rdtext.r
+   49779		ftotalesgastosoe.r
+  145923		drproductocalidad.r
+  105750		btamboresindustria.r
+  142304		dqdestinos.r
+   79963		adeshar/_mlmgr.r
+  133367		adm2/datavis.r
+   60643		adeuib/_uibstrt.r
+   77776		adeuib/_rdcont.r
+  358200		adeuib/_semain.r
+   70633		adeuib/_rdedit.r
+   33085		adeuib/_windpos.r
+   21379		adeuib/_cr_cmnu.r
+   36920		adeuib/_sim_lbl.r
+   87086		vtotalesitemoe.r
+   33329		adeuib/_open-w.r
+  112014		dlugardescargas_cl.r
+    3679		adm2/actioncustom.p
+  155326		dgastosordenentrega.r
+    1041		adeuib/_undsmar.r
+   21069		adeuib/_admpset.r
+     746		adecomm/_setcurs.r
+  142752		dqclientes.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+    2411		adecomm/_osfrw.r
+   94762		adm2/dataext.r
+    5607		adecomm/_relfile.r
+    3133		adecomm/_valpnam.r
+   79309		adeuib/_rdfill.r
+  278954		libTamboresIndustria.r
+   98203		bgastosordenentrega.r
+   11199		adecomm/_adeload.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+   24514		adm2/querycustom.p
+   26455		adm2/browsercustom.p
+  136169		dproductosterminados.r
+    3144		adeshar/_ablic.r
+  141496		dagencias.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+  155845		drprocesotambor.r
+     942		adecomm/_osfext.r
+   92732		N:\industria\voeindustria.w
+  323005		adeuib/_qssuckr.r
+   67102		adeuib/_recreat.r
+   74096		adeuib/_rdsele.r
+   58033		adeuib/_sanitiz.r
+  114156		ddestinos_cl.r
+   78110		libRemitos.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+   77625		adeuib/_rdqury.r
+   92732		voeindustria.r
+   79664		adeuib/_rdcomb.r
+  101487		brtamborremito.r
+    7054		../s_inicio1.p
+   33284		adeshar/_contbnm.r
+   76639		vcargasanalisis.r
+   14915		../z2_login.w
+   73594		adeuib/_adm-crt.r
+  161069		ditemsremito.r
+  143347		dvapores.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   36804		adeuib/_gentabs.r
+  100154		bitemsremito.r
+   80333		adeuib/_rdfram.r
+  150589		drtamborremito.r
+    7524		adm2/containrcustom.p
+    4178		adeuib/_uibmode.r
+   75544		c:\temp\p09031cf.ab
+    3044		adm2/support/getRelations.p
+  127211		adm2/filter.r
+   49786		fradtipotambor.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+  147536		dcalidades.r
+   83538		adeuib/_rdradi.r
+   50703		adm2/viewer.r
+   22745		adeuib/_initpal.r
+   48892		adm2\dynselect.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+  134994		ddespachantes.r
+    3081		adecomm/_relname.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+   25775		adeuib/_gotopag.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+  146903		dtanque.r
+  145427		dlugardescargas.r
+  161414		adm2/query.r
+  141285		dqciaseg.r
+   98047		vitemsremito.r
+  143140		dtipomoneda.r
+    3100		adecomm/_kvlist.r
+    2279		adeuib/_rbtns.r
+  160135		adm2/smart.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   21484		adeuib/_edtmstr.r
+  142086		dclausulas.r
+   37626		adeuib/_rdproc.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   68455		adm2/dyntoolbar.w
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+  113109		dvapores_cl.r
+   84542		vcargas.r
+   18367		adeuib/_rsz_wp.r
+  140955		dunidadesquimicas.r
+   24092		adm2/field.r
+   94165		bordenentrega.r
+  172582		dOrdenEntrega.r
+   98656		adm2/action.r
+  359223		adm2/data.r
+   81818		vcomposicioncarga.r
+   53026		adm2/visual.r
+  172582		dordenentrega.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+  165119		dproceso.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+   71266		adeuib/_rdbutt.r
+   31164		adeuib/_putpref.r
+   37146		adeuib/_updmenu.r
+   55704		adeuib/_seltrg.r
+    9776		adm2/dataviscustom.p
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+    4976		libCodigoBarras.r
+  168308		dpuntoenvase.r
+  229039		ditemsordenentrega.r
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   48672		adm2/queryext.r
+  175525		dttlecturatambores.r
+   93509		bproceso.r
+   20724		adeuib/_isa.r
+  140940		dtipocontenedor.r
+   95668		adeshar/_coddflt.r
+   33938		adeuib/_showpag.r
+  142221		dgastosventa.r
+   93144		bttlecturatambores.r
+  173869		dcargas.r
+   65808		adeuib/_inscall.r
+   12275		adecomm/_s-schem.r
+   98475		adeuib/_cr_cust.r
+   91677		bcomposicioncarga.r
+   51946		adm2\dynfilter.r
+    8948		adexml/_winexit.r
+  102252		bpuntoenvase.r
+   38975		adeuib/_qbuild.r
+  153080		dcomposicioncarga.r
+   14617		adeshar/_mrulist.r
+  101466		bitemsoe.r
+  240814		adm2/containr.r
+   11176		protools/_protool.r
+  246797		adeshar/_gendefs.r
+    1818		adecomm/_convert.r
+   95353		bcargas.r
+  142136		dtiposordenentrega.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   79891		vconfirmacionremito.r
+   64504		flecturatambores.r
+   29810		adeuib/_setsize.r
+  141797		dquimicos.r
+  144473		ddestinos.r
+   74322		vproceso.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+  170190		dremitos.r
+  108521		vpuntoenvase.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   95580		bremitos.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  136316		denvasesprod.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   69880		adeuib/_rdtogg.r
+   82521		adm2\folder.r
+    2495		adeuib/_seresz.r
+   75142		adeuib/_realizesmart.r
+  145334		dqproveedores.r
+  114417		vitemsoe.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:          1522 11474682
+Writes to temp file:           3179 12424456
+Loads of .r programs:           221 17181160
+Saves of compilation .r's:        2   190154
+Compilations of .p's:            22   566031
+Checks of files with stat:     3519        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400      239616
+R-code Execution Buffer:    6283944     6291456     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     3588 	Limit:     3808
+
+------------------------------------------------
+               Mon Jul 10 08:35:45 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			11:41:29
+    Size		Name
+    ----		----
+   27111		adeuib/_newfunc.r
+   48892		adm2/dynselect.r
+    4624		adeuib/_strfmt.r
+    5777		adecomm/_tbllist.r
+    1991		adecomm/_getdbid.r
+   33508		adeuib/_advsrun.r
+   23495		adeuib/_delmenu.r
+   30561		custom\objects\cus-misc.w
+   67208		adeuib/_vrfyqry.r
+   13978		adecomm/_somatch.r
+   89580		.\bagencias.r
+   34231		adeuib/_vldwin.r
+   29591		adecomm/_winmenu.r
+  311395		adm2/toolbar.r
+   34555		adeuib/_wintitl.r
+  142608		N:\industria\dgastosagencias.w
+   47020		adeuib/_showlbl.r
+   33111		adeuib/_adm-row.r
+    2181		adecomm/_pwclosf.r
+   36329		adeuib/_loadbc.r
+    1166		adecomm/_bstfnam.r
+   77469		adeuib/_qikcomp.r
+   81262		adeuib/_rdbrow.r
+   38214		custom\objects\cus-navico.w
+   10726		adecomm/_pwmain.r
+   79963		adeshar/_mlmgr.r
+  133367		adm2/datavis.r
+    2866		adecomm/_pwclose.r
+    1102		adecomm/_finddb.r
+   15495		adm2/support/_wizdfld.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   94645		adeuib/_edtproc.r
+    3218		adecomm/_valname.r
+   89580		N:\industria\bAgencias.w
+    6496		adecomm/_pwfile.r
+   33329		adeuib/_open-w.r
+   78887		vagencias.r
+    3679		adm2/actioncustom.p
+  141496		./dAgencias.r
+   24599		adeshar/_bstfnam.r
+    1041		adeuib/_undsmar.r
+    2182		adecomm/_pwfchg.r
+   21069		adeuib/_admpset.r
+     746		adecomm/_setcurs.r
+   89423		N:\industria\bGastosAgencias.w
+   23752		adeuib/_edtsmar.r
+  141496		dAgencias.r
+   94762		adm2/dataext.r
+   11833		adeshar/_cntrsdm.r
+    2411		adecomm/_osfrw.r
+  142812		adeuib/_tview.r
+    3974		adm2/support/_wizntro.r
+    5607		adecomm/_relfile.r
+    3133		adecomm/_valpnam.r
+   79309		adeuib/_rdfill.r
+   89423		.\bgastosagencias.r
+    1866		c:\temp\p03766cf.ab
+   22753		adm2/support/datad.r
+    2298		adecomm/_findtbl.r
+  111342		N:\industria\dGastosAgencias_cl.w
+   34870		adeuib/_chklbls.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+   24514		adm2/querycustom.p
+  140970		N:\industria\dGastosAgencias.w
+   26455		adm2/browsercustom.p
+   22106		adeuib/_tbllist.r
+   86531		N:\industria\wInicioIndustria.w
+   12507		adecomm/_mfldlst.r
+  142221		.\dgastosventa.r
+    1486		adecomm/_so-cuew.r
+  142608		dGastosAgencias.r
+   51147		adeuib/_edtpage.r
+    1072		adecomm/_filter7.r
+   35816		adeuib/_drwrect.r
+  141496		dagencias.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+   33037		adm2/support/_wizdo.r
+   49031		adeuib/_wrcont.r
+   73817		N:\industria\wGastosAgencias.w
+   14475		adeuib/_wrrott.r
+   34371		adeuib/_uib_dlg.r
+   23625		adeuib/_minsize.r
+  199207		N:\industria\w_reporte_produccion_rapido.w
+     942		adecomm/_osfext.r
+   40256		adeuib/_crtsobj.r
+  323005		adeuib/_qssuckr.r
+    2930		adecomm/_gttblid.r
+   89580		bagencias.r
+   67102		adeuib/_recreat.r
+   58033		adeuib/_sanitiz.r
+   48833		adeshar/_calcfld.r
+   46109		adm2/support/selectd.r
+   19900		adecomm/_getflst.r
+   14010		adecomm/_pwsavas.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+   77625		adeuib/_rdqury.r
+    7920		adecomm/_getdlst.r
+   38895		adecomm/_mfldmap.r
+   27676		adeuib/_newproc.r
+   82521		adm2/folder.r
+   43077		adm2/support/filterd.r
+   33284		adeshar/_contbnm.r
+   49528		adeuib/_drwsmar.r
+   73594		adeuib/_adm-crt.r
+   38617		adeuib/_proprty.r
+    2509		adecomm/_getpdbs.r
+    3479		adecomm/_so-cued.r
+   62824		adecomm/_chosobj.r
+    1780		adecomm/_pwdelpw.r
+  294076		adeedit/_proedit.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+    7524		adm2/containrcustom.p
+   42334		adeuib/_undsdo.r
+   24515		adm2/support/_wizard.r
+    4178		adeuib/_uibmode.r
+   64804		adeuib/_linked.r
+    1257		adecomm/_pwgeteh.r
+  127211		adm2/filter.r
+  110289		n:\industria\v_agencias.r
+   59168		adeshar/_qenable.r
+   50703		adm2/viewer.r
+   48892		adm2\dynselect.r
+   56025		adeuib/_callqry.r
+    2082		adecomm/_osprefx.r
+   38005		adeuib/_undrect.r
+   32775		adeuib/_upddott.r
+   41791		adecomm/_pwsavef.r
+    3081		adecomm/_relname.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+   25775		adeuib/_gotopag.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+    1563		adecomm/_delitem.r
+   47882		adeuib/_drawobj.r
+  161414		adm2/query.r
+    3100		adecomm/_kvlist.r
+  401171		N:\industria\libReportes.p
+   89423		bgastosagencias.r
+  219614		adeshar/_query.r
+   19503		adeuib/_setwatr.r
+  160135		adm2/smart.r
+   61579		adeuib/_writedf.r
+   21484		adeuib/_edtmstr.r
+   43666		adeuib/_delet_u.r
+   37626		adeuib/_rdproc.r
+  142608		dgastosagencias.r
+   39907		adm2/dataextcols.r
+    1318		adecomm/_pwfmod.r
+   12435		adeuib/_ttysx.r
+   78887		.\vagencias.r
+   59809		adeuib/_prpsdo.r
+   80054		adeuib/_abfuncs.r
+    7871		adm2/toolbarcustom.p
+   68455		adm2/dyntoolbar.w
+    8394		adm2/design.r
+   39081		adeuib/_rszwind.r
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+   85165		adeuib/_advslnk.r
+    4298		adecomm/_chkfmt.r
+   24092		adm2/field.r
+   81723		.\vgastosagencias.r
+   98656		adm2/action.r
+  359223		adm2/data.r
+   18264		adecomm/_so-cue.r
+   98211		adeuib/_linkadd.r
+   53026		adm2/visual.r
+  168193		adm/objects/broker.r
+   11306		adm2/support/_wizfld.r
+   24288		adeuib/_advisor.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+   11662		adeuib/_windsdn.r
+  238935		adeshar/_gen4gl.r
+   31164		adeuib/_putpref.r
+   37146		adeuib/_updmenu.r
+  142608		./dGastosAgencias.r
+    9776		adm2/dataviscustom.p
+   43396		adeuib/_accsect.r
+   55704		adeuib/_seltrg.r
+    9238		adecomm/_pwexit.r
+   57310		N:\industria\libApiMenu.p
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   78887		N:\industria\vAgencias.w
+   48672		adm2/queryext.r
+   20724		adeuib/_isa.r
+  142221		dgastosventa.r
+   33938		adeuib/_showpag.r
+   95668		adeshar/_coddflt.r
+   12275		adecomm/_s-schem.r
+   81723		vgastosagencias.r
+   94147		adm2/support/toold.r
+    8948		adexml/_winexit.r
+  111602		N:\industria\dgastosagencias_cl.w
+  155326		dGastosOrdenEntrega.r
+   56617		adeshar/_qset.r
+   38975		adeuib/_qbuild.r
+   97700		n:\industria\b_agencias.r
+    1821		adecomm/_pwgetwh.r
+  432210		adeuib/_prpobj.r
+   14617		adeshar/_mrulist.r
+  240814		adm2/containr.r
+   25289		adm2/support/folderd.r
+   10526		adm2/support/_wizend.r
+  141496		.\dagencias.r
+  246797		adeshar/_gendefs.r
+    1818		adecomm/_convert.r
+  126961		adm2/select.r
+   40561		adeuib/_ablink.r
+   73317		adm2/panel.r
+  157003		adeuib/_coledit.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+   56341		adeuib/_drwflds.r
+   29810		adeuib/_setsize.r
+    3556		adeuib/_roflds.r
+   39474		adeuib/_ldicont.r
+   11857		adm2/support/_wizqry.r
+    1675		adecomm/_statdsp.r
+   81723		N:\industria\vGastosAgencias.w
+    1707		adecomm/_gttbldb.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+   14830		adecomm/_pwmbar.r
+   13546		adeuib/_sel_fn.r
+    7689		adeuib/_fldinfo.r
+    5092		adecomm/_solink.r
+   50086		adeuib/_undbrow.r
+   34796		adeshar/_contbin.r
+    2158		adecomm/_pwwinst.r
+   51946		adm2/dynfilter.r
+   12398		adm2/datacustom.r
+   20672		adecomm/_pwcreat.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+    2854		adecomm/_dblist.r
+   46274		adm2/viewercustom.p
+   28344		adecomm/_mfldsel.r
+   51275		custom\objects\cus-updsav.w
+  140970		.\dgastosagencias.r
+   50086		adeuib\_undbrow.r
+    9264		adecomm/_pwrdfl.r
+   75142		adeuib/_realizesmart.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:          2130 13252343
+Writes to temp file:           3712 12523788
+Loads of .r programs:           277 15364654
+Saves of compilation .r's:       27  3238629
+Compilations of .p's:            69  3777130
+Checks of files with stat:     4630        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2080      108096
+R-code Execution Buffer:    6281639     6291456     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     3742 	Limit:     3808
+
+------------------------------------------------
+               Mon Jul 10 11:41:40 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			17:39:10
+    Size		Name
+    ----		----
+   99380		N:\industria\blotesjugo.w
+   27111		adeuib/_newfunc.r
+   48892		adm2/dynselect.r
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   30561		custom\objects\cus-misc.w
+   23495		adeuib/_delmenu.r
+  145317		dcontratos.r
+   75506		vgastosordenentrega.r
+  209328		dTamboresIndustria.r
+   13978		adecomm/_somatch.r
+   97422		N:\industria\wOEIndustria.w
+   34231		adeuib/_vldwin.r
+  209328		dtamboresi
+ -noindexhint =      0      
+
+
+Execution buffer map:			17:39:15
+    Size		Name
+    ----		----
+  311395		adm2/toolbar.r
+   79800		wparpermisos.r
+   79275		vparpermisos.r
+    1450		adecomm/_locdwb.r
+  133367		adm2/datavis.r
+    3679		adm2/actioncustom.p
+    1986		getHuecoMenu.p
+     746		adecomm/_setcurs.r
+   94762		adm2/dataext.r
+     484		c:\temp\p14218r.ped
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+  141596		dparpermisos.r
+   24514		adm2/querycustom.p
+   26455		adm2/browsercustom.p
+   97451		bparmenugrupos.w
+   78578		vparpermisos2.r
+   78578		vparpermisos1.r
+     942		adecomm/_osfext.r
+   56422		gcapturaUsuarios.w
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   14915		../z2_login.w
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   16862		adeedit/_dlggetf.r
+   28003		adecomm/_runcode.r
+    7524		adm2/containrcustom.p
+  127211		adm2/filter.r
+    3044		adm2/support/getRelations.p
+  151844		dparmenugrupos.r
+   50703		adm2/viewer.r
+    4003		adecomm/_ossfnam.r
+   11137		adm2/smartcustom.p
+  161414		adm2/query.r
+    3100		adecomm/_kvlist.r
+  160135		adm2/smart.r
+   39907		adm2/dataextcols.r
+   10262		adecomm/_getfile.r
+    7871		adm2/toolbarcustom.p
+   68455		adm2/dyntoolbar.w
+    6769		_login.r
+   98656		adm2/action.r
+  359223		adm2/data.r
+   96923		bparpermisos.w
+   89903		vparmenugrupos.r
+   53026		adm2/visual.r
+    3311		adecomm/_adeevnt.r
+   86890		wparmenugruponew.r
+    9776		adm2/dataviscustom.p
+    9238		adecomm/_pwexit.r
+   48672		adm2/queryext.r
+   75537		wparmenugrupo.w
+    1741		adecomm/_wfrun.r
+  240814		adm2/containr.r
+   73317		adm2/panel.r
+    8118		adecomm/_toollic.r
+    5331		adecomm/_adehelp.r
+   51946		adm2/dynfilter.r
+    2158		adecomm/_pwwinst.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   19346		adecomm/as-utils.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            50  3551228
+Saves of compilation .r's:        0        0
+Compilations of .p's:            28   565029
+Checks of files with stat:     4611        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400       43424
+R-code Execution Buffer:    3752380     3752380     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      954 	Limit:      992
+
+------------------------------------------------
+adecomm/_chosobj.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+   42334		adeuib/_undsdo.r
+    7524		adm2/containrcustom.p
+    4178		adeuib/_uibmode.r
+  127211		adm2/filter.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   47313		adeuib/_prvw4gl.r
+   50703		adm2/viewer.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+   38005		adeuib/_undrect.r
+  134994		ddespachantes.r
+    3081		adecomm/_relname.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+    1563		adecomm/_delitem.r
+   47882		adeuib/_drawobj.r
+  145427		dlugardescargas.r
+  161414		adm2/query.r
+  143140		dtipomoneda.r
+    3100		adecomm/_kvlist.r
+   89423		bgastosagencias.r
+  160135		adm2/smart.r
+   74148		adeuib/_cr_prop.r
+   61579		adeuib/_writedf.r
+   21484		adeuib/_edtmstr.r
+   43666		adeuib/_delet_u.r
+  142086		dclausulas.r
+   37626		adeuib/_rdproc.r
+  142608		dgastosagencias.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   59809		adeuib/_prpsdo.r
+   80054		adeuib/_abfuncs.r
+   68455		adm2/dyntoolbar.w
+   39081		adeuib/_rszwind.r
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   68034		N:\industria\wTamboresItemsOE.w
+   85165		adeuib/_advslnk.r
+   18367		adeuib/_rsz_wp.r
+    4298		adecomm/_chkfmt.r
+   94165		bordenentrega.r
+   24092		adm2/field.r
+   18264		adecomm/_so-cue.r
+   98656		adm2/action.r
+  359223		adm2/data.r
+  168193		adm/objects/broker.r
+  172582		dordenentrega.r
+   53026		adm2/visual.r
+   43124		adeuib/_cr_pal.r
+   99007		btamboresitemsoe.r
+   24288		adeuib/_advisor.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+   11662		adeuib/_windsdn.r
+   71266		adeuib/_rdbutt.r
+  238935		adeshar/_gen4gl.r
+   31164		adeuib/_putpref.r
+   99494		.\blotesjugo.r
+   37146		adeuib/_updmenu.r
+   55704		adeuib/_seltrg.r
+   43396		adeuib/_accsect.r
+    9776		adm2/dataviscustom.p
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+  154525		dtamboresitemsoe.r
+  229039		ditemsordenentrega.r
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   48672		adm2/queryext.r
+   20724		adeuib/_isa.r
+  140940		dtipocontenedor.r
+   67357		N:\industria\wqLotesAbiertos.w
+   95668		adeshar/_coddflt.r
+  142221		dgastosventa.r
+   12275		adecomm/_s-schem.r
+   98475		adeuib/_cr_cust.r
+   94147		adm2/support/toold.r
+   81723		vgastosagencias.r
+   51946		adm2\dynfilter.r
+    8948		adexml/_winexit.r
+  432210		adeuib/_prpobj.r
+   38975		adeuib/_qbuild.r
+    1209		_rbuild.r
+   40498		adeuib/_selevnt.r
+  101466		bitemsoe.r
+   14617		adeshar/_mrulist.r
+  240814		adm2/containr.r
+   11176		protools/_protool.r
+    1818		adecomm/_convert.r
+  246797		adeshar/_gendefs.r
+  157003		adeuib/_coledit.r
+  142136		dtiposordenentrega.r
+  126961		adm2/select.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   29810		adeuib/_setsize.r
+  144473		ddestinos.r
+    3556		adeuib/_roflds.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+   13546		adeuib/_sel_fn.r
+    7689		adeuib/_fldinfo.r
+   50086		adeuib/_undbrow.r
+    5092		adecomm/_solink.r
+  150100		N:\industria\w_consulta_stock_rapido_fam.w
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   51946		adm2/dynfilter.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  206345		N:\industria\dlotesjugo.w
+  199558		.\dlotesjugo.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   28344		adecomm/_mfldsel.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   69880		adeuib/_rdtogg.r
+   82521		adm2\folder.r
+    2495		adeuib/_seresz.r
+   75142		adeuib/_realizesmart.r
+  114417		vitemsoe.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:          2120 13990718
+Writes to temp file:           3386 12922977
+Loads of .r programs:           254 20539832
+Saves of compilation .r's:       64  9382180
+Compilations of .p's:           158 14459387
+Checks of files with stat:     3815        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2080      166784
+R-code Execution Buffer:    6287494     6291455     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     3754 	Limit:     3808
+
+------------------------------------------------
+               Tue Jul 11 08:22:18 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			10:08:29
+    Size		Name
+    ----		----
+   99421		N:\industria\blotesjugo.w
+   27111		adeuib/_newfunc.r
+   43686		adeuib/_undcont.r
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   23495		adeuib/_delmenu.r
+   67208		adeuib/_vrfyqry.r
+   34231		adeuib/_vldwin.r
+   13978		adecomm/_somatch.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+  311395		adm2/toolbar.r
+   34555		adeuib/_wintitl.r
+   47020		adeuib/_showlbl.r
+    2181		adecomm/_pwclosf.r
+   36206		adeuib/_drwcont.r
+   68455		adm2\dyntoolbar.w
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+   77469		adeuib/_qikcomp.r
+   38023		adeuib/_prvcont.r
+   36329		adeuib/_loadbc.r
+    1450		adecomm/_locdwb.r
+   81262		adeuib/_rdbrow.r
+   10726		adecomm/_pwmain.r
+  133161		N:\industria\dlotesjugo_cl.w
+   79963		adeshar/_mlmgr.r
+    2866		adecomm/_pwclose.r
+   49197		adeuib/_acontp.r
+  133367		adm2/datavis.r
+   60643		adeuib/_uibstrt.r
+   77776		adeuib/_rdcont.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   21379		adeuib/_cr_cmnu.r
+   36920		adeuib/_sim_lbl.r
+    6496		adecomm/_pwfile.r
+    3218		adecomm/_valname.r
+   33329		adeuib/_open-w.r
+    3679		adm2/actioncustom.p
+    2182		adecomm/_pwfchg.r
+    1041		adeuib/_undsmar.r
+   24599		adeshar/_bstfnam.r
+   21069		adeuib/_admpset.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+    2411		adecomm/_osfrw.r
+  142812		adeuib/_tview.r
+   94762		adm2/dataext.r
+    5607		adecomm/_relfile.r
+    3133		adecomm/_valpnam.r
+   79309		adeuib/_rdfill.r
+   11199		adecomm/_adeload.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+   24514		adm2/querycustom.p
+   86531		N:\industria\wInicioIndustria.w
+   22106		adeuib/_tbllist.r
+   26455		adm2/browsercustom.p
+    3144		adeshar/_ablic.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+   49031		adeuib/_wrcont.r
+   99421		blotesjugo.r
+   14475		adeuib/_wrrott.r
+     942		adecomm/_osfext.r
+  323005		adeuib/_qssuckr.r
+   67102		adeuib/_recreat.r
+   58033		adeuib/_sanitiz.r
+   48833		adeshar/_calcfld.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+   77625		adeuib/_rdqury.r
+  207644		dlotesjugo.r
+  207644		dLotesJugo.r
+    7054		../s_inicio1.p
+   33284		adeshar/_contbnm.r
+   14915		../z2_login.w
+   73594		adeuib/_adm-crt.r
+   38617		adeuib/_proprty.r
+    2509		adecomm/_getpdbs.r
+    1780		adecomm/_pwdelpw.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+   42334		adeuib/_undsdo.r
+    4178		adeuib/_uibmode.r
+    1257		adecomm/_pwgeteh.r
+  127211		adm2/filter.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+    1571		adecomm/_pwsave.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+   41791		adecomm/_pwsavef.r
+    3081		adecomm/_relname.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+   11137		adm2/smartcustom.p
+   68762		adeuib/_rdrect.r
+   47882		adeuib/_drawobj.r
+  161414		adm2/query.r
+    3100		adecomm/_kvlist.r
+  160135		adm2/smart.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   61579		adeuib/_writedf.r
+   21484		adeuib/_edtmstr.r
+   37626		adeuib/_rdproc.r
+    1318		adecomm/_pwfmod.r
+    3262		adecomm/_pwemdrp.r
+   39907		adm2/dataextcols.r
+   12435		adeuib/_ttysx.r
+   59809		adeuib/_prpsdo.r
+   80054		adeuib/_abfuncs.r
+    8394		adm2/design.r
+    7871		adm2/toolbarcustom.p
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+    4298		adecomm/_chkfmt.r
+   18264		adecomm/_so-cue.r
+   98656		adm2/action.r
+  359223		adm2/data.r
+   11824		c:\temp\p95063cf.ab
+   53026		adm2/visual.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+   71266		adeuib/_rdbutt.r
+  238935		adeshar/_gen4gl.r
+   11662		adeuib/_windsdn.r
+   31164		adeuib/_putpref.r
+   37146		adeuib/_updmenu.r
+   55704		adeuib/_seltrg.r
+   43396		adeuib/_accsect.r
+    9776		adm2/dataviscustom.p
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   57420		N:\industria\libApiMenu.p
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   48672		adm2/queryext.r
+   20724		adeuib/_isa.r
+   67440		N:\industria\wqLotesAbiertos.w
+   95668		adeshar/_coddflt.r
+   12275		adecomm/_s-schem.r
+   98475		adeuib/_cr_cust.r
+   51946		adm2\dynfilter.r
+    8948		adexml/_winexit.r
+    1821		adecomm/_pwgetwh.r
+   38975		adeuib/_qbuild.r
+   14617		adeshar/_mrulist.r
+   11176		protools/_protool.r
+  246797		adeshar/_gendefs.r
+    1818		adecomm/_convert.r
+  157003		adeuib/_coledit.r
+   73317		adm2/panel.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   29810		adeuib/_setsize.r
+   39474		adeuib/_ldicont.r
+    3556		adeuib/_roflds.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   14830		adecomm/_pwmbar.r
+   36561		adeuib/_tabordr.r
+   34796		adeshar/_contbin.r
+   50086		adeuib/_undbrow.r
+    7689		adeuib/_fldinfo.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   20672		adecomm/_pwcreat.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  207644		N:\industria\dlotesjugo.w
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+    9264		adecomm/_pwrdfl.r
+    2495		adeuib/_seresz.r
+   75142		adeuib/_realizesmart.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:           204  1252115
+Writes to temp file:           1010  3378964
+Loads of .r programs:           181  9265754
+Saves of compilation .r's:       16  1235824
+Compilations of .p's:            35  1429091
+Checks of files with stat:     2024        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400      100000
+R-code Execution Buffer:    6279633     6291456     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     2168 	Limit:     2272
+
+------------------------------------------------
+               Wed Jul 12 13:02:16 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			13:12:22
+    Size		Name
+    ----		----
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   23495		adeuib/_delmenu.r
+   34231		adeuib/_vldwin.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   34555		adeuib/_wintitl.r
+   47020		adeuib/_showlbl.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+    1450		adecomm/_locdwb.r
+   69937		adeuib/_rdtext.r
+   79963		adeshar/_mlmgr.r
+   60643		adeuib/_uibstrt.r
+  358200		adeuib/_s
+ -noindexhint =      0      
+
+
+Execution buffer map:			16:20:39
+    Size		Name
+    ----		----
+  311395		adm2/toolbar.r
+    1450		adecomm/_locdwb.r
+  133367		adm2/datavis.r
+    3679		adm2/actioncustom.p
+     746		adecomm/_setcurs.r
+   94762		adm2/dataext.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+  141596		dparpermisos.r
+   24514		adm2/querycustom.p
+   26455		adm2/browsercustom.p
+   97451		bparmenugrupos.w
+   78578		vparpermisos2.r
+   78578		vparpermisos1.r
+     942		adecomm/_osfext.r
+   56422		gcapturaUsuarios.w
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+     484		c:\temp\p58422r.ped
+   14915		../z2_login.w
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   28003		adecomm/_runcode.r
+    7524		adm2/containrcustom.p
+  127211		adm2/filter.r
+    3044		adm2/support/getRelations.p
+  151844		dparmenugrupos.r
+   50703		adm2/viewer.r
+    4003		adecomm/_ossfnam.r
+   11137		adm2/smartcustom.p
+  161414		adm2/query.r
+    3100		adecomm/_kvlist.r
+  160135		adm2/smart.r
+   39907		adm2/dataextcols.r
+    7871		adm2/toolbarcustom.p
+   68455		adm2/dyntoolbar.w
+    6769		_login.r
+   98656		adm2/action.r
+  359223		adm2/data.r
+   89903		vparmenugrupos.r
+   53026		adm2/visual.r
+    3311		adecomm/_adeevnt.r
+   86890		wparmenugruponew.r
+    9776		adm2/dataviscustom.p
+    9238		adecomm/_pwexit.r
+   48672		adm2/queryext.r
+   75537		wparmenugrupo.w
+    1741		adecomm/_wfrun.r
+  240814		adm2/containr.r
+   73317		adm2/panel.r
+    8118		adecomm/_toollic.r
+    5331		adecomm/_adehelp.r
+   51946		adm2/dynfilter.r
+    2158		adecomm/_pwwinst.r
+   12398		adm2/datacustom.r
+    7237		adecomm/_mnkvals.r
+  156624		adm2/browser.r
+   53039		adm2/appserver.r
+   46274		adm2/viewercustom.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   19346		adecomm/as-utils.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            45  3280044
+Saves of compilation .r's:        0        0
+Compilations of .p's:            20   463220
+Checks of files with stat:     1938        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400       50624
+R-code Execution Buffer:    3412684     3412684     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      886 	Limit:      992
+
+------------------------------------------------
+	adecomm/_toollic.r
+    1675		adecomm/_statdsp.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+   13546		adeuib/_sel_fn.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+    7237		adecomm/_mnkvals.r
+   53039		adm2/appserver.r
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   69880		adeuib/_rdtogg.r
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:           111  5549893
+Saves of compilation .r's:        3   271980
+Compilations of .p's:            10   313790
+Checks of files with stat:     1142        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2080       84128
+R-code Execution Buffer:    4905085     4905085     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     1334 	Limit:     1504
+
+------------------------------------------------
+               Wed Jul 12 13:12:27 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			16:20:32
+    Size		Name
+    ----		----
+   41809		c:\temp\p96515cf.ab
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   30561		custom\objects\cus-misc.w
+   23495		adeuib/_delmenu.r
+   34231		adeuib/_vldwin.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   34555		adeuib/_wintitl.r
+   47020		adeuib/_showlbl.r
+    2181		adecomm/_pwclosf.r
+   33111		adeuib/_adm-row.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+   77469		adeuib/_qikcomp.r
+    1450		adecomm/_locdwb.r
+   69937		adeuib/_rdtext.r
+   10726		adecomm/_pwmain.r
+   79963		adeshar/_mlmgr.r
+    2866		adecomm/_pwclose.r
+   60643		adeuib/_uibstrt.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   21379		adeuib/_cr_cmnu.r
+   36920		adeuib/_sim_lbl.r
+    6496		adecomm/_pwfile.r
+   33329		adeuib/_open-w.r
+    2182		adecomm/_pwfchg.r
+   21069		adeuib/_admpset.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+    2411		adecomm/_osfrw.r
+  142812		adeuib/_tview.r
+    5607		adecomm/_relfile.r
+    3133		adecomm/_valpnam.r
+   79309		adeuib/_rdfill.r
+   11199		adecomm/_adeload.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+    3144		adeshar/_ablic.r
+  108496		N:\industria\wExportacionReproceso.w
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+     942		adecomm/_osfext.r
+  323005		adeuib/_qssuckr.r
+   58033		adeuib/_sanitiz.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   27676		adeuib/_newproc.r
+   33284		adeshar/_contbnm.r
+   14915		../z2_login.w
+   73594		adeuib/_adm-crt.r
+   38617		adeuib/_proprty.r
+    2509		adecomm/_getpdbs.r
+    1780		adecomm/_pwdelpw.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+    4178		adeuib/_uibmode.r
+    7524		adm2/containrcustom.p
+    1257		adecomm/_pwgeteh.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+    1571		adecomm/_pwsave.r
+   83538		adeuib/_rdradi.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+   41791		adecomm/_pwsavef.r
+    3081		adecomm/_relname.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+   68762		adeuib/_rdrect.r
+   11137		adm2/smartcustom.p
+    3100		adecomm/_kvlist.r
+  160135		adm2/smart.r
+    2279		adeuib/_rbtns.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   37626		adeuib/_rdproc.r
+    1318		adecomm/_pwfmod.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+  168193		adm/objects/broker.r
+   53026		adm2/visual.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+   71266		adeuib/_rdbutt.r
+  238935		adeshar/_gen4gl.r
+   31164		adeuib/_putpref.r
+   37146		adeuib/_updmenu.r
+   55704		adeuib/_seltrg.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   57762		N:\industria\libApiMenu.p
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   20724		adeuib/_isa.r
+   95668		adeshar/_coddflt.r
+   98475		adeuib/_cr_cust.r
+    8948		adexml/_winexit.r
+    1821		adecomm/_pwgetwh.r
+  432210		adeuib/_prpobj.r
+   40498		adeuib/_selevnt.r
+   14617		adeshar/_mrulist.r
+  240814		adm2/containr.r
+   11176		protools/_protool.r
+    1818		adecomm/_convert.r
+  246797		adeshar/_gendefs.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+   29810		adeuib/_setsize.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   14830		adecomm/_pwmbar.r
+   36561		adeuib/_tabordr.r
+  150196		N:\industria\w_consulta_stock_rapido_fam.w
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   20672		adecomm/_pwcreat.r
+    7237		adecomm/_mnkvals.r
+   53039		adm2/appserver.r
+  358963		C:\progress\src\adm2\data.p
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+    9264		adecomm/_pwrdfl.r
+   69880		adeuib/_rdtogg.r
+   75142		adeuib/_realizesmart.r
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             1      508
+Writes to temp file:             24    32897
+Loads of .r programs:           135  6499540
+Saves of compilation .r's:        9  1340859
+Compilations of .p's:            23  1455039
+Checks of files with stat:     1433        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400       85568
+R-code Execution Buffer:    6287097     6291428     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     1886 	Limit:     2016
+
+------------------------------------------------
+               Wed Jul 12 16:27:34 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			17:44:33
+    Size		Name
+    ----		----
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   23495		adeuib/_delmenu.r
+   34231		adeuib/_vldwin.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   34555		adeuib/_wintitl.r
+   47020		adeuib/_showlbl.r
+    2181		adecomm/_pwclosf.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+   77469		adeuib/_qikcomp.r
+    1450		adecomm/_locdwb.r
+    2826		adecomm/_kwhelp.r
+   69937		adeuib/_rdtext.r
+   10726		adecomm/_pwmain.r
+   79963		adeshar/_mlmgr.r
+    2866		adecomm/_pwclose.r
+   60643		adeuib/_uibstrt.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   21379		adeuib/_cr_cmnu.r
+   36920		adeuib/_sim_lbl.r
+    6496		adecomm/_pwfile.r
+   33329		adeuib/_open-w.r
+   21069		adeuib/_admpset.r
+    2182		adecomm/_pwfchg.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+    2411		adecomm/_osfrw.r
+  142812		adeuib/_tview.r
+    3133		adecomm/_valpnam.r
+   79309		adeuib/_rdfill.r
+   11199		adecomm/_adeload.r
+   33389		adeshar/_bstname.r
+    4505		_edit.r
+    3144		adeshar/_ablic.r
+  108496		N:\industria\wExportacionReproceso.w
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+     942		adecomm/_osfext.r
+  323005		adeuib/_qssuckr.r
+   58033		adeuib/_sanitiz.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+    7054		../s_inicio1.p
+   33284		adeshar/_contbnm.r
+   14915		../z2_login.w
+   73594		adeuib/_adm-crt.r
+    2509		adecomm/_getpdbs.r
+    1780		adecomm/_pwdelpw.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+    1257		adecomm/_pwgeteh.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   83538		adeuib/_rdradi.r
+    1571		adecomm/_pwsave.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+   41791		adecomm/_pwsavef.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+  402103		N:\industria\libReportes.p
+    3100		adecomm/_kvlist.r
+    2279		adeuib/_rbtns.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   37626		adeuib/_rdproc.r
+    1318		adecomm/_pwfmod.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+   71266		adeuib/_rdbutt.r
+   31164		adeuib/_putpref.r
+   37146		adeuib/_updmenu.r
+   55704		adeuib/_seltrg.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   78508		adeuib/_rdwind.r
+   24800		adeuib/_outpmen.r
+   20724		adeuib/_isa.r
+   95668		adeshar/_coddflt.r
+   98475		adeuib/_cr_cust.r
+    8948		adexml/_winexit.r
+    1821		adecomm/_pwgetwh.r
+   14617		adeshar/_mrulist.r
+   15840		c:\temp\p09688cf.ab
+   11176		protools/_protool.r
+  246797		adeshar/_gendefs.r
+    1818		adecomm/_convert.r
+  128478		adeuib/_rdsmar.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+    1675		adecomm/_statdsp.r
+    2903		adecomm/_errmsgs.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+   14830		adecomm/_pwmbar.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   20672		adecomm/_pwcreat.r
+    7237		adecomm/_mnkvals.r
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+   69880		adeuib/_rdtogg.r
+    9264		adecomm/_pwrdfl.r
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:           120  5068467
+Saves of compilation .r's:       17  6535458
+Compilations of .p's:            25  6596982
+Checks of files with stat:     1258        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400      112032
+R-code Execution Buffer:    4822962     4822962     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     1354 	Limit:     1504
+
+------------------------------------------------
+               Thu Jul 13 08:41:15 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = ../s_inicio1.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			09:39:40
+    Size		Name
+    ----		----
+    4624		adeuib/_strfmt.r
+   33508		adeuib/_advsrun.r
+    2430		adecomm/_adeobj.r
+   34231		adeuib/_vldwin.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   34555		adeuib/_wintitl.r
+   47020		adeuib/_showlbl.r
+    2181		adecomm/_pwclosf.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+    1450		adecomm/_locdwb.r
+   10726		adecomm/_pwmain.r
+   79963		adeshar/_mlmgr.r
+    2866		adecomm/_pwclose.r
+   60643		adeuib/_uibstrt.r
+  358200		adeuib/_semain.r
+   33085		adeuib/_windpos.r
+   21379		adeuib/_cr_cmnu.r
+   94645		adeuib/_edtproc.r
+   36920		adeuib/_sim_lbl.r
+    6496		adecomm/_pwfile.r
+   33329		adeuib/_open-w.r
+    2182		adecomm/_pwfchg.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+  142812		adeuib/_tview.r
+    2411		adecomm/_osfrw.r
+    3133		adecomm/_valpnam.r
+   79309		adeuib/_rdfill.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+    3144		adeshar/_ablic.r
+  126858		adeuib/_advprop.r
+   19011		adeuib/_winsave.r
+   98467		adeuib/_cdsuckr.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+     942		adecomm/_osfext.r
+  323005		adeuib/_qssuckr.r
+   58033		adeuib/_sanitiz.r
+   84985		adeuib/_uibinfo.r
+    1388		adecomm/_tmpfile.r
+   77625		adeuib/_rdqury.r
+    7054		../s_inicio1.p
+   27676		adeuib/_newproc.r
+   33284		adeshar/_contbnm.r
+   14915		../z2_login.w
+   38617		adeuib/_proprty.r
+    2509		adecomm/_getpdbs.r
+    1780		adecomm/_pwdelpw.r
+    6066		adecomm/_status.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+   36804		adeuib/_gentabs.r
+   80333		adeuib/_rdfram.r
+    1257		adecomm/_pwgeteh.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+    1571		adecomm/_pwsave.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+   41791		adecomm/_pwsavef.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+    4003		adecomm/_ossfnam.r
+   68762		adeuib/_rdrect.r
+    3100		adecomm/_kvlist.r
+   74148		adeuib/_cr_prop.r
+   43666		adeuib/_delet_u.r
+   37626		adeuib/_rdproc.r
+    1318		adecomm/_pwfmod.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   10262		adecomm/_getfile.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    6083		adecomm/_getdbs.r
+    3311		adecomm/_adeevnt.r
+  238935		adeshar/_gen4gl.r
+   71266		adeuib/_rdbutt.r
+   31164		adeuib/_putpref.r
+   55704		adeuib/_seltrg.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   78508		adeuib/_rdwind.r
+   20724		adeuib/_isa.r
+   95668		adeshar/_coddflt.r
+   98475		adeuib/_cr_cust.r
+    8948		adexml/_winexit.r
+  432210		adeuib/_prpobj.r
+   38975		adeuib/_qbuild.r
+    1821		adecomm/_pwgetwh.r
+   40498		adeuib/_selevnt.r
+   14617		adeshar/_mrulist.r
+   11176		protools/_protool.r
+  246797		adeshar/_gendefs.r
+  520117		adeuib/_uibmain.r
+    8118		adecomm/_toollic.r
+    1675		adecomm/_statdsp.r
+    5331		adecomm/_adehelp.r
+   36561		adeuib/_tabordr.r
+   14830		adecomm/_pwmbar.r
+   33646		adeuib/_rszdial.r
+    4657		prodict/_dctsget.r
+    2158		adecomm/_pwwinst.r
+   20672		adecomm/_pwcreat.r
+    7237		adecomm/_mnkvals.r
+    1440		adecomm/_locard.r
+    1180		../s_userdb.p
+    9264		adecomm/_pwrdfl.r
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:           116  5399982
+Saves of compilation .r's:        0        0
+Compilations of .p's:             5    23149
+Checks of files with stat:     1178        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2400       64960
+R-code Execution Buffer:    4615100     4615100     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:     1404 	Limit:     1504
+
+------------------------------------------------
+ 0        0
+Compilations of .p's:             0        0
+Checks of files with stat:      167        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1920       27968
+R-code Execution Buffer:     339232      339232     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      208 	Limit:      480
+
+------------------------------------------------
+               Thu Jul 13 08:46:28 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = (null)
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			08:46:32
+    Size		Name
+    ----		----
+    1450		adecomm/_locdwb.r
+     746		adecomm/_setcurs.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+     942		adecomm/_osfext.r
+    1388		adecomm/_tmpfile.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+    4003		adecomm/_ossfnam.r
+    3100		adecomm/_kvlist.r
+    6769		_login.r
+    3311		adecomm/_adeevnt.r
+    9238		adecomm/_pwexit.r
+    8118		adecomm/_toollic.r
+    5331		adecomm/_adehelp.r
+    7237		adecomm/_mnkvals.r
+    1440		adecomm/_locard.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            17   374798
+Saves of compilation .r's:        0        0
+Compilations of .p's:             0        0
+Checks of files with stat:      167        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1920       27968
+R-code Execution Buffer:     339232      339232     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      208 	Limit:      480
+
+------------------------------------------------
+               Thu Jul 13 08:46:49 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = (null)
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			08:46:57
+    Size		Name
+    ----		----
+    1450		adecomm/_locdwb.r
+     746		adecomm/_setcurs.r
+   11199		adecomm/_adeload.r
+    4505		_edit.r
+     942		adecomm/_osfext.r
+    1388		adecomm/_tmpfile.r
+  294076		adeedit/_proedit.r
+   11945		_prostar.r
+    4003		adecomm/_ossfnam.r
+    3100		adecomm/_kvlist.r
+    6769		_login.r
+    3311		adecomm/_adeevnt.r
+    9238		adecomm/_pwexit.r
+    8118		adecomm/_toollic.r
+    5331		adecomm/_adehelp.r
+    7237		adecomm/_mnkvals.r
+    1440		adecomm/_locard.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            17   374798
+Saves of compilation .r's:        0        0
+Compilations of .p's:             0        0
+Checks of files with stat:      167        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1920       27968
+R-code Execution Buffer:     339232      339232     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      208 	Limit:      480
+
+------------------------------------------------
+               Thu Jul 13 08:47:12 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = _ab.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			08:47:19
+    Size		Name
+    ----		----
+    2430		adecomm/_adeobj.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+    1450		adecomm/_locdwb.r
+   79963		adeshar/_mlmgr.r
+   60643		adeuib/_uibstrt.r
+  358200		adeuib/_semain.r
+   21379		adeuib/_cr_cmnu.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+   11199		adecomm/_adeload.r
+    3144		adeshar/_ablic.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+    1388		adecomm/_tmpfile.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+   11945		_prostar.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+    4003		adecomm/_ossfnam.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+   74148		adeuib/_cr_prop.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    3311		adecomm/_adeevnt.r
+    6083		adecomm/_getdbs.r
+   31164		adeuib/_putpref.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   98475		adeuib/_cr_cust.r
+    8948		adexml/_winexit.r
+   14617		adeshar/_mrulist.r
+   11176		protools/_protool.r
+    8118		adecomm/_toollic.r
+  520117		adeuib/_uibmain.r
+    1675		adecomm/_statdsp.r
+    5331		adecomm/_adehelp.r
+    4657		prodict/_dctsget.r
+    1440		adecomm/_locard.r
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            55  1835121
+Saves of compilation .r's:        0        0
+Compilations of .p's:             0        0
+Checks of files with stat:      547        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            2560       16000
+R-code Execution Buffer:    1586800     1586800     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      622 	Limit:      736
+
+------------------------------------------------
+               Thu Jul 13 08:47:40 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = _ab.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			08:47:48
+    Size		Name
+    ----		----
+    2430		adecomm/_adeobj.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+    1450		adecomm/_locdwb.r
+   79963		adeshar/_mlmgr.r
+   60643		adeuib/_uibstrt.r
+  358200		adeuib/_semain.r
+   21379		adeuib/_cr_cmnu.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+   11199		adecomm/_adeload.r
+    3144		adeshar/_ablic.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+    1388		adecomm/_tmpfile.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+   11945		_prostar.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+    4003		adecomm/_ossfnam.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+   74148		adeuib/_cr_prop.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    3311		adecomm/_adeevnt.r
+    6083		adecomm/_getdbs.r
+   31164		adeuib/_putpref.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   98475		adeuib/_cr_cust.r
+    8948		adexml/_winexit.r
+   14617		adeshar/_mrulist.r
+   11176		protools/_protool.r
+    8118		adecomm/_toollic.r
+  520117		adeuib/_uibmain.r
+    1675		adecomm/_statdsp.r
+    5331		adecomm/_adehelp.r
+    4657		prodict/_dctsget.r
+    1440		adecomm/_locard.r
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            55  1835121
+Saves of compilation .r's:        0        0
+Compilations of .p's:             0        0
+Checks of files with stat:      547        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1856       16000
+R-code Execution Buffer:    1586800     1586800     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      622 	Limit:      736
+
+------------------------------------------------
+               Thu Jul 13 08:48:33 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = _ab.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			08:48:47
+    Size		Name
+    ----		----
+    2430		adecomm/_adeobj.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+    1450		adecomm/_locdwb.r
+   79963		adeshar/_mlmgr.r
+   60643		adeuib/_uibstrt.r
+  358200		adeuib/_semain.r
+   21379		adeuib/_cr_cmnu.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+   11199		adecomm/_adeload.r
+    3144		adeshar/_ablic.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+    1388		adecomm/_tmpfile.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+   11945		_prostar.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+    4003		adecomm/_ossfnam.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+   74148		adeuib/_cr_prop.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    3311		adecomm/_adeevnt.r
+    6083		adecomm/_getdbs.r
+   31164		adeuib/_putpref.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   98475		adeuib/_cr_cust.r
+    8948		adexml/_winexit.r
+   14617		adeshar/_mrulist.r
+   11176		protools/_protool.r
+    8118		adecomm/_toollic.r
+  520117		adeuib/_uibmain.r
+    1675		adecomm/_statdsp.r
+    5331		adecomm/_adehelp.r
+    4657		prodict/_dctsget.r
+    1440		adecomm/_locard.r
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            55  1835121
+Saves of compilation .r's:        0        0
+Compilations of .p's:             0        0
+Checks of files with stat:      547        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1856       16000
+R-code Execution Buffer:    1586800     1586800     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      622 	Limit:      736
+
+------------------------------------------------
+               Thu Jul 13 08:50:35 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = _ab.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			08:50:42
+    Size		Name
+    ----		----
+    2430		adecomm/_adeobj.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+    1450		adecomm/_locdwb.r
+   79963		adeshar/_mlmgr.r
+   60643		adeuib/_uibstrt.r
+  358200		adeuib/_semain.r
+   21379		adeuib/_cr_cmnu.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+   11199		adecomm/_adeload.r
+    3144		adeshar/_ablic.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+    1388		adecomm/_tmpfile.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+   11945		_prostar.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+    4003		adecomm/_ossfnam.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+   74148		adeuib/_cr_prop.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    3311		adecomm/_adeevnt.r
+    6083		adecomm/_getdbs.r
+   31164		adeuib/_putpref.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   98475		adeuib/_cr_cust.r
+    8948		adexml/_winexit.r
+   14617		adeshar/_mrulist.r
+   11176		protools/_protool.r
+    8118		adecomm/_toollic.r
+  520117		adeuib/_uibmain.r
+    1675		adecomm/_statdsp.r
+    5331		adecomm/_adehelp.r
+    4657		prodict/_dctsget.r
+    1440		adecomm/_locard.r
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            55  1835121
+Saves of compilation .r's:        0        0
+Compilations of .p's:             0        0
+Checks of files with stat:      547        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1856       16000
+R-code Execution Buffer:    1586800     1586800     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      622 	Limit:      736
+
+------------------------------------------------
+               Thu Jul 13 08:51:04 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = _ab.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1980   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			08:51:10
+    Size		Name
+    ----		----
+    2430		adecomm/_adeobj.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+    1450		adecomm/_locdwb.r
+   79963		adeshar/_mlmgr.r
+   60643		adeuib/_uibstrt.r
+  358200		adeuib/_semain.r
+   21379		adeuib/_cr_cmnu.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+   11199		adecomm/_adeload.r
+    3144		adeshar/_ablic.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+    1388		adecomm/_tmpfile.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+   11945		_prostar.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+    4003		adecomm/_ossfnam.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+   74148		adeuib/_cr_prop.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    3311		adecomm/_adeevnt.r
+    6083		adecomm/_getdbs.r
+   31164		adeuib/_putpref.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   98475		adeuib/_cr_cust.r
+    8948		adexml/_winexit.r
+   14617		adeshar/_mrulist.r
+   11176		protools/_protool.r
+    8118		adecomm/_toollic.r
+  520117		adeuib/_uibmain.r
+    1675		adecomm/_statdsp.r
+    5331		adecomm/_adehelp.r
+    4657		prodict/_dctsget.r
+    1440		adecomm/_locard.r
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            55  1835121
+Saves of compilation .r's:        0        0
+Compilations of .p's:             0        0
+Checks of files with stat:      547        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1856       16000
+R-code Execution Buffer:    1586800     1586800     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      622 	Limit:      736
+
+------------------------------------------------
+               Thu Jul 13 08:56:21 2006
+
+Progress client startup options:
+
+ -A  = 0      | -d  = dmy    | -D  = 256    | -h  = 17     
+ -hs = 0      | -Mpte = 0    | -Mxs= -1     | -nb = 80     | -Nb =0      
+ -NL = 0      | -o  = printer| -p  = _ab.p
+ -q  = 0      | -Q  = 0      | -s  = 120    | -T = c:\temp\
+ -t  = 1      | -TB = 31     | -TM = 32     | -yy = 1950   | -25 = 0      
+
+DataServer startup options:
+
+ -nojoinbysqldb =    0      
+ -SQLlogging =       0      
+ -noSQLbyserver =    0      
+ -noindexhint =      0      
+
+
+Execution buffer map:			08:56:28
+    Size		Name
+    ----		----
+    2430		adecomm/_adeobj.r
+    6235		adeshar/_taskbar.r
+   29591		adecomm/_winmenu.r
+   20673		adeuib/_cr_npop.r
+   31628		adeuib/_getpref.r
+    1450		adecomm/_locdwb.r
+   79963		adeshar/_mlmgr.r
+   60643		adeuib/_uibstrt.r
+  358200		adeuib/_semain.r
+   21379		adeuib/_cr_cmnu.r
+     746		adecomm/_setcurs.r
+   39199		adecomm/_palette.r
+   11833		adeshar/_cntrsdm.r
+   11199		adecomm/_adeload.r
+    3144		adeshar/_ablic.r
+   37539		adeuib/_uibshut.r
+    4977		_ab.r
+    1388		adecomm/_tmpfile.r
+    2509		adecomm/_getpdbs.r
+    6066		adecomm/_status.r
+   11945		_prostar.r
+   24239		adeuib/_cr_palw.r
+    2656		adeshar/_getwdir.r
+   22745		adeuib/_initpal.r
+    2082		adecomm/_osprefx.r
+    1405		adeshar/_dialbdr.r
+    4003		adecomm/_ossfnam.r
+    3523		adecomm/_getfdbs.r
+    1644		adecomm/_rsearch.r
+   74148		adeuib/_cr_prop.r
+   12435		adeuib/_ttysx.r
+   80054		adeuib/_abfuncs.r
+   33520		adeuib/_setpntr.r
+    6769		_login.r
+   18367		adeuib/_rsz_wp.r
+   43124		adeuib/_cr_pal.r
+    1127		adecomm/_dictdb.r
+    3311		adecomm/_adeevnt.r
+    6083		adecomm/_getdbs.r
+   31164		adeuib/_putpref.r
+   13711		adeuib/_getwebp.r
+    9238		adecomm/_pwexit.r
+   98475		adeuib/_cr_cust.r
+    8948		adexml/_winexit.r
+   14617		adeshar/_mrulist.r
+   11176		protools/_protool.r
+    8118		adecomm/_toollic.r
+  520117		adeuib/_uibmain.r
+    1675		adecomm/_statdsp.r
+    5331		adecomm/_adehelp.r
+    4657		prodict/_dctsget.r
+    1440		adecomm/_locard.r
+    2495		adeuib/_seresz.r
+   19346		adecomm/as-utils.r
+     641		adecomm/_setalia.r
+Program access statistics:    Times    Bytes
+Reads from temp file:             0        0
+Writes to temp file:              0        0
+Loads of .r programs:            55  1835121
+Saves of compilation .r's:        0        0
+Compilations of .p's:             0        0
+Checks of files with stat:      547        0
+
+Memory usage summary:       Current    Max Used       Limit (Bytes)       
+Stack usage (-s):                60      122864      122880
+Local buffer usage:            1856       16000
+R-code Execution Buffer:    1586800     1586800     6291456
+
+Segment Descriptors Usage: (numbers)     
+	Max Used:      622 	Limit:      736
+
+------------------------------------------------

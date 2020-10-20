@@ -1,0 +1,140 @@
+import xml.etree.ElementTree as ET
+import sys
+import suds
+from suds.client import Client
+from suds.transport.http import HttpAuthenticated
+import ctypes
+import urllib2
+
+def devuelveDatosNodo(nodo, tags):
+    res = []
+    for tag in tags:
+        res.append(nodo.findtext(tag))
+    return res
+
+#ctypes.windll.user32.MessageBoxA(0, 'entro', "mio", 1)
+try:
+#    archivo = sys.argv[1]
+#    archivo1 = sys.argv[2]
+
+
+
+    archivo = 'C:\OpenEdge102b\WRK\P09815029061.XML'
+    archivo1 = 'C:\OpenEdge102b\WRK\P09815029061.RES'
+
+
+    xml = ET.parse(archivo)
+
+    cabecera_pallet = devuelveDatosNodo(xml.find('PALLET'),['sucursal', 'pallet_id', 'material_embalaje','tipo_pallet', 'contramarca', 'ppecb', 'organizacion' ])
+
+    #print cabecera_pallet
+
+
+    client = Client(url='http://smazpiappdes.sanmiguel.local:50200/dir/wsdl?p=sa/2713f5e7fcf23fcfbdf8be6b66d5b2a0',    username='PIAPPLPID', password='SanMigu3l2015')
+
+    #print client
+
+    request = client.factory.create('DT_Request')
+    momento1 = client.factory.create('DT_Request.momento1')
+    cabecera = client.factory.create('DT_Request.momento1.cabecera')
+    #print momento2
+
+    cabecera.sucursal = cabecera_pallet[0]
+    cabecera.pallet_id = cabecera_pallet[1]
+    cabecera.material_embalaje = cabecera_pallet[2]
+    cabecera.tipo_pallet = cabecera_pallet[3]
+    cabecera.contramarca = cabecera_pallet[4]
+    cabecera.ppecb = cabecera_pallet[5]
+    cabecera.organizacion = cabecera_pallet[6]
+    cabecera.posicion = []
+
+    posiciones = xml.find('PALLET').find('POSICIONES').findall('POSICION')
+
+    posiciones_pallet = []
+
+    for posicion in posiciones:
+        posiciones_pallet.append( devuelveDatosNodo(posicion , ['posicion', 'orden_mto', 'material_sap', 'cantidad' , 'UM', 'orden_mts', 'lote_sap', 'Almacen', 'tipo_mercado', 'Ccalidad', 'Ccalibre', 'tipo_packaging', 'Ccolor' , 'porcentaje_mrl',
+                                                                'Cmarca', 'planta_empaque', 'fecha_produccion' , 'turno_produccion','nro_up_puc_spa', 'nro_renspa', 'ggn', 'finca_quinta' , 'liote_cuadro', 'trazabilidad', 'esp_fitosanitaria',
+                                                                'var_fitosanitaria' ] ) )
+
+
+    for p in posiciones_pallet:
+        posicion = client.factory.create('DT_Request.momento1.cabecera.posicion')
+        posicion.orden_mto = p[1]
+        posicion.material_sap = p[2]
+        posicion.cantidad = p[3]
+        posicion.UM = p[4]
+        posicion.orden_mts = p[5]
+        posicion.lote_sap = p[6]
+        posicion.Almacen = p[7]
+        posicion.tipo_mercado = p[8]
+        posicion.calidad = p[9]
+        posicion.calibre = p[10]
+        posicion.tipo_packaging = p[11]
+        posicion.color = p[12]
+        posicion.porcentaje_mrl = p[13]
+        posicion.marca = p[14]
+        posicion.planta_empaque = p[15]
+        posicion.fecha_produccion = p[16]
+        posicion.turno_produccion = p[17]
+        posicion.nro_up_puc_spa = p[18]
+        posicion.nro_renspa = p[19]
+        posicion.ggn = p[20]
+        posicion.finca_quinta = p[21]
+        posicion.liote_cuadro = p[21]
+        posicion.trazabilidad = p[23]
+        posicion.esp_fitosanitaria = p[24]
+        posicion.var_fitosanitaria = p[25]
+        cabecera.posicion.append(posicion)
+
+    momento1.cabecera = cabecera
+
+    i = 0
+    for p in momento1.cabecera.posicion:
+        i += 4
+        p.lote_sap = i
+
+    response = client.factory.create('DT_Response')
+
+#    for p in posiciones_pallet:
+#        print p[6]
+
+
+
+    #print momento1.cabecera
+
+    #result = client.service.SI_OS_PP159ING('DEV130', momento1, momento2, )
+
+    respuesta = client.factory.create('DT_Response')
+    respuesta.UnidadManipuleo = cabecera.pallet_id
+    respuesta.Resultado = 'OK'
+    respuesta.posiciones = cabecera.posicion
+
+    crespuesta = ''
+    i = 0
+    for posicion in respuesta.posiciones:
+        i = i + 1
+        crespuesta = crespuesta + str(i) + ':' +  str(posicion.lote_sap) + '|'
+
+    crespuesta = crespuesta[:-1]
+
+    #print crespuesta
+
+    f=open(archivo1,"w")
+    f.write(crespuesta)
+    f.close()
+
+    retval = str(archivo1)
+except urllib2.URLError as e1:
+#    ctypes.windll.user32.MessageBoxA(0, str(e1.reason) , "ERROR1", 1)
+    retval = 'ERROR:' + str(e1.reason)
+
+except Exception as e:
+    ctypes.windll.user32.MessageBoxA(0, str(e.message), "ERROR2", 1)
+    retval = 'ERROR:' + str(e.message)
+
+finally:
+    exit(retval)
+
+
+

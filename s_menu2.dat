@@ -1,0 +1,129 @@
+k   001  actividades
+k      014  notas de recepción
+k         035  captura                                          k_capnot.p
+k         036  edición                                          k_edtnot.p
+k         037  emisión                                          k_impnot.p
+k         038  procesamiento                                    k_pronot.p
+k      015  ajustes de stock
+k         039  captura                                          k_capaju.p
+k         040  edición                                          k_edtaju.p
+k         041  emisión                                          k_impaju.p
+k         042  procesamiento                                    k_proaju.p
+k      016  ingresos/egresos
+k         043  captura                                          k_capmov.p
+k         044  edición                                          k_edtmov.p
+k         045  emisión                                          k_impmov.p
+k         046  procesamiento                                    k_promov.p
+k      235  Inventarios
+k         236  Captura                                          k_capinv.p
+k         239  Edicion                                          k_edtinv.p
+k         237  Emision                                          k_impinv.p
+k         238  Procesamiento                                    k_proinv.p
+k      017  cierre diario                                       k_cierre.p
+k      018  cierre mensual                                      k_ciemen.p
+k   002  mantenimiento
+k      050  art¡culos
+k         054  cód.art.prov.                                    k_mcodpr.p
+k         055  peso especif.                                    k_mpesa1.p
+k         062  unidades                                         k_martun.p
+k   003  reportes
+k      100  almacenamiento
+k         101  ubicaciones                                      k_rubicg.p
+k         143  ctrl.pesables                                    k_ctrpes.p
+k         102  valorización
+k            178  x dpt.                                        k_rstock.p
+k            179  x categ.                                      k_rstoca.p
+k         112  control stock
+k            137  x artículo                                    k_rcostk.p
+k            138  x cal/mrc                                     k_rcostc.p
+k            145  x cal/nro                                     k_rcostn.p
+k         176  comport. costo                                   k_rcmcto.p
+k         123  stock/prov.                                      k_rstprv.p
+k         132  stock/dep.                                       k_rstdep.p
+k         127  obleas/invent                                    k_oblinv.p
+k         146  padron x dpt.                                    k_rpddpt.p
+k         213  Layout Artículos                                 k_rlayar.p
+k      103  ingresos/egresos
+k         147  ingresos
+k            148  de sucur.                                     k_rdevsu.p
+k         115  egresos
+k            142  transf.suc                                    k_rtrasu.p
+k            149  x artículo                                    k_regart.p
+k            152  diar.x suc                                    k_regrdi.p
+k            156  mens.x art                                    k_renvsu.p
+k         116  ing/egresos
+k            106  importes                                      k_rtotfa.p
+k            194  consolidado                                   k_rfacgr.p
+k            107  bultos                                        k_rbulpe.p
+k            233  Per.Art.Suc.                                  k_rtarsu.p
+k            114  detallado                                     k_rtfasu.p
+k            188  trim.x suc                                    k_rtrmov.p
+k            211  Mov.p/Depto                                   k_rmovre.p
+k         199  mov x sucur                                      k_rmovsu.p
+k         200  mov x comprob                                    k_resmov.p
+k      104  diarios
+k         108  ingresos                                         k_xpding.p
+k         122  recepc.s/ped.                                    k_xrespe.p
+k         234  insatisfechos                                    k_xpdins.p
+k         180  insat.p/prv                                      k_rpprov.p
+k         181  pedidos./prv                                     k_rttprv.p
+k         110  productividad                                    k_xcarop.p
+k         113  ped.sugeridos                                    k_rsugpu.p
+k         117  art. s/exist.                                    k_rsinex.p
+k         175  art.s/exi prv                                    k_rsexip.p
+k         118  ord.prep.pend.                                   k_xoppen.p
+k         119  n.recep.pend.                                    k_sperec.p
+k         120  ajustes stock                                    k_xreaju.p
+k         124  audit.mod.mov.                                   k_xaumov.p
+k         126  form.reimpr.                                     k_xrefor.p
+k         185  % devol x artic                                  k_rdineg.p
+k      105  mensuales
+k         198  stock/Venta
+k            195  general                                       k_dstock.p
+k            197  rango/días                                    k_drstok.p
+k            201  x categ.                                      k_dcstok.p
+k         111  productividad                                    k_rrecar.p
+k         121  ajustes stock                                    k_rtoaju.p
+k         187  ajustes x tipo                                   k_rajust.p
+k         150  ingresos x art                                   k_rindia.p
+k         151  rotación                                         k_rotart.p
+k         172  mov.x art.                                       k_rdetfa.p
+k         174  trans.x art.                                     k_rdetar.p
+k         182  tot.mens.x mov                                   k_rtomov.p
+k         189  movim.x trim                                     k_rmvtri.p
+k         184  pedidos x suc                                    k_rpedme.p
+k         190  movim.x sector                                   k_rtotse.p
+k         193  mov.x sector                                     k_rsecgr.p
+k      096  auditor¡a
+k         097  stock negativo                                   k_rsinex.p
+k         135  bajas c/stock                                    k_rstbaj.p
+k         136  stock s/movim.                                   k_rnomov.p
+k         139  stock s/ubic.                                    k_rstoub.p
+k   004  consultas
+k      070  artículos
+k         080  artículos                                        x_arti3.p
+k      071  ordenes de compra
+k         084  proveedores                                      k_cprov.p
+k         085  pedidos                                          k_conped.p
+k      093  recepciones
+k         094  recepciones                                      x_sccrec.p
+k         095  recep.s/ped.                                     x_recsp1.p
+k      191  pedidos
+k         192  pedidos                                          k_xpedid.p
+k      072  almacenamiento
+k         088  ubicaciones                                      x_ubic.p
+k         089  movimientos                                      x_cccorr.p
+k         165  mov.x suc.                                       k_conmov.p
+k         125  exist.pulmon                                     k_cexpul.p
+k         128  ajustes                                          k_cajus.p
+k         129  ing/egresos                                      k_cmovsu.p
+k      098  auditoría
+k         099  movimientos                                      k_caudst.p
+k         130  impresión                                        k_caudim.p
+k         131  stock negativo                                   k_cstone.p
+k      212  Remitos Dev. a Proc                                 k_consec.p
+k   005  ayuda
+k      090  sistema                                             s_sistem.p
+k      091  teclado                                             s_teclad.p
+k      092  utilidades                                          s_utilid.p
+k   006  salir                                                  *q

@@ -1,0 +1,108 @@
+<BUTTON>
+  <NAME>btnProdJugo</NAME>
+  <LABEL>Producciones Jugo</LABEL>
+  <TOOLTIP>Producciones de Jugo</TOOLTIP>
+  <PICTURE>prodJugo.gif</PICTURE>
+  <PROGRAM>wProduccionJugo.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnProdAceite</NAME>
+  <LABEL>Producciones Aceite</LABEL>
+  <TOOLTIP>Produccines Aceite</TOOLTIP>
+  <PICTURE>prodAceite.gif</PICTURE>
+  <PROGRAM>w_select_sucursal_sola.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnLotesJugo</NAME>
+  <LABEL>Lotes de Jugos</LABEL>
+  <TOOLTIP>Lotes de Jugos</TOOLTIP>
+  <PICTURE>loteJugo.gif</PICTURE>
+  <PROGRAM>wLotesJugo.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnLotesAceite</NAME>
+  <LABEL>Lotes de Aceite</LABEL>
+  <TOOLTIP>Lotes de Aceites</TOOLTIP>
+  <PICTURE>loteAceite.gif</PICTURE>
+  <PROGRAM>wLotesAceite.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnCargas</NAME>
+  <LABEL>Procesos</LABEL>
+  <TOOLTIP>Procesos</TOOLTIP>
+  <PICTURE>procesos.gif</PICTURE>
+  <PROGRAM>wProcesos.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnRemitos</NAME>
+  <LABEL>Remitos</LABEL>
+  <TOOLTIP>Remitos</TOOLTIP>
+  <PICTURE>203.bmp</PICTURE>
+  <PROGRAM>p_new_remitos.p</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnRemitosProc</NAME>
+  <LABEL>Procesamiento Remitos</LABEL>
+  <TOOLTIP>Procesamiento de Remitos</TOOLTIP>
+  <PICTURE>205.bmp</PICTURE>
+  <PROGRAM>p_procesamiento_remito.p</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnRemitosAnul</NAME>
+  <LABEL>Anulacion Remitos</LABEL>
+  <TOOLTIP>Anulacion de Remitos</TOOLTIP>
+  <PICTURE>207.bmp</PICTURE>
+  <PROGRAM>p_anulacion_remito.p</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnRemitosQry</NAME>
+  <LABEL>Consulta Remitos</LABEL>
+  <TOOLTIP>Consulta de Remitos</TOOLTIP>
+  <PICTURE>206.bmp</PICTURE>
+  <PROGRAM>wRemitos.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnStock</NAME>
+  <LABEL>Reportes Stock</LABEL>
+  <TOOLTIP>Reportes Stock</TOOLTIP>
+  <PICTURE>rpt-u.bmp</PICTURE>
+  <PROGRAM>w_consulta_stock_rapido_fam.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnProduccion</NAME>
+  <LABEL>Produccion</LABEL>
+  <TOOLTIP>Reporte de Produccion</TOOLTIP>
+  <PICTURE>591.bmp</PICTURE>
+  <PROGRAM>w_reporte_produccion_rapido.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnDespachos</NAME>
+  <LABEL>Despachos</LABEL>
+  <TOOLTIP>Reporte de Despachos</TOOLTIP>
+  <PICTURE>1057.bmp</PICTURE>
+  <PROGRAM>w_reporte_despachos_rapido.w</PROGRAM>
+</BUTTON>
+
+<BUTTON>
+  <NAME>btnTrazaIndust</NAME>
+  <LABEL>Trazabilidad</LABEL>
+  <TOOLTIP>Trazabilidad Productos Industria</TOOLTIP>
+  <PICTURE>sort-u.bmp</PICTURE>
+  <PROGRAM>wTrazaIndust.w</PROGRAM>
+</BUTTON>
+
+
+
+
+

@@ -1,0 +1,80 @@
+
+
+ FIELD "KUNNR"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Nº de cliente" COLUMN-LABEL "Nº de cliente" ORDER 10
+ FIELD "BUKRS"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Sociedad" COLUMN-LABEL "Sociedad" ORDER 20
+ FIELD "VKORG"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Organización de ventas" COLUMN-LABEL "Organización de ventas" ORDER 30
+ FIELD "VTWEG"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Canal de distribución" COLUMN-LABEL "Canal de distribución" ORDER 40
+ FIELD "SPART"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Sector" COLUMN-LABEL "Sector" ORDER 50
+ FIELD "KTOKD"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Grupo de ctas.deudor" COLUMN-LABEL "Grupo de ctas.deudor" ORDER 60
+ FIELD "KNVI-TAXKD"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Clasificación Fiscal" COLUMN-LABEL "Clasificación Fiscal" ORDER 70
+ FIELD "KKBER"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Área de control de créditos" COLUMN-LABEL "Área de control de créditos" ORDER 80
+ FIELD "ANRED"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Tratamiento" COLUMN-LABEL "Tratamiento" ORDER 90
+ FIELD "NAME1"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Nombre 1" COLUMN-LABEL "Nombre 1" ORDER 100
+ FIELD "NAME2"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Nombre 2" COLUMN-LABEL "Nombre 2" ORDER 110
+ FIELD "NAME3"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Nombre 3" COLUMN-LABEL "Nombre 3" ORDER 120
+ FIELD "NAME4"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Nombre 4" COLUMN-LABEL "Nombre 4" ORDER 130
+ FIELD "SORT1"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Concepto de búsqueda 1" COLUMN-LABEL "Concepto de búsqueda 1" ORDER 140
+ FIELD "SORT2"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Concepto de búsqueda 2" COLUMN-LABEL "Concepto de búsqueda 2" ORDER 150
+ FIELD "STRAS"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Calle y nº" COLUMN-LABEL "Calle y nº" ORDER 160
+ FIELD "ORT01"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Población" COLUMN-LABEL "Población" ORDER 170
+ FIELD "PSTLZ"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Código postal" COLUMN-LABEL "Código postal" ORDER 180
+ FIELD "LAND1"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Clave de país" COLUMN-LABEL "Clave de país" ORDER 190
+ FIELD "REGIO"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Región (Estado federal, "land", provincia, condado)" COLUMN-LABEL "Región (Estado federal, "land", provincia, condado)" ORDER 200
+ FIELD "TELF1"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Nº de teléfono 1" COLUMN-LABEL "Nº de teléfono 1" ORDER 210
+ FIELD "TELFX"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Nº telefax" COLUMN-LABEL "Nº telefax" ORDER 220
+ FIELD "LIFNR"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Número de cuenta del proveedor o acreedor" COLUMN-LABEL "Número de cuenta del proveedor o acreedor" ORDER 230
+ FIELD "STCD1"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Número de identificación fiscal 1" COLUMN-LABEL "Número de identificación fiscal 1" ORDER 240
+ FIELD "KNA1-STKZN"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Persona Fisica" COLUMN-LABEL "Persona Fisica" ORDER 250
+ FIELD "BRSCH"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Clave de ramo industrial" COLUMN-LABEL "Clave de ramo industrial" ORDER 260
+ FIELD "KUKLA"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Clasificación de clientes" COLUMN-LABEL "Clasificación de clientes" ORDER 270
+ FIELD "LZONE"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Zona de transporte donde se efectúan las entregas" COLUMN-LABEL "Zona de transporte donde se efectúan las entregas" ORDER 280
+ FIELD "FITYP"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Tipo de impuesto" COLUMN-LABEL "Tipo de impuesto" ORDER 290
+ FIELD "STCDT"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Tipo de número de identificación fiscal" COLUMN-LABEL "Tipo de número de identificación fiscal" ORDER 300
+ FIELD "AKONT"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Cuenta asociada en la contabilidad principal" COLUMN-LABEL "Cuenta asociada en la contabilidad principal" ORDER 310
+ FIELD "FDGRV"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Grupo de tesorería" COLUMN-LABEL "Grupo de tesorería" ORDER 320
+ FIELD "ZTERM"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Clave de condiciones de pago" COLUMN-LABEL "Clave de condiciones de pago" ORDER 330
+ FIELD "KNB1-XZVER"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Grabar Historial de Pagos" COLUMN-LABEL "Grabar Historial de Pagos" ORDER 340
+ FIELD "KNB1-ZWELS"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Vias de Pago" COLUMN-LABEL "Vias de Pago" ORDER 350
+ FIELD "ALTKN"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Número de registro maestro anterior" COLUMN-LABEL "Número de registro maestro anterior" ORDER 360
+ FIELD "GRICD"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Indicador de actividad p.el impuesto sobre ingresos brutos" COLUMN-LABEL "Indicador de actividad p.el impuesto sobre ingresos brutos" ORDER 370
+ FIELD "GRIDT"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Clase de distribución para el I.R.P.F." COLUMN-LABEL "Clase de distribución para el I.R.P.F." ORDER 380
+ FIELD "BANKS"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Clave de país del banco" COLUMN-LABEL "Clave de país del banco" ORDER 390
+ FIELD "BANKL"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Clave de banco" COLUMN-LABEL "Clave de banco" ORDER 400
+ FIELD "BANKN"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Nº cuenta bancaria" COLUMN-LABEL "Nº cuenta bancaria" ORDER 410
+ FIELD "BKONT"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Clave de control de bancos" COLUMN-LABEL "Clave de control de bancos" ORDER 420
+ FIELD "BVTYP"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Tipo de banco interlocutor" COLUMN-LABEL "Tipo de banco interlocutor" ORDER 430
+ FIELD "XEZER"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Indicador: ¿Existe autorización para domiciliación?" COLUMN-LABEL "Indicador: ¿Existe autorización para domiciliación?" ORDER 440
+ FIELD "BKREF"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Referencia para el banco/cuenta" COLUMN-LABEL "Referencia para el banco/cuenta" ORDER 450
+ FIELD "KOINH"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Titular de la cuenta" COLUMN-LABEL "Titular de la cuenta" ORDER 460
+ FIELD "ABLAD"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Puesto de descarga" COLUMN-LABEL "Puesto de descarga" ORDER 470
+ FIELD "KNFAK"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Calendario de fábrica del cliente" COLUMN-LABEL "Calendario de fábrica del cliente" ORDER 480
+ FIELD "BZIRK"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Zona de ventas" COLUMN-LABEL "Zona de ventas" ORDER 490
+ FIELD "VKBUR"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Oficina de ventas" COLUMN-LABEL "Oficina de ventas" ORDER 500
+ FIELD "WAERS"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Moneda" COLUMN-LABEL "Moneda" ORDER 510
+ FIELD "VKGRP"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Grupo de vendedores" COLUMN-LABEL "Grupo de vendedores" ORDER 520
+ FIELD "KDGRP"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Grupo de clientes" COLUMN-LABEL "Grupo de clientes" ORDER 530
+ FIELD "KONDA"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Grupo de precios - Cliente" COLUMN-LABEL "Grupo de precios - Cliente" ORDER 540
+ FIELD "KALKS"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Esquema de cliente (para determinar el esquema de cálcul" COLUMN-LABEL "Esquema de cliente (para determinar el esquema de cálcul" ORDER 550
+ FIELD "VSBED"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Condicion de expedicion" COLUMN-LABEL "Condicion de expedicion" ORDER 560
+ FIELD "VWERK"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Centro de suministro" COLUMN-LABEL "Centro de suministro" ORDER 570
+ FIELD "INCO1"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Incoterms parte 1" COLUMN-LABEL "Incoterms parte 1" ORDER 580
+ FIELD "INCO2"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Incoterms, parte 2" COLUMN-LABEL "Incoterms, parte 2" ORDER 590
+ FIELD "KTGRD"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Grupo de imputación para cliente" COLUMN-LABEL "Grupo de imputación para cliente" ORDER 610
+ FIELD "PLTYP"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Lista de precios" COLUMN-LABEL "Lista de precios" ORDER 620
+ FIELD "VERSG"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Grp EstadCliente" COLUMN-LABEL "Grp EstadCliente" ORDER 630
+ FIELD "AUFSD"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Bloqueo Pedido" COLUMN-LABEL "Bloqueo Pedido" ORDER 640
+ FIELD "STCD2"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "CUIT2" COLUMN-LABEL "CUIT2" ORDER 650
+ FIELD "COUNC"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Codigo Condado" COLUMN-LABEL "Codigo Condado" ORDER 660
+ FIELD "KZAZU"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Agrp Pedido" COLUMN-LABEL "Agrp Pedido" ORDER 670
+ FIELD "LPRIO"  AS CHARACTER; FORMAT "X(100)" INITIAL "" LABEL "Prioridad de entrega" COLUMN-LABEL "Prioridad de entrega" ORDER 680
+
+
+.
+PSC
+cpstream=ISO8859-1
+.
+0000719123
+
+
+
+

@@ -1,0 +1,26 @@
+
+                Sat Jan 23 15:31:41 2016
+[2016/01/23@15:31:41.998-0300] P-8088       T-2496  I          : (451)   prostrct create comienza sesión pdigonzelli en CON:. 
+[2016/01/23@15:31:42.004-0300] P-8088       T-2496  I          : (12862) Archivo de estructura producciond.st usado para crear la base de datos con tamaño de bloque 4096. 
+[2016/01/23@15:31:42.010-0300] P-8088       T-2496  I          : (334)   Fin de sesión prostrct create. 
+
+                Sat Jan 23 15:44:35 2016
+[2016/01/23@15:44:35.629-0300] P-7316       T-8116  I DBUTIL   : (451)   procopy comienza sesión pdigonzelli en CON:. 
+[2016/01/23@15:44:35.668-0300] P-7316       T-8116  I DBUTIL   : (334)   Fin de sesión procopy. 
+
+                Sat Jan 23 15:44:35 2016
+[2016/01/23@15:44:35.683-0300] P-7316       T-8116  I          : (451)   procopy get default SQL DBA comienza sesión pdigonzelli en CON:. 
+[2016/01/23@15:44:35.683-0300] P-7316       T-8116  I          : (15321) Inicialización del registro Before Image en el bloque 0 , desplazamiento 34712936. 
+[2016/01/23@15:44:35.815-0300] P-7316       T-8116  I          : (1365)  Base de Datos copiada desde empty4. 
+[2016/01/23@15:44:35.818-0300] P-7316       T-8116  I          : (15109) El número de transacciones en vivo en el cierre de la base de datos es 0. 
+[2016/01/23@15:44:35.818-0300] P-7316       T-8116  I          : (15743) Before Image Log Completion at Block 0 Offset 630. 
+[2016/01/23@15:44:35.827-0300] P-7316       T-8116  I          : (334)   Fin de sesión procopy get default SQL DBA. 
+
+                Sat Jan 23 15:45:58 2016
+[2016/01/23@15:45:58.512-0300] P-5692       T-5004  I ABL      : (451)   Single-user comienza sesión pdigonzelli en CON:. 
+[2016/01/23@15:45:58.514-0300] P-5692       T-5004  I ABL      : (15321) Inicialización del registro Before Image en el bloque 0 , desplazamiento 630. 
+[2016/01/23@15:45:58.518-0300] P-5692       T-5004  I ABL      : (12699) Base de Datos producciond Opciones:  
+[2016/01/23@15:48:28.666-0300] P-5692       T-5004  I ABL      : (15262) No se permite el cambio en línea del esquema solicitado, se está abortando el cambio. 
+[2016/01/23@15:50:17.245-0300] P-5692       T-5004  I ABL      : (15109) El número de transacciones en vivo en el cierre de la base de datos es 0. 
+[2016/01/23@15:50:17.245-0300] P-5692       T-5004  I ABL      : (15743) Before Image Log Completion at Block 684 Offset 4483. 
+[2016/01/23@15:50:17.250-0300] P-5692       T-5004  I ABL      : (334)   Fin de sesión Single-user. 

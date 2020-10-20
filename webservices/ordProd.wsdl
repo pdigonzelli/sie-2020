@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ordProd" targetNamespace="http://localhost:8080/wsa/wsa1/ordProd" xmlns:tns="http://localhost:8080/wsa/wsa1/ordProd" xmlns:S2="http://localhost:8080/wsa/wsa1/ordProd/ordProd" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:prodata="urn:schemas-progress-com:xml-prodata:0001" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:S1="urn:soap-fault:details" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:documentation>EncodingType=DOC_LITERAL, Proxygen_Product=Progress Version 10.2B</wsdl:documentation>
+  <wsdl:types>
+<schema elementFormDefault="unqualified" targetNamespace="urn:soap-fault:details" xmlns="http://www.w3.org/2001/XMLSchema"><element name="FaultDetail"><complexType><sequence><element name="errorMessage" type="xsd:string"/><element name="requestID" type="xsd:string"/></sequence></complexType></element></schema>
+<schema elementFormDefault="qualified" targetNamespace="http://localhost:8080/wsa/wsa1/ordProd/ordProd" xmlns="http://www.w3.org/2001/XMLSchema"><complexType name="ordProd_POSICIONESRow"><sequence><element name="PDOCVENTAS" nillable="true" type="xsd:string"/><element name="PPOSICIONDOCVENTAS" nillable="true" type="xsd:string"/><element name="PMATERIAL" nillable="true" type="xsd:string"/><element name="PENVASE" nillable="true" type="xsd:string"/><element name="PCALIBRESTD" nillable="true" type="xsd:string"/><element name="PCALIBREEQU" nillable="true" type="xsd:string"/><element name="PCANTIDAD" nillable="true" type="xsd:string"/><element name="PUNIDAD" nillable="true" type="xsd:string"/><element name="PORDER" nillable="true" type="xsd:string"/></sequence></complexType><complexType name="ordProd_POSICIONESParam"><sequence><element maxOccurs="unbounded" minOccurs="0" name="POSICIONESRow" type="S2:ordProd_POSICIONESRow"/></sequence></complexType><element name="ordProd"><complexType><sequence><element name="SORDEN" nillable="true" type="xsd:string"/><element name="SDOCUMENTOVENTA" nillable="true" type="xsd:string"/><element name="SSOLICITANTE" nillable="true" type="xsd:string"/><element name="SNOMBRE" nillable="true" type="xsd:string"/><element name="SPOSICIONDOCUMENTOVENTA" nillable="true" type="xsd:string"/><element name="SMATERIAL" nillable="true" type="xsd:string"/><element name="SESPECIE" nillable="true" type="xsd:string"/><element name="SVARIEDAD" nillable="true" type="xsd:string"/><element name="SCANTIDAD" nillable="true" type="xsd:string"/><element name="SUNIDAD" nillable="true" type="xsd:string"/><element name="SCALIDAD" nillable="true" type="xsd:string"/><element name="SCATEGORIA" nillable="true" type="xsd:string"/><element name="STIPOPALLET" nillable="true" type="xsd:string"/><element name="STIPOESQUINERO" nillable="true" type="xsd:string"/><element name="SPUERTOLLEGADA" nillable="true" type="xsd:string"/><element name="SDESCRIPCIONPUERTOLELGADA" nillable="true" type="xsd:string"/><element name="SDESTINO" nillable="true" type="xsd:string"/><element name="SDESCRIPCIONDESTINO" nillable="true" type="xsd:string"/><element name="SFECHADOCUMENTO" nillable="true" type="xsd:string"/><element name="SVAPOR" nillable="true" type="xsd:string"/><element name="SDESCRIPCIONVAPOR" nillable="true" type="xsd:string"/><element name="SLUGARDESCARGA" nillable="true" type="xsd:string"/><element name="SPUERTOORIGEN" nillable="true" type="xsd:string"/><element name="SDESCRIPCIONPUERTOORIGEN" nillable="true" type="xsd:string"/><element name="SMERCADO" nillable="true" type="xsd:string"/><element name="SCONTRAMARCA" nillable="true" type="xsd:string"/><element name="SAGENCIA" nillable="true" type="xsd:string"/><element name="SDESCRIPCIONAGENCIA" nillable="true" type="xsd:string"/><element name="SFECHAREPARTO" nillable="true" type="xsd:string"/><element name="POSICIONES" nillable="true" type="S2:ordProd_POSICIONESParam"/></sequence></complexType></element><element name="ordProdResponse"><complexType><sequence><element name="result" nillable="true" type="xsd:string"/></sequence></complexType></element></schema>
+  </wsdl:types>
+  <wsdl:message name="ordProd_ordProd">
+    <wsdl:part name="parameters" element="S2:ordProd"/>
+  </wsdl:message>
+  <wsdl:message name="ordProd_ordProdResponse">
+    <wsdl:part name="parameters" element="S2:ordProdResponse"/>
+  </wsdl:message>
+  <wsdl:message name="FaultDetailMessage">
+    <wsdl:part name="FaultDetail" element="S1:FaultDetail"/>
+  </wsdl:message>
+  <wsdl:portType name="ordProdObj">
+    <wsdl:operation name="ordProd">
+      <wsdl:input message="tns:ordProd_ordProd"/>
+      <wsdl:output message="tns:ordProd_ordProdResponse"/>
+      <wsdl:fault name="ordProdFault" message="tns:FaultDetailMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ordProdObj" type="tns:ordProdObj">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ordProd">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ordProdFault">
+        <soap:fault name="ordProdFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ordProdService">
+    <wsdl:port name="ordProdObj" binding="tns:ordProdObj">
+<wsdl:documentation></wsdl:documentation>
+      <soap:address location="http://localhost:8080/wsa/wsa1"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,288 @@
+/*-----CONSULTA POR CAMPO RELACIONADO-----*/
+if frame-field = "hora" then do:
+    xHora = input items_stock.hora.
+    if integer (substr(xHora,1,2)) >= 0 and
+        integer (substr(xHora,1,2)) < 24 and
+        integer (substr(xHora,3,2)) >= 0 and
+        integer (substr(xHora,3,2)) < 60 then do:
+        
+        display xHora @ items_stock.hora
+            with frame trabajo.
+    end.
+    else do:
+        message "ERROR EN INGRESO DE HORA"
+            view-as alert-box.
+        items_stock.hora = substring(string(time,"hh:mm"),1,2) +
+                           substring(string(time,"hh:mm"),4,2).
+        display items_stock.hora @ items_stock.hora
+            with frame trabajo.
+        apply "entry" to items_stock.hora in frame trabajo.
+        return no-apply.
+    end.
+end.
+
+/*-----CONSULTA POR CAMPO RELACIONADO-----*/
+if frame-field = "id_tipo_cosecha" then do:
+    if keyfunction(lastkey) = "ENTER-MENUBAR" then do:
+        x0 = input items_stock.id_tipo_cosecha.
+        run xd_ticos.p (input-output x0).
+        display x0 @ items_stock.id_tipo_cosecha with frame trabajo.
+    end.
+    if keyfunction(lastkey) = "END-ERROR" then
+        apply "entry" to items_stock.id_tipo_cosecha in frame trabajo.
+    else do:
+        find tipo_cosecha where tipo_cosecha.id_tipo_cosecha =
+            input items_stock.id_tipo_cosecha no-lock no-error.
+        if available tipo_cosecha and
+            tipo_cosecha.id_tipo_cosecha <> 1 and
+            tipo_cosecha.id_tipo_cosecha <> 2 and
+            tipo_cosecha.id_tipo_cosecha <> 3 and
+            tipo_cosecha.id_tipo_cosecha < 5 then
+            display tipo_cosecha.descripcion with frame trabajo.
+        else do:
+            display "" @ tipo_cosecha.descripcion
+                with frame trabajo.
+            message "Tipo Cosecha Inexistente o No Valido" view-as alert-box.
+            apply "entry" to items_stock.id_tipo_cosecha in frame trabajo.
+            return no-apply.
+        end.
+    end.
+end.
+
+/*-----CONSULTA POR CAMPO RELACIONADO-----*/
+if frame-field = "fecha_cosecha" then do:
+    if input items_stock.fecha_cosecha > x_fecha_des then do:
+        message "Fecha de Cosecha Erronea" view-as alert-box.
+        apply "entry" to items_stock.fecha_cosecha in frame trabajo.
+        return no-apply.
+    end.
+end.
+
+/*-----CONSULTA POR CAMPO RELACIONADO-----*/
+if frame-field = "union_europea" then do:
+    items_stock.union_europea = input items_stock.union_europea.
+    if items_stock.union_europea then do:
+        assign items_stock.china = false.
+        display items_stock.china with frame trabajo.
+    end.
+end.
+
+/*-----CONSULTA POR CAMPO RELACIONADO-----*/
+if frame-field = "china" then do:
+    items_stock.china = input items_stock.china.
+    if items_stock.china then do:
+        assign items_stock.union_europea = false.
+        display items_stock.union_europea with frame trabajo.
+    end.
+end.
+
+/*-----CONSULTA POR CAMPO RELACIONADO-----*/
+if frame-field = "codigo_trazabilidad" then do:
+    if keyfunction(lastkey) = "ENTER-MENUBAR" then do:
+        x2 = upper(input items_stock.codigo_trazabilidad).
+        run xd_traza.p (input-output x2).
+        display x2 @ items_stock.codigo_trazabilidad with frame trabajo.
+    end.
+    if keyfunction(lastkey) = "END-ERROR" then
+         apply "entry" to items_stock.codigo_trazabilidad in frame trabajo.
+    else do:
+        items_stock.codigo_trazabilidad = upper(input items_stock.codigo_trazabilidad).
+        display items_stock.codigo_trazabilidad with frame trabajo.
+
+        
+        find first lote where
+            lote.codigo_trazabilidad <> "" and
+            lote.codigo_trazabilidad =
+            input items_stock.codigo_trazabilidad no-lock no-error.
+        
+        if available lote then do:
+            find proveedores where
+                proveedores.id_proveedor = lote.id_proveedor
+                no-lock no-error.
+            find origenes where
+                origenes.id_proveedor   = lote.id_proveedor and
+                origenes.id_origen      = lote.id_origen
+                no-lock no-error.
+
+            if (items_stock.union_europea and
+                lote.certificado <> "") or
+                (items_stock.china and
+                lote.cert_china <> "") or
+                (items_stock.union_europea = false and
+                items_stock.china = false) then do:
+
+                assign
+                    items_stock.id_proveedor    = lote.id_proveedor
+                    items_stock.id_origen       = lote.id_origen
+                    items_stock.id_lote         = lote.id_lote
+                    items_stock.renspa          = origenes.renspa
+                    items_stock.zona_up         = origenes.zona_up.
+
+                if items_stock.union_europea or
+                    items_stock.china then do:
+                    x_uniprod   = substr(origenes.zona_up,1,2) + "-" +
+                                  string(origenes.id_finca_senasa,"9999") + "-" +
+                                  string(lote.id_lote_senasa,"999").
+                    assign
+                        items_stock.id_finca_senasa     = origenes.id_finca_senasa
+                        items_stock.id_lote_senasa      = lote.id_lote_senasa.
+
+                    if items_stock.union_europea then
+                        assign items_stock.certificado  = lote.certificado
+                               items_stock.cert_china   = lote.cert_china.
+                    if items_stock.china then
+                        assign items_stock.certificado  = lote.cert_china
+                               items_stock.cert_china   = lote.certificado.
+                end.
+                else do:
+                    x_uniprod = "XX" + "-" + string(0,"9999") + "-" + string(0,"999").
+                    assign
+                         items_stock.union_europea   = false
+                         items_stock.id_finca_senasa = 0
+                         items_stock.id_lote_senasa  = 0
+                         items_stock.certificado     = ""
+                         items_stock.cert_china      = "".
+                end.
+
+                display
+                    items_stock.union_europea   @ items_stock.union_europea
+                    items_stock.china           @ items_stock.china
+                    proveedores.id_proveedor    @ x_proveedor
+                    proveedores.nombre          @ x_nombprov
+                    origenes.id_origen          @ x_finca
+                    origenes.abreviatura        @ x_nombfinc
+                    lote.id_lote                @ x_lote
+                    lote.abreviatura            @ x_nomblote
+                    x_uniprod                   @ x_uniprod
+                    items_stock.certificado     @ items_stock.certificado
+                    with frame trabajo.
+            end.
+            else do:
+                message "Destino o Certificado No Valido" view-as alert-box.
+                apply "entry" to items_stock.codigo_trazabilidad in frame trabajo.
+                return no-apply.
+            end.
+        end.
+        else do:
+            message "Codigo de Trazabilidad Inexistente" view-as alert-box.
+            apply "entry" to items_stock.codigo_trazabilidad in frame trabajo.
+            return no-apply.
+        end.
+    end.
+end.
+
+
+/*-----CONSULTA POR CAMPO RELACIONADO-----*/
+if frame-field = "id_color" then do:
+    if keyfunction(lastkey) = "ENTER-MENUBAR" then do:
+        x4 = input items_stock.id_color.
+        run xd_color.p (input-output x4).
+        display x4 @ items_stock.id_color with frame trabajo.
+    end.
+    find colores where colores.id_color = 
+        input items_stock.id_color no-lock no-error.
+    if available colores then do:
+        display colores.abreviatura @ colores.abreviatura
+            with frame trabajo.
+    end.
+    else do:
+        message "Color Inexistente" view-as alert-box.
+        apply "entry" to items_stock.id_color in frame trabajo.
+        return no-apply.
+    end.
+end.
+
+
+/*-----CONSULTA POR CAMPO RELACIONADO-----*/
+if frame-field = "camara" then do:
+    if x_movsto = 72 or x_movsto = 77 then do:
+        if input items_stock.camara <> 7 then do:
+            message "Camara Invalida Para Reprocesado" view-as alert-box.
+            display 7 @ items_stock.camara with frame trabajo.
+            apply "entry" to items_stock.camara in frame trabajo.
+            return no-apply.
+        end.
+    end.
+    else do:
+        if input items_stock.camara = 7 then do:
+            message "Camara Invalida Para Ingreso" view-as alert-box.
+            display 0 @ items_stock.camara with frame trabajo.
+            apply "entry" to items_stock.camara in frame trabajo.
+            return no-apply.
+        end.
+    end.
+end.
+
+
+/*-----CONSULTA POR CAMPO RELACIONADO-----*/
+if frame-field = "id_envase" then do:
+    if keyfunction(lastkey) = "ENTER-MENUBAR" then do:
+        x7 = input items_stock.id_envase.
+        run xd_envas.p (input-output x7).
+        display x7 @ items_stock.id_envase with frame trabajo.
+    end.
+    find envases_prod where envases_prod.id_envase =
+        input items_stock.id_envase and
+        envases_prod.produccion = no and
+        envases_prod.estado = true no-lock no-error.
+    if available envases_prod then
+        display envases_prod.abreviatura @ envases_prod.abreviatura
+            with frame trabajo.
+    else do:
+        message "Envase Inexistente" view-as alert-box.
+        apply "entry" to items_stock.id_envase in frame trabajo.
+        return no-apply.
+    end.
+end.
+
+
+/*-----CONSULTA POR CAMPO RELACIONADO-----*/
+if frame-field = "cantidad" then do:
+    x_cantidad = input items_stock.cantidad.
+
+    if x_cantidad <> 0 then do:
+        if items_stock.union_europea or
+            items_stock.china then
+            xUnion = true.
+        else
+            xUnion = false.
+            
+        g_partida = 0.
+            
+        run xd_parrem.p
+            (input x_fecha_des,
+            input x_origen,
+            input x_suc_envio,
+            input items_stock.codigo_trazabilidad,
+            input xUnion,
+            input-output g_partida).
+        
+        if lastkey = 27 then do:
+            apply "entry" to items_stock.cantidad in frame trabajo.
+            return no-apply.
+        end.
+        
+        if g_partida = 0 then do:
+            message "No Se Seleccionaron Vaciados para Validar" view-as alert-box.
+            apply "entry" to items_stock.cantidad in frame trabajo.
+            return no-apply.
+        end.
+        else do:
+            find aux_partidas where
+                aux_partidas.nro_partida_unica = g_partida
+                no-lock no-error.
+            if available aux_partidas then do:
+                if aux_partidas.saldo < x_cantidad then do:
+                    message "La Cantidad Ingresada es Superior a la Seleccionada" view-as alert-box.
+                    apply "entry" to items_stock.cantidad in frame trabajo.
+                    return no-apply.
+                end.
+            end.
+        end.
+    end.
+    else do:
+        message "Debe Ingresar la Cantidad de Bandejas" view-as alert-box.
+        apply "entry" to items_stock.cantidad in frame trabajo.
+        return no-apply.
+    end.
+end.

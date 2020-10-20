@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:services-sie-com:sap:ingFru:ingFru">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:ingFru>
+         <urn:SSUCURSAL>SPF</urn:SSUCURSAL>
+         <urn:STRANSPORTISTA>?</urn:STRANSPORTISTA>
+         <urn:STRANSPORTE>?</urn:STRANSPORTE>
+         <urn:SPESOENTRADA>8100</urn:SPESOENTRADA>
+         <urn:SFECHAENTRADA>20151210</urn:SFECHAENTRADA>
+         <urn:SHORAENTRADA>08:00</urn:SHORAENTRADA>
+         <urn:SPESOSALIDA>100</urn:SPESOSALIDA>
+         <urn:SFECHASALIDA>20151210</urn:SFECHASALIDA>
+         <urn:SHORASALIDA>09:00</urn:SHORASALIDA>
+         <urn:SPESODESCARTE>0</urn:SPESODESCARTE>
+         <urn:SPESONETO>8000</urn:SPESONETO>
+         <urn:SNROPESADA>63</urn:SNROPESADA>
+         <urn:POSICIONES>
+            <!--Zero or more repetitions:-->
+            <urn:POSICIONESRow>
+               <urn:PSNROREMITO>1234R12345678</urn:PSNROREMITO>
+               <urn:PSFECHAREMITO>20151210</urn:PSFECHAREMITO>
+               <urn:PSFECHACOSECHA>20151210</urn:PSFECHACOSECHA>
+               <urn:PSMERCADO>NOUE</urn:PSMERCADO>
+               <urn:PSMATERIAL>50111010101</urn:PSMATERIAL>
+               <urn:PSNROLOTE>0000000540</urn:PSNROLOTE>
+               <urn:PSNRODOCUMENTOMATERIAL>?</urn:PSNRODOCUMENTOMATERIAL>
+               <urn:PSESPECIE>01</urn:PSESPECIE>
+               <urn:PSVARIEDAD>01</urn:PSVARIEDAD>
+               <urn:PSFINCA>1</urn:PSFINCA>
+               <urn:PSTRAZABILIDAD>25F0101</urn:PSTRAZABILIDAD>
+               <urn:PSTIPOENVASE>BINPLB</urn:PSTIPOENVASE>
+               <urn:PSCANTPES>8000</urn:PSCANTPES>
+               <urn:PSUNIDAD>KG</urn:PSUNIDAD>
+               <urn:PSTIPOCORTE>1</urn:PSTIPOCORTE>
+               <urn:PSCOLOR>1</urn:PSCOLOR>
+               <urn:PSNROPESADA>63</urn:PSNROPESADA>
+               <urn:PSNROPOSICIONPESADA>1</urn:PSNROPOSICIONPESADA>
+            </urn:POSICIONESRow>
+         </urn:POSICIONES>
+      </urn:ingFru>
+   </soapenv:Body>
+</soapenv:Envelope>

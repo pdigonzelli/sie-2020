@@ -1,0 +1,62 @@
+/* HAGO LOS CACULOS PARA OEs DE FRUTA FRESCA */
+    v_pallets               = INTEGER(general.items_orden_entrega.cantidad_pallets:screen-value in frame F-Main).
+    v_id_envase             = INTEGER(general.items_orden_entrega.id_envase:screen-value in frame F-Main).
+    v_id_tipo_pallet        = INTEGER(general.items_orden_entrega.id_tipo_pallet:screen-value in frame F-Main).
+    v_id_articulo           = INTEGER(general.items_orden_entrega.id_articulo:screen-value in frame F-Main).
+    v_importe_final         = INTEGER(general.items_orden_entrega.precio_x_caja:screen-value in frame F-Main).
+    v_comision              = 0.
+
+    FIND FIRST r_pallets_envase WHERE r_pallets_envase.id_envase         = v_id_envase
+                                  AND r_pallets_envase.id_tipo_pallet    = v_id_tipo_pallet
+                                NO-LOCK NO-ERROR.
+    IF AVAILABLE r_pallets_envase THEN DO: /* SI ENCUENTRO LA INFO, NO TENDRIA QUE CARGAR A MANO */
+        v_cajas_por_pallets     = r_pallets_envases.pallets. /* ESTE CAMPO ME DICE LA CANTIDAD DE CAJAS EN UN
+                                                                PALLET ESPECIFICO */
+        v_total_cajas           = v_pallets * v_cajas_por_pallets.
+        items_orden_entrega.cajas_x_pallets:SCREEN-VALUE IN FRAME F-Main = STRING(v_cajas_por_pallets).
+        items_orden_entrega.total_cajas:SCREEN-VALUE IN FRAME F-Main = STRING(v_total_cajas).
+        ASSIGN items_orden_entrega.cajas_x_pallets      = v_cajas_por_pallets
+               items_orden_entrega.TOTAL_cajas          = v_total_cajas.
+    END.
+    ELSE DO:
+        /* NO ENCUENTRO LA INFO, POR ENDE DEJO LA CARGADA A MANO */
+        MESSAGE "No se encontro la cantidad de cajas por pallets " VIEW-AS ALERT-BOX.
+        v_cajas_por_pallets     = INTEGER(general.items_orden_entrega.cajas_x_pallets:screen-value in frame F-Main).
+        v_total_cajas           = v_cajas_por_pallets * v_pallets.                           
+        items_orden_entrega.total_cajas:SCREEN-VALUE IN FRAME F-Main = STRING(v_total_cajas).
+    END.
+    
+    
+    RUN p_calculo_fob_ton_item_oe.p (INPUT v_orden_entrega, 
+                                     INPUT v_item_oe, 
+                                     OUTPUT v_fob_ton, 
+                                     OUTPUT v_fob_unitario,
+                                     OUTPUT v_comision,
+                                     OUTPUT v_gastos).
+      
+    FIND FIRST r_envases_prod WHERE r_envases_prod.id_envase = v_id_envase NO-LOCK NO-ERROR.
+    IF AVAILABLE r_envases_prod THEN DO:
+        v_kilos = v_total_cajas * r_envases_prod.Kilos_nominal.
+        /* MESSAGE "Kilos " v_kilos 
+                " cajas " v_total_cajas
+                " kilos del envase " r_envases_prod.Kilos_nominal VIEW-AS ALERT-BOX. */
+        FIND FIRST envases_prod WHERE envases_prod.id_envase = v_id_envase NO-LOCK NO-ERROR.
+        general.items_orden_entrega.kgs_netos_tambores:screen-value in frame F-Main     = string(v_kilos).
+        v_tara  = (IF AVAILABLE envases_prod THEN envases_prod.Tara ELSE 0) * v_total_cajas.
+        v_kilos_brutos = v_kilos + v_tara.
+        general.items_orden_entrega.kgs_brutos_tambores:screen-value in frame F-Main    = string(v_kilos_brutos).
+        v_precio_total = v_total_cajas * IF v_importe_final > 0 THEN v_importe_final ELSE 5. 
+        general.items_orden_entrega.total_factura:screen-value in frame F-Main  = string(v_precio_total).
+        v_fob_ton = v_precio_total - v_gastos.
+        items_orden_entrega.fob_ton:screen-value in frame F-Main = string(v_fob_ton).
+        items_orden_entrega.fob_unitario:screen-value in frame F-Main = string(v_fob_ton / v_total_cajas).
+        ASSIGN items_orden_entrega.kgs_netos_tambores   = v_kilos
+               items_orden_entrega.kgs_brutos_tambores  = v_kilos_brutos
+               items_orden_entrega.TOTAL_factura        = v_precio_total
+               items_orden_entrega.fob_ton              = v_fob_ton
+               items_orden_entrega.fob_unitario         = v_fob_ton / (IF v_total_cajas > 0 THEN v_total_cajas ELSE 1)
+               .
+    END.
+    ELSE MESSAGE "No se encontro el envase " v_id_envase VIEW-AS ALERT-BOX.
+
+    {i_calculo_derechos_reintegros.i}

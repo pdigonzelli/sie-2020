@@ -1,0 +1,9 @@
+BUDAT	Fecha de Contabilización	DATE	10
+MATNR	Material	CHAR	18
+WERKS	Centro	CHAR	4
+LGORT	Almacén	CHAR	4
+CHARG	Lote	CHAR 	10
+MENGE	Cantidad	QUAN	13 - 3
+KOSTL	Centro de Costos	CHAR	10
+VBELN	Pedido de Ventas	CHAR	10
+POSNR	Posición Pedido de Ventas	NUMC	06

@@ -1,0 +1,30 @@
+
+
+====== Start exception logging == "adc0.exp" opened == Mon Aug 24 09:40:25 GMT-03:00 2015 ======
+
+
+**** 1 ****
+
+   Exception at Mon Aug 24 09:40:25 GMT-03:00 2015: java.rmi.ConnectException
+   Message (excp):  Connection refused to host: [totvs2:49157]; nested exception is: 
+	java.net.ConnectException: Connection refused
+   Stack Trace:
+java.rmi.ConnectException: Connection refused to host: [totvs2:49157]; nested exception is: 
+	java.net.ConnectException: Connection refused
+	at sun/rmi/transport/tcp/TCPChannel.openSocket
+	at sun/rmi/transport/tcp/TCPChannel.newConnection
+	at sun/rmi/server/UnicastRef.newCall
+	at com/progress/common/networkevents/EventInterestObject_Stub.eventType
+	at com/progress/common/networkevents/EventBroker.revokeInterest
+	at com/progress/vj/explorer/ProgressServer.cleanup
+	at com/progress/vj/explorer/ProgressServer.disconnect
+	at com/progress/vj/explorer/ProgressServer.disconnect
+	at com/progress/vj/explorer/AdminServerCrashHandler.processEvent
+	at com/ms/lang/Delegate.dynamicInvoke0
+	at com/ms/lang/Delegate.dynamicInvoke
+	at com/ms/wfc/ui/Control.invokeMarshaledCallback
+	at com/ms/wfc/ui/Control.wndProc
+	at com/ms/wfc/ui/Form.wndProc
+	at com/ms/wfc/app/Application$ParkingForm.wndProc
+	at com/ms/wfc/ui/Control$ControlWindow.wndProc
+	at com/ms/wfc/app/Window.callback

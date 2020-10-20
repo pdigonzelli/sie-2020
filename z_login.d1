@@ -1,0 +1,39 @@
+/*--- SELECCIONO MODULO A DESARROLLAR ---*/
+run x_grupod.p (input-output letra).
+if letra = "" or letra = " " or letra = ? then
+  letra = "a".
+find par_grupos where par_grupos.letra_inicial = letra no-lock no-error.
+if not available par_grupos then
+  find par_grupos where par_grupos.letra_inicial = "a" no-lock.
+
+/*--- ARMO PROPATH ---*/
+if opsys = "UNIX" or opsys = "WIN32" then
+  path = vlc_dir_fuentes + "especificos," + 
+         vlc_dir_fuentes + "supervisor," + 
+         vlc_dir_fuentes + lc(par_grupos.nombre_grupo) + ","
+         &IF "{&SISTEMA}" = "contacto" OR "{&SISTEMA}" = "core" &THEN
+           + (if lc(par_grupos.nombre_grupo) <> "contacto" then 
+                vlc_dir_fuentes + "contacto,"
+              else
+                "")
+         &ENDIF
+         .
+for each xxx_grupos where xxx_grupos.agrega_propath = yes and xxx_grupos.letra_inicial <> par_grupos.letra_inicial no-lock:
+  path = path + vlc_dir_fuentes + lc(xxx_grupos.nombre_grupo) + ",".
+end.
+if opsys = "UNIX" or opsys = "WIN32" then
+  if defpropath <> ? and defpropath <> "" then
+    propath = path + defpropath.
+  else
+    propath = path.
+
+/*--- EJECUTO PROCESO DEL M‡DULO ---*/
+if par_grupos.nombre_programa <> "" and par_grupos.nombre_programa <> ? then
+  do:
+    run value("../" + par_grupos.nombre_programa) (output salida).
+    if salida = no then
+      message "Error en Ejecuci¢n de Programa de Inicio de M¢dulo !!!" skip
+              "Programa que termin¢ con error:" par_grupos.nombre_programa
+              view-as alert-box error.
+  end.
+release par_grupos.

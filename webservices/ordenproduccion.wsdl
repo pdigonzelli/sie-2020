@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="OrdenProduccion" targetNamespace="http://localhost:8080/wsa/wsa1/orden" xmlns:tns="http://localhost:8080/wsa/wsa1/orden" xmlns:S2="http://localhost:8080/wsa/wsa1/orden/OrdenProduccion" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:prodata="urn:schemas-progress-com:xml-prodata:0001" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:S1="urn:soap-fault:details" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:documentation>EncodingType=DOC_LITERAL, Proxygen_Product=Progress Version 10.2B</wsdl:documentation>
+  <wsdl:types>
+<schema elementFormDefault="unqualified" targetNamespace="urn:soap-fault:details" xmlns="http://www.w3.org/2001/XMLSchema"><element name="FaultDetail"><complexType><sequence><element name="errorMessage" type="xsd:string"/><element name="requestID" type="xsd:string"/></sequence></complexType></element></schema>
+<schema elementFormDefault="qualified" targetNamespace="http://localhost:8080/wsa/wsa1/orden/OrdenProduccion" xmlns="http://www.w3.org/2001/XMLSchema"><complexType name="ordenproduccion_TTITEMSRow"><sequence><element name="TDOCVENTAS" nillable="true" type="xsd:string"/><element name="TPOSICIONDOCVENTAS" nillable="true" type="xsd:string"/><element name="TMATERIAL" nillable="true" type="xsd:string"/><element name="TENVASE" nillable="true" type="xsd:string"/><element name="TCALIBRESTD" nillable="true" type="xsd:string"/><element name="TCALIBREEQU" nillable="true" type="xsd:string"/><element name="TCANTIDAD" nillable="true" type="xsd:string"/><element name="TUNIDAD" nillable="true" type="xsd:string"/><element name="TORDER" nillable="true" type="xsd:string"/></sequence></complexType><complexType name="ordenproduccion_TTITEMSParam"><sequence><element maxOccurs="unbounded" minOccurs="0" name="TTITEMSRow" type="S2:ordenproduccion_TTITEMSRow"/></sequence></complexType><element name="ordenproduccion"><complexType><sequence><element name="SORDEN" nillable="true" type="xsd:string"/><element name="SDOCUMENTOVENTA" nillable="true" type="xsd:string"/><element name="SSOLICITANTE" nillable="true" type="xsd:string"/><element name="SNOMBRE" nillable="true" type="xsd:string"/><element name="SPOSICIONDOCUMENTOVENTA" nillable="true" type="xsd:string"/><element name="SMATERIAL" nillable="true" type="xsd:string"/><element name="SESPECIE" nillable="true" type="xsd:string"/><element name="SVARIEDAD" nillable="true" type="xsd:string"/><element name="SCANTIDAD" nillable="true" type="xsd:string"/><element name="SUNIDAD" nillable="true" type="xsd:string"/><element name="SCALIDAD" nillable="true" type="xsd:string"/><element name="SCATEGORIA" nillable="true" type="xsd:string"/><element name="STIPOPALLET" nillable="true" type="xsd:string"/><element name="STIPOESQUINERO" nillable="true" type="xsd:string"/><element name="SPUERTOLLEGADA" nillable="true" type="xsd:string"/><element name="SDESCRIPCIONPUERTOLELGADA" nillable="true" type="xsd:string"/><element name="SDESTINO" nillable="true" type="xsd:string"/><element name="SDESCRIPCIONDESTINO" nillable="true" type="xsd:string"/><element name="SFECHADOCUMENTO" nillable="true" type="xsd:string"/><element name="SVAPOR" nillable="true" type="xsd:string"/><element name="SDESCRIPCIONVAPOR" nillable="true" type="xsd:string"/><element name="SLUGARDESCARGA" nillable="true" type="xsd:string"/><element name="SPUERTOORIGEN" nillable="true" type="xsd:string"/><element name="SDESCRIPCIONPUERTOORIGEN" nillable="true" type="xsd:string"/><element name="SMERCADO" nillable="true" type="xsd:string"/><element name="SCONTRAMARCA" nillable="true" type="xsd:string"/><element name="SAGENCIA" nillable="true" type="xsd:string"/><element name="SDESCRIPCIONAGENCIA" nillable="true" type="xsd:string"/><element name="SFECHAREPARTO" nillable="true" type="xsd:string"/><element name="TTITEMS" nillable="true" type="S2:ordenproduccion_TTITEMSParam"/></sequence></complexType></element><element name="ordenproduccionResponse"><complexType><sequence><element name="result" nillable="true" type="xsd:string"/></sequence></complexType></element></schema>
+  </wsdl:types>
+  <wsdl:message name="FaultDetailMessage">
+    <wsdl:part name="FaultDetail" element="S1:FaultDetail"/>
+  </wsdl:message>
+  <wsdl:message name="OrdenProduccion_ordenproduccionResponse">
+    <wsdl:part name="parameters" element="S2:ordenproduccionResponse"/>
+  </wsdl:message>
+  <wsdl:message name="OrdenProduccion_ordenproduccion">
+    <wsdl:part name="parameters" element="S2:ordenproduccion"/>
+  </wsdl:message>
+  <wsdl:portType name="OrdenProduccionObj">
+    <wsdl:operation name="ordenproduccion">
+      <wsdl:input message="tns:OrdenProduccion_ordenproduccion"/>
+      <wsdl:output message="tns:OrdenProduccion_ordenproduccionResponse"/>
+      <wsdl:fault name="OrdenProduccionFault" message="tns:FaultDetailMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrdenProduccionObj" type="tns:OrdenProduccionObj">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ordenproduccion">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="OrdenProduccionFault">
+        <soap:fault name="OrdenProduccionFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OrdenProduccionService">
+    <wsdl:port name="OrdenProduccionObj" binding="tns:OrdenProduccionObj">
+<wsdl:documentation></wsdl:documentation>
+      <soap:address location="http://localhost:8080/wsa/wsa1"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

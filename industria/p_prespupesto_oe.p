@@ -1,0 +1,314 @@
+
+/********************************************************
+Purpose:       Estimar los gastos de una orden de entrega.
+Parameters:    INPUT  pIdOrdenEntrega id_orden_entrega
+               INPUT  pItemOd         no se, parece que es la identificaion univoca de la tabla items_orden_entrega
+               INPUT  pIdGasto        gastos_venta.id_gasto
+               OUTPUT pBunker         resultado de la estimacion para bunker
+Author:	       Facundo Juarez
+Last Modified: 21/05/2003 11:17 am 
+*********************************************************/
+
+
+DEFINE INPUT  PARAMETER ipIdOrdenEntrega         LIKE orden_entrega.id_orden_entrega NO-UNDO.
+DEFINE OUTPUT PARAMETER opTotalFactura           LIKE orden_entrega.total_factura    NO-UNDO.
+DEFINE OUTPUT PARAMETER opFob                    AS DECIMAL DECIMALS 4               NO-UNDO.
+DEFINE OUTPUT PARAMETER opKilos                  AS INTEGER                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opTambores               AS INTEGER                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opComision               AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoEntry             AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoFlete             AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoSeguro            AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoGenerico          AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoBunker            AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoThcOrigen         AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoThcDestino        AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoInbSur            AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoDcr               AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoEbaf              AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaEntry      AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaFlete      AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaThc        AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaSeguro     AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaVarios     AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaToll       AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaHandling   AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaInLand     AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaBunker     AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaBL         AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaThcDestino AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaInbSur     AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaDcr        AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaAgp        AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaT7         AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaEbaf       AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgenciaAms        AS DECIMAL                          NO-UNDO.
+DEFINE OUTPUT PARAMETER opGastoAgencia           AS CHARACTER                        NO-UNDO.
+
+DEFINE VAR vKilos           			 AS INTEGER                          NO-UNDO.
+DEFINE VAR vTambores        			 AS INTEGER                          NO-UNDO.
+DEFINE VAR vComision       			     AS DECIMAL                          NO-UNDO.
+DEFINE VAR vGastoEntry      			 AS DECIMAL                          NO-UNDO.
+DEFINE VAR vGastoFlete      			 AS DECIMAL                          NO-UNDO.
+DEFINE VAR vGastoSeguro     			 AS DECIMAL                          NO-UNDO.
+DEFINE VAR vGastoGenerico   			 AS DECIMAL                          NO-UNDO.
+DEFINE VAR vGastoBunker     			 AS DECIMAL                          NO-UNDO.
+DEFINE VAR vGastoThcOrigen  			 AS DECIMAL                          NO-UNDO.
+DEFINE VAR vGastoThcDestino 			 AS DECIMAL                          NO-UNDO.
+DEFINE VAR vGastoInbSur     			 AS DECIMAL                          NO-UNDO.
+DEFINE VAR vGastoDcr        			 AS DECIMAL                          NO-UNDO.
+DEFINE VAR vGastoEbaf       			 AS DECIMAL                          NO-UNDO.
+DEFINE VAR vGastoAgencia    			 AS CHARACTER                        NO-UNDO.
+
+DEFINE VAR iGalones 				     AS INTEGER  			             NO-UNDO.
+DEFINE VAR dPrecio  				     AS DECIMAL 			             NO-UNDO.
+DEFINE VAR cTipoUnidadVta 			     AS CHARACTER 			             NO-UNDO.
+DEFINE VAR vGasto 			 	         AS CHARACTER 			             NO-UNDO.
+DEFINE VAR vMonto 				         AS DECIMAL 			             NO-UNDO.
+DEFINE VAR vAcumGastos                   AS DECIMAL DECIMALS 4               NO-UNDO.
+
+
+FOR EACH items_orden_entrega WHERE items_orden_entrega.id_orden_entrega = ipIdOrdenEntrega NO-LOCK.
+  IF AVAILABLE items_orden_entrega THEN DO:
+    vAcumGastos = 0.
+    /*Calculo del Total de la factura*/
+    FIND items_contratos WHERE items_contratos.id_contrato      = items_orden_entrega.id_contrato
+                         AND   items_contratos.id_tipo_contrato = items_orden_entrega.id_tipo_contrato 
+                         AND   items_contratos.anio             = items_orden_entrega.anio
+                         AND   items_contratos.ITEM             = items_orden_entrega.ITEM
+			 NO-LOCK NO-ERROR.
+    IF AVAILABLE items_contratos THEN DO:
+      FIND FIRST r_productos_calidad_envase OF items_contratos NO-LOCK NO-ERROR.
+      IF AVAILABLE r_productos_calidad_envase THEN DO:
+        vTambores = vTambores + general.items_contratos.cantidad.
+        vKilos    = vTambores * r_productos_calidad_envase.kilos.
+        iGalones  = vTambores * 53.6.
+        IF vTambores <> 0 THEN
+          CASE items_contratos.id_tipo_unidad_venta_origen:
+            WHEN 1 THEN DO: /*toneladas*/
+              vKilos          = ((general.items_contratos.cantidad * r_productos_calidad_envase.kilos) / 1000). /*   REEEMPLAZAR ACAAAAAAAA */
+              cTipoUnidadVta  = "Toneladas".
+            END.
+            WHEN 2 THEN DO: /*kilos***********************************/
+              vKilos          =  general.items_contratos.cantidad * r_productos_calidad_envase.kilos.
+              cTipoUnidadVta  = "Kilos".
+            END.
+            WHEN 3 THEN DO: /*galones*/
+              vKilos          = general.items_contratos.cantidad * 53.6.   /*   REEEMPLAZAR ACAAAAAAAA */
+              cTipoUnidadVta  = "Galones".
+            END.
+            WHEN 4 THEN DO: /*libras*/
+              vKilos          = ((general.items_contratos.cantidad * r_productos_calidad_envase.kilos) * 2.20462).    /*   REEEMPLAZAR ACAAAAAAAA */
+              cTipoUnidadVta  = "Libras". 
+            END.
+          END CASE.
+        dPrecio = vKilos * items_contratos.precio_origen.
+      END.
+    
+
+  opTotalFactura = opTotalFactura + dPrecio.
+  opKilos        = opKilos + vKilos.
+  opTambores     = vTambores.
+  /*fin calculo de total de factura*/
+ 
+  /*Calculo de Comisiones*/
+  IF items_contratos.id_articulo = 52 OR items_contratos.id_articulo = 53 OR items_contratos.id_articulo = 71 THEN DO:
+    FIND FIRST orden_entrega OF items_orden_entrega NO-LOCK NO-ERROR.
+      IF AVAILABLE orden_entrega THEN DO:
+        FIND destinos WHERE destinos.id_destino = orden_entrega.id_destino NO-LOCK NO-ERROR.
+          IF AVAILABLE destinos THEN DO:
+            IF destinos.id_destino_grupo = 25 THEN DO: /*destino dentro de usa*/
+              FIND FIRST r_gastos_items_contrato WHERE r_gastos_items_contrato.id_contrato = items_contratos.id_contrato
+                                                   AND r_gastos_items_contrato.item        = items_contratos.item
+                                                   AND r_gastos_items_contrato.id_gasto     = 10 
+                                                   NO-LOCK NO-ERROR. /*gastos de comision*/
+              IF AVAILABLE r_gastos_items_contrato THEN DO:
+                vComision = vComision + (r_gastos_items_contrato.importe * iGalones).
+              END.
+            END. /*if destino_grupo = 25 */
+            ELSE DO: /*destino fuera de usa*/
+              /*preguntar a adrian como se calculan las comisiones para destinos fuera de usa???*/
+              IF AVAILABLE r_gastos_items_contrato THEN DO: /*salta un error cuando no hay relacion*/
+                vComision = vComision + (r_gastos_items_contrato.importe * vKilos).
+	      END.
+            END.
+          END.
+      END.
+  END. /*available imtes_contratos*/
+  ELSE DO:
+    FIND FIRST r_gastos_items_contrato OF items_contratos WHERE r_gastos_items_contrato.id_gasto = 10 NO-LOCK NO-ERROR.
+      IF AVAILABLE r_gastos_items_contrato THEN DO:
+        vComision = vComision + (r_gastos_items_contrato.importe * opKilos).
+      END.
+  END.
+  opComision = vComision.
+  /*fin calculo de comisiones*/
+
+  /*ESTIMACION DE GASTOS POR CLAUSULA*/
+    FOR EACH r_clausulas_gastos_item_oe WHERE r_clausulas_gastos_item_oe.id_clausula = items_orden_entrega.id_condicion_venta NO-LOCK.
+          IF r_clausulas_gastos_item_oe.programa MATCHES "*entry*" THEN DO:
+            RUN p_gastos_estima_entry_item_oe.p (
+                INPUT items_orden_entrega.id_orden_entrega, 
+                INPUT items_orden_entrega.ITEM_oe, 
+                INPUT r_clausulas_gastos_item_oe.id_gasto, 
+                OUTPUT vGastoEntry).
+            opGastoEntry = opGastoEntry + vGastoEntry.
+            vAcumGastos = vAcumGastos + vGastoEntry.
+          END.
+          IF r_clausulas_gastos_item_oe.programa MATCHES "*flete*" THEN DO:
+            RUN p_gastos_estima_flete_item_oe.p (
+                INPUT items_orden_entrega.id_orden_entrega, 
+                INPUT items_orden_entrega.ITEM_oe, 
+                INPUT r_clausulas_gastos_item_oe.id_gasto, 
+                OUTPUT vGastoFlete).
+            opGastoFlete = opGastoFlete + vGastoFlete.
+            vAcumGastos = vAcumGastos + vGastoFlete.
+          END.
+          IF r_clausulas_gastos_item_oe.programa MATCHES "*seguro*" THEN DO:
+            RUN p_gastos_estima_seguro_item_oe.p (
+                INPUT items_orden_entrega.id_orden_entrega, 
+                INPUT items_orden_entrega.ITEM_oe, 
+                INPUT r_clausulas_gastos_item_oe.id_gasto, 
+                OUTPUT vGastoSeguro).
+            opGastoSeguro = opGastoSeguro + vGastoSeguro.
+            vAcumGastos = vAcumGastos + vGastoSeguro.
+          END.
+          IF r_clausulas_gastos_item_oe.programa MATCHES "*generico*" THEN DO:
+            RUN p_gastos_estima_generico_item_oe.p (
+                INPUT items_orden_entrega.id_orden_entrega, 
+                INPUT items_orden_entrega.ITEM_oe, 
+                INPUT r_clausulas_gastos_item_oe.id_gasto, 
+                OUTPUT vGastoGenerico).
+            opGastoGenerico = opGastoGenerico + vGastoGenerico.
+            vAcumGastos = vAcumGastos + vGastoGenerico.
+          END.
+          IF r_clausulas_gastos_item_oe.programa MATCHES "*bunker*" THEN DO:
+            RUN p_gastos_estima_bunker_item_oe.p (
+                INPUT items_orden_entrega.id_orden_entrega, 
+                INPUT items_orden_entrega.ITEM_oe, 
+                INPUT r_clausulas_gastos_item_oe.id_gasto, 
+                OUTPUT vGastoBunker).
+            opGastoBunker = opGastoBunker + vGastoBunker.
+            vAcumGastos = vAcumGastos + vGastoBunker.
+          END.
+          IF r_clausulas_gastos_item_oe.programa MATCHES "*thc*" THEN DO:
+            RUN p_gastos_estima_thc_item_oe.p (
+                INPUT items_orden_entrega.id_orden_entrega, 
+                INPUT items_orden_entrega.ITEM_oe, 
+                INPUT r_clausulas_gastos_item_oe.id_gasto, 
+                OUTPUT vGastoThcDestino).
+            opGastoThcDestino = opGastoThcDestino + vGastoThcDestino.
+            vAcumGastos = vAcumGastos + vGastoThcDestino.
+          END.
+          IF r_clausulas_gastos_item_oe.programa MATCHES "*inb_sur*" THEN DO:
+            RUN p_gastos_estima_inb_sur_item_oe.p (
+                INPUT items_orden_entrega.id_orden_entrega, 
+                INPUT items_orden_entrega.ITEM_oe, 
+                INPUT r_clausulas_gastos_item_oe.id_gasto, 
+                OUTPUT vGastoInbSur).
+            opGastoInbSur = opGastoInbSur + vGastoInbSur.
+            vAcumGastos = vAcumGastos + vGastoInbSur.
+          END.
+          IF r_clausulas_gastos_item_oe.programa MATCHES "*dcr*" THEN DO:
+            RUN p_gastos_estima_dcr_item_oe.p (
+                INPUT items_orden_entrega.id_orden_entrega, 
+                INPUT items_orden_entrega.ITEM_oe, 
+                INPUT r_clausulas_gastos_item_oe.id_gasto, 
+                OUTPUT vGastoDcr).
+            opGastoDcr = opGastoDcr + vGastoDcr.
+            vAcumGastos = vAcumGastos + vGastoDcr.
+          END.
+          IF r_clausulas_gastos_item_oe.programa MATCHES "*ebaf*" THEN DO: /*revisar el campo programa, no esta evaluando bien este match*/
+            RUN p_gastos_estima_ebaf_item_oe.p (
+                INPUT items_orden_entrega.id_orden_entrega, 
+                INPUT items_orden_entrega.ITEM_oe, 
+                INPUT r_clausulas_gastos_item_oe.id_gasto, 
+                OUTPUT vGastoEbaf).
+            opGastoEbaf = opGastoEbaf + vGastoEbaf.
+            vAcumGastos = vAcumGastos + vGastoEbaf.
+          END.
+          /*
+          RUN ..\industria\facundo\develop\progress8\includes\estimacion\p_gastos_estima_ebaf_item_oe.p (
+                INPUT items_orden_entrega.id_orden_entrega, 
+                INPUT items_orden_entrega.ITEM_oe, 
+                INPUT r_clausulas_gastos_item_oe.id_gasto, 
+                OUTPUT vGastoEbaf).
+          opGastoEbaf = opGastoEbaf + vGastoEbaf.
+          */
+    END. /*for each clausula gastos*/
+    opFob = opTotalFactura - vAcumGastos.
+  END. /*available items_orden_entrega*/
+  /*fin estimacion gastos por clausula*/
+END. /*for each items_orden_entrega*/
+
+  /*Gastos de Agencia*/
+  FOR EACH gastos_agencias WHERE gastos_agencias.id_agencia = orden_entrega.id_agencia NO-LOCK.
+    RUN p_gastos_estima_gastos_agencias_item_oe.p (
+        INPUT ipIdOrdenEntrega, 
+        INPUT 1, /*deprecated*/
+        INPUT gastos_agencias.id_gasto, 
+        INPUT orden_entrega.id_condicion_venta, 
+        OUTPUT vGasto, 
+        OUTPUT vMonto).
+    CASE gastos_agencias.id_gasto:
+      WHEN 3 THEN DO: /* DUTY DDP (ENTRY) */
+        opGastoAgenciaEntry = vMonto.
+      END.
+      WHEN 5 THEN DO: /*FLETE*/
+        opGastoAgenciaFlete = vMonto.    
+      END.
+      WHEN 9 THEN DO: /* THC */
+        opGastoAgenciaThc = vMonto.
+      END.
+      WHEN 11 THEN DO: /*SEGURO*/
+        opGastoAgenciaSeguro = vMonto.    
+      END.
+      WHEN 12 THEN DO: /* VARIOS */
+        opGastoAgenciaVarios = vMonto.    
+      END.
+      WHEN 14 THEN DO: /* TOLL */
+        opGastoAgenciaToll = vMonto.    
+      END.
+      WHEN 15 THEN DO: /* HANDLING */
+        opGastoAgenciaHandling = vMonto.    
+      END.
+      WHEN 16 THEN DO: /* INLAND */
+        opGastoAgenciaInLand = vMonto.    
+      END.
+      WHEN 17 THEN DO: /* BUNKER */
+        opGastoAgenciaBunker = vMonto.    
+      END.
+      WHEN 19 THEN DO: /* BL */
+        opGastoAgenciaBL = vMonto.    
+      END.
+      WHEN 20 THEN DO: /* THC DESTINO */
+        opGastoAgenciaThcDestino = vMonto.    
+      END.
+      WHEN 26 THEN DO: /* INBALANCE SURCHARGE */
+        opGastoAgenciaInbSur = vMonto.    
+      END.
+      WHEN 27 THEN DO: /* DCR */
+        opGastoAgenciaDcr = vMonto.    
+      END.
+      WHEN 29 THEN DO: /* AGP */
+        opGastoAgenciaAgp = vMonto.    
+      END.
+      WHEN 30 THEN DO: /* T.7 */
+        opGastoAgenciaT7 = vMonto.    
+      END.
+      WHEN 31 THEN DO: /* EBAF */
+        opGastoAgenciaEbaf = vMonto.    
+      END.
+      WHEN 32 THEN DO: /* AMS */
+        opGastoAgenciaAms = vMonto.    
+      END.
+    END CASE.    
+    opGastoAgencia = opGastoAgencia + vGasto + ": " + STRING(vMonto) + CHR(13).
+  END.
+  /*fin estimacion gastos por agencia*/ 
+
+ END.
+
+
+
+

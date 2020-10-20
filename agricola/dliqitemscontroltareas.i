@@ -1,0 +1,43 @@
+  FIELD cantidad LIKE liq_items_control_tareas.cantidad VALIDATE ~
+  FIELD cant_horas LIKE liq_items_control_tareas.cant_horas VALIDATE ~
+  FIELD cant_hs_extras LIKE liq_items_control_tareas.cant_hs_extras VALIDATE ~
+  FIELD cant_jornal LIKE liq_items_control_tareas.cant_jornal VALIDATE ~
+  FIELD c_fecha LIKE liq_items_control_tareas.c_fecha VALIDATE ~
+  FIELD c_hora LIKE liq_items_control_tareas.c_hora VALIDATE ~
+  FIELD c_usuario LIKE liq_items_control_tareas.c_usuario VALIDATE ~
+  FIELD dni_cuil LIKE liq_items_control_tareas.dni_cuil VALIDATE ~
+  FIELD fecha LIKE liq_items_control_tareas.fecha VALIDATE ~
+  FIELD hora_fin LIKE liq_items_control_tareas.hora_fin VALIDATE ~
+  FIELD hora_inicio LIKE liq_items_control_tareas.hora_inicio VALIDATE ~
+  FIELD id_centro_costo LIKE liq_items_control_tareas.id_centro_costo VALIDATE ~
+  FIELD id_empresa LIKE liq_items_control_tareas.id_empresa VALIDATE ~
+  FIELD id_grupo LIKE liq_items_control_tareas.id_grupo VALIDATE ~
+  FIELD id_lote LIKE liq_items_control_tareas.id_lote VALIDATE ~
+  FIELD id_origen LIKE liq_items_control_tareas.id_origen VALIDATE ~
+  FIELD id_proveedor LIKE liq_items_control_tareas.id_proveedor VALIDATE ~
+  FIELD id_sector LIKE liq_items_control_tareas.id_sector VALIDATE ~
+  FIELD id_sucursal LIKE liq_items_control_tareas.id_sucursal VALIDATE ~
+  FIELD id_tarea LIKE liq_items_control_tareas.id_tarea VALIDATE ~
+  FIELD abreviatura LIKE tareas.abreviatura VALIDATE ~
+  FIELD id_unidad_liquidacion LIKE liq_items_control_tareas.id_unidad_liquidacion VALIDATE ~
+  FIELD legajo LIKE liq_items_control_tareas.legajo VALIDATE  FORMAT ">>>>>>>>9"~
+  FIELD nombre LIKE liq_items_control_tareas.nombre VALIDATE ~
+  FIELD nro_maquina LIKE liq_items_control_tareas.nro_maquina VALIDATE ~
+  FIELD nro_tractor LIKE liq_items_control_tareas.nro_tractor VALIDATE ~
+  FIELD total_horas LIKE liq_items_control_tareas.total_horas VALIDATE ~
+  FIELD cant_hs_compensa LIKE liq_items_control_tareas.cant_hs_compensa VALIDATE ~
+  FIELD cant_hs_norm LIKE liq_items_control_tareas.cant_hs_norm VALIDATE ~
+  FIELD cant_jornal_norm LIKE liq_items_control_tareas.cant_jornal_norm VALIDATE ~
+  FIELD tipo_turno LIKE liq_items_control_tareas.tipo_turno VALIDATE ~
+  FIELD id_tipo_planilla LIKE liq_items_control_tareas.id_tipo_planilla VALIDATE ~
+  FIELD hora_inicio-1 LIKE liq_items_control_tareas.hora_inicio-1 VALIDATE ~
+  FIELD hora_fin-1 LIKE liq_items_control_tareas.hora_fin-1 VALIDATE ~
+  FIELD ajuste_categoria LIKE liq_items_control_tareas.ajuste_categoria VALIDATE ~
+  FIELD compensa_hs LIKE liq_items_control_tareas.compensa_hs VALIDATE ~
+  FIELD id_reserva LIKE liq_items_control_tareas.id_reserva VALIDATE ~
+  FIELD cantidad_adicional LIKE liq_items_control_tareas.cantidad_adicional VALIDATE ~
+  FIELD id_unidad_adicional LIKE liq_items_control_tareas.id_unidad_adicional VALIDATE ~
+  FIELD desc-lote AS CHARACTER FORMAT "x(15)" LABEL "Lote" COLUMN-LABEL "Lote"~
+  FIELD cantidad_adicional-1 LIKE liq_items_control_tareas.cantidad_adicional-1 VALIDATE ~
+  FIELD apellido_nombre LIKE liq_legajos.apellido_nombre VALIDATE ~
+  FIELD id_turno LIKE liq_items_control_tareas.id_turno VALIDATE 

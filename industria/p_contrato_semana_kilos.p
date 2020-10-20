@@ -1,0 +1,89 @@
+define var lista_reportes as character no-undo.
+define var cresult as character no-undo.
+define var r as rowid no-undo.
+define var v_contrato as char.
+define var v_filtro as character.
+define var v_fecha as character.
+DEFINE VAR RB-MEMO-FILE AS CHARACTER INITIAL "".
+define var v_semana_desde as integer.
+define var v_anio_desde as integer.
+define var v_semana_hasta as integer.
+define var v_anio_hasta as integer.
+DEFINE VAR v_id_articulo AS INTEGER.
+
+
+for each contratos_semana.
+    delete contratos_semana.
+end.    
+
+run wc_sel_rango_semana_articulo.w (output v_semana_desde,
+                                    output v_anio_desde,
+                                    output v_semana_hasta,
+                                    output v_anio_hasta,
+                                    OUTPUT v_id_articulo).
+                            
+if (v_semana_desde > 0 and v_semana_desde < 53) and
+   (v_semana_hasta > 0 and v_semana_hasta < 53) then
+    do:
+        if v_anio_desde = v_anio_hasta then
+            do:
+                for each items_contratos where items_contratos.semana_entrega >= v_semana_desde
+                                           and items_contratos.semana_entrega <= v_semana_hasta
+                                           and items_contratos.anio_semana_entrega = v_anio_desde
+                                           AND IF v_id_articulo <> 0 THEN items_contratos.id_articulo  = v_id_articulo ELSE TRUE
+                                           no-lock.
+                     RUN calculo-datos.
+                    
+                end.
+            end.
+        else
+            do:
+               for each items_contratos where ((items_contratos.semana_entrega >= v_semana_desde
+                                               and items_contratos.anio_semana_entrega = v_anio_desde) 
+                                           or (items_contratos.semana_entrega <= v_semana_hasta
+                                               and items_contratos.anio_semana_entrega = v_anio_hasta))
+                                           AND IF v_id_articulo <> 0 THEN items_contratos.id_articulo  = v_id_articulo ELSE TRUE
+                                           no-lock.
+
+                    RUN calculo-datos.
+               end.
+            end.    
+    end.
+else
+    v_filtro = "".
+                    
+                    
+                          RUN  aderb\_prntrb2(
+                           "..\industria\reports.prl", /* RB-REPORT-LIBRARY */
+                           "contratos_semana_oe_rapido_kilos",                    /* RB-REPORT-NAME */
+                           "",                             /* RB-DB-CONNECTION */
+                           "O",                             /* RB-INCLUDE-RECORDS */
+                           v_filtro,                              /* RB-FILTER */
+                           RB-MEMO-FILE,                              /* RB-MEMO-FILE */
+                           "D",                             /* RB-PRINT-DESTINATION */
+                           "?",                              /* RB-PRINTER-NAME */
+                           "",                              /* RB-PRINTER-PORT */
+                           "",                              /* RB-OUTPUT-FILE */
+                            1,                              /* RB-NUMBER-COPIES  - zero */                  
+                            0,                              /* RB-BEGIN-PAGE - zero */
+                            0,                              /* RB-END-PAGE - zero */
+                           no,                              /* RB-TEST-PATTERN */
+                           "Reporte de Contratos por Semana",         /* RB-WINDOW-TITLE */
+                           yes,                           /* RB-DISPLAY-ERRORS */
+                           yes,                           /* RB-DISPLAY-STATUS */
+                           no,                              /* RB-NO-WAIT */
+                           "" /* RB-OTHER-PARAMETERS */,
+                           ""
+                           ).   
+                           
+                    
+                    
+                    /************************************************************************************************************/
+     
+PROCEDURE calculo-datos:
+    {..\industria\i_contrato_semana.i}
+END.
+
+PROCEDURE genera-datos-reporte:
+    {..\industria\i_contrato_semana_1.i}
+END.

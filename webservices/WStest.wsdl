@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="WStest" targetNamespace="http://localhost:8080/wsa/wsa1/roundtrip" xmlns:tns="http://localhost:8080/wsa/wsa1/roundtrip" xmlns:S2="http://localhost:8080/wsa/wsa1/roundtrip/WStest" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:prodata="urn:schemas-progress-com:xml-prodata:0001" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:S1="urn:soap-fault:details" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:documentation>EncodingType=DOC_LITERAL, Proxygen_Product=Progress Version 10.2B</wsdl:documentation>
+  <wsdl:types>
+<schema elementFormDefault="unqualified" targetNamespace="urn:soap-fault:details" xmlns="http://www.w3.org/2001/XMLSchema"><element name="FaultDetail"><complexType><sequence><element name="errorMessage" type="xsd:string"/><element name="requestID" type="xsd:string"/></sequence></complexType></element></schema>
+<schema elementFormDefault="qualified" targetNamespace="http://localhost:8080/wsa/wsa1/roundtrip/WStest" xmlns="http://www.w3.org/2001/XMLSchema"><element name="roubdtrip"><complexType><sequence><element name="ipcText" nillable="true" type="xsd:string"/></sequence></complexType></element><element name="roubdtripResponse"><complexType><sequence><element name="result" nillable="true" type="xsd:string"/><element name="opcText" nillable="true" type="xsd:string"/></sequence></complexType></element></schema>
+  </wsdl:types>
+  <wsdl:message name="WStest_roubdtripResponse">
+    <wsdl:part name="parameters" element="S2:roubdtripResponse"/>
+  </wsdl:message>
+  <wsdl:message name="WStest_roubdtrip">
+    <wsdl:part name="parameters" element="S2:roubdtrip"/>
+  </wsdl:message>
+  <wsdl:message name="FaultDetailMessage">
+    <wsdl:part name="FaultDetail" element="S1:FaultDetail"/>
+  </wsdl:message>
+  <wsdl:portType name="WStestObj">
+    <wsdl:operation name="roubdtrip">
+      <wsdl:input message="tns:WStest_roubdtrip"/>
+      <wsdl:output message="tns:WStest_roubdtripResponse"/>
+      <wsdl:fault name="WStestFault" message="tns:FaultDetailMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WStestObj" type="tns:WStestObj">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="roubdtrip">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="WStestFault">
+        <soap:fault name="WStestFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WStestService">
+    <wsdl:port name="WStestObj" binding="tns:WStestObj">
+<wsdl:documentation></wsdl:documentation>
+      <soap:address location="http://localhost:8080/wsa/wsa1"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

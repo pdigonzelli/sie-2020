@@ -1,0 +1,6 @@
+DEFINE OUTPUT PARAMETER c AS INTEGER.
+
+FOR EACH tambores_industria NO-LOCK:
+    c = c + 1.
+END.
+RETURN.

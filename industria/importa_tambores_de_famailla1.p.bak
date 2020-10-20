@@ -1,0 +1,40 @@
+for each famctacte.remitos no-lock where famctacte.remitos.id_sucursal = 97 or
+                                         famctacte.remitos.id_sucursal = 95:
+  find first ctacte.remitos where
+    famctacte.remitos.id_sucursal    = ctacte.remitos.id_sucursal    and
+    famctacte.remitos.id_tipo_movsto = ctacte.remitos.id_tipo_movsto and
+    famctacte.remitos.nro            = ctacte.remitos.nro
+    no-error.
+  if not available ctacte.remitos then
+    do:
+      create ctacte.remitos.
+      buffer-copy famctacte.remitos to ctacte.remitos.
+      for each famctacte.items_factura no-lock of famctacte.remitos:
+        find first ctacte.items_factura where
+                famctacte.items_factura.id_sucursal    = 
+                   ctacte.items_factura.id_sucursal    and
+                famctacte.items_factura.id_tipo_movsto = 
+                   ctacte.items_factura.id_tipo_movsto and
+                famctacte.items_factura.nro            = 
+                   ctacte.items_factura.nro            and
+                famctacte.items_factura.item           =
+                   ctacte.items_factura.item
+                   no-error.
+        if not available ctacte.items_factura then
+          do:
+            create ctacte.items_factura.
+            buffer-copy famctacte.items_factura to ctacte.items_factura.
+          end.
+         else
+          do:
+            message "Remito sin items_factura. Avise a Sistemas"
+                    view-as alert-box.
+            disp famctacte.remitos.nro_comprobante
+                 famctacte.remitos.bultos
+                    ctacte.remitos.bultos.
+          end.
+      end.
+    end.
+end.
+      
+return.

@@ -1,0 +1,99 @@
+                    create contratos_semana.
+                    assign contratos_semana.id_contrato         = items_contratos.id_contrato
+                           contratos_semana.id_tipo_contrato    = items_contratos.id_tipo_contrato
+                           contratos_semana.anio                = items_contratos.anio
+                           contratos_semana.item                = items_contratos.item
+                           contratos_semana.semana_desde        = items_contratos.semana_entrega
+                           contratos_semana.semana_hasta        = items_contratos.semana_entrega_hasta
+                           contratos_semana.anio_embarque       = items_contratos.anio_semana_entrega
+                           contratos_semana.orden_fabricacion    = contratos.orden_fabricacion.
+                    
+                    if available tipo_venta then
+                        do:
+                            assign contratos_semana.id_tipo_venta = items_contratos.id_tipo_venta
+                                   contratos_semana.tipo_venta    = tipo_venta.descripcion.
+                        end.
+                    if available productos_terminados then
+                        do:
+                            assign contratos_semana.id_articulo  = items_contratos.id_articulo
+                                   contratos_semana.articulo      = productos_terminados.descripcion.
+                        end.
+                    if available calidades then
+                        do:
+                            assign contratos_semana.id_calidad  = items_contratos.id_calidad
+                                   contratos_semana.calidad     = calidades.descripcion.
+                        end.
+                    if available clientes_ventas then
+                        do:
+                            assign contratos_semana.id_cliente  = contratos.id_cliente
+                                   contratos_semana.cliente     = clientes.nombre.
+                        end.
+                    if available clausulas then
+                        do:
+                            assign contratos_semana.id_condicion_venta  = items_contratos.id_clausula
+                                   contratos_semana.condicion_venta     = clausulas.descripcion.
+                        end.
+                    if available destinos then
+                        do:
+                            assign contratos_semana.id_destino  = items_contratos.id_destino
+                                   contratos_semana.destino     = destinos.descripcion.
+                        end.
+                    if available items_orden_entrega then
+                        do:
+                          assign contratos_semana.tambores            = items_orden_entrega.cantidad_tambores
+                                 contratos_semana.id_orden_entrega    = items_orden_entrega.id_orden_entrega
+                                 contratos_semana.importe_factura     = items_orden_entrega.total_factura
+                                 contratos_semana.importe_fob         = items_orden_entrega.fob_ton
+                                 contratos_semana.contenedores        = items_orden_entrega.contenedores
+                                 contratos_semana.kilos_netos         = items_orden_entrega.kgs_netos
+                                 contratos_semana.kilos_brutos        = items_orden_entrega.kgs_brutos.
+                        end.
+                    else
+                        do:
+                            assign contratos_semana.tambores            = items_contratos.cantidad.
+                        end.
+
+                    /*by facundo 9/11/2006 pedido por magali*/
+                    FIND FIRST tipo_venta WHERE tipo_venta.id_tipo_venta = items_contratos.id_tipo_venta NO-LOCK NO-ERROR.
+                    ASSIGN contratos_semana.id_condicion_venta_contrato = items_contratos.id_tipo_venta
+                           contratos_semana.condicion_venta_contrato    = tipo_venta.descripcion
+                           .
+
+                    
+                    /*by facundo 20/10/2005 por pedido de daniel dip*/
+                    DEFINE VARIABLE iCnt AS INTEGER    NO-UNDO.
+                    DEFINE VARIABLE cLot AS CHARACTER  NO-UNDO.
+                    DEFINE VARIABLE crlf AS CHARACTER  NO-UNDO.
+                    DEFINE BUFFER buTam FOR tambores_industria.
+                    crlf = CHR(13) + CHR(10).
+                    cLot = "".
+                    FOR EACH buTam WHERE buTam.id_contrato = items_contrato.id_contrato
+                                     AND buTam.ITEM_of = items_contratos.ITEM
+                                     BREAK BY buTam.nromov.
+                      iCnt = iCnt + 1.
+                      IF LAST-OF(buTam.nromov) THEN DO:
+                        cLot = cLot + STRING(buTam.id_lote) + "/" + STRING(buTam.anio) +  " " + STRING(iCnt) + crlf.
+                        iCnt = 0.
+                      END.                          
+                    END.
+
+                    ASSIGN contratos_semana.lotes = cLot.
+
+                        
+                    IF AVAILABLE orden_entrega THEN DO:                        
+                        ASSIGN contratos_semana.id_agencia = orden_entrega.id_agencia
+                               contratos_semana.semana_oe  = orden_entrega.semana_embarque.
+
+
+                    END.
+                    IF AVAILABLE agencias THEN DO:
+                        ASSIGN contratos_semana.agencia                 = agencias.descripcion.
+                    END.
+                    for each gastos_items_orden_entrega of items_orden_entrega no-lock.
+                        if gastos_items_orden_entrega.id_gasto = 5 then
+                            assign contratos_semana.flete  = gastos_items_orden_entrega.importe.
+                        if gastos_items_orden_entrega.id_gasto = 3 then
+                            assign contratos_semana.duties = gastos_items_orden_entrega.importe.
+                        if gastos_items_orden_entrega.id_gasto = 17 then
+                            assign contratos_semana.bunker  = gastos_items_orden_entrega.importe.
+                    end.

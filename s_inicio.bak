@@ -1,0 +1,2581 @@
+/****************************************************************************/
+/*  NOMBRE PROGRAMA......:   s_inicio.p                                     */
+/****************************************************************************/
+/*  Programa de arranque. Crea el alias 'userdb' para la base de datos que  */
+/*  que contenga la definici¢n de usuarios, carga las variable globales y   */
+/*  ejecuta el programa s_login.p o z_login.w seg£n corresponda.            */
+/****************************************************************************/
+/*  PROGRAMADOR..........:   Juan Carlos R°os                               */
+/*  FECHA CREACION.......:   19/01/95                                       */
+/*  REVISION.............:   2.99.3                                         */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   21/04/98                                       */
+/*  PROGRAMADOR..........:   Claudio Sandri                                 */
+/*  MODIFICACION.........:   Soporte para plataforma WIN32.                 */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   18/02/2002                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os                               */
+/*  MODIFICACION.........:   Mejor selecci¢n de Host Principal de Aplicaci¢n*/
+/*                           Mayores controles antes de iniciar sesi¢n      */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   30/07/2002                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os                               */
+/*  MODIFICACION.........:   Variables con PATH de E-Mail y HTTP            */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   28/09/2002                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os                               */
+/*  MODIFICACION.........:   Soporte a Blat y Getmail                       */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   05/10/2004                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os                               */
+/*  MODIFICACION.........:   Si MODALIDAD=NO (sistemas) no se validan algu- */
+/*                           nos directorios                                */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   05/10/2004                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os                               */
+/*  MODIFICACION.........:   Se detecta ahora Mozilla Firefox y Thunderbird */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   08/11/2004 -en memoria de Francisco Siri-      */
+/*  PROGRAMADOR..........:   Juan Carlos R°os             Grupo SÉuken      */
+/*  MODIFICACION.........:   Auto Instalaci¢n                               */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   20/12/2004                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os             Grupo SÉuken      */
+/*  MODIFICACION.........:   Soporte a Open Office 2                        */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   05/01/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os             Grupo SÉuken      */
+/*  MODIFICACION.........:   Soporte simult†neo Contacto, Gessi, POS-Master */
+/*                           Nudelman                                       */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   17/01/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os                               */
+/*  MODIFICACION.........:   Soporte MISCELANEOS                            */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   18/01/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo SÉuken S.A.           */
+/*  MODIFICACION.........:   Valida la existencia del usuario "computos"    */
+/*                           Esta funci¢n se traslad¢ a 's_login.p' y       */
+/*                           'z_login.w' por el alias 'userbd'              */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   31/01/2005 -nev¢ en el Champaqu°-              */
+/*  PROGRAMADOR..........:   Juan Carlos R°os                               */
+/*  MODIFICACION.........:   AgreguÇ {modalidad.i} y {sistema.i}            */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   20/03/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo SÉuken S.A.           */
+/*  MODIFICACION.........:   AgreguÇ autoxonexi¢n de BD al inicio del sis-  */
+/*  tema. Ahora se puede conectar a una base de datos (la que contiene los  */
+/*  usuarios, la principal) y a partir de Çsta conectar las restantes (las  */
+/*  BD que son necesarias tener conectadas siempre). Estas restantes BD pue-*/
+/*  den tener desactivado el acceso de usuario en blanco, para dar mayor se-*/
+/*  guridad al sistema (esta auxtoconexi¢n se hizo por este motivo). Del    */
+/*  mismo modo, la BD de inicio puede conectarse a un usuario desde el .PF  */
+/*  poniendo "-U usuario -P contrase§a" y de esta manera tener todas las BD */
+/*  en modo "desactiva el acceso con usuario en blanco"                     */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   27/05/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo SÉuken S.A.           */
+/*  MODIFICACION.........:   Omisi¢n: Faltaba agregar "smartgraph"          */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   26/10/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo SÉuken S.A.           */
+/*  MODIFICACION.........:   Soporte a SIE-Core                             */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   05/02/2006                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo SÉuken S.A.           */
+/*  MODIFICACION.........:   Optimizaci¢n en validaci¢n de directorios      */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   08/03/2006                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os                               */
+/*  MODIFICACION.........:   Se agreg¢ la detecci¢n de Editor HTML y progra-*/
+/*                           ma de Env°o Masivo de E-Mails                  */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   24/06/2006                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os                               */
+/*  MODIFICACION.........:   Se modific¢ la forma de asignar "vlc_dir_temp" */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   17/01/2007                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo Sauken S.A.           */
+/*  MODIFICACION.........:   Soporte OpenEdge 10, simplicaci¢n en variables */
+/*                           de entorno                                     */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   24/01/2007                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo Sauken S.A.           */
+/*  MODIFICACION.........:   Las variables globales est†n en "s_inicio.i"   */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   24/01/2007                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo Sauken S.A.           */
+/*  MODIFICACION.........:   Se agrega soporte a SMTP Sender en Blat.exe    */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   15/02/2007                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo Sauken S.A.           */
+/*  MODIFICACION.........:   Detecci¢n de Acrobat o Acrobat Reader          */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   19/02/2007                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo Sauken S.A.           */
+/*  MODIFICACION.........:   Instalaci¢n de nuevo ftp.exe para Windows      */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   19/02/2007                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo Sauken S.A.           */
+/*  MODIFICACION.........:   Soporte de par†mtros de entrada (compilar)     */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   17/03/2007                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo Sauken S.A.           */
+/*  MODIFICACION.........:   Copio ejecutables de Windows a "usuarios"      */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   26/03/2007                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo Sauken S.A.           */
+/*  MODIFICACION.........:   Correcciones menores y mensaje de inicio       */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   16/04/2007 -cumplea§os de Adrianita-           */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo Sauken S.A.           */
+/*  MODIFICACION.........:   M†s detecciones en Linux. Uso de OE10 /etc/    */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   23/05/2007 -cumplea§os de Juancito-            */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo Sauken S.A.           */
+/*  MODIFICACION.........:   Agrega barra al final de los directorios       */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   04/05/2008 -que fin de semana-                 */
+/*  PROGRAMADOR..........:   Juan Carlos R°os - Grupo Sauken S.A.           */
+/*  MODIFICACION.........:   Se validan las variable de entorno             */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:                                                  */
+/*  PROGRAMADOR..........:                                                  */
+/*  MODIFICACION.........:                                                  */
+/*                                                                          */
+/****************************************************************************/
+
+/*--- VARIABLES GLOBALES DE TODOS LOS SISTEMAS ---*/
+{../s_inicio.i "new global"}
+
+/*--- SISTEMAS: (contacto, gessi, posmaster, nudelman, core) ---*/
+{../sistema.i}
+
+/*--- MODALIDAD: YES=desarrollo; NO=sistemas ---*/
+{../modalidad.i}
+
+/*--- INICIO SESION ---*/
+pause 0 before-hide.
+session:data-entry-return = yes.
+session:time-source = "general".
+input clear.
+
+/*--- DEFINO TITULO ---*/
+define variable c-tit as character format "x(50)" no-undo.
+&IF "{&SISTEMA}" = "gessi" &THEN
+  c-tit = "SIE-ERP GESSI".
+&ENDIF
+&IF "{&SISTEMA}" = "posmaster" &THEN
+  c-tit = "SIE-ERP POS-MASTER".
+&ENDIF
+&IF "{&SISTEMA}" = "nudelman" &THEN
+  c-tit = "SAUKEN-LAW".
+&ENDIF
+&IF "{&SISTEMA}" = "contacto" &THEN
+  c-tit = "SIE-CRM".
+&ENDIF
+&IF "{&SISTEMA}" = "core" &THEN
+  c-tit = "SIE-CORE".
+&ENDIF
+c-tit = "Iniciando la Aplicaci¢n " + c-tit + " !!!".
+&IF "{&WINDOW-SYSTEM}" = "TTY" &THEN
+  c-tit = fill(" ", integer((50 - length(c-tit)) / 2)) + c-tit.
+&ELSE
+  c-tit = "  " + c-tit.
+&ENDIF
+
+/*--- PARµMETROS DE ENTRADA DE LA SESI‡N ---*/
+define variable x_parametros as character.
+x_parametros = session:parameter.
+
+
+/*--- MENSAJE DE INICIO ---*/
+if x_parametros = "" then
+  display c-tit with frame inicio overlay no-labels
+    &IF "{&WINDOW-SYSTEM}" = "TTY" &THEN
+      row 18 centered color white/red.
+    &ELSE
+      no-box row 1 column 1 width 54 font 9 fgcolor 4 view-as dialog-box.
+    &ENDIF
+
+/*--- VARIABLES LOCALES ---*/
+define variable a as integer initial 0.
+define variable b as integer initial 0.
+define variable c as integer initial 0.
+define variable d as integer initial 0.
+
+define variable x_path_aplicacion    as character.
+define variable x_version_aplicacion as integer.
+define variable x_nombre_comercial   as character.
+define variable x_proversion         as integer.
+
+define variable a_smtp_server like par_estado.smtp_server.
+define variable a_smtp_sender like par_estado.smtp_sender_email.
+define variable a_pop3_server like par_estado.pop3_server.
+
+define variable unixusr as character.
+
+define variable salida as logical.
+define variable aux    as character.
+define variable tipo   as character.
+
+define variable dirwin as character.
+define variable dirsvs as character.
+define variable dirusr as character.
+
+define variable v1 as character.
+define variable v2 as character.
+
+/*--- VARIABLES DE CONEXION DE BASES DE DATOS INICIALES ---*/
+define variable respuesta as logical   no-undo.
+define variable archivo   as character no-undo.
+define variable conexion  as character no-undo.
+define variable esdemo    as logical   no-undo.
+define variable contador  as integer   no-undo.
+
+/*--- CONTROLO QUE EXISTE AL MENOS UNA BASE DE DATOS CONECTADA ---*/
+if num-dbs = 0 then
+ do:
+    bell.
+    hide frame inicio no-pause.
+    message color white/red "No se ha conectado a ninguna Base de Datos !!!" view-as alert-box error.
+    quit.
+ end.
+
+/*--- EXPLORO EN QUE BASE DE DATOS SE HAN DEFINIDO LOS USUARIOS ---*/
+do a = 1 to num-dbs:
+  create alias userdb for database value(ldbname(a)).
+  run ../s_userdb.p  (output b).
+  if b >= c then assign c = b d = a.
+  delete alias userdb.
+end.
+
+/*--- CONTROLO QUE EXISTAN USUARIOS DEFINIDOS ---*/
+if c = 0 then
+ do:
+    bell.
+    hide frame inicio no-pause.
+    message color white/red "No se han definido usuarios de sistemas !!!" view-as alert-box error.
+    quit.
+ end.
+
+/*--- CREO EL ALIAS USERDB PARA LA BASE DE DATOS QUE CONTIENE USUARIOS ---*/
+create alias userdb for database value(ldbname(d)). 
+
+/*--- VERSION DE PROGRESS EJECUTµNDOSE ---*/
+x_proversion = integer(substring(proversion,1, index(proversion,".") - 1)).
+
+/*--- CARGO VARIABLE DLC DESDE ENTORNO, REGISTRO DE WINDOWS O /etc/progress EN UNIX  ---*/
+x_dlc = os-getenv("DLC").
+if x_dlc <> "" and x_dlc <> ? and search(x_dlc + "/version") = ? then
+  x_dlc = ?.
+if (x_dlc = "" or x_dlc = ?) and x_proversion >= 10 then
+  do:
+    if opsys = "WIN32" then
+      do:
+        LOAD "Software/PSC/OpenEdge/" + proversion BASE-KEY "HKEY_LOCAL_MACHINE" NO-ERROR.
+        USE "Software/PSC/OpenEdge/" + proversion NO-ERROR.
+        GET-KEY-VALUE SECTION "" KEY "DLC" VALUE x_dlc.
+        UNLOAD "Software/PSC/OpenEdge/" + proversion NO-ERROR.
+        IF x_dlc = ? THEN
+         do:
+           LOAD "Software/PSC/PROGRESS/" + proversion + "/Startup" BASE-KEY "HKEY_LOCAL_MACHINE" NO-ERROR.
+           USE "Software/PSC/PROGRESS/" + proversion + "/Startup" NO-ERROR.
+           GET-KEY-VALUE SECTION "" KEY "DLC" VALUE x_dlc.
+           UNLOAD "Software/PSC/PROGRESS/" + proversion + "/Startup" NO-ERROR.
+         end.
+      end.
+    else
+      do:
+        if search("/etc/progress") <> ? then
+          do:
+            input through "cat /etc/progress" no-echo.
+            set x_dlc format "x(78)" with frame x_dlc no-box no-labels.
+            input close.
+          end.
+      end.
+  end.
+
+/*--- CARGO VALORES A VARIABLE GLOBAL VLC_HOST ---*/
+if opsys = "UNIX" then
+ do:
+
+    /*--- TOMO NOMBRE DEL HOST ---*/
+    input through "uname -n" no-echo.
+    set vlc_host format "x(20)" with frame host no-box no-labels.
+    input close.
+
+    /*--- TOMO NOMBRE DEL USUARIO (se usa en procedimiento de instalaci¢n) ---*/
+    if os-getenv("DISPLAY") = "" or os-getenv("DISPLAY") = ? then
+      do:
+        input through "who -m -s" no-echo.
+        set unixusr format "x(20)" with frame unixusr no-box no-labels.
+        input close.
+        if unixusr <> "" and unixusr <> ? then
+          unixusr = trim(substring(unixusr, 1 , index(unixusr," ") - 1)).
+      end.
+
+    /*--- ESPECIFICO DE GRUPO SAUKEN PARA GESSI ---*/
+    &IF "{&SISTEMA}" = "gessi" &THEN
+      if vlc_host = "sauken" then
+        vlc_host = "gessi".
+    &ENDIF
+
+    /*--- ESPECIFICO DE GRUPO SAUKEN PARA NUDELMAN ---*/
+    &IF "{&SISTEMA}" = "nudelman" &THEN
+      if vlc_host <> "serverlinux" and vlc_host <> "sauken" then
+        vlc_host = "clientelinux".
+
+      if vlc_host = "sauken" then
+        vlc_host = "serverlinux".
+    &ENDIF
+
+    
+ end.
+else
+    vlc_host = "WIN32". /*--- SE CAMBIA MAS ADELANTE ---*/
+
+/*--- CARGO HOSTS DE APLICACIONES Y OTROS ---*/
+find first par_estado no-lock no-error.
+if not available par_estado then
+  do:
+    bell.
+    hide frame inicio no-pause.
+    message "No Existe el Registro de Estado del Sistema (par_estado) !!!" skip
+            "No se puede continuar la ejecuci¢n del mismo !!!" view-as alert-box error.
+    return.
+  end.
+assign vlc_host_app  = par_estado.host_aplicacion
+       a_smtp_server = par_estado.smtp_server
+       a_smtp_sender = par_estado.smtp_sender_email
+       a_pop3_server = par_estado.pop3_server.
+if a_smtp_sender = "" or a_smtp_sender = ? then
+  assign a_smtp_sender = "default_user".
+if par_estado.accesos = ? then esdemo = no. else esdemo = yes.
+
+&IF "{&SISTEMA}" = "gessi" OR "{&SISTEMA}" = "posmaster" OR "{&SISTEMA}" = "contacto" &THEN
+  assign v_dia_de_pago = par_estado.dia_de_pago.
+&ENDIF
+
+/*--- CARGO VALORES A VARIABLES GLOBALES RELACIONADAS CON FILE SERVER ---*/
+if opsys = "UNIX" then
+ do:
+ 
+    /*--- AL SER UNIX EL NOMBRE DEL HOST DEBE COINCIDIR ---*/
+    find par_file_server where par_file_server.id_opsys = "UNIX" and par_file_server.file_server = vlc_host no-lock no-error.
+    if not available par_file_server then
+     do:
+        bell.
+        hide frame inicio no-pause.
+        message color white/red "Host UNIX no definido en el sistema !!!" view-as alert-box error.
+        quit.
+     end.
+
+ end.
+
+else
+
+ do:
+
+    /*--- VARIABLE DE CONTROL ---*/
+    vlc_file_server = ?.
+
+    /*--- INTENTO AUTENTICAR PRIMERO EL HOST DE LA APLICACION ---*/
+    for each par_file_server where par_file_server.id_opsys = "WIN32" and par_file_server.file_server = vlc_host_app and par_file_server.autenticacion <> "" no-lock:
+      if search(par_file_server.autenticacion) <> ? then
+       do:
+          vlc_file_server = par_file_server.file_server.
+          leave.
+       end.
+    end.
+
+    /*--- SI NO SE AUTENTICO HOST DE APLICACION, INTENTO CON OTROS ---*/
+    if vlc_file_server = ? then
+      for each par_file_server where par_file_server.id_opsys = "WIN32" and par_file_server.autenticacion <> "" no-lock:
+        if search(par_file_server.autenticacion) <> ? then
+          do:
+            vlc_file_server = par_file_server.file_server.
+            leave.
+          end.
+      end.
+
+    /*--- SI NO SE AUTENTICO, CARGO DEFAULT ---*/
+    if vlc_file_server = ? then
+      do:
+        find first par_file_server where par_file_server.id_opsys = "WIN32" and par_file_server.autenticacion = "" no-lock no-error.
+        if not available par_file_server then
+          do:
+            bell.
+            hide frame inicio no-pause.
+            message color white/red "Equipo WIN32 no definido en el sistema !!!" view-as alert-box error.
+            quit.
+          end.
+        vlc_file_server = par_file_server.file_server.
+      end.
+
+    /*--- LEO FILE SERVER ---*/
+    find par_file_server where par_file_server.id_opsys = "WIN32" and par_file_server.file_server = vlc_file_server no-lock.
+   
+ end.
+
+/*--- ASIGNO VALORES DEL FILE SERVER ---*/
+assign vlc_file_server = par_file_server.file_server
+       vlc_dir_fuentes = par_file_server.dir_fuentes
+       vlc_dir_objetos = par_file_server.dir_objetos
+       vlc_dir_spool   = par_file_server.dir_spool
+       vlc_dir_temp    = par_file_server.dir_temp
+       vlc_dir_i-o     = par_file_server.dir_i-o
+       vlc_dir_bkp     = par_file_server.dir_bkp.
+
+/*--- VERIFICO DIRECTORIO DE TEMPORARIOS ---*/
+if opsys = "UNIX" and (vlc_dir_temp = ? or vlc_dir_temp = "") then
+  vlc_dir_temp = "/tmp/".
+if opsys = "WIN32" and vlc_dir_temp = "%TEMP%" and os-getenv("TEMP") <> ? then
+  vlc_dir_temp = os-getenv("TEMP").
+if opsys = "WIN32" and vlc_dir_temp = "%TMP%" and os-getenv("TMP") <> ? then
+  vlc_dir_temp = os-getenv("TMP").
+if opsys = "WIN32" and (vlc_dir_temp = ? or vlc_dir_temp = "") then
+  vlc_dir_temp = os-getenv("TEMP").
+if vlc_dir_temp = ? or vlc_dir_temp = "" then
+  vlc_dir_temp = session:temp-directory.
+
+/*--- CARGO VALORES A VARIABLES GLOBALES RELACIONADAS CON PRINT SERVER ---*/
+if opsys = "UNIX" then
+ do:
+
+    /*--- AL SER UNIX EL NOMBRE DEL HOST DEBE COINCIDIR ---*/
+    find first par_print_server where par_print_server.id_opsys = "UNIX" no-lock no-error.
+    if not available par_print_server then
+     do:
+        bell.
+        hide frame inicio no-pause.
+        message color white/red "Impresi¢n sobre UNIX no definida en el sistema !!!" view-as alert-box error.
+        quit.
+     end.
+
+ end.
+
+else
+
+ do:
+
+    /*--- VARIABLE DE CONTROL ---*/
+    vlc_print_server = ?.
+
+    /*--- INTENTO AUTENTICAR PRIMERO EL HOST DE LA APLICACION ---*/
+    for each par_print_server where par_print_server.id_opsys = "WIN32" and par_print_server.print_server = vlc_host_app and par_print_server.autenticacion <> "" no-lock:
+      if search(par_print_server.autenticacion) <> ? then
+       do:
+          vlc_print_server = par_print_server.print_server.
+          leave.
+       end.
+    end.
+
+    /*--- SI NO SE AUTENTICO HOST DE APLICACION, INTENTO CON OTROS ---*/
+    if vlc_print_server = ? then
+      for each par_print_server where par_print_server.id_opsys = "WIN32" and par_print_server.autenticacion <> "" no-lock:
+        if search(par_print_server.autenticacion) <> ? then
+         do:
+            vlc_print_server = par_print_server.print_server.
+            leave.
+         end.
+      end.
+
+    /*--- SI NO SE AUTENTICO, CARGO DEFAULT ---*/
+    if vlc_print_server = ? then
+     do:
+        find first par_print_server where par_print_server.id_opsys = "WIN32" and par_print_server.autenticacion = "" no-lock no-error.
+        if not available par_print_server then
+         do:
+            bell.
+            hide frame inicio no-pause.
+            message color white/red "Impresi¢n sobre WIN32 no definida en el sistema !!!" view-as alert-box error.
+            quit.
+         end.
+        vlc_print_server = par_print_server.print_server.
+     end.
+
+    /*--- LEO PRINT SERVER ---*/
+    find par_print_server where par_print_server.id_opsys = "WIN32" and par_print_server.print_server = vlc_print_server no-lock.
+
+ end.
+
+/*--- ASIGNO VALORES DEL PRINT SERVER ---*/
+assign vlc_print_server = par_print_server.print_server
+       vlc_comando      = par_print_server.comando.
+
+/*--- WINDOWS ---*/
+if vlc_host = "WIN32" and vlc_file_server <> "WIN32" then
+  vlc_host = vlc_file_server.
+
+/*--- VERIFICO QUE TODOS LOS DIRECTORIOS TERMINEN CON UNA BARRA ---*/
+if not (substring(vlc_dir_fuentes,length(vlc_dir_fuentes),1) = "/" or substring(vlc_dir_fuentes,length(vlc_dir_fuentes),1) = "~\") then
+  assign vlc_dir_fuentes = vlc_dir_fuentes + (if opsys = "UNIX" then "/" else "~\").
+if not (substring(vlc_dir_objetos,length(vlc_dir_objetos),1) = "/" or substring(vlc_dir_objetos,length(vlc_dir_objetos),1) = "~\") then
+  assign vlc_dir_objetos = vlc_dir_objetos + (if opsys = "UNIX" then "/" else "~\").
+if not (substring(vlc_dir_spool,length(vlc_dir_spool),1) = "/" or substring(vlc_dir_spool,length(vlc_dir_spool),1) = "~\") then
+  assign vlc_dir_spool = vlc_dir_spool + (if opsys = "UNIX" then "/" else "~\").
+if not (substring(vlc_dir_i-o,length(vlc_dir_i-o),1) = "/" or substring(vlc_dir_i-o,length(vlc_dir_i-o),1) = "~\") then
+  assign vlc_dir_i-o = vlc_dir_i-o + (if opsys = "UNIX" then "/" else "~\").
+
+/*--- VERIFICO QUE TODOS LOS DIRECTORIOS TENGAN LA BARRA QUE CORRESPONDE AL SISTEMA OPERATIVO ---*/
+if opsys = "UNIX" then
+  assign vlc_file_server = replace(vlc_file_server, "~\", "/")
+         vlc_dir_fuentes = replace(vlc_dir_fuentes, "~\", "/")
+         vlc_dir_objetos = replace(vlc_dir_objetos, "~\", "/")
+         vlc_dir_spool   = replace(vlc_dir_spool,   "~\", "/")
+         vlc_dir_temp    = replace(vlc_dir_temp,    "~\", "/")
+         vlc_dir_i-o     = replace(vlc_dir_i-o,     "~\", "/")
+         vlc_dir_bkp     = replace(vlc_dir_bkp,     "~\", "/").
+else
+  assign vlc_file_server = replace(vlc_file_server, "/", "~\")
+         vlc_dir_fuentes = replace(vlc_dir_fuentes, "/", "~\")
+         vlc_dir_objetos = replace(vlc_dir_objetos, "/", "~\")
+         vlc_dir_spool   = replace(vlc_dir_spool,   "/", "~\")
+         vlc_dir_temp    = replace(vlc_dir_temp,    "/", "~\")
+         vlc_dir_i-o     = replace(vlc_dir_i-o,     "/", "~\")
+         vlc_dir_bkp     = replace(vlc_dir_bkp,     "/", "~\").
+
+/*--- VERIFICO QUE EXISTAN LOS DIRECTORIOS ---*/
+output to "Test".
+put unformatted "Test~n".
+output close.
+
+/* SPOOL */
+run valido_directorio (input vlc_dir_spool, output salida).
+if not salida then
+  do:
+    bell.
+    hide frame inicio no-pause.
+    message color white/red "El Directorio:" vlc_dir_spool "No Existe o No es Accesible !!!" view-as alert-box error.
+    run muestro_valores.
+    run cambio_tablas.
+    os-delete "Test".
+    quit.
+  end.
+
+/* FUENTES */
+&IF "{&MODALIDAD}" = "yes" &THEN
+  if (opsys = "WIN32" and substring(vlc_dir_spool,1,2) <> substring(vlc_dir_fuentes,1,2)) or opsys = "UNIX" then
+    do:
+      run valido_directorio (input vlc_dir_fuentes, output salida).
+      if not salida then
+        do:
+          bell.
+          hide frame inicio no-pause.
+          message color white/red "El Directorio:" vlc_dir_fuentes "No Existe o No es Accesible !!!" view-as alert-box error.
+          run muestro_valores.
+          run cambio_tablas.
+          os-delete "Test".
+          quit.
+        end.
+    end.
+&ENDIF
+
+/* OBJETOS */
+if (opsys = "WIN32" and substring(vlc_dir_spool,1,2) <> substring(vlc_dir_objetos,1,2)) or opsys = "UNIX" then
+  do:
+    run valido_directorio (input vlc_dir_objetos, output salida).
+    if not salida then
+      do:
+        bell.
+        hide frame inicio no-pause.
+        message color white/red "El Directorio:" vlc_dir_objetos "No Existe o No es Accesible !!!" view-as alert-box error.
+        run muestro_valores.
+        run cambio_tablas.
+        os-delete "Test".
+        quit.
+      end.
+  end.
+
+/* TEMP (1) */
+if not (substring(vlc_dir_temp,length(vlc_dir_temp),1) = "/" or substring(vlc_dir_temp,length(vlc_dir_temp),1) = "~\") and
+   index(vlc_dir_temp,"%") = 0 and index(vlc_dir_temp,"$") = 0 then
+  assign vlc_dir_temp = vlc_dir_temp + (if opsys = "UNIX" then "/" else "~\").
+
+/* TEMP (2) */
+if (opsys = "WIN32" and substring(vlc_dir_spool,1,2) <> substring(vlc_dir_temp,1,2)) or opsys = "UNIX" then
+  do:
+    run valido_directorio (input vlc_dir_temp, output salida).
+    if not salida then
+      do:
+        if opsys = "UNIX" then
+          vlc_dir_temp = "/tmp/".
+        if opsys = "WIN32" then
+          do:
+            if os-getenv("TEMP") <> ? then
+              vlc_dir_temp = os-getenv("TEMP").
+            else
+              if os-getenv("TMP") <> ? then
+                vlc_dir_temp = os-getenv("TMP").
+              else
+                vlc_dir_temp = session:temp-directory.
+          end.
+      end.
+  end.
+
+/* TEMP (3) */
+if not (substring(vlc_dir_temp,length(vlc_dir_temp),1) = "/" or substring(vlc_dir_temp,length(vlc_dir_temp),1) = "~\") then
+  assign vlc_dir_temp = vlc_dir_temp + (if opsys = "UNIX" then "/" else "~\").
+
+/* TEMP (4) */
+if (opsys = "WIN32" and substring(vlc_dir_spool,1,2) <> substring(vlc_dir_temp,1,2)) or opsys = "UNIX" then
+  do:
+    run valido_directorio (input vlc_dir_temp, output salida).
+    if not salida then
+      do:
+        bell.
+        hide frame inicio no-pause.
+        message color white/red 
+                "El Directorio:" vlc_dir_temp "No Existe o No es Accesible !!!" skip
+                "Por Favor, verifique este problema !!!" skip(1)
+                "Se asume autom†ticamente como Directorio de Temporarios:" session:temp-directory
+                view-as alert-box warning.
+        vlc_dir_temp = session:temp-directory.
+      end.
+  end.
+
+/* TEMP (5) */
+if not (substring(vlc_dir_temp,length(vlc_dir_temp),1) = "/" or substring(vlc_dir_temp,length(vlc_dir_temp),1) = "~\") then
+  assign vlc_dir_temp = vlc_dir_temp + (if opsys = "UNIX" then "/" else "~\").
+
+/* BACKUP (1) */
+if vlc_dir_bkp = "" or vlc_dir_bkp = ? or vlc_dir_bkp = "%TEMP%" or vlc_dir_bkp = "%TMP%" or vlc_dir_bkp = "$TMP" then
+  vlc_dir_bkp = vlc_dir_temp.
+
+/* BACKUP (2) */
+if not (substring(vlc_dir_bkp,length(vlc_dir_bkp),1) = "/" or substring(vlc_dir_bkp,length(vlc_dir_bkp),1) = "~\") then
+  assign vlc_dir_bkp = vlc_dir_bkp + (if opsys = "UNIX" then "/" else "~\").
+
+/* BACKUP (3) */
+if (opsys = "WIN32" and substring(vlc_dir_spool,1,2) <> substring(vlc_dir_bkp,1,2)) or opsys = "UNIX" then
+  do:
+    run valido_directorio (input vlc_dir_bkp, output salida).
+    if not salida then
+      vlc_dir_bkp = vlc_dir_temp.
+  end.
+
+/* TRANSFERENCIAS */
+if (opsys = "WIN32" and substring(vlc_dir_spool,1,2) <> substring(vlc_dir_i-o,1,2)) or opsys = "UNIX" then
+  do:
+    run valido_directorio (input vlc_dir_i-o, output salida).
+    if not salida then
+      do:
+        bell.
+        hide frame inicio no-pause.
+        message color white/red "El Directorio:" vlc_dir_i-o "No Existe o No es Accesible !!!" view-as alert-box error.
+        run muestro_valores.
+        run cambio_tablas.
+        os-delete "Test".
+        quit.
+      end.
+  end.
+
+/* TEMPORARIOS DE SESSION */
+if opsys <> "UNIX" and x_proversion >= 10 and x_parametros = "" then
+  if session:temp-directory = "c:~\winnt~\temp" or session:temp-directory = "c:~\windows~\temp" then
+    do:
+      message "Si el Usuario con que inici¢ la Sesi¢n Windows No es Administrador, es probable que Usted No Tenga Acceso Total al"
+              "directorio de temporarios" session:temp-directory "con que se inici¢ esta Aplicaci¢n." skip(1)
+              "En caso de que algunas opciones muestren un Error en la ejecuci¢n de las mismas, por favor, de aviso de esto a la Gerencia de Sistemas." skip(1)
+              "Para solucionar este inconveniente se debe cambiar el directorio de temporarios de la sesi¢n Progress OpenEdge que se inicia"
+              "con los par†metros del archivo *.pf" skip(1)
+              "En este archivo hay que cambiar o agregar la l°nea -T, o bien en la l°nea de comandos del °cono, agregar al final, por ejemplo, un -T %TEMP%" skip(1)
+              "Se puede tambiÇn crear un directorio nuevo para los temporarios, por ejemplo C:~\temp, y asignar a Çste los temporarios de sesi¢n anteriores." skip(1)
+              "Para m†s informaci¢n, por favor, vea la ayuda de instalaci¢n disponible en" vlc_dir_objetos + "install~\instalar-help.txt"
+              view-as alert-box warning.
+    end.
+
+/* TEMPORARIOS DE SESSION o DE LA APLICACI‡N EN CARPETA DE RED */
+if opsys <> "UNIX" and x_parametros = "" then
+  do:
+    if caps(substring(session:temp-directory,1,1)) > "E" then
+      do:
+        message "El Directorio de Temporarios de la Sesi¢n Progress" session:temp-directory "est† en una Carpeta de Red !!!" skip(1)
+                "Esto ocasiona que la Aplicaci¢n se ejecute lentamente y genere tr†fico de red innecesario !!!" skip(1)
+                "Por favor avise a Gerencia de Sistemas. Muchas Gracias."
+                view-as alert-box warning.
+      end.
+    if caps(substring(vlc_dir_temp,1,1)) > "E" then
+      do:
+        message "El Directorio de Temporarios de la Aplicaci¢n" vlc_dir_temp "est† en una Carpeta de Red !!!" skip(1)
+                "Esto ocasiona que la Aplicaci¢n se ejecute lentamente y genere tr†fico de red innecesario !!!" skip(1)
+                "Por favor avise a Gerencia de Sistemas. Muchas Gracias."
+                view-as alert-box warning.
+      end.
+  end.
+
+/*--- BASES DE DATOS QUE SE CONECTAN AL INICIO DE LA APLICACI‡N Y PERMANECEN CONECTADAS HASTA QUE FINALICE ---*/
+for each par_bases where par_bases.estado       = yes and 
+                         par_bases.autoconexion = yes and
+                         not connected(par_bases.id_base) no-lock:
+
+  /*--- PREFIJO ---*/
+  if vlc_host <> par_bases.id_host then 
+    archivo = "pr".
+  else
+    archivo = "pd".
+
+  /*--- NOMBRE DE ARCHIVO ---*/
+  archivo = archivo + "_" + par_bases.id_base + ".pf".
+
+  /*--- PATH DEL ARCHIVO ---*/
+  if search(vlc_dir_objetos + "supervisor/" + archivo) <> ? then
+    archivo = vlc_dir_objetos + "supervisor/" + archivo.
+  else
+    for each par_grupos where par_grupos.letra_inicial <> " " and index("0123456789", par_grupos.letra_inicial) = 0 no-lock:
+      if search(vlc_dir_objetos + lc(par_grupos.nombre_grupo) + "/" + archivo) <> ? then
+        do:
+          archivo = search(vlc_dir_objetos + lc(par_grupos.nombre_grupo) + "/" + archivo).
+          leave.
+        end.
+    end.
+
+  /*--- CONEXION DE LA BASE DE DATOS ---*/
+  connect value("-pf " + archivo + " -U computos -P wifaro") no-error.
+  if not connected(par_bases.id_base) then
+    connect value("-pf " + archivo) no-error.
+  if not connected(par_bases.id_base) and esdemo then
+    do:
+      if index(archivo,"pd_") > 0 then
+        archivo = replace(archivo,"pd_","su_").
+      if index(archivo,"pr_") > 0 then
+        archivo = replace(archivo,"pr_","su_").
+    end.
+  connect value("-pf " + archivo + " -U computos -P wifaro") no-error.
+  if not connected(par_bases.id_base) then
+    connect value("-pf " + archivo) no-error.
+  if not connected(par_bases.id_base) then
+    do:
+      hide frame inicio no-pause.
+      message color white/green
+              "La Base de Datos de Inicio [" + par_bases.id_base + "] No se ha Podido Conectar !!!" skip(1)
+              "Referencia para Sistemas:" archivo view-as alert-box warning.
+    end.
+end.
+
+/*--- VERIFICO CONEXION DE BASES DE DATOS ---*/
+&IF "{&SISTEMA}" = "gessi" OR "{&SISTEMA}" = "core-old" &THEN
+   salida = yes.
+   if not connected("parametros") then
+     do:
+        bell.
+        hide frame inicio no-pause.
+        message color white/red "Base de Datos 'PARAMETROS' No Conectada !!!" view-as alert-box error.
+        salida = no.
+     end.
+   if not connected("stock") then
+     do:
+        bell.
+        hide frame inicio no-pause.
+        message color white/red "Base de Datos 'STOCK' No Conectada !!!" view-as alert-box error.
+        salida = no.
+     end.
+   if not connected("comercial") then
+     do:
+        bell.
+        hide frame inicio no-pause.
+        message color white/red "Base de Datos 'COMERCIAL' No Conectada !!!" view-as alert-box error.
+        salida = no.
+     end.
+   if not connected("estadis") then
+     do:
+        bell.
+        hide frame inicio no-pause.
+        message color white/red "Base de Datos 'ESTADIS' No Conectada !!!" view-as alert-box error.
+        salida = no.
+     end.
+   if salida = no then
+     do:
+       os-delete "Test".
+       quit.
+     end.
+&ENDIF
+
+&IF "{&SISTEMA}" = "posmaster" &THEN
+   salida = yes.
+   if not connected("minorista") then
+     do:
+        bell.
+        hide frame inicio no-pause.
+        message color white/red "Base de Datos 'MINORISTA' No Conectada !!!" view-as alert-box error.
+        salida = no.
+     end.
+   if not connected("stock") then
+     do:
+        bell.
+        hide frame inicio no-pause.
+        message color white/red "Base de Datos 'STOCK' No Conectada !!!" view-as alert-box error.
+        salida = no.
+     end.
+   if not connected("estadis") then
+     do:
+        bell.
+        hide frame inicio no-pause.
+        message color white/red "Base de Datos 'ESTADIS' No Conectada !!!" view-as alert-box error.
+        salida = no.
+     end.
+   if salida = no then
+     do:
+       os-delete "Test".
+       quit.
+     end.
+&ENDIF
+
+&IF "{&SISTEMA}" = "contacto" &THEN
+  /*if not connected("contacto") then
+    do:
+      bell.
+      hide frame inicio no-pause.
+      message color white/red "Base de Datos 'CONTACTO' No Conectada !!!" view-as alert-box error.
+      os-delete "Test".
+      quit.
+    end. */
+&ENDIF
+
+&IF "{&SISTEMA}" = "nudelman" &THEN
+  if not connected("nudelman") then
+    do:
+      bell.
+      hide frame inicio no-pause.
+      message color white/red "Base de Datos 'NUDELMAN' No Conectada !!!" view-as alert-box error.
+      os-delete "Test".
+      quit.
+    end.
+&ENDIF
+
+/*--- VERIFICO VARIABLES DE ENTORNO ---*/
+if x_dlc = ? and esdemo = no and x_parametros = "" then
+  do:
+    bell.
+    hide frame inicio no-pause.
+    message color white/red
+            " No est† definida la variable de entorno <DLC> !!! " skip
+            " Esta variable es requerida por PROGRESS !!! " skip(1)
+            " Verifique tambiÇn que el Directorio de Binarios " skip
+            " de la Aplicaci¢n y el '<DLC>~\BIN' estÇn en <PATH>. "
+            view-as alert-box warning.
+  end.
+
+/*--- SI EXISTE DLC VERIFICO QUE TENGA UN VALOR COHERENTE ---*/
+if os-getenv("DLC") <> ? and os-getenv("DLC") <> "" then
+  if os-getenv("DLC") <> x_dlc and esdemo = no and x_parametros = "" then
+    do:
+      bell.
+      hide frame inicio no-pause.
+      message color white/red
+              " El valor de la variable de entorno <DLC> difiere con la versi¢n de PROGRESS que ejecuta actualmente !!! " skip(1)
+              " Esto puede causar problemas en la ejecuci¢n de las aplicaciones PROGRESS !!! " skip(1)
+              " Cambie el valor de la variable de entorno <DLC> y vuelva a ejecutar la aplicaci¢n."
+              view-as alert-box warning.
+    end.
+
+salida = no.
+if opsys = "UNIX" then
+  do:
+    if index(os-getenv("PATH"),x_dlc + "/bin") = 0 then
+      salida = yes.  
+  end.
+else
+  do:
+    if index(os-getenv("PATH"),x_dlc + "~\BIN") = 0 then
+      salida = yes.  
+  end.
+if salida = yes and x_proversion < 10 and vlc_host = vlc_host_app and esdemo = no and x_parametros = "" then
+  do:
+    bell.
+
+    &IF "{&SISTEMA}" <> "contacto" &THEN
+      hide frame inicio no-pause.
+      message color white/red
+              " El directorio de ejecutables de PROGRESS indicado por la " skip
+              " variable de entorno '<DLC>~\BIN' no est† en el <PATH> !!! " skip
+              " Esta definici¢n es requerida por la aplicaci¢n !!!" skip(1)
+              " Verifique tambiÇn que el Directorio de Binarios " skip
+              " de la Aplicaci¢n tambiÇn estÇ en el <PATH>. "
+              view-as alert-box warning.
+    &ENDIF
+    
+  end.
+
+/* A ESTO NO TENGO FORMA DE VALIDARLO - QUEDA A MODO DE REFERENCIA
+   DESCOMENTARLO EN CASO DE UTILIZAR EN "TODOS" LOS EQUIPOS EL U:\
+   COMO DIRECCION DE LOS BINARIOS DE LA APLICACION
+if index(os-getenv("PATH"),"U:~\") = 0 then
+  do:
+    bell.
+    hide frame inicio no-pause.
+    message color white/red
+            " El directorio de binarios de la aplicaci¢n " skip
+            " no est† en el <PATH> del sistema !!! " skip
+            " Esta definici¢n es requerida por la aplicaci¢n !!!"
+            view-as alert-box warning.
+  end.
+* FIN DE COMENTARIO */
+
+&IF "{&SISTEMA}" <> "core" &THEN
+  if vlc_host = vlc_host_app then
+    do:
+      if os-getenv("DIRDB") = ? and esdemo = no and x_parametros = "" then
+        do:
+          bell.
+          hide frame inicio no-pause.
+          message color white/red
+                  " No est† definida la variable de entorno <DIRDB> !!! " skip
+                  " Algunas opciones no van a funcionar !!! "
+                  view-as alert-box warning.
+        end.
+
+      &IF "{&SISTEMA}" = "posmaster" &THEN
+        if os-getenv("DIRP") = ? and esdemo = no and x_parametros = "" then
+          do:
+            bell.
+            hide frame inicio no-pause.
+            message color white/red
+                    " No est† definida la variable de entorno <DIRDP> !!! " skip
+                    " La variable <DIRP> deber°a contener un valor " skip
+                    " similar a: <D:~\U~\SUCURSAL>, por ejemplo. " skip
+                    " Algunas opciones no van a funcionar !!! "
+                    view-as alert-box warning.
+          end.
+      &ENDIF
+
+      &IF "{&SISTEMA}" = "gessi" &THEN
+         if opsys = "UNIX" then
+           aux = "/u/modem/".
+         else
+           aux = "D:~\u~\modem~\".
+         run valido_directorio (input aux, output salida).
+         if salida = no and esdemo = no and x_parametros = "" then
+           do:
+             bell.
+             hide frame inicio no-pause.
+             message color white/red
+                "El Directorio:" aux "No Existe o No es Accesible !!!" skip
+                " Algunas opciones no van a funcionar !!! "
+                view-as alert-box warning.
+           end.
+      &ENDIF
+
+    end.
+&ENDIF
+
+/*--- EN POS-MASTER VALIDO SISTEMAS EXTERNOS: POS, BALANZAS E IMPRESORAS ---*/
+&IF "{&SISTEMA}" = "posmaster" &THEN
+
+if par_estado.id_tipo_comercio = 1 and x_parametros = "" then /* TIPO DE COMERCIO */
+do:
+
+  /*--- PUNTO DE VENTA ---*/
+  if par_estado.id_modelo_registradora = 1 then  /* INVEL CHILE */
+    do:
+      find first modelos_registradoras where modelos_registradoras.id_modelo_registradora = par_estado.id_modelo_registradora no-lock.
+      if modelos_registradoras.directorio_instalacion = "" or modelos_registradoras.directorio_instalacion = ?  then
+        do:
+          bell.
+          hide frame inicio no-pause.
+          message color white/red
+                  "La versi¢n de Modelo de Punto de Venta parametrizada"  skip
+                  "actualmente en POS-Master, requiere tener configurado" skip
+                  "un Directorio de Instalaci¢n del Software del POS !!!" skip
+                  "Las funciones relacionadas con los POS no funcionar†n"
+                  view-as alert-box warning.
+        end.
+      else
+        do:
+          run valido_directorio (input modelos_registradoras.directorio_instalacion, output salida).
+          if not salida then
+            do:
+              bell.
+              hide frame inicio no-pause.
+              message color white/red
+                      "No se puede acceder al directorio: '" +
+                      modelos_registradoras.directorio_instalacion + "' !!!" skip
+                      "Las funciones relacionadas con los POS no funcionar†n !!!"
+                      view-as alert-box warning.
+            end.
+        end.
+      release modelos_registradoras.
+    end.
+  else
+    do:
+       bell.
+       hide frame inicio no-pause.
+       message color white/red "Verifique el Modelo de Punto de Venta !!!" view-as alert-box warning.
+    end.
+  
+  /*--- BALANZAS ELECTRONICAS ---*/
+  if par_estado.id_modelo_balanza = 0 then  /* METTLER TOLEDO CHILE */
+    do:
+      run valido_directorio (input vlc_dir_i-o + "balanzas~\scalevis~\", output salida).
+      if not salida then
+        do:
+          bell.
+          hide frame inicio no-pause.
+          message color white/red
+                  "No se puede acceder al directorio: '" + vlc_dir_i-o + "balanzas~\scalevis' !!!" skip
+                  "Las funciones relacionadas con las Balanzas Electr¢nicas no funcionar†n !!!"
+                  view-as alert-box warning.
+        end.
+    end.
+  else
+    do:
+       bell.
+       hide frame inicio no-pause.
+       message color white/red "Verifique el Modelo de Balanza Electr¢nica !!!" view-as alert-box warning.
+    end.
+  
+  /*--- IMPRESORA PARA CARTELERIA ---*/
+  
+  /* se est† utilizando por defecto para todo Chile la ZEBRA y no se valida
+     actualmente el tipo de impresora, por eso se comenta este p†rrafo
+  if par_estado.tipo_impresora <> 3 then /* FUSION TERMICA PARA CHILE */
+    do:
+       bell.
+       hide frame inicio no-pause.
+       message color white/red "Verifique el Tipo de Impresora !!!" view-as alert-box warning.
+    end.
+  */
+
+end. /* TIPO DE COMERCIO */
+
+&ENDIF
+
+os-delete "Test".
+
+/*--- SI LA LICENCIA DEL SOFTWARE CADUCA, PASO A MODO DEMO ---*/
+&IF "{&SISTEMA}" = "core" OR "{&SISTEMA}" = "contacto" &THEN
+  if par_estado.fecha_caducidad <> ? then
+    if today > par_estado.fecha_caducidad + 2 then
+      do transaction:
+        find current par_estado exclusive-lock.
+        assign par_estado.accesos = (if par_estado.accesos = ? then 100 else 300).
+        release par_estado.
+      end.
+&ENDIF
+
+/*--- LIBERO REGISTROS ---*/
+release par_estado.
+release par_file_server.
+release par_print_server.
+
+/*--- VALIDO VARIABLES DE ENTORNO DEFINIDAS ---*/
+if os-getenv("RBLNG") <> "" and os-getenv("RBLNG") <> ? then
+  if search(os-getenv("RBLNG")) = ? then
+    message "La Variable de Entorno %RBLNG% est† Definida, pero su Valor es Incorrecto !!!" skip(1)
+            "Verifique AUTOEXEC.BAT, Variables de Entorno dentro de Propiedades de Mi PC, /etc/profile o lo que corresponda a su Sistema Operativo." skip(1)
+            "Si contin£a no se podr†n Generar, Visualizar ni Imprimir reportes que se realizan desde Report Builder" skip(1)
+            "Avise a Gerencia de Sistema sobre esta anormalidad."
+            view-as alert-box warning.
+if os-getenv("PROMSGS") <> "" and os-getenv("PROMSGS") <> ? then
+  if search(os-getenv("PROMSGS")) = ? then
+    message "La Variable de Entorno %PROMSGS% est† Definida, pero su Valor es Incorrecto !!!" skip(1)
+            "Verifique AUTOEXEC.BAT, Variables de Entorno dentro de Propiedades de Mi PC, /etc/profile o lo que corresponda a su Sistema Operativo." skip(1)
+            "Si contin£a no se podr†n Visualizar correctamente los Mensajes de la Aplicaci¢n Inform†tica" skip(1)
+            "Avise a Gerencia de Sistema sobre esta anormalidad."
+            view-as alert-box warning.
+
+/*--- ASIGNO PATH A PROGRAMA DE CORREO ELECTRONICO Y NAVEGADOR DE WEB ---*/
+assign vlc_email = search(os-getenv("PRG_EMAIL"))
+       vlc_web   = search(os-getenv("PRG_WEB")).
+
+/*--- ESPECIFICO PARA SUSE-LINUX ---*/
+if opsys = "UNIX" and vlc_email = "/usr/X11R6/bin/mozilla" then
+  assign vln_email = "Mozilla Suite 1"
+         vlx_email = 1.
+
+if opsys = "UNIX" and vlc_web = "/usr/X11R6/bin/mozilla" then
+  assign vln_web = "Mozilla Suite 1"
+         vlx_web = 1.
+
+/*--- ESPECIFICO PARA OPEN-SUSE ---*/
+if opsys = "UNIX" then
+  do:
+  
+    /* EMAIL */
+    if vlc_email = "" or vlc_email = ? then
+      vlc_email = search("/usr/bin/seamonkey").
+    if vlc_email = "" or vlc_email = ? then
+      vlc_email = search("/usr/bin/thunderbird").
+    if vlc_email = "" or vlc_email = ? then
+      vlc_email = search("/usr/bin/mozilla").
+    case vlc_email:
+      when "/usr/bin/seamonkey" then
+        assign vln_email = "Mozilla SeaMonkey 1"
+               vlx_email = 1.
+      when "/usr/bin/mozilla" then
+        assign vln_email = "Mozilla Suite 1"
+               vlx_email = 1.
+      when "/usr/bin/thunderbird" then
+        assign vln_email = "Mozilla ThunderBird 2"
+               vlx_email = 2.
+    end case.
+
+    /* WEB */
+    if vlc_web = "" or vlc_web = ? then
+      vlc_web = search("/usr/bin/seamonkey").
+    if vlc_web = "" or vlc_web = ? then
+      vlc_web = search("/usr/bin/firefox").
+    if vlc_web = "" or vlc_web = ? then
+      vlc_web = search("/usr/bin/mozilla").
+    case vlc_web:
+      when "/usr/bin/seamonkey" then
+        assign vln_web = "Mozilla SeaMonkey 1"
+               vlx_web = 1.
+      when "/usr/bin/mozilla" then
+        assign vln_web = "Mozilla Suite 1"
+               vlx_web = 1.
+      when "/usr/bin/firefox" then
+        assign vln_web = "Mozilla FireFox 2"
+               vlx_web = 2.
+    end case.
+
+    /* NVU */
+    if vlc_html = "" or vlc_html = ? then
+      vlc_html = search("/usr/bin/nvu").
+    if vlc_html <> "" and vlc_html <> ? then
+      assign vln_html = "Nvu 1"
+             vlx_html = 1.
+
+    /* OPENOFFICE CALC */
+    if vlc_calc = "" or vlc_calc = ? then
+      vlc_calc = search("/usr/bin/oocalc").
+    if vlc_calc <> "" and vlc_calc <> ? then
+      assign vln_calc = "OpenOffice Calc 2"
+             vlx_calc = 2.
+
+    /* OPENOFFICE WRITER */
+    if vlc_doc = "" or vlc_doc = ? then
+      vlc_doc = search("/usr/bin/oowriter").
+    if vlc_doc <> "" and vlc_doc <> ? then
+      assign vln_doc = "OpenOffice Writer 2"
+             vlx_doc = 2.
+
+    /* ACROBAT READER */
+    if vlc_pdf = "" or vlc_pdf = ? then
+      vlc_pdf = search("/usr/X11R6/bin/acroread").
+    if vlc_pdf <> "" and vlc_pdf <> ? then
+      assign vlc_pdf = vlc_pdf + " &1".
+
+  end.
+
+/*--- ESPECIFICO PARA WINDOWS ---*/
+if opsys <> "UNIX" then
+  do:
+
+    /*--- ESTµ INSTALADO ACROBAT y/o READER ? (no hay forma de determinar versi¢n y nombre completo) ---*/
+    vlc_pdf = ?.
+
+    /* Acrobat Reader 8 XP - 2003 - VISTA */
+    LOAD "Applications/AcroRd32.exe/shell/Read/command/" BASE-KEY "HKEY_CLASSES_ROOT" NO-ERROR.
+    USE "Applications/AcroRd32.exe/shell/Read/command/" NO-ERROR.
+    GET-KEY-VALUE SECTION "" KEY DEFAULT VALUE vlc_pdf.
+    UNLOAD "Applications/AcroRd32.exe/shell/Read/command/" NO-ERROR.
+    if vlc_pdf <> ? then
+      assign vlc_pdf = replace(vlc_pdf,'" "%1','')
+             vlc_pdf = replace(vlc_pdf,'"','').
+    vlc_pdf = search(vlc_pdf).
+
+    /* Acrobat Reader 7 XP - 2000 */
+    if vlc_pdf = ? then
+      do:
+        LOAD "Applications/AcroRd32.exe/shell/open/command/" BASE-KEY "HKEY_CLASSES_ROOT" NO-ERROR.
+        USE "Applications/AcroRd32.exe/shell/open/command/" NO-ERROR.
+        GET-KEY-VALUE SECTION "" KEY DEFAULT VALUE vlc_pdf.
+        UNLOAD "Applications/AcroRd32.exe/shell/open/command/" NO-ERROR.
+        if vlc_pdf <> ? then
+          assign vlc_pdf = replace(vlc_pdf,'" "%1','')
+                 vlc_pdf = replace(vlc_pdf,'"','').
+        vlc_pdf = search(vlc_pdf).
+      end.
+
+    /* Acrobat Reader 6 98 - ME - 2000 */
+    if vlc_pdf = ? then
+      do:
+        LOAD "AcroExch.Document/shell/Open/command/" BASE-KEY "HKEY_CLASSES_ROOT" NO-ERROR.
+        USE "AcroExch.Document/shell/Open/command/" NO-ERROR.
+        GET-KEY-VALUE SECTION "" KEY DEFAULT VALUE vlc_pdf.
+        UNLOAD "AcroExch.Document/shell/Open/command/" NO-ERROR.
+        if vlc_pdf <> ? then
+          assign vlc_pdf = replace(vlc_pdf,'" "%1','')
+                 vlc_pdf = replace(vlc_pdf,'"','').
+        vlc_pdf = search(vlc_pdf).
+      end.
+
+    /* Adobe Acrobat 6 */
+    if vlc_pdf = ? then
+      do:
+        LOAD "Applications/Acrobat.exe/shell/open/command/" BASE-KEY "HKEY_CLASSES_ROOT" NO-ERROR.
+        USE "Applications/Acrobat.exe/shell/open/command/" NO-ERROR.
+        GET-KEY-VALUE SECTION "" KEY DEFAULT VALUE vlc_pdf.
+        UNLOAD "Applications/Acrobat.exe/shell/open/command/" NO-ERROR.
+        if vlc_pdf <> ? then
+          assign vlc_pdf = replace(vlc_pdf,'" "%1','')
+                 vlc_pdf = replace(vlc_pdf,'"','').
+        vlc_pdf = search(vlc_pdf).
+      end.
+
+    if vlc_pdf <> ? then
+      vlc_pdf = vlc_pdf + " &1".
+
+    /*--- ESTµ INSTALADO WORLDCAST ? ---*/
+    if vlc_send_email = ? or vlc_send_email = "" then
+      do:
+        assign vlc_send_email = search("C:~\ARCHIV~~1~\worldcast~\worldcst.exe").
+        if vlc_send_email <> ? then
+          assign vlx_send_email = 3.1
+                 vln_send_email = "WorldCast 3.1".
+      end.
+    if vlc_send_email = ? then
+      do:
+        assign vlc_send_email = search("D:~\ARCHIV~~1~\worldcast~\worldcst.exe").
+        if vlc_send_email <> ? then
+          assign vlx_send_email = 3.1
+                 vln_send_email = "WorldCast 3.1".
+      end.
+    if vlc_send_email = ? then
+      do:
+        assign vlc_send_email = search("C:~\PROGRA~~1~\worldcast~\worldcst.exe").
+        if vlc_send_email <> ? then
+          assign vlx_send_email = 3.1
+                 vln_send_email = "WorldCast 3.1".
+      end.
+    if vlc_send_email = ? then
+      do:
+        assign vlc_send_email = search("D:~\PROGRA~~1~\worldcast~\worldcst.exe").
+        if vlc_send_email <> ? then
+          assign vlx_send_email = 3.1
+                 vln_send_email = "WorldCast 3.1".
+      end.
+
+    /*--- AVERIGUO DATOS DE STAR-CALC DE STAROFFICE / OPENOFFICE 1 ---*/
+    run s_staroffice (input "soffice.StarCalcDocument", 
+                      output x_path_aplicacion,
+                      output x_version_aplicacion,
+                      output x_nombre_comercial).
+    assign vlc_calc = x_path_aplicacion
+           vlx_calc = x_version_aplicacion
+           vln_calc = x_nombre_comercial.
+    if index(vlc_calc,"soffice") <> 0 then
+      assign vlc_calc = replace(vlc_calc,"soffice","scalc")
+             vlc_calc = replace(vlc_calc,'"',' ')
+             vlc_calc = trim(replace(vlc_calc,"%1"," ")).
+    
+    /*--- AVERIGUO DATOS DE STAR-WRITER DE STAROFFICE / OPENOFFICE 1 ---*/
+    run s_staroffice (input "soffice.StarWriterDocument", 
+                      output x_path_aplicacion,
+                      output x_version_aplicacion,
+                      output x_nombre_comercial).
+    assign vlc_doc = x_path_aplicacion
+           vlx_doc = x_version_aplicacion
+           vln_doc = x_nombre_comercial.
+    if index(vlc_doc,"soffice") <> 0 then
+      assign vlc_doc = replace(vlc_doc,"soffice","swriter")
+             vlc_doc = replace(vlc_doc,'"',' ')
+             vlc_doc = trim(replace(vlc_doc,"%1"," ")).
+
+    /*--- AVERIGUO DATOS DE OPENOFFICE CALC 2 ---*/
+    run s_staroffice (input "opendocument.CalcDocument", 
+                      output x_path_aplicacion,
+                      output x_version_aplicacion,
+                      output x_nombre_comercial).
+    assign vlc_calc = x_path_aplicacion
+           vlx_calc = x_version_aplicacion
+           vln_calc = x_nombre_comercial.
+    if index(vlc_calc,"soffice") <> 0 then
+      assign vlc_calc = replace(vlc_calc,"soffice","scalc")
+             vlc_calc = replace(vlc_calc,'"',' ')
+             vlc_calc = trim(replace(vlc_calc,"%1"," ")).
+    
+    /*--- AVERIGUO DATOS DE OPENOFFICE WRITER 2 ---*/
+    run s_staroffice (input "opendocument.WriterDocument", 
+                      output x_path_aplicacion,
+                      output x_version_aplicacion,
+                      output x_nombre_comercial).
+    assign vlc_doc = x_path_aplicacion
+           vlx_doc = x_version_aplicacion
+           vln_doc = x_nombre_comercial.
+    if index(vlc_doc,"soffice") <> 0 then
+      assign vlc_doc = replace(vlc_doc,"soffice","swriter")
+             vlc_doc = replace(vlc_doc,'"',' ')
+             vlc_doc = trim(replace(vlc_doc,"%1"," ")).
+
+    /*--- AVERIGUO DATOS DE EXCEL ---*/
+    run s_appwin (input "Excel.Application", 
+                  output x_path_aplicacion,
+                  output x_version_aplicacion,
+                  output x_nombre_comercial).
+    assign vlc_calc = x_path_aplicacion
+           vlx_calc = x_version_aplicacion
+           vln_calc = x_nombre_comercial.
+    
+    /*--- AVERIGUO DATOS DE WORD ---*/
+    run s_appwin (input "Word.Application", 
+                  output x_path_aplicacion,
+                  output x_version_aplicacion,
+                  output x_nombre_comercial).
+    assign vlc_doc = x_path_aplicacion
+           vlx_doc = x_version_aplicacion
+           vln_doc = x_nombre_comercial.
+
+    /*--- AVERIGUO DATOS DE FRONTPAGE ---*/
+    run s_appwin (input "FrontPage.Application", 
+                  output x_path_aplicacion,
+                  output x_version_aplicacion,
+                  output x_nombre_comercial).
+    assign vlc_html = x_path_aplicacion
+           vlx_html = x_version_aplicacion
+           vln_html = x_nombre_comercial.
+
+    /*--- ESTµ INSTALADO NVU ? ---*/
+    if vlc_html = ? or vlc_html = "" then
+      do:
+        assign vlc_html = search("C:~\ARCHIV~~1~\nvu~\nvu.exe").
+        if vlc_html <> ? then
+          assign vlx_html = 1
+                 vln_html = "Nvu 1".
+      end.
+    if vlc_html = ? then
+      do:
+        assign vlc_html = search("D:~\ARCHIV~~1~\nvu~\nvu.exe").
+        if vlc_html <> ? then
+          assign vlx_html = 1
+                 vln_html = "Nvu 1".
+      end.
+    if vlc_html = ? then
+      do:
+        assign vlc_html = search("C:~\PROGRA~~1~\nvu~\nvu.exe").
+        if vlc_html <> ? then
+          assign vlx_html = 1
+                 vln_html = "Nvu 1".
+      end.
+    if vlc_html = ? then
+      do:
+        assign vlc_html = search("D:~\PROGRA~~1~\nvu~\nvu.exe").
+        if vlc_html <> ? then
+          assign vlx_html = 1
+                 vln_html = "Nvu 1".
+      end.
+
+    /*--- INTENTO BUSCAR MAS DATOS ---*/
+    if vlc_email = ? then      /* SEAMONKEY 1 */
+      do:
+        assign vlc_email = search("C:~\ARCHIV~~1~\mozilla.org~\SEAMON~~1~\SEAMONKEY.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 1
+                 vln_web   = "Mozilla SeaMonkey 1"
+                 vlx_email = 1
+                 vln_email = "Mozilla SeaMonkey 1".
+      end.
+
+    /*--- INTENTO BUSCAR MAS DATOS ---*/
+    if vlc_email = ? then      /* SEAMONKEY 1 */
+      do:
+        assign vlc_email = search("D:~\ARCHIV~~1~\mozilla.org~\SEAMON~~1~\SEAMONKEY.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 1
+                 vln_web   = "Mozilla SeaMonkey 1"
+                 vlx_email = 1
+                 vln_email = "Mozilla SeaMonkey 1".
+      end.
+
+    /*--- INTENTO BUSCAR MAS DATOS ---*/
+    if vlc_email = ? then      /* SEAMONKEY 1 */
+      do:
+        assign vlc_email = search("C:~\PROGRA~~1~\mozilla.org~\SEAMON~~1~\SEAMONKEY.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 1
+                 vln_web   = "Mozilla SeaMonkey 1"
+                 vlx_email = 1
+                 vln_email = "Mozilla SeaMonkey 1".
+      end.
+
+    /*--- INTENTO BUSCAR MAS DATOS ---*/
+    if vlc_email = ? then      /* SEAMONKEY 1 */
+      do:
+        assign vlc_email = search("D:~\PROGRA~~1~\mozilla.org~\SEAMON~~1~\SEAMONKEY.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 1
+                 vln_web   = "Mozilla SeaMonkey 1"
+                 vlx_email = 1
+                 vln_email = "Mozilla SeaMonkey 1".
+      end.
+
+    /*--- INTENTO BUSCAR MAS DATOS ---*/
+    if vlc_email = ? then      /* NETSCAPE 7 */
+      do:
+        assign vlc_email = search("C:~\ARCHIV~~1~\NETSCAPE~\NETSCAPE~\NETSCP.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 7
+                 vln_web   = "Netscape 7"
+                 vlx_email = 7
+                 vln_email = "Netscape 7".
+      end.
+
+    if vlc_email = ? then      /* NETSCAPE 7 */
+      do:
+        assign vlc_email = search("D:~\ARCHIV~~1~\NETSCAPE~\NETSCAPE~\NETSCP.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 7
+                 vln_web   = "Netscape 7"
+                 vlx_email = 7
+                 vln_email = "Netscape 7".
+      end.
+
+    if vlc_email = ? then      /* NETSCAPE 7 */
+      do:
+        assign vlc_email = search("C:~\PROGRA~~1~\NETSCAPE~\NETSCAPE~\NETSCP.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 7
+                 vln_web   = "Netscape 7"
+                 vlx_email = 7
+                 vln_email = "Netscape 7".
+      end.
+
+    if vlc_email = ? then      /* NETSCAPE 7 */
+      do:
+        assign vlc_email = search("D:~\PROGRA~~1~\NETSCAPE~\NETSCAPE~\NETSCP.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 7
+                 vln_web   = "Netscape 7"
+                 vlx_email = 7
+                 vln_email = "Netscape 7".
+      end.
+
+    if vlc_email = ? then      /* MOZILLA SUITE 1 */
+      do:
+        assign vlc_email = search("C:~\ARCHIV~~1~\MOZILLA.ORG~\MOZILLA~\MOZILLA.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 1
+                 vln_web   = "Mozilla Suite 1"
+                 vlx_email = 1
+                 vln_email = "Mozilla Suite 1".
+      end.
+
+    if vlc_email = ? then      /* MOZILLA SUITE 1 */
+      do:
+        assign vlc_email = search("D:~\ARCHIV~~1~\MOZILLA.ORG~\MOZILLA~\MOZILLA.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 1
+                 vln_web   = "Mozilla Suite 1"
+                 vlx_email = 1
+                 vln_email = "Mozilla Suite 1".
+      end.
+
+    if vlc_email = ? then      /* MOZILLA SUITE 1 */
+      do:
+        assign vlc_email = search("C:~\PROGRA~~1~\MOZILLA.ORG~\MOZILLA~\MOZILLA.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 1
+                 vln_web   = "Mozilla Suite 1"
+                 vlx_email = 1
+                 vln_email = "Mozilla Suite 1".
+      end.
+
+    if vlc_email = ? then      /* MOZILLA SUITE 1 */
+      do:
+        assign vlc_email = search("D:~\PROGRA~~1~\MOZILLA.ORG~\MOZILLA~\MOZILLA.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 1
+                 vln_web   = "Mozilla Suite 1"
+                 vlx_email = 1
+                 vln_email = "Mozilla Suite 1".
+      end.
+
+    if vlc_email = ? then      /* MOZILLA THUNDERBIRD 2 */
+      do:
+        assign vlc_email = search("c:~\archivos de programa~\mozilla thunderbird~\thunderbird.exe").
+        if vlc_email <> ? then
+          assign vlx_email = 2
+                 vln_email = "Mozilla Thunderbird 2".
+      end.
+
+    if vlc_email = ? then      /* MOZILLA THUNDERBIRD 2 */
+      do:
+        assign vlc_email = search("d:~\archivos de programa~\mozilla thunderbird~\thunderbird.exe").
+        if vlc_email <> ? then
+          assign vlx_email = 2
+                 vln_email = "Mozilla Thunderbird 2".
+      end.
+
+    if vlc_email = ? then      /* MOZILLA THUNDERBIRD 2 */
+      do:
+        assign vlc_email = search("c:~\program files~\mozilla thunderbird~\thunderbird.exe").
+        if vlc_email <> ? then
+          assign vlx_email = 2
+                 vln_email = "Mozilla Thunderbird 2".
+      end.
+
+    if vlc_email = ? then      /* MOZILLA THUNDERBIRD 2 */
+      do:
+        assign vlc_email = search("d:~\program files~\mozilla thunderbird~\thunderbird.exe").
+        if vlc_email <> ? then
+          assign vlx_email = 2
+                 vln_email = "Mozilla Thunderbird 2".
+      end.
+
+    if vlc_web = ? then        /* MOZILLA FIREFOX 2 */
+      do:
+        assign vlc_web = search("c:~\archivos de programa~\mozilla firefox~\firefox.exe").
+        if vlc_web <> ? then
+          assign vlx_web = 2
+                 vln_web = "Mozilla Firefox 2".
+      end.
+
+    if vlc_web = ? then        /* MOZILLA FIREFOX 2 */
+      do:
+        assign vlc_web = search("d:~\archivos de programa~\mozilla firefox~\firefox.exe").
+        if vlc_web <> ? then
+          assign vlx_web = 2
+                 vln_web = "Mozilla Firefox 2".
+      end.
+
+    if vlc_web = ? then        /* MOZILLA FIREFOX 2 */
+      do:
+        assign vlc_web = search("c:~\program files~\mozilla firefox~\firefox.exe").
+        if vlc_web <> ? then
+          assign vlx_web = 2
+                 vln_web = "Mozilla Firefox 2".
+      end.
+
+    if vlc_web = ? then        /* MOZILLA FIREFOX 2 */
+      do:
+        assign vlc_web = search("d:~\program files~\mozilla firefox~\firefox.exe").
+        if vlc_web <> ? then
+          assign vlx_web = 2
+                 vln_web = "Mozilla Firefox 2".
+      end.
+
+    if vlc_email = ? then      /* OUTLOOK EXPRESS 6 */
+      do:
+        assign vlc_email = search("C:~\ARCHIV~~1~\OUTLOO~~1~\MSIMN.EXE").
+        if vlc_email <> ? then
+          assign vlx_email = 6
+                 vln_email = "Outlook Express 6".
+      end.
+
+    if vlc_email = ? then      /* OUTLOOK EXPRESS 6 */
+      do:
+        assign vlc_email = search("D:~\ARCHIV~~1~\OUTLOO~~1~\MSIMN.EXE").
+        if vlc_email <> ? then
+          assign vlx_email = 6
+                 vln_email = "Outlook Express 6".
+      end.
+
+    if vlc_email = ? then      /* OUTLOOK EXPRESS 6 */
+      do:
+        assign vlc_email = search("C:~\PROGRA~~1~\OUTLOO~~1~\MSIMN.EXE").
+        if vlc_email <> ? then
+          assign vlx_email = 6
+                 vln_email = "Outlook Express 6".
+      end.
+
+    if vlc_email = ? then      /* OUTLOOK EXPRESS 6 */
+      do:
+        assign vlc_email = search("D:~\PROGRA~~1~\OUTLOO~~1~\MSIMN.EXE").
+        if vlc_email <> ? then
+          assign vlx_email = 6
+                 vln_email = "Outlook Express 6".
+      end.
+
+    if vlc_email = ? then      /* NETSCAPE 4 */
+      do:
+        assign vlc_email = search("C:~\ARCHIV~~1~\NETSCAPE~\COMMUN~~1~\NETSCAPE.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 1
+                 vln_web   = "Netscape 4"
+                 vlx_email = 1
+                 vln_email = "Netscape 4".
+      end.
+
+    if vlc_email = ? then      /* NETSCAPE 4 */
+      do:
+        assign vlc_email = search("D:~\ARCHIV~~1~\NETSCAPE~\COMMUN~~1~\NETSCAPE.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 1
+                 vln_web   = "Netscape 4"
+                 vlx_email = 1
+                 vln_email = "Netscape 4".
+      end.
+
+    if vlc_email = ? then      /* NETSCAPE 4 */
+      do:
+        assign vlc_email = search("C:~\PROGRA~~1~\NETSCAPE~\COMMUN~~1~\NETSCAPE.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 1
+                 vln_web   = "Netscape 4"
+                 vlx_email = 1
+                 vln_email = "Netscape 4".
+      end.
+
+    if vlc_email = ? then      /* NETSCAPE 4 */
+      do:
+        assign vlc_email = search("D:~\PROGRA~~1~\NETSCAPE~\COMMUN~~1~\NETSCAPE.EXE").
+        if vlc_email <> ? then
+          assign vlc_web   = vlc_email
+                 vlx_web   = 1
+                 vln_web   = "Netscape 4"
+                 vlx_email = 1
+                 vln_email = "Netscape 4".
+      end.
+
+    /*--- AVERIGUO DATOS DE INTERNET EXPLORER ---*/
+    if vlc_web = ? then
+      do:
+        run s_appwin (input "InternetExplorer.Application", 
+                      output x_path_aplicacion,
+                      output x_version_aplicacion,
+                      output x_nombre_comercial).
+        assign vlc_web = x_path_aplicacion
+               vlx_web = x_version_aplicacion
+               vln_web = x_nombre_comercial.
+
+      end.
+
+    if vlc_web = ? then   /* INTERNET EXPLORER 6 PARA WINDOWS NT */
+      do:
+        assign vlc_web = search("C:~\ARCHIV~~1~\PLUS!~\MICROS~~1~\IEXPLORE.EXE").
+        if vlc_web = ? then
+          assign vlx_web = 6
+                 vln_web = "Internet Explorer 6".
+      end.
+
+    if vlc_web = ? then   /* INTERNET EXPLORER 6 PARA WINDOWS NT */
+      do:
+        assign vlc_web = search("D:~\ARCHIV~~1~\PLUS!~\MICROS~~1~\IEXPLORE.EXE").
+        if vlc_web = ? then
+          assign vlx_web = 6
+                 vln_web = "Internet Explorer 6".
+      end.
+
+    if vlc_web = ? then   /* INTERNET EXPLORER 6 PARA WINDOWS NT */
+      do:
+        assign vlc_web = search("C:~\PROGRA~~1~\PLUS!~\MICROS~~1~\IEXPLORE.EXE").
+        if vlc_web = ? then
+          assign vlx_web = 6
+                 vln_web = "Internet Explorer 6".
+      end.
+
+    if vlc_web = ? then   /* INTERNET EXPLORER 6 PARA WINDOWS NT */
+      do:
+        assign vlc_web = search("D:~\PROGRA~~1~\PLUS!~\MICROS~~1~\IEXPLORE.EXE").
+        if vlc_web = ? then
+          assign vlx_web = 6
+                 vln_web = "Internet Explorer 6".
+      end.
+
+    if vlc_web = ? then   /* INTERNET EXPLORER 6 PARA RESTO DE WINDOWS */
+      do:
+        assign vlc_web = search("C:~\ARCHIV~~1~\INTERN~~1~\IEXPLORE.EXE").
+        if vlc_web = ? then
+          assign vlx_web = 6
+                 vln_web = "Internet Explorer 6".
+      end.
+
+    if vlc_web = ? then   /* INTERNET EXPLORER 6 PARA RESTO DE WINDOWS */
+      do:
+        assign vlc_web = search("D:~\ARCHIV~~1~\INTERN~~1~\IEXPLORE.EXE").
+        if vlc_web = ? then
+          assign vlx_web = 6
+                 vln_web = "Internet Explorer 6".
+      end.
+
+    if vlc_web = ? then   /* INTERNET EXPLORER 6 PARA RESTO DE WINDOWS */
+      do:
+        assign vlc_web = search("C:~\PROGRA~~1~\INTERN~~1~\IEXPLORE.EXE").
+        if vlc_web = ? then
+          assign vlx_web = 6
+                 vln_web = "Internet Explorer 6".
+      end.
+
+    if vlc_web = ? then   /* INTERNET EXPLORER 6 PARA RESTO DE WINDOWS */
+      do:
+        assign vlc_web = search("D:~\PROGRA~~1~\INTERN~~1~\IEXPLORE.EXE").
+        if vlc_web = ? then
+          assign vlx_web = 6
+                 vln_web = "Internet Explorer 6".
+      end.
+
+    /*--- AVERIGUO DATOS DE OUTLOOK (NO OUTLOOK EXPRESS) ---*/
+    if vlc_email = ? then
+      do:
+        run s_appwin (input "Outlook.Application", 
+                      output x_path_aplicacion,
+                      output x_version_aplicacion,
+                      output x_nombre_comercial).
+        assign vlc_email = x_path_aplicacion
+               vlx_email = x_version_aplicacion
+               vln_email = x_nombre_comercial.
+      end.
+
+  end.
+
+/*--- ESPECIFICO PARA SUSE LINUX: OPENOFFICE 1 CALC ---*/
+if opsys = "UNIX" and (vlc_calc = ? or vlc_calc = "") then
+  if search("/opt/OpenOffice.org/program/scalc") <> ? then
+    assign vlc_calc = "/opt/OpenOffice.org/program/scalc"
+           vlx_calc = 1.1
+           vln_calc = "OpenOffice Calc 1".
+
+/*--- ESPECIFICO PARA SUSE LINUX: OPENOFFICE 1 WRITE ---*/
+if opsys = "UNIX" and (vlc_doc = ? or vlc_doc = "") then
+  if search("/opt/OpenOffice.org/program/swriter") <> ? then
+    assign vlc_doc = "/opt/OpenOffice.org/program/swriter"
+           vlx_doc = 1.1
+           vln_doc = "OpenOffice Writer 1".
+
+/*--- STAR-CALC DE STAROFFICE / OPENOFFICE 1 & 2 ---*/
+if vlc_calc <> ? and vlc_calc <> "" and (index(vlc_calc,"scalc") <> 0 or index(vlc_calc,"oocalc") <> 0) then
+  vlc_calc = vlc_calc + " &1".
+
+/*--- STAR-WRITER DE STAROFFICE / OPENOFFICE 1 & 2 ---*/
+if vlc_doc <> ? and vlc_doc <> "" and (index(vlc_doc,"swriter") <> 0 or index(vlc_doc,"oowriter") <> 0) then
+  vlc_doc = vlc_doc + " &1".
+
+/*--- EXCEL ---*/
+if vlc_calc <> ? and vlc_calc <> "" and index(vlc_calc,"EXCEL") <> 0 then
+  vlc_calc = vlc_calc + " /e /p &1 &2".
+
+/*--- WORD ---*/
+if vlc_doc <> ? and vlc_doc <> "" and index(vlc_doc,"WINWORD") <> 0 then
+  vlc_doc = vlc_doc + " &1".
+
+/*--- FRONTPAGE ---*/
+if vlc_html <> ? and vlc_html <> "" and index(vlc_html,"FRONTPG") <> 0 then
+  vlc_html = vlc_html + " &1".
+
+/*--- WEB: INTERNET EXPLORER ---*/
+if vln_web begins "Internet Explorer" then
+  vlc_web = vlc_web + " -nohome &1".
+
+/*--- WEB: NETSCAPE/MOZILLA ---*/
+if vln_web = "Netscape 7" or vln_web = "Mozilla Suite 1" or vln_web = "Mozilla Firefox 2" or vln_web = "Mozilla SeaMonkey 1" then
+  vlc_web = vlc_web + " -quiet -url &1".
+
+/*--- EMAIL: NETSCAPE ---*/
+if vln_email = "Netscape 7" then
+  vlc_email = vlc_email + " -mail &1".
+
+/*--- EMAIL: MOZILLA ---*/
+if vln_email = "Mozilla Suite 1" or vln_email = "Mozilla Thunderbird 2" or vln_email = "Mozilla SeaMonkey 1" then
+  /* vlc_email = vlc_email + " -mail &1". HUBO CAMBIOS EN 1.7 ver http://www.mozilla.org/docs/command-line-args.html */
+  vlc_email = vlc_email + ' -quiet -compose "to=''&1''"'.
+
+/*--- EMAIL: OUTLOOK EXPRESS ---*/
+if vln_email begins "Outlook Express" then
+  vlc_email = vlc_email + " /mailurl:&1".
+
+/*--- EMAIL: OUTLOOK ---*/
+if index(vln_email,"Outlook") <> 0 and index(vln_email,"Express") = 0 then
+  vlc_email = vlc_email + " -c IPM.Note /m &1".
+
+/*--- EDITOR HTML: NVU ---*/
+if index(vln_html,"Nvu") <> 0 then
+  vlc_html = vlc_html + " &1".
+
+/*--- ALERTAS ---*/
+&IF "{&SISTEMA}" <> "core" &THEN
+  if vlc_email = ? and x_parametros = "" then
+    do:
+      bell.
+      hide frame inicio no-pause.
+      message " No hay seleccionado un programa de correo electr¢nico !!! " skip
+              " Es necesario definir la variable de entorno 'PRG_EMAIL' y " skip
+              " en ella cargar el PATH al programa ejecutable de correo. "  skip(1)
+              " La funci¢n de Env°o de Correo Electr¢nico estar† inactiva."
+              view-as alert-box information.
+    end.
+
+  if vlc_web = ? and x_parametros = "" then
+    do:
+      bell.
+      hide frame inicio no-pause.
+      message " No hay seleccionado un programa para la navegaci¢n en Internet !!! " skip
+              " Es necesario definir la variable de entorno 'PRG_WEB' y en ella " skip
+              " el PATH al programa ejecutable que permita navegar en Internet. " skip(1)
+              " La funci¢n de Navegaci¢n de Web estar† inactiva."
+              view-as alert-box information.
+    end.
+
+  if (a_smtp_server = ? or a_smtp_server = "") and x_parametros = "" then
+    do:
+      bell.
+      hide frame inicio no-pause.
+      message " No est† configurado un servidor para el env°o autom†ticos de e-mails !!! " skip
+              " Recomendamos cargar los datos del Servidor SMTP en los par†metros " skip
+              " generales del sistema (estado) desde el m¢dulo 'Supervisor' !!! " skip(1)
+              " La funci¢n de Env°o Autom†tico de E-Mails estar† inactiva."
+              view-as alert-box information.
+    end.
+
+  if (a_pop3_server = ? or a_pop3_server = "") and x_parametros = "" then
+    do:
+      bell.
+      hide frame inicio no-pause.
+      message " No est† configurado un servidor para la recepci¢n de e-mails !!! " skip
+              " Recomendamos cargar los datos del Servidor POP3 en los par†metros " skip
+              " generales del sistema (estado) desde el m¢dulo 'Supervisor' !!! " skip(1)
+              " La funci¢n de Recepci¢n Autom†tica de E-Mails estar† inactiva."
+              view-as alert-box information.
+    end.
+&ENDIF
+
+/*--- VALIDO QUE EXISTAN LAS LIBRERIAS/COMPILADOS ---*/
+&IF "{&MODALIDAD}" = "no" &THEN
+  assign aux  = propath
+         tipo = "".
+  if session:display-type = "GUI" then
+  do:
+    tipo = "gui/".
+  end.
+  propath = vlc_dir_objetos + tipo + "supervisor/supervisor.pl," +
+            vlc_dir_objetos + tipo + "supervisor".
+  if search("s_mail.r") = ? then
+  do:
+    bell.
+    hide frame inicio no-pause.
+    message "El Sistema NO Est† Compilado !!!" skip "No se puede ejecutar la aplicaci¢n !!!" view-as alert-box error.
+    os-delete "Test".
+    quit.
+  end.
+  propath = aux.
+&ENDIF
+
+/*--- VERIFICO QUE LOS COMPILADOS ESTEN DENTRO DE LAS LIBRERIAS ---*/
+&IF "{&MODALIDAD}" = "no" &THEN
+  if search(vlc_dir_objetos + tipo + "supervisor/supervisor.pl") = ? then
+  do:
+    bell.
+    hide frame inicio no-pause.
+    message "El sistema se est† ejecutando en un Entorno SIN Librer°as (Progress .PL) !!!" skip
+            "Es probable que la velocidad de ejecuci¢n de las aplicaciones sea menor a la normal !!!"
+            view-as alert-box warning.
+  end.
+&ENDIF
+  
+/*--- VERIFICO INSTALACI‡N: EJECUTABLES WINDOWS ---*/
+assign aux = (if opsys = "UNIX" then "/" else "~\").
+if opsys = "WIN32" and x_parametros = "" then
+  do:
+    dirwin = ?.
+    if os-getenv("windir") <> ? then /* Solo para Windows compatibles con NT Kernel */
+      dirwin = os-getenv("windir") + "~\".
+    if search(dirwin + "explorer.exe") = ? then
+      dirwin = ?.
+    if dirwin = ? then
+      do:
+        if search("c:~\windows~\win.ini") <> ? then
+          dirwin = "c:~\windows~\".
+        if search("d:~\windows~\win.ini") <> ? then
+          dirwin = "d:~\windows~\".
+        if search("c:~\winnt~\win.ini") <> ? then
+          dirwin = "c:~\winnt~\".
+        if search("d:~\winnt~\win.ini") <> ? then
+          dirwin = "d:~\winnt~\".
+      end.
+    if dirwin <> ? then
+      do:
+        if search(dirwin + "blat.exe") = ? then                  os-copy value(vlc_dir_objetos + "install~\blat.exe")        value(dirwin + "blat.exe").
+        if search(dirwin + "blat.dll") = ? then                  os-copy value(vlc_dir_objetos + "install~\blat.dll")        value(dirwin + "blat.dll").
+        if search(dirwin + "blat.lib") = ? then                  os-copy value(vlc_dir_objetos + "install~\blat.lib")        value(dirwin + "blat.lib").
+        if search(dirwin + "getmail.exe") = ? then               os-copy value(vlc_dir_objetos + "install~\getmail.exe")     value(dirwin + "getmail.exe").
+        if search(dirwin + "pkzip.exe") = ? then                 os-copy value(vlc_dir_objetos + "install~\pkzip.exe")       value(dirwin + "pkzip.exe").
+        if search(dirwin + "pkunzip.exe") = ? then               os-copy value(vlc_dir_objetos + "install~\pkunzip.exe")     value(dirwin + "pkunzip.exe").
+        if search(dirwin + "rar.exe") = ? then                   os-copy value(vlc_dir_objetos + "install~\rar.exe")         value(dirwin + "rar.exe").
+        if search(dirwin + "unrar.exe") = ? then                 os-copy value(vlc_dir_objetos + "install~\unrar.exe")       value(dirwin + "unrar.exe").
+        if search(dirwin + "quoter.exe") = ? then                os-copy value(vlc_dir_objetos + "install~\quoter.exe")      value(dirwin + "quoter.exe").
+        if search(dirwin + "zip.exe") = ? then                   os-copy value(vlc_dir_objetos + "install~\zip.exe")         value(dirwin + "zip.exe").
+        if search(dirwin + "unzip.exe") = ? then                 os-copy value(vlc_dir_objetos + "install~\unzip.exe")       value(dirwin + "unzip.exe").
+        if search(dirwin + "gzip.exe") = ? then                  os-copy value(vlc_dir_objetos + "install~\gzip.exe")        value(dirwin + "gzip.exe").
+        if search(dirwin + "ttf2pt1.exe") = ? then               os-copy value(vlc_dir_objetos + "install~\ttf2pt1.exe")     value(dirwin + "ttf2pt1.exe").
+        if search(dirwin + "md5.exe") = ? then                   os-copy value(vlc_dir_objetos + "install~\md5.exe")         value(dirwin + "md5.exe").
+        if search(dirwin + "system32~\procryptlib.dll") = ? then os-copy value(vlc_dir_objetos + "install~\procryptlib.dll") value(dirwin + "system32~\procryptlib.dll").
+        if search(dirwin + "system32~\zlib1.dll") = ? then       os-copy value(vlc_dir_objetos + "install~\zlib1.dll")       value(dirwin + "system32~\zlib1.dll").
+        if search(dirwin + "Fonts~\code39.ttf") = ? then         os-copy value(vlc_dir_objetos + "install~\code39.ttf")      value(dirwin + "Fonts~\code39.ttf").
+
+        if search(dirwin + "Fonts~\PF_C39.ttf") = ? then         os-copy value(vlc_dir_objetos + "install~\fuentes~\PF_C39.ttf")       value(dirwin + "Fonts~\PF_C39.ttf").
+        if search(dirwin + "Fonts~\PF_C128.ttf") = ? then        os-copy value(vlc_dir_objetos + "install~\fuentes~\PF_C128.ttf")      value(dirwin + "Fonts~\PF_C128.ttf").
+        if search(dirwin + "Fonts~\PF_EAN_P36.ttf") = ? then     os-copy value(vlc_dir_objetos + "install~\fuentes~\PF_EAN_P36.ttf")   value(dirwin + "Fonts~\PF_EAN_P36.ttf").
+        if search(dirwin + "Fonts~\PF_EAN_P72.ttf") = ? then     os-copy value(vlc_dir_objetos + "install~\fuentes~\PF_EAN_P72.ttf")   value(dirwin + "Fonts~\PF_EAN_P72.ttf").
+        if search(dirwin + "Fonts~\PF_I2OF5.ttf") = ? then       os-copy value(vlc_dir_objetos + "install~\fuentes~\PF_I2OF5.ttf")     value(dirwin + "Fonts~\PF_I2OF5.ttf").
+        if search(dirwin + "Fonts~\PF_I2OF5_NT.ttf") = ? then    os-copy value(vlc_dir_objetos + "install~\fuentes~\PF_I2OF5_NT.ttf")  value(dirwin + "Fonts~\PF_I2OF5_NT.ttf").
+        if search(dirwin + "Fonts~\PF_I2OF5_TXT.ttf") = ? then   os-copy value(vlc_dir_objetos + "install~\fuentes~\PF_I2OF5_TXT.ttf") value(dirwin + "Fonts~\PF_EAN_P72.ttf").
+        if search(dirwin + "Fonts~\PF_EAN_P72.ttf") = ? then     os-copy value(vlc_dir_objetos + "install~\fuentes~\PF_EAN_P72.ttf")   value(dirwin + "Fonts~\PF_I2OF5_TXT.ttf").
+        if search(dirwin + "Fonts~\PF_I2OF5_W.ttf") = ? then     os-copy value(vlc_dir_objetos + "install~\fuentes~\PF_I2OF5_W.ttf")   value(dirwin + "Fonts~\PF_I2OF5_W.ttf").
+
+        if search(dirwin + "~\system32~\lpr.exe") = ? then       os-command silent value("copy " + vlc_dir_objetos + "install~\lpr*.* " + dirwin + "~\system32 >NUL").
+
+        if search(dirwin + "system32~\ftp_ori.exe") = ? then     
+          do:
+            os-copy value(dirwin + "system32~\ftp.exe")         value(dirwin + "system32~\ftp_ori.exe").
+            os-copy value(vlc_dir_objetos + "install~\ftp.exe") value(dirwin + "ServicePackFiles~\i386~\ftp.exe").
+            os-copy value(vlc_dir_objetos + "install~\ftp.exe") value(dirwin + "LastGood~\system32~\ftp.exe").
+            os-copy value(vlc_dir_objetos + "install~\ftp.exe") value(dirwin + "system32~\dllcache~\ftp.exe").
+            os-copy value(vlc_dir_objetos + "install~\ftp.exe") value(dirwin + "system32~\ftp.exe").
+            os-copy value(vlc_dir_objetos + "install~\ftp.exe") value(dirwin + "ftp.exe").
+          end.
+      end.
+
+    /*--- POR PROBLEMAS VINCULADOS CON SEGURIDAD, PERMISOS Y PATH DE WINDOWS HAGO ESTO
+          Por defecto todos los programas Windows se ejecutan desde donde estoy parado
+          (no as° en Unix), es por eso que copio los ejecutables que necesito a los
+          directorios "usuarios" de "sistemas" y/o "desarrollo" seg£n corresponda ---*/
+
+    &IF "{&MODALIDAD}" = "no" &THEN
+      assign dirusr = vlc_dir_objetos + "usuarios" + aux.
+    &ELSE
+      assign dirusr = vlc_dir_fuentes + "usuarios" + aux.
+    &ENDIF
+
+    if search(dirusr + "blat.exe") = ? then        os-copy value(vlc_dir_objetos + "install~\blat.exe")        value(dirusr + "blat.exe").
+    if search(dirusr + "blat.dll") = ? then        os-copy value(vlc_dir_objetos + "install~\blat.dll")        value(dirusr + "blat.dll").
+    if search(dirusr + "blat.lib") = ? then        os-copy value(vlc_dir_objetos + "install~\blat.lib")        value(dirusr + "blat.lib").
+    if search(dirusr + "getmail.exe") = ? then     os-copy value(vlc_dir_objetos + "install~\getmail.exe")     value(dirusr + "getmail.exe").
+    if search(dirusr + "pkzip.exe") = ? then       os-copy value(vlc_dir_objetos + "install~\pkzip.exe")       value(dirusr + "pkzip.exe").
+    if search(dirusr + "pkunzip.exe") = ? then     os-copy value(vlc_dir_objetos + "install~\pkunzip.exe")     value(dirusr + "pkunzip.exe").
+    if search(dirusr + "rar.exe") = ? then         os-copy value(vlc_dir_objetos + "install~\rar.exe")         value(dirusr + "rar.exe").
+    if search(dirusr + "unrar.exe") = ? then       os-copy value(vlc_dir_objetos + "install~\unrar.exe")       value(dirusr + "unrar.exe").
+    if search(dirusr + "quoter.exe") = ? then      os-copy value(vlc_dir_objetos + "install~\quoter.exe")      value(dirusr + "quoter.exe").
+    if search(dirusr + "zip.exe") = ? then         os-copy value(vlc_dir_objetos + "install~\zip.exe")         value(dirusr + "zip.exe").
+    if search(dirusr + "unzip.exe") = ? then       os-copy value(vlc_dir_objetos + "install~\unzip.exe")       value(dirusr + "unzip.exe").
+    if search(dirusr + "gzip.exe") = ? then        os-copy value(vlc_dir_objetos + "install~\gzip.exe")        value(dirusr + "gzip.exe").
+    if search(dirusr + "ttf2pt1.exe") = ? then     os-copy value(vlc_dir_objetos + "install~\ttf2pt1.exe")     value(dirusr + "ttf2pt1.exe").
+    if search(dirusr + "md5.exe") = ? then         os-copy value(vlc_dir_objetos + "install~\md5.exe")         value(dirusr + "md5.exe").
+    if search(dirusr + "procryptlib.dll") = ? then os-copy value(vlc_dir_objetos + "install~\procryptlib.dll") value(dirusr + "procryptlib.dll").
+    if search(dirusr + "zlib1.dll") = ? then       os-copy value(vlc_dir_objetos + "install~\zlib1.dll")       value(dirusr + "zlib1.dll").
+    if search(dirusr + "ftp.exe") = ? then         os-copy value(vlc_dir_objetos + "install~\ftp.exe")         value(dirusr + "ftp.exe").
+
+  end.
+
+/*--- VERIFICO INSTALACI‡N: ARCHIVO 'statup.pf' DE PROGRESS ---*/
+if search(x_dlc + aux + "startup.pf") <> ? and search(x_dlc + aux + "startup.skn") = ? and x_parametros = "" then
+  if opsys = "UNIX" then
+    do:
+      if unixusr = "root" then
+        do:
+          os-rename value(x_dlc + aux + "startup.pf")                value(x_dlc + aux + "startup.skn").
+          os-copy   value(vlc_dir_objetos + "install/startup.linux") value(x_dlc + aux + "startup.pf").
+        end.
+    end.
+  else
+    do:
+      os-rename value(x_dlc + aux + "startup.pf")                   value(x_dlc + aux + "startup.skn").
+      os-copy   value(vlc_dir_objetos + "install~\startup.windows") value(x_dlc + aux + "startup.pf").
+    end.
+
+/*--- VERIFICO INSTALACI‡N: ARCHIVO 'protermcap' DE PROGRESS ---*/
+if opsys = "UNIX" and x_parametros = "" then
+  if search(x_dlc + aux + "protermcap") <> ? and search(x_dlc + aux + "protermcap.skn") = ? then
+    do:
+      if unixusr = "root" then
+        do:
+          os-rename value(x_dlc + aux + "protermcap")                   value(x_dlc + aux + "protermcap.skn").
+          os-copy   value(vlc_dir_objetos + "install/protermcap.linux") value(x_dlc + aux + "protermcap").
+        end.
+    end.
+
+/*--- VERIFICO INSTALACI‡N: LENGUAJE DE REPORT BUILDER ENGINE DE PROGRESS ---*/
+if opsys <> "UNIX" then
+  if search(x_dlc + aux + "bin" + aux + "rbres32.dll") <> ? and search(x_dlc + aux + "prolang" + aux + "spa" + aux + "rbspa32.dll") <> ? and 
+     search(x_dlc + aux + "bin" + aux + "rbres32.dll.skn") = ? and x_parametros = "" then
+    do:
+      os-copy value(x_dlc + aux + "bin" + aux + "rbres32.dll")                   value(x_dlc + aux + "bin" + aux + "rbres32.dll.skn").
+      os-copy value(x_dlc + aux + "prolang" + aux + "spa" + aux + "rbspa32.dll") value(x_dlc + aux + "bin" + aux + "rbres32.dll").
+    end.
+
+/*--- VERIFICO INSTALACI‡N: ARCHIVO 'services' DEL SISTEMA OPERATIVO ---*/
+if opsys = "UNIX" and x_parametros = "" then
+  if search("/etc/services.skn") = ? then
+    if unixusr = "root" then
+      do:
+        os-copy "/etc/services" "/etc/services.skn".
+        os-command silent value("cat " + vlc_dir_objetos + "install/services.linux >> /etc/services >/dev/null 2>/dev/null").
+      end.
+if opsys = "WIN32" and x_parametros = "" then
+  do:
+    dirsvs = search(dirwin + "services").                           /* WIN 95-98-ME */
+    if dirsvs = ? then
+      dirsvs = search(dirwin + "system32~\drivers~\etc~\services"). /* WIN NT-2000-XP-2003-VISTA */
+    if dirsvs <> ? then
+      do:
+        dirsvs = substring(dirsvs,1,length(dirsvs) - 8).
+        if search(dirsvs + "services.skn") = ? then
+          do:
+            os-copy           value(dirsvs + "services") value(dirsvs + "services.skn").
+            os-command silent value("copy " + dirsvs + "services + " + vlc_dir_objetos + "install~\services.windows " + dirsvs + "services >NUL").
+          end.
+      end.
+  end.
+
+/*--- VERIFICO INSTALACI‡N: SmartGraph ---*/
+if opsys = "WIN32" and x_parametros = "" then
+  if search(x_dlc + "~\gui~\adm~\objects~\smartgrp.r") = ? then
+    do:
+      os-command silent value("copy " + vlc_dir_objetos + "install~\objects~\*.r "   + x_dlc + "~\gui~\adm~\objects >nul").
+      os-command silent value("copy " + vlc_dir_objetos + "install~\objects~\*.wrx " + x_dlc + "~\gui~\adm~\objects >nul").
+      os-command silent value("copy " + vlc_dir_objetos + "install~\objects~\*.wrx " + x_dlc + " >nul").
+      os-command silent value("copy " + vlc_dir_objetos + "install~\adeicon "        + x_dlc + "~\gui~\adeicon >nul").
+      os-command silent value("copy " + vlc_dir_objetos + "install~\sauken.cst "     + x_dlc + "~\src~\template >nul").
+    end.
+
+/*--- VERIFICO INSTALACI‡N: VARIABLES DE ENTORNO ---*/
+if opsys = "WIN32" and x_dlc = ? and search("c:~\autoexec.bat") <> ? and x_parametros = "" then
+  do:
+    os-command silent "attrib -s -r -h c:~\autoexec.bat >NUL".
+    os-copy "c:~\autoexec.bat" "c:~\autoexec.skn".
+    os-command silent value("copy c:~\autoexec.skn + " + vlc_dir_objetos + "install~\entorno.txt c:~\autoexec.bat >NUL").
+    hide frame inicio no-pause.
+    message "Configuraci¢n del sistema. Variables de Entorno de Windows. Faltan definir variables !!!" skip(1)
+            "Por favor, salga del sistema, edite el archivo 'c:~\autoexec.bat', verifique los cambios y reinicie el mismo." skip(1)
+            "Si no utiliza Windows 95/98 o Milenium, cargue estas variables de entorno editando las propiedades de Mi PC." skip
+            "(s¢lo la variable 'DLC' y la entrada en 'PATH' son altamente recomendables de definir)"
+            view-as alert-box warning.
+  end.
+
+/*--- VERIFICO INSTALACI‡N: REGISTRO DE WINDOWS ---*/
+if opsys = "WIN32" and session:display-type = "GUI" and x_parametros = "" then
+  do:
+    aux = search("ini2reg.exe").
+    if aux = ? then
+      aux = x_dlc + "~\bin~\ini2reg.exe".
+    if search(aux) = ? then
+      aux = "ini2reg.exe".
+    assign v1 = ? v2 = ? aux = '"' + aux + '"'.
+/*    
+    /* VERIFICACION DE FONT */
+    LOAD "Software/PSC/Progress/" + proversion + "/fonts" BASE-KEY "HKEY_CURRENT_USER" NO-ERROR.
+    USE "Software/PSC/Progress/" + proversion + "/fonts" NO-ERROR.
+    GET-KEY-VALUE SECTION "" KEY "font32" VALUE v1.
+    UNLOAD "Software/PSC/Progress/" + proversion + "/fonts" NO-ERROR.
+     
+    /* VERIFICACION DE DISE•O */
+    LOAD "Software/PSC/Progress/" + proversion + "/Startup" BASE-KEY "HKEY_CURRENT_USER" NO-ERROR.
+    USE "Software/PSC/Progress/" + proversion + "/Startup" NO-ERROR.
+    GET-KEY-VALUE SECTION "" KEY "Keep3DFillinBorder" VALUE v2.
+    UNLOAD "Software/PSC/Progress/" + proversion + "/Startup" NO-ERROR.
+
+    /* PROCESO */
+    if v1 = ? or v1 = "" or v2 = ? or v2 = "" or v2 = "no" then
+      do:
+        /* SE DEBE EJECUTAR:
+           C:\Progress\OpenEdge\bin\ini2reg -i sauken.ini -b HKEY_CURRENT_USER  -s SOFTWARE\PSC\PROGRESS\10.1A -ao
+           C:\Progress\OpenEdge\bin\ini2reg -i sauken.ini -b HKEY_LOCAL_MACHINE -s SOFTWARE\PSC\PROGRESS\10.1A -ao
+        */
+        os-command silent value(aux + " -i " + vlc_dir_objetos + "install~\sauken.ini -b HKEY_CURRENT_USER  -s SOFTWARE~\PSC~\PROGRESS~\" + proversion + " -ao >NUL").
+        os-command silent value(aux + " -i " + vlc_dir_objetos + "install~\sauken.ini -b HKEY_LOCAL_MACHINE -s SOFTWARE~\PSC~\PROGRESS~\" + proversion + " -ao >NUL").
+        hide frame inicio no-pause.
+        message "Configuraci¢n del sistema. Verificaci¢n del Registro de Windows. Faltan par†metros !!!" skip(1)
+                "Por favor, para que la aplicaci¢n funcione correctamente, vuelva a ejecutarla." view-as alert-box warning.
+        os-delete "Test".        
+        quit.
+      end.
+      */
+  end.
+
+/*--- ACTUALIZO BLAT Y GETMAIL ---*/
+&IF "{&SISTEMA}" <> "core" &THEN
+  if opsys <> "UNIX" and x_parametros = "" then
+    do:
+      os-command silent value("blat -install "    + a_smtp_server + " " + a_smtp_sender).
+      os-command silent value("getmail -install " + a_pop3_server + " default_user default_password").
+    end.
+&ENDIF
+
+/*--- EJECUTO LOGIN DE LOS SISTEMAS ---*/
+hide frame inicio no-pause.
+/* session:time-source = "userdb". */
+
+if x_parametros = "" then /* ARRANQUE NORMAL */
+  do:
+
+    &IF "{&MODALIDAD}" = "yes" &THEN
+       message "Est† accediendo al Sistema como 'Programador de Aplicaciones' !!!" skip(1)
+               "Si Usted es un Usuario Final, por favor realice lo siguiente:" skip(1)
+               "  a) Salga del Sistema," skip 
+               "  b) Edite las Propiedades del Icono que inici¢ la Aplicaci¢n, y" skip
+               "  c) Cambie el Directorio de Inicio de la misma" skip(1)
+               "Debe cambiar la palabra 'desarrollo' por 'sistemas' en el Directorio de Inicio (Iniciar en:)."
+               "En caso de tener s¢lo una Letra de Unidad debe cambiar la misma por la Letra de Unidad que"
+               "corresponda a 'sistemas' (por ejemplo de N:~\ a O:~\)." skip(1)
+               "Ante cualquier duda, por favor, cont†ctese con la Gerencia de Sistemas. Muchas gracias."
+               view-as alert-box warning.
+    &ENDIF
+ 
+    if session:display-type = "TTY" then
+       run ../s_login.p.
+    else
+      do:
+
+        /*--- ALERTA SOBRE RESOLUCION DE VIDEO ---*/
+        &IF "{&SISTEMA}" = "contacto" &THEN
+        if session:width-pixels < 1000 then
+          do:
+            message "La Resuluci¢n de Video que est† utilizando es Baja. Es probable que algunos programas no se visualicen correctamente." skip(1)
+                    "Recomendamos utilizar una Resoluci¢n de Video de 1024 x 768 p°xeles y un monitor de al menos 15 pulgadas." skip(1)
+                    "Para cambiar la Resoluci¢n de Video debe Editar las Propiedades de su Escritorio, luego abrir la solapa Configuraci¢n y"
+                    "all° cambiar la Resoluci¢n de Pantalla al valor por Usted deseado." skip(1)
+                    "Ante cualquier duda, por favor, cont†ctese con la Gerencia de Sistemas. Muchas gracias."
+                    view-as alert-box warning.
+          end.
+        &ENDIF
+
+        session:data-entry-return  = yes.
+        session:appl-alert-boxes   = no.
+        session:system-alert-boxes = yes.
+        run ../z_login.w.
+
+      end.
+  end.
+else /* ARRANQUE PARA COMPILACI‡N */
+  do:
+    if entry(1,x_parametros) = "compilar" and entry(2,x_parametros) <> "" then
+      do:
+        propath = vlc_dir_fuentes + "especificos," + vlc_dir_fuentes + "supervisor," + 
+                  vlc_dir_fuentes + lc(entry(2,x_parametros)) + ","
+                  &IF "{&SISTEMA}" = "contacto" &THEN
+                    + vlc_dir_fuentes + "contacto,"
+                  &ENDIF
+                  .
+        run value(vlc_dir_fuentes + lc(entry(2,x_parametros)) + "/compila.p").
+      end.
+  end.
+
+{../s_appsvr.clo} /* DESCONECTA EL APPSERVER */
+
+return.
+
+
+/*--- PROCEDIMIENTO: VALIDACION DE DIRECTORIOS ---*/
+procedure valido_directorio:
+
+define input  parameter directorio as character.
+define output parameter resultado  as logical.
+
+define variable stat as integer initial 999 no-undo.
+
+os-copy "Test" value(directorio + "Test").
+stat = os-error.
+if stat = 0 then
+  if search(directorio + "Test") = ? then
+    stat = 2.
+if stat = 0 then
+  do:
+    os-delete value(directorio + "Test").
+    resultado = yes.
+  end.
+else
+  resultado = no.
+
+end procedure.
+
+
+/*--- PROCEDIMIENTO: MUESTRO VALORES CARGADOS (IGUAL A "s_varsis.p") ---*/
+procedure muestro_valores:
+
+define variable letras    as character.
+define variable renglones as integer.
+define variable aux       as integer.
+
+letras = propath.
+do aux = 1 to length(letras):
+  if substring(letras,aux,1) = "," then
+    substring(letras,aux,1) = " ".
+end.
+run formato (78,no,input-output letras, output renglones).
+do aux = 1 to length(letras):
+  if substring(letras,aux,1) = " " then
+    substring(letras,aux,1) = ";".
+end.
+
+&IF "{&WINDOW-SYSTEM}" = "TTY" &THEN
+    display vlc_host vlc_host_app vlc_file_server vlc_print_server 
+            vlc_dir_fuentes vlc_dir_objetos vlc_dir_spool vlc_dir_temp
+            vlc_dir_i-o vlc_dir_bkp vlc_comando vlc_web vlc_email
+       with centered 1 columns overlay row 1 color white/green
+            title " Variables de los Sistemas ".
+    repeat aux = 1 to renglones:
+      display entry(aux, letras) format "x(78)"
+              with 5 down row 16 no-labels color white/red overlay
+              title " PROPATH (comas reemplazadas por punto y coma) ".
+    end.
+    pause.
+&ELSE    
+    define button bf_aceptar label "&Aceptar" tooltip "Sale del programa".
+
+    define rectangle re-vs          size 82 by 14 edge-pixels 2 bgcolor 8 no-fill.
+
+    define variable a as character view-as text 
+           initial " Variables de los Sistemas " format "x(26)".
+    
+    define rectangle re-pp          size 82 by 5 edge-pixels 2 bgcolor 8 no-fill.
+
+    define variable b as character view-as text 
+           initial " PROPATH (siguiendo orden de b£squeda) " format "x(42)".
+    
+    define variable ed_pro as character view-as editor 
+           inner-chars 74 inner-lines 4 scrollbar-horizontal scrollbar-vertical.
+                      
+    define frame informacion skip(0.5) re-vs 
+                            a no-label
+                            at row 1.3 col 1.5 fgcolor 1 font 7
+
+                            "vlc_host:"             at row 2.3 col 18 right-aligned
+                            vlc_host no-label       at row 2.3 col 18 colon-aligned       
+
+                            "vlc_host_app:"         at row 3.3 col 18 right-aligned
+                            vlc_host_app no-label   at row 3.3 col 18 colon-aligned 
+
+                            "vlc_file_server:"       at row 4.3 col 18 right-aligned
+                            vlc_file_server no-label at row 4.3 col 18 colon-aligned 
+
+                            "vlc_print_server:"       at row 5.3 col 18 right-aligned
+                            vlc_print_server no-label at row 5.3 col 18 colon-aligned 
+
+                            "vlc_dir_fuentes:"       at row 6.3 col 18 right-aligned
+                            vlc_dir_fuentes no-label at row 6.3 col 18 colon-aligned 
+
+                            "vlc_dir_objetos:"       at row 7.3 col 18 right-aligned
+                            vlc_dir_objetos no-label at row 7.3 col 18 colon-aligned 
+
+                            "vlc_dir_spool:"        at row 8.3 col 18 right-aligned
+                            vlc_dir_spool no-label  at row 8.3 col 18 colon-aligned 
+
+                            "vlc_dir_temp:"         at row 9.3 col 18 right-aligned
+                            vlc_dir_temp no-label   at row 9.3 col 18 colon-aligned 
+
+                            "vlc_dir_i-o:"          at row 10.3 col 18 right-aligned
+                            vlc_dir_i-o no-label    at row 10.3 col 18 colon-aligned 
+
+                            "vlc_dir_bkp:"          at row 11.3 col 18 right-aligned
+                            vlc_dir_bkp no-label    at row 11.3 col 18 colon-aligned 
+
+                            "vlc_comando:"          at row 12.3 col 18 right-aligned
+                            vlc_comando no-label    at row 12.3 col 18 colon-aligned
+
+                            "vlc_web:"              at row 13.3 col 18 right-aligned
+                            vlc_web no-label        at row 13.3 col 18 colon-aligned
+
+                            "vlc_email:"            at row 14.3 col 18 right-aligned
+                            vlc_email no-label      at row 14.3 col 18 colon-aligned
+
+                            b no-label  at row 16.1 col 1.5 fgcolor 1 font 7
+                            re-pp       at row 16.3 col 1
+
+                            ed_pro no-label at row 17.3 col 2.3
+                            
+                            bf_aceptar 
+                            at row 21.5 col 37
+
+                            with width 85 side-labels centered
+                                 title ' Informaci¢n de Sistema ' 
+                                 three-d view-as dialog-box.
+
+    /* ASI SE HAC÷A ANTES - JUAN CARLOS 2005
+    repeat aux = 1 to renglones:
+      ed_pro = ed_pro + entry(aux, letras) + "~n".
+    end.
+    */
+    ed_pro = replace(propath, ",", "~n").
+
+    display a 
+            b
+            vlc_host
+            vlc_host_app 
+            vlc_file_server 
+            vlc_print_server 
+            vlc_dir_fuentes
+            vlc_dir_objetos 
+            vlc_dir_spool 
+            vlc_dir_temp 
+            vlc_dir_i-o 
+            vlc_dir_bkp 
+            vlc_comando
+            vlc_web
+            vlc_email
+            ed_pro
+            bf_aceptar
+       with frame informacion.
+
+    enable bf_aceptar with frame informacion.
+    enable ed_pro with frame informacion.
+
+    if session:height-pixels >= 600 and session:width-pixels >= 800 then
+      assign frame informacion:height = frame informacion:height + 3
+                   bf_aceptar:row     =  bf_aceptar:row + 3
+                   re-pp:height       = re-pp:height + 3
+                   ed_pro:inner-lines = 8.
+
+    on "choose" of bf_aceptar
+    do:
+      apply "window-close" to frame informacion.
+    end.
+
+    wait-for window-close of frame informacion focus bf_aceptar pause 90.
+
+&ENDIF
+
+end procedure.
+
+
+/*--- PROCEDIMIENTO: FORMATO DE TEXTO (IGUAL A "s_format.p") ---*/
+procedure formato:
+
+define input        parameter tamano      as integer.
+define input        parameter justificado as logical.
+define input-output parameter letras      as character.
+define output       parameter renglones   as integer.
+
+define variable c as integer.
+define variable d as integer.
+define variable u as integer.
+
+define variable a as integer.
+define variable b as integer.
+
+define variable aux as character.
+define variable tra as character.
+
+
+/*--- VERIFICACION ---*/
+if tamano = 0 or tamano = ? or letras = ? or letras = "" then
+  do:
+    renglones = ?.
+    return.
+  end.
+
+/*--- FORMATO ---*/
+assign c = 0 d = 0 renglones = 1.
+do while c < length(letras):
+  assign c = c + 1 d = d + 1.
+  if substring(letras,c,1) = " " then
+    u = c.
+  if d > tamano then
+    do:
+      substring(letras,u,1) = ",".
+      assign c = u d = 0 renglones = renglones + 1.
+    end.
+end.
+
+/*--- SIN JUSTIFICACION ---*/
+if justificado = no or justificado = ? then
+  return.
+
+/*--- JUSTIFICACION ---*/
+do c = 1 to renglones - 1:
+  assign aux = entry(c,letras) d = 0.
+  do u = 1 to length(aux):
+    if substring(aux,u,1) = " " then
+      d = d + 1.
+  end.
+  assign u = tamano - length(aux).
+  assign a = truncate(u / d, 0) b = u modulo if d = 0 then 1 else d.
+  do u = 1 to length(aux):
+    if substring(aux,u,1) = " " then
+      do:
+        substring(aux,u,1) = fill(" ",a + 1).
+        u = u + a.
+      end.
+  end.
+  u = length(aux).
+  do while b > 0:
+    u = u - 1.
+    if substring(aux,u,1) = " " then
+      do:
+        substring(aux,u,0) = " ".
+        b = b - 1.
+      end.
+  end.
+  aux = aux + ",".
+  tra = tra + aux.
+end.
+
+letras = tra + entry(renglones,letras).
+
+end procedure.
+
+
+/*--- PROCEDIMIENTO: AVERIGUA DATOS DE APLICACIONES WINDOWS (IGUAL A "s_appwin.p") ---*/
+procedure s_appwin:
+
+DEFINE INPUT  PARAMETER nombre_aplicacion  AS CHARACTER.
+DEFINE OUTPUT PARAMETER path_aplicacion    AS CHARACTER INITIAL ?.
+DEFINE OUTPUT PARAMETER version_aplicacion AS INTEGER   INITIAL ?.
+DEFINE OUTPUT PARAMETER nombre_comercial   AS CHARACTER INITIAL ?.
+
+DEFINE VARIABLE clsid  AS CHARACTER.
+DEFINE VARIABLE curver AS CHARACTER.
+
+IF OPSYS <> "WIN32" THEN
+  RETURN.
+
+LOAD nombre_aplicacion + "/CLSID" BASE-KEY "HKEY_CLASSES_ROOT" NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+USE nombre_aplicacion + "/CLSID".
+GET-KEY-VALUE SECTION "" KEY DEFAULT VALUE clsid.
+UNLOAD nombre_aplicacion + "/CLSID" NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+
+LOAD nombre_aplicacion + "/CurVer" BASE-KEY "HKEY_CLASSES_ROOT" NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+USE nombre_aplicacion + "/CurVer".
+GET-KEY-VALUE SECTION "" KEY DEFAULT VALUE curver.
+UNLOAD nombre_aplicacion + "/CurVer" NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+version_aplicacion = integer(substring(curver,r-index(curver,".") + 1)).
+
+LOAD curver BASE-KEY "HKEY_CLASSES_ROOT" NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+USE curver.
+GET-KEY-VALUE SECTION "" KEY DEFAULT VALUE nombre_comercial.
+UNLOAD curver NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+
+clsid = "SOFTWARE/Classes/CLSID/"+ clsid + "/LocalServer32".
+LOAD clsid BASE-KEY "HKEY_LOCAL_MACHINE" NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+USE clsid.
+GET-KEY-VALUE SECTION "" KEY DEFAULT VALUE path_aplicacion.
+UNLOAD clsid NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+
+path_aplicacion = trim(replace(path_aplicacion,'"'," ")).
+if index(path_aplicacion,".exe") <> 0 then
+  path_aplicacion = substring(path_aplicacion,1,index(path_aplicacion,".exe") + 3).
+path_aplicacion = trim(path_aplicacion).
+
+RETURN.
+
+end procedure.
+
+
+/*--- PROCEDIMIENTO: AVERIGUA DATOS DE STARTOFFICE / OPENOFFICE ---*/
+procedure s_staroffice:
+
+DEFINE INPUT  PARAMETER nombre_aplicacion  AS CHARACTER.
+DEFINE OUTPUT PARAMETER path_aplicacion    AS CHARACTER INITIAL ?.
+DEFINE OUTPUT PARAMETER version_aplicacion AS INTEGER   INITIAL ?.
+DEFINE OUTPUT PARAMETER nombre_comercial   AS CHARACTER INITIAL ?.
+
+DEFINE VARIABLE clsid  AS CHARACTER.
+DEFINE VARIABLE curver AS CHARACTER.
+
+IF OPSYS <> "WIN32" THEN
+  RETURN.
+
+LOAD nombre_aplicacion + "/CurVer" BASE-KEY "HKEY_CLASSES_ROOT" NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+USE nombre_aplicacion + "/CurVer".
+GET-KEY-VALUE SECTION "" KEY DEFAULT VALUE curver.
+UNLOAD nombre_aplicacion + "/CurVer" NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+version_aplicacion = integer(substring(curver,r-index(curver,".") + 1)).
+
+LOAD curver BASE-KEY "HKEY_CLASSES_ROOT" NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+USE curver.
+GET-KEY-VALUE SECTION "" KEY DEFAULT VALUE nombre_comercial.
+UNLOAD curver NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+
+clsid = curver + "/shell/open/command".
+LOAD clsid BASE-KEY "HKEY_CLASSES_ROOT" NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+USE clsid.
+GET-KEY-VALUE SECTION "" KEY DEFAULT VALUE path_aplicacion.
+UNLOAD clsid NO-ERROR.
+IF ERROR-STATUS:ERROR THEN
+  RETURN.
+
+RETURN.
+
+end procedure.
+
+/*--- PROCEDIMIENTO: CAMBIO VALORES DE TABLAS ---*/
+procedure cambio_tablas:
+
+  define variable x_passwd as character format "x(20)" label "Contrase§a".
+  define variable x_nuevo  as logical format "Si/No" initial yes.
+
+  update skip(1) space(3) 
+         "Puede a Editar a Continuaci¢n las Tablas de Configuraci¢n del Sistema"
+         space(3) skip(1) space(3)
+         "Debe ingresar la Contrase§a para Acceder a Desarrollo de Aplicaciones"
+         space(3) skip(1) space(18)
+         x_passwd help " Contrase§a del Usuario 'computos'"
+
+         &IF integer(substring(proversion,1, index(proversion,".") - 1)) >= 10 &THEN
+            password-field
+         &ELSE
+            blank
+         &ENDIF
+         
+         skip(1)
+         with frame x_passwd overlay centered row 10 side-labels title " Tablas de Configuraci¢n del Sistema "
+
+         &IF "{&WINDOW-SYSTEM}" = "TTY" &THEN
+           color white/cyan.
+         &ELSE
+           width 76 view-as dialog-box three-d.
+         &ENDIF
+
+  hide frame x_passwd no-pause.
+
+  if setuserid("computos",x_passwd,"userdb") then
+    do:
+      hide frame inicio no-pause.
+      message "Desea crear un registro en blanco en la tabla 'par_file_server' ?"
+              view-as alert-box question buttons yes-no update x_nuevo auto-return.
+      if x_nuevo then
+        do transaction:
+          create par_file_server.
+          assign par_file_server.id_opsys      = opsys
+                 par_file_server.dir_temp      = (if opsys <> "UNIX" then "%TEMP%" else "/tmp")
+                 par_file_server.autenticacion = (if opsys <> "UNIX" then "C:~\windows~\explorer.exe" else "").
+        end.
+      for each par_file_server:
+        update par_file_server except c_usuario c_fecha c_hora
+          with frame x_fs 1 columns 1 down centered overlay row 8 title " Tabla 'par_file_server' "
+
+          &IF "{&WINDOW-SYSTEM}" = "TTY" &THEN
+            color white/green.
+          &ELSE
+            width 82 view-as dialog-box three-d.
+          &ENDIF
+
+        assign par_file_server.c_usuario = "computos"
+               par_file_server.c_fecha   = today
+               par_file_server.c_hora    = string(time,"HH:MM:SS").
+
+      end.
+    end.
+
+end procedure.

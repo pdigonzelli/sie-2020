@@ -1,0 +1,1063 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER UIB_v8r12 GUI ADM1
+&ANALYZE-RESUME
+/* Connected Databases 
+*/
+&Scoped-define WINDOW-NAME W-Win
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS W-Win 
+/*------------------------------------------------------------------------
+
+  File: 
+
+  Description: from cntnrwin.w - ADM SmartWindow Template
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+  History: 
+          
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress UIB.             */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+SESSION:DATA-ENTRY-RETURN = TRUE.
+
+/* Parameters Definitions ---                                           */
+/* Local Variable Definitions ---                                       */
+define var alta as logical no-undo initial false.
+
+/*-- VARIABLES DE EXCEL --*/
+
+    define var chExcelAplication as com-handle.
+    define var chWorkbook        as com-handle.
+    define var chWorkSheet       as com-handle.
+    define var chchart           as com-handle.
+    define var chWorkSheetRange  as com-handle.
+  
+    define var ifila  as integer.
+    define var cfila  as character.
+    define var crange as character.
+    DEFINE VARIABLE v_fechaini AS DATE.
+
+ /*-- FIN VARIABLES DE EXCEL --*/
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartWindow
+&Scoped-define DB-AWARE no
+
+&Scoped-define ADM-CONTAINER WINDOW
+
+/* Name of first Frame and/or Browse and/or first Query                 */
+&Scoped-define FRAME-NAME F-Main
+
+/* Standard List Definitions                                            */
+&Scoped-Define ENABLED-OBJECTS BUTTON-16 BUTTON-33 BUTTON-34 BUTTON-1 ~
+BUTTON-2 BUTTON-15 BUTTON-32 
+&Scoped-Define DISPLAYED-OBJECTS FILL-IN-1 FILL-IN-2 FILL-IN-3 
+
+/* Custom List Definitions                                              */
+/* List-1,List-2,List-3,List-4,List-5,List-6                            */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+/* ***********************  Control Definitions  ********************** */
+
+/* Define the widget handle for the window                              */
+DEFINE VAR W-Win AS WIDGET-HANDLE NO-UNDO.
+
+/* Definitions of handles for SmartObjects                              */
+DEFINE VARIABLE h_b_items_muestras_tuc AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_b_muestras_tuc AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_b_r_muestras_protocolos AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_cus-misc AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_cus-updsav AS HANDLE NO-UNDO.
+DEFINE VARIABLE h_v_items_muestras_tuc AS HANDLE NO-UNDO.
+
+/* Definitions of the field level widgets                               */
+DEFINE BUTTON BUTTON-1 
+     LABEL "Asignar Protocolo" 
+     SIZE 24 BY 1.43.
+
+DEFINE BUTTON BUTTON-15 
+     LABEL "Enviar Mail a Comercial" 
+     SIZE 27 BY 1.14.
+
+DEFINE BUTTON BUTTON-16 
+     LABEL "Datos Destinatarios" 
+     SIZE 21 BY 1.14.
+
+DEFINE BUTTON BUTTON-2 
+     LABEL "Quitar" 
+     SIZE 15 BY 1.43.
+
+DEFINE BUTTON BUTTON-31 
+     LABEL "Excell tracking" 
+     SIZE 21 BY 1.14.
+
+DEFINE BUTTON BUTTON-32 
+     LABEL "Enviar Mail a Destinatario" 
+     SIZE 27 BY 1.14.
+
+DEFINE BUTTON BUTTON-33 
+     LABEL "Exp. Excel Muestras" 
+     SIZE 21 BY 1.14.
+
+DEFINE BUTTON BUTTON-34 
+     LABEL "Destinos Muestras" 
+     SIZE 21 BY 1.14.
+
+DEFINE VARIABLE FILL-IN-1 AS CHARACTER FORMAT "X(256)":U INITIAL "MUESTRAS" 
+     VIEW-AS FILL-IN 
+     SIZE 124 BY 1
+     BGCOLOR 4 FGCOLOR 15  NO-UNDO.
+
+DEFINE VARIABLE FILL-IN-2 AS CHARACTER FORMAT "X(256)":U INITIAL "PARTES DE MUESTRAS" 
+     VIEW-AS FILL-IN 
+     SIZE 149 BY 1
+     BGCOLOR 3 FGCOLOR 15  NO-UNDO.
+
+DEFINE VARIABLE FILL-IN-3 AS CHARACTER FORMAT "X(256)":U INITIAL "PROTOCOLOS" 
+     VIEW-AS FILL-IN 
+     SIZE 124 BY 1
+     BGCOLOR 2 FGCOLOR 15  NO-UNDO.
+
+
+/* ************************  Frame Definitions  *********************** */
+
+DEFINE FRAME F-Main
+     FILL-IN-1 AT ROW 1.24 COL 2 NO-LABEL
+     BUTTON-31 AT ROW 1.48 COL 129
+     BUTTON-16 AT ROW 2.91 COL 129
+     BUTTON-33 AT ROW 4.33 COL 129
+     BUTTON-34 AT ROW 5.76 COL 129
+     FILL-IN-2 AT ROW 8.62 COL 2 NO-LABEL
+     FILL-IN-3 AT ROW 18.14 COL 2 NO-LABEL
+     BUTTON-1 AT ROW 19.33 COL 108
+     BUTTON-2 AT ROW 19.33 COL 133
+     BUTTON-15 AT ROW 21 COL 108
+     BUTTON-32 AT ROW 22.91 COL 108
+    WITH 1 DOWN NO-BOX KEEP-TAB-ORDER OVERLAY 
+         SIDE-LABELS NO-UNDERLINE THREE-D 
+         AT COL 1 ROW 1
+         SIZE 150.8 BY 25.48.
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartWindow
+   Allow: Basic,Browse,DB-Fields,Query,Smart,Window
+   Other Settings: COMPILE
+ */
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+IF SESSION:DISPLAY-TYPE = "GUI":U THEN
+  CREATE WINDOW W-Win ASSIGN
+         HIDDEN             = YES
+         TITLE              = "Muestras"
+         HEIGHT             = 25.48
+         WIDTH              = 150.8
+         MAX-HEIGHT         = 25.81
+         MAX-WIDTH          = 152.8
+         VIRTUAL-HEIGHT     = 25.81
+         VIRTUAL-WIDTH      = 152.8
+         RESIZE             = no
+         SCROLL-BARS        = no
+         STATUS-AREA        = no
+         BGCOLOR            = ?
+         FGCOLOR            = ?
+         THREE-D            = yes
+         MESSAGE-AREA       = no
+         SENSITIVE          = yes.
+ELSE {&WINDOW-NAME} = CURRENT-WINDOW.
+/* END WINDOW DEFINITION                                                */
+&ANALYZE-RESUME
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "visibles" W-Win _INLINE
+/* Actions: ? custom/support/cusvis.p ? ? ? */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _XFTR "con parametros" W-Win _INLINE
+/* Actions: ? custom/support/con-parametros.p ? ? ? */
+/* SmartWindow,uib,49271
+Destroy on next read */
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB W-Win 
+/* ************************* Included-Libraries *********************** */
+
+{custom/method/ccontainr.i}
+{custom/method/cabm.i}
+{custom/method/contenedor.i}
+{custom/method/l-create-obj.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR FRAME F-Main
+                                                                        */
+/* SETTINGS FOR BUTTON BUTTON-31 IN FRAME F-Main
+   NO-ENABLE                                                            */
+/* SETTINGS FOR FILL-IN FILL-IN-1 IN FRAME F-Main
+   NO-ENABLE ALIGN-L                                                    */
+/* SETTINGS FOR FILL-IN FILL-IN-2 IN FRAME F-Main
+   NO-ENABLE ALIGN-L                                                    */
+/* SETTINGS FOR FILL-IN FILL-IN-3 IN FRAME F-Main
+   NO-ENABLE ALIGN-L                                                    */
+IF SESSION:DISPLAY-TYPE = "GUI":U AND VALID-HANDLE(W-Win)
+THEN W-Win:HIDDEN = yes.
+
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+ 
+
+
+
+/* ************************  Control Triggers  ************************ */
+
+&Scoped-define SELF-NAME W-Win
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL W-Win W-Win
+ON END-ERROR OF W-Win /* Muestras */
+OR ENDKEY OF {&WINDOW-NAME} ANYWHERE DO:
+  /* This case occurs when the user presses the "Esc" key.
+     In a persistently run window, just ignore this.  If we did not, the
+     application would exit. */
+  IF THIS-PROCEDURE:PERSISTENT THEN RETURN NO-APPLY.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL W-Win W-Win
+ON WINDOW-CLOSE OF W-Win /* Muestras */
+DO:
+  /* This ADM code must be left here in order for the SmartWindow
+     and its descendents to terminate properly on exit. */
+  APPLY "CLOSE":U TO THIS-PROCEDURE.
+  RETURN NO-APPLY.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-1
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-1 W-Win
+ON CHOOSE OF BUTTON-1 IN FRAME F-Main /* Asignar Protocolo */
+DO:
+DEFINE VAR r_items AS ROWID.
+DEFINE VAR r_protocolos AS ROWID.
+
+RUN get-rowid1 IN h_b_items_muestras_tuc (OUTPUT r_items).
+FIND FIRST items_muestras WHERE ROWID(items_muestras) = r_items
+                          NO-LOCK NO-ERROR.
+IF AVAILABLE items_muestras THEN DO:
+    RUN wc_protocolos.w (OUTPUT r_protocolos).
+    FIND FIRST protocolos WHERE ROWID(protocolos) = r_protocolos
+                          NO-LOCK NO-ERROR.
+    IF AVAILABLE protocolos THEN DO:
+        IF protocolos.aprobado THEN DO:
+            CREATE r_muestras_protocolos.
+            ASSIGN r_muestras_protocolos.id_protocolo   = protocolos.id_protocolo
+                   r_muestras_protocolos.anio           = protocolos.anio
+                   r_muestras_protocolos.id_articulo    = protocolos.id_articulo
+                   r_muestras_protocolos.id_muestra     = items_muestras.id_muestra
+                   r_muestras_protocolos.anio_muestra   = items_muestras.anio_muestra
+                   r_muestras_protocolos.item_muestra   = items_muestras.item_muestra.
+        END.
+        ELSE DO:
+            MESSAGE "No se puede relacionar el protocolo porque no esta aprobado"
+                VIEW-AS ALERT-BOX.
+        END.
+        
+    END.
+END.
+RUN dispatch IN h_b_r_muestras_protocolos ('open-query':U).
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-15
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-15 W-Win
+ON CHOOSE OF BUTTON-15 IN FRAME F-Main /* Enviar Mail a Comercial */
+DO:
+DEFINE VAR r as rowid.
+define var v_subject as char.
+define var v_body as char.
+define var v_usuarios as char.
+DEFINE VAR v_protocolos AS CHAR.
+
+
+RUN get-rowid1 in h_b_muestras_tuc (output r).
+
+FOR EACH usuarios_listas WHERE usuarios_listas.id_lista = 6 /* Produccion avisa a Bue*/
+                         NO-LOCK.
+    v_usuarios = v_usuarios + "," + usuarios_listas.email.            
+END.
+            
+IF v_usuarios <> "" THEN v_usuarios = SUBSTRING(v_usuarios,2,LENGTH(v_usuarios) - 1).
+    
+FIND FIRST muestras WHERE ROWID(muestras) = r NO-LOCK NO-ERROR.
+IF AVAILABLE muestras THEN DO:
+    FOR EACH r_muestras_protocolos WHERE r_muestras_protocolos.id_muestra     = muestras.id_muestra
+                                    AND r_muestras_protocolos.anio_muestra   = muestras.anio_muestra
+                                    NO-LOCK.
+        v_protocolos = v_protocolos +
+                       STRING(r_muestras_protocolos.id_protocolo,"9999") + "/" + 
+                       STRING(r_muestras_protocolos.anio,"99") + CHR(10) .
+                        
+                       
+    END.
+    v_subject = "Se vincularon los Protocolos de la Muestra " + 
+                STRING(muestras.id_muestra,"9999") + "/" + 
+                STRING(muestras.anio_muestra,"99").
+
+    v_body = "Se han vinculado los siguientes protocolos:" + CHR(10) + v_protocolos.
+                        
+    IF v_usuarios <> "" THEN DO:
+        RUN SendMail.p(INPUT "",                       /* SIEMPRE TIENE QUE IR */
+                       INPUT 2,                                                   /* PRIORIDAD */
+                       INPUT v_subject,                                           /* SUBJECT */
+                       INPUT v_body,                                              /* BODY     */
+                       INPUT v_usuarios,                                          /* DEST. SEP COMAS */
+                       INPUT ""                                      /* ARCHIVOS ATTACHED SEP POR COMAS */
+                      ).
+                           
+    END.
+END.
+
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-16
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-16 W-Win
+ON CHOOSE OF BUTTON-16 IN FRAME F-Main /* Datos Destinatarios */
+DO:
+    DEFINE VAR R AS ROWID.
+    RUN get-rowid1 IN h_b_muestras_tuc (OUTPUT r).
+
+  /**************************************GENERADOR DE EXCELL **********************************/
+  
+      create "Excel.Application" chExcelAplication.
+    chExcelAplication:visible = true.
+    chWorkbook  = chExcelAplication:Workbooks:add().
+    chWorkSheet = chExcelAplication:Sheets:Item(1). 
+  
+
+    /* Formato del titulo general */
+    chWorkSheet:Range("A1:AP6"):Font:Bold           = true.
+    chWorkSheet:Range("A1:AP1900"):Font:size        = 8.
+    chWorkSheet:Range("A6:AP6"):HorizontalAlignment = 3.
+    
+    /* Ancho de las columnas */
+    chWorkSheet:Columns("A"):ColumnWidth = 5.
+    chWorkSheet:Columns("B"):ColumnWidth = 25. 
+    chWorkSheet:Columns("C"):ColumnWidth = 30. 
+    
+    
+ /*-- FIN CONFIGURACION INICIAL --*/
+ 
+ /* chWorkSheet:Range("A5:S5"):HorizontalAlignment = 3. /*CENTERED*/ */
+  chWorkSheet:Range("B3:Q3"):MergeCells = True.
+  chWorkSheet:Range("B5:Q5"):MergeCells = True.
+  
+  /* TITULO DE LA PLANILLA */
+
+  chWorkSheet:Range("B3"):Value = "DATOS DESTINATARIO".
+  chWorkSheet:Range("B3"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("B3"):interior:colorindex = 32.
+  chWorkSheet:Range("B3"):Font:colorindex = 1.
+  
+  chWorkSheet:Range("B6"):Value = "DESTINATARIO".
+  chWorkSheet:Range("B6"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("B7"):Value = "CONTACTO".
+  chWorkSheet:Range("B7"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("B8"):Value = "DIRECCION".
+  chWorkSheet:Range("B8"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("B9"):Value = "LOCALIDAD".
+  chWorkSheet:Range("B9"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("B10"):Value = "PROVINCIA".
+  chWorkSheet:Range("B10"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("B11"):Value = "CODIGO POSTAL".
+  chWorkSheet:Range("B11"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("B12"):Value = "PAIS".
+  chWorkSheet:Range("B12"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("B13"):Value = "TELEFONO".
+  chWorkSheet:Range("B13"):BorderAround(1,2,1,1).
+  chWorkSheet:Range("B14"):Value = "FAX".
+  chWorkSheet:Range("B14"):BorderAround(1,2,1,1).
+  
+    
+  /*------------------------------------ PROCESO PRINCIPAL ---------------------------------------*/
+  
+  FIND FIRST muestras WHERE ROWID(muestras) = r NO-LOCK NO-ERROR.
+  IF AVAILABLE muestras THEN DO:
+    FIND FIRST contactos_muestras WHERE contactos_muestras.id_contacto = muestras.id_destinatario 
+                                    NO-LOCK NO-ERROR.
+    IF AVAILABLE contactos_muestras THEN DO:
+        cfila  = STRING(ifila).
+        cRange = "C6".
+        chWorkSheet:Range(crange):VALUE = contactos_muestras.nombre.
+        cRange = "C7".
+        chWorkSheet:Range(crange):VALUE = contactos_muestras.contacto.
+        cRange = "C8".
+        chWorkSheet:Range(crange):VALUE = contactos_muestras.direccion.
+        cRange = "C9".
+        chWorkSheet:Range(crange):VALUE = contactos_muestras.localidad.
+        cRange = "C10".
+        chWorkSheet:Range(crange):VALUE = contactos_muestras.provincia.
+        cRange = "C11".
+        chWorkSheet:Range(crange):VALUE = contactos_muestras.codigo_postal.
+        cRange = "C12".
+        chWorkSheet:Range(crange):VALUE = contactos_muestras.pais.
+        cRange = "C13".
+        chWorkSheet:Range(crange):VALUE = contactos_muestras.tel.
+        cRange = "C14".
+        chWorkSheet:Range(crange):VALUE = contactos_muestras.fax.
+    END.
+  END.
+  
+  /*----------------------------------- FIN PROCESO PRINCIPAL ----------------------------*/
+
+  /*-- LIBERA VARIABLES DE EXCEL --*/
+    if valid-handle(chExcelAplication) then RELEASE OBJECT chExcelAplication.
+    if valid-handle(chWorkBook)        then RELEASE OBJECT chWorkBook.
+    if valid-handle(chWorkSheet)       then RELEASE OBJECT chWorkSheet.  
+    
+    /*****************************************************************************************/
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-2
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-2 W-Win
+ON CHOOSE OF BUTTON-2 IN FRAME F-Main /* Quitar */
+DO:
+  DEFINE VAR r AS ROWID.
+  RUN get-rowid1 IN h_b_r_muestras_protocolos (OUTPUT r).
+  FIND FIRST r_muestras_protocolos WHERE ROWID(r_muestras_protocolos) = r NO-ERROR.
+  IF AVAILABLE r_muestras_protocolos THEN DO:
+      DELETE r_muestras_protocolos.
+  END.
+  RUN dispatch IN h_b_r_muestras_protocolos ('open-query':U).
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-31
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-31 W-Win
+ON CHOOSE OF BUTTON-31 IN FRAME F-Main /* Excell tracking */
+DO:
+  RUN reporte-excell.
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-32
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-32 W-Win
+ON CHOOSE OF BUTTON-32 IN FRAME F-Main /* Enviar Mail a Destinatario */
+DO:
+DEFINE VAR r_prot AS ROWID.
+DEFINE VAR r_items_muestras AS ROWID.
+DEFINE VAR h_con AS HANDLE.
+
+RUN get-rowid1 IN h_b_items_muestras_tuc (OUTPUT r_items_muestras).
+RUN get-rowid1 IN h_b_r_muestras_protocolos (OUTPUT r_prot).
+
+FIND FIRST items_muestras WHERE ROWID(items_muestras) = r_items_muestras
+                          NO-LOCK NO-ERROR.
+IF AVAILABLE items_muestras THEN DO:
+    FIND FIRST r_muestras_protocolos WHERE ROWID(r_muestras_protocolos) =
+                                     r_prot NO-LOCK NO-ERROR.
+    IF AVAILABLE r_muestras_protocolos THEN DO:
+        FIND FIRST protocolos OF r_muestras_protocolos
+                              NO-LOCK NO-ERROR.
+        IF AVAILABLE protocolos THEN DO:
+            FIND FIRST tambores_industria WHERE tambores_industria.id_empresa = protocolos.id_empresa
+                                            AND tambores_industria.id_sucursal = protocolos.id_sucursal
+                                            AND tambores_industria.id_tipotambor = protocolos.id_tipotambor
+                                            AND tambores_industria.nromov = protocolos.nromov
+                                            NO-LOCK NO-ERROR.
+            /*{i_mail_destinatario.i}*/
+        END.
+    END.
+END.    
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-33
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-33 W-Win
+ON CHOOSE OF BUTTON-33 IN FRAME F-Main /* Exp. Excel Muestras */
+DO:
+  ASSIGN v_fechaini = DATE(01,01,YEAR(TODAY)).
+  FORM SKIP(1)
+       v_fechaini LABEL "Consulta Desde Fecha"
+       SKIP(1)
+       with frame ing centered SIDE-LABELS overlay
+        title " Confirme Fecha Inicial "
+        width 40 three-d view-as dialog-box.
+
+  /********** Habilita radio buttons y botones 
+  enable radio_i      with frame ing.
+  enable b_aceptar    with frame ing.
+  enable b_salir      with frame ing.
+  **********/
+
+    /********** Cierre de Windows **********/
+    on window-close of frame ing do:
+      apply "END-ERROR" to frame ing.
+    end.
+    on "END-ERROR" of frame ing do:
+      hide frame ing.
+      leave.
+    end.
+
+    display
+        v_fechaini
+        with frame ing.
+
+    set v_fechaini
+        with frame ing.
+
+  RUN p_exportacion_excell_muestras.p (INPUT v_fechaini).
+
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&Scoped-define SELF-NAME BUTTON-34
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CONTROL BUTTON-34 W-Win
+ON CHOOSE OF BUTTON-34 IN FRAME F-Main /* Destinos Muestras */
+DO:
+  DEFINE VARIABLE hLib AS HANDLE     NO-UNDO.
+  DEFINE VARIABLE dDes AS DATE       NO-UNDO.
+  DEFINE VARIABLE dHas AS DATE       NO-UNDO.
+  DEFINE VARIABLE iSuc AS INTEGER    NO-UNDO.
+
+  DEFINE VARIABLE hLibCom AS HANDLE.
+  RUN libCommonFunctions.p PERSISTENT SET hLibCom.
+  hLib   = DYNAMIC-FUNCTION('getPersistentLib' IN hLibCom, 'libReportes.p'). 
+  DELETE OBJECT hLibCom.
+
+  RUN wdParams.w (OUTPUT iSuc,
+                  OUTPUT dDes, 
+                  OUTPUT dHas).
+
+  RUN destinatariosMuestras IN hLib (dDes, dHas).
+
+END.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&UNDEFINE SELF-NAME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK W-Win 
+
+
+/* ***************************  Main Block  *************************** */
+
+/* Include custom  Main Block code for SmartWindows. */
+{src/adm/template/windowmn.i}
+{custom/method/winitialize.i}
+{custom/method/ctitulo.i}
+run deshabilita_viewer.
+run habilitar_relacion_viewer.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-create-objects W-Win  _ADM-CREATE-OBJECTS
+PROCEDURE adm-create-objects :
+/*------------------------------------------------------------------------------
+  Purpose:     Create handles for all SmartObjects used in this procedure.
+               After SmartObjects are initialized, then SmartLinks are added.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE adm-current-page  AS INTEGER NO-UNDO.
+
+  RUN get-attribute IN THIS-PROCEDURE ('Current-Page':U).
+  ASSIGN adm-current-page = INTEGER(RETURN-VALUE).
+
+  CASE adm-current-page: 
+
+    WHEN 0 THEN DO:
+       RUN init-object IN THIS-PROCEDURE (
+             INPUT  '../industria/b_muestras_tuc.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'Layout = ':U ,
+             OUTPUT h_b_muestras_tuc ).
+       RUN set-position IN h_b_muestras_tuc ( 2.43 , 2.00 ) NO-ERROR.
+       RUN set-size IN h_b_muestras_tuc ( 5.95 , 124.00 ) NO-ERROR.
+
+       RUN init-object IN THIS-PROCEDURE (
+             INPUT  'custom/objects/cus-updsav.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'Edge-Pixels = 2,
+                     SmartPanelType = Save,
+                     AddFunction = Multiple-Records':U ,
+             OUTPUT h_cus-updsav ).
+       RUN set-position IN h_cus-updsav ( 9.57 , 63.00 ) NO-ERROR.
+       RUN set-size IN h_cus-updsav ( 1.67 , 36.00 ) NO-ERROR.
+
+       RUN init-object IN THIS-PROCEDURE (
+             INPUT  '../industria/b_items_muestras_tuc.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'Layout = ':U ,
+             OUTPUT h_b_items_muestras_tuc ).
+       RUN set-position IN h_b_items_muestras_tuc ( 9.81 , 2.00 ) NO-ERROR.
+       RUN set-size IN h_b_items_muestras_tuc ( 5.48 , 59.00 ) NO-ERROR.
+
+       RUN init-object IN THIS-PROCEDURE (
+             INPUT  '../industria/v_items_muestras_tuc.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'Layout = ':U ,
+             OUTPUT h_v_items_muestras_tuc ).
+       RUN set-position IN h_v_items_muestras_tuc ( 11.24 , 64.00 ) NO-ERROR.
+       /* Size in UIB:  ( 7.00 , 84.00 ) */
+
+       RUN init-object IN THIS-PROCEDURE (
+             INPUT  '../industria/b_r_muestras_protocolos.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'Layout = ':U ,
+             OUTPUT h_b_r_muestras_protocolos ).
+       RUN set-position IN h_b_r_muestras_protocolos ( 19.33 , 2.00 ) NO-ERROR.
+       RUN set-size IN h_b_r_muestras_protocolos ( 6.19 , 105.00 ) NO-ERROR.
+
+       RUN init-object IN THIS-PROCEDURE (
+             INPUT  'custom/objects/cus-misc.w':U ,
+             INPUT  FRAME F-Main:HANDLE ,
+             INPUT  'Edge-Pixels = 2,
+                     SmartPanelType = Misc-icon':U ,
+             OUTPUT h_cus-misc ).
+       RUN set-position IN h_cus-misc ( 24.33 , 129.00 ) NO-ERROR.
+       RUN set-size IN h_cus-misc ( 1.91 , 21.00 ) NO-ERROR.
+
+       /* Links to csmartbrowser h_b_items_muestras_tuc. */
+       RUN add-link IN adm-broker-hdl ( h_b_muestras_tuc , 'Record':U , h_b_items_muestras_tuc ).
+
+       /* Links to SmartViewer h_v_items_muestras_tuc. */
+       RUN add-link IN adm-broker-hdl ( h_b_items_muestras_tuc , 'Record':U , h_v_items_muestras_tuc ).
+       RUN add-link IN adm-broker-hdl ( h_cus-updsav , 'TableIO':U , h_v_items_muestras_tuc ).
+
+       /* Links to csmartbrowser h_b_r_muestras_protocolos. */
+       RUN add-link IN adm-broker-hdl ( h_b_items_muestras_tuc , 'Record':U , h_b_r_muestras_protocolos ).
+
+       /* Adjust the tab order of the smart objects. */
+       RUN adjust-tab-order IN adm-broker-hdl ( h_b_muestras_tuc ,
+             BUTTON-31:HANDLE IN FRAME F-Main , 'AFTER':U ).
+       RUN adjust-tab-order IN adm-broker-hdl ( h_cus-updsav ,
+             FILL-IN-2:HANDLE IN FRAME F-Main , 'AFTER':U ).
+       RUN adjust-tab-order IN adm-broker-hdl ( h_b_items_muestras_tuc ,
+             h_cus-updsav , 'AFTER':U ).
+       RUN adjust-tab-order IN adm-broker-hdl ( h_v_items_muestras_tuc ,
+             h_b_items_muestras_tuc , 'AFTER':U ).
+       RUN adjust-tab-order IN adm-broker-hdl ( h_b_r_muestras_protocolos ,
+             FILL-IN-3:HANDLE IN FRAME F-Main , 'AFTER':U ).
+       RUN adjust-tab-order IN adm-broker-hdl ( h_cus-misc ,
+             BUTTON-32:HANDLE IN FRAME F-Main , 'AFTER':U ).
+    END. /* Page 0 */
+
+  END CASE.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE adm-row-available W-Win  _ADM-ROW-AVAILABLE
+PROCEDURE adm-row-available :
+/*------------------------------------------------------------------------------
+  Purpose:     Dispatched to this procedure when the Record-
+               Source has a new row available.  This procedure
+               tries to get the new row (or foriegn keys) from
+               the Record-Source and process it.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+
+  /* Define variables needed by this internal procedure.             */
+  {src/adm/template/row-head.i}
+
+  /* Process the newly available records (i.e. display fields,
+     open queries, and/or pass records on to any RECORD-TARGETS).    */
+  {src/adm/template/row-end.i}
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE asigna-parametros W-Win 
+PROCEDURE asigna-parametros :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE consulta W-Win 
+PROCEDURE consulta :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define var lista_consultas as character no-undo.
+define var cresult as character no-undo.
+define var r as rowid no-undo.
+
+run devuelve-rowid (output r).
+
+if r = ? then
+do: 
+    message "No esta posicionado en ningun registro" view-as alert-box.
+    return.
+end.    
+
+if lista_consultas = "" then
+    message "No hay consultas disponibles" view-as alert-box.
+else
+    run custom/support/cfun.w(input lista_consultas,output cresult).
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE deshabilita_viewer W-Win 
+PROCEDURE deshabilita_viewer :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI W-Win  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Delete the WINDOW we created */
+  IF SESSION:DISPLAY-TYPE = "GUI":U AND VALID-HANDLE(W-Win)
+  THEN DELETE WIDGET W-Win.
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE enable_UI W-Win  _DEFAULT-ENABLE
+PROCEDURE enable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     ENABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we display/view/enable the widgets in the
+               user-interface.  In addition, OPEN all queries
+               associated with each FRAME and BROWSE.
+               These statements here are based on the "Other 
+               Settings" section of the widget Property Sheets.
+------------------------------------------------------------------------------*/
+  DISPLAY FILL-IN-1 FILL-IN-2 FILL-IN-3 
+      WITH FRAME F-Main IN WINDOW W-Win.
+  ENABLE BUTTON-16 BUTTON-33 BUTTON-34 BUTTON-1 BUTTON-2 BUTTON-15 BUTTON-32 
+      WITH FRAME F-Main IN WINDOW W-Win.
+  {&OPEN-BROWSERS-IN-QUERY-F-Main}
+  VIEW W-Win.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE get-deshabilitados-paleta W-Win 
+PROCEDURE get-deshabilitados-paleta :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter hprograma as handle no-undo.
+define output parameter estados as character no-undo.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE impresion W-Win 
+PROCEDURE impresion :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define var lista_reportes as character no-undo.
+define var cresult as character no-undo.
+define var r as rowid no-undo.
+
+run devuelve-rowid (output r).
+
+if r = ? then
+do: 
+    message "No esta posicionado en ningun registro" view-as alert-box.
+    return.
+end.    
+
+if lista_reportes = "" then
+    message "No hay reportes disponibles" view-as alert-box.
+else
+    run custom/support/cfun.w(input lista_reportes,output cresult).
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE local-exit W-Win 
+PROCEDURE local-exit :
+/* -----------------------------------------------------------
+  Purpose:  Starts an "exit" by APPLYing CLOSE event, which starts "destroy".
+  Parameters:  <none>
+  Notes:    If activated, should APPLY CLOSE, *not* dispatch adm-exit.   
+-------------------------------------------------------------*/
+   APPLY "CLOSE":U TO THIS-PROCEDURE.
+   
+   RETURN.
+       
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE post-copy W-Win 
+PROCEDURE post-copy :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter h as handle no-undo.
+
+alta = false.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE post-create W-Win 
+PROCEDURE post-create :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter h as handle. /* handle del viewer */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE post-delete W-Win 
+PROCEDURE post-delete :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter h as handle. /* handle del viewer */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE post-update W-Win 
+PROCEDURE post-update :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter r as rowid. /* rowid de la tabla updateada */
+define input parameter h as handle. /* handle del viewer */
+
+alta = false.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE pre-copy W-Win 
+PROCEDURE pre-copy :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter h as handle no-undo.
+alta = true.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE pre-create W-Win 
+PROCEDURE pre-create :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter h as handle. /* handle del viewer */
+alta = true.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE pre-delete W-Win 
+PROCEDURE pre-delete :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter r as rowid. /* rowid de la tabla updateada */
+define input parameter h as handle. /* handle del viewer */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE pre-update W-Win 
+PROCEDURE pre-update :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter r as rowid. /* rowid de la tabla updateada */
+define input parameter h as handle. /* handle del viewer */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE resetea-registro W-Win 
+PROCEDURE resetea-registro :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+define input parameter h as handle no-undo.
+
+alta = false.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE send-records W-Win  _ADM-SEND-RECORDS
+PROCEDURE send-records :
+/*------------------------------------------------------------------------------
+  Purpose:     Send record ROWID's for all tables used by
+               this file.
+  Parameters:  see template/snd-head.i
+------------------------------------------------------------------------------*/
+
+  /* SEND-RECORDS does nothing because there are no External
+     Tables specified for this SmartWindow, and there are no
+     tables specified in any contained Browse, Query, or Frame. */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE state-changed W-Win 
+PROCEDURE state-changed :
+/* -----------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+-------------------------------------------------------------*/
+  DEFINE INPUT PARAMETER p-issuer-hdl AS HANDLE NO-UNDO.
+  DEFINE INPUT PARAMETER p-state AS CHARACTER NO-UNDO.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+

@@ -1,0 +1,292 @@
+main>======================================================================
+main>(21-nov-03 03:29:23:609) f:\sistemas9\desarrollo\industria\asbroker1.broker.log opened.
+main>(21-nov-03 03:29:23:687) versión ubroker: v91D (09-Apr-02) (8038)
+L-3090>(21-nov-03 03:29:23:828) Comenzado el thread de escucha: L-3090 (8043)
+L-3090>installDir         : e:\Progress\dlc91d
+L-3090>properties file    : e:\Progress\dlc91d\properties\ubroker.properties
+L-3090>Broker             : asbroker1
+L-3090>serverType         : AS
+L-3090>Port Number        : 3090
+L-3090>Registration Mode  : Register-IP
+L-3090>Host Name          : 
+L-3090>minServers         : 1
+L-3090>maxServers         : 10
+L-3090>maxIdleServers     : 10
+L-3090>minIdleServers     : 1
+L-3090>initialServers     : 5
+L-3090>maxClients         : 512
+L-3090>serverMode         : State-reset
+L-3090>serverParms        : -pf f:\sistemas9\desarrollo\bin\cr_appsvr.pf
+L-3090>serverExe          : "e:\Progress\dlc91d\bin\_proapsv.exe"
+L-3090>queueLimit         : 0
+L-3090>broker logfile     : f:\sistemas9\desarrollo\industria\asbroker1.broker.log
+L-3090>server logfile     : f:\sistemas9\desarrollo\industria\asbroker1.server.log
+L-3090>brkrLoggingLevel   : 3 (0x3)
+L-3090>brkrLogAppend      : 1
+L-3090>brkrLogThreshold   : 0
+L-3090>brkrLogEntries     : 0
+L-3090>srvrLoggingLevel   : 3
+L-3090>srvrLogAppend      : 1
+L-3090>srvrLogThreshold   : 0
+L-3090>srvrLogEntries     : 0
+L-3090>rmiURL             : rmi://tucuman1:20931/asbroker1
+L-3090>controllingNS      : NS1
+L-3090>registerNameServer : true
+L-3090>NameServer host    : localhost
+L-3090>NameServer port    : 5162
+L-3090>uuid               : 932.99.999.XXX:1ee77e:cf3bbe3d33:-8000
+L-3090>priorityWeight     : 0
+L-3090>Nameserver Retry   : 30
+L-3090>defaultService     : true
+L-3090>applServices       : asbroker1
+L-3090>soTimeout          : 0
+L-3090>srvrStartupTimeout : 3000
+L-3090>requestTimeout     : 15000
+L-3090>connectingTimeout  : 60000
+L-3090>autoTrimTimeout    : 1800000
+L-3090>watchdoginterval   : 0
+L-3090>brokerPid          : 672
+L-3090>localHost          : 192.168.1.4
+L-3090>os.name            : Windows NT
+L-3090>os.version         : 4.0
+L-3090>java.version       : 1.3.0
+L-3090>java.class.path    : e:\Progress\dlc91d\jre\lib\rt.jar;e:\Progress\dlc91d\jre\lib\i18n.jar;e:\Progress\dlc91d\java\progress.jar;e:\Progress\dlc91d\java\messages.jar;;e:\Progress\dlc91d\java\sonicMQ\lib\sonic_Client.jar;e:\Progress\dlc91d\java\sonicMQ\lib\activation.jar
+L-3090>user.dir           : f:\sistemas9\desarrollo\industria
+L-3090>Arrancando 5 threads de servidor ... (8053)
+S-0001>(21-nov-03 03:29:23:921) Arrancado servidor de thread: S-0001. (8101)
+S-0002>(21-nov-03 03:29:24:015) Arrancado servidor de thread: S-0002. (8101)
+S-0003>(21-nov-03 03:29:24:125) Arrancado servidor de thread: S-0003. (8101)
+S-0004>(21-nov-03 03:29:24:218) Arrancado servidor de thread: S-0004. (8101)
+S-0005>(21-nov-03 03:29:24:328) Arrancado servidor de thread: S-0005. (8101)
+L-3090>Activando 5 threads de servidor ... (8054)
+S-0001>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 672 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 1 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\desarrollo\bin\cr_appsvr.pf (8108)
+S-0002>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 672 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 2 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\desarrollo\bin\cr_appsvr.pf (8108)
+S-0003>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 672 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 3 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\desarrollo\bin\cr_appsvr.pf (8108)
+S-0001>(21-nov-03 03:29:26:468) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0001>(21-nov-03 03:29:26:468) ERROR: no se puede arrancar el servidor. (8100)
+S-0001>(21-nov-03 03:29:26:468) Finalizando serverPool thread: S-0001. (8077)
+S-0004>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 672 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 4 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\desarrollo\bin\cr_appsvr.pf (8108)
+S-0002>(21-nov-03 03:29:27:453) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0002>(21-nov-03 03:29:27:453) ERROR: no se puede arrancar el servidor. (8100)
+S-0002>(21-nov-03 03:29:27:453) Finalizando serverPool thread: S-0002. (8077)
+S-0005>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 672 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 5 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\desarrollo\bin\cr_appsvr.pf (8108)
+S-0003>(21-nov-03 03:29:28:453) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0003>(21-nov-03 03:29:28:468) ERROR: no se puede arrancar el servidor. (8100)
+S-0003>(21-nov-03 03:29:28:468) Finalizando serverPool thread: S-0003. (8077)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+S-0004>(21-nov-03 03:29:29:453) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0004>(21-nov-03 03:29:29:453) ERROR: no se puede arrancar el servidor. (8100)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+S-0004>(21-nov-03 03:29:29:453) Finalizando serverPool thread: S-0004. (8077)
+S-0005>(21-nov-03 03:29:30:453) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0005>(21-nov-03 03:29:30:453) ERROR: no se puede arrancar el servidor. (8100)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+S-0005>(21-nov-03 03:29:30:468) Finalizando serverPool thread: S-0005. (8077)
+L-3090>(21-nov-03 03:29:30:468) asbroker1 puerto 3090 cerrado. (8065)
+L-3090>(21-nov-03 03:29:30:468) Desenlazando registro RMI ... (8066)
+L-3090>(21-nov-03 03:29:30:468) asbroker1 puerto 3090 cerrado. (8065)
+L-3090>NameServer mantener despierto al NameServer localhost:5162 : parado. (8064)
+L-3090>(21-nov-03 03:29:30:468) Desenlazando registro RMI ... (8066)
+L-3090>(21-nov-03 03:29:30:484) Excepción desconectando el broker (no conectado) : asbroker1 (8525)
+main>(21-nov-03 03:29:31:484) ubroker v91D (09-Apr-02) hecho. (8041)
+main>(21-nov-03 03:29:31:484) Log Closed
+main>======================================================================
+main>(21-nov-03 03:30:54:250) f:\sistemas9\desarrollo\industria\asbroker1.broker.log opened.
+main>(21-nov-03 03:30:54:343) versión ubroker: v91D (09-Apr-02) (8038)
+L-3090>(21-nov-03 03:30:54:468) Comenzado el thread de escucha: L-3090 (8043)
+L-3090>installDir         : e:\Progress\dlc91d
+L-3090>properties file    : e:\Progress\dlc91d\properties\ubroker.properties
+L-3090>Broker             : asbroker1
+L-3090>serverType         : AS
+L-3090>Port Number        : 3090
+L-3090>Registration Mode  : Register-IP
+L-3090>Host Name          : 
+L-3090>minServers         : 1
+L-3090>maxServers         : 10
+L-3090>maxIdleServers     : 10
+L-3090>minIdleServers     : 1
+L-3090>initialServers     : 5
+L-3090>maxClients         : 512
+L-3090>serverMode         : State-reset
+L-3090>serverParms        : -pf f:\sistemas9\bin\cr_appsvr.pf
+L-3090>serverExe          : "e:\Progress\dlc91d\bin\_proapsv.exe"
+L-3090>queueLimit         : 0
+L-3090>broker logfile     : f:\sistemas9\desarrollo\industria\asbroker1.broker.log
+L-3090>server logfile     : f:\sistemas9\desarrollo\industria\asbroker1.server.log
+L-3090>brkrLoggingLevel   : 3 (0x3)
+L-3090>brkrLogAppend      : 1
+L-3090>brkrLogThreshold   : 0
+L-3090>brkrLogEntries     : 0
+L-3090>srvrLoggingLevel   : 3
+L-3090>srvrLogAppend      : 1
+L-3090>srvrLogThreshold   : 0
+L-3090>srvrLogEntries     : 0
+L-3090>rmiURL             : rmi://tucuman1:20931/asbroker1
+L-3090>controllingNS      : NS1
+L-3090>registerNameServer : true
+L-3090>NameServer host    : localhost
+L-3090>NameServer port    : 5162
+L-3090>uuid               : 932.99.999.XXX:1ee77e:cf3bbe3d33:-8000
+L-3090>priorityWeight     : 0
+L-3090>Nameserver Retry   : 30
+L-3090>defaultService     : true
+L-3090>applServices       : asbroker1
+L-3090>soTimeout          : 0
+L-3090>srvrStartupTimeout : 3000
+L-3090>requestTimeout     : 15000
+L-3090>connectingTimeout  : 60000
+L-3090>autoTrimTimeout    : 1800000
+L-3090>watchdoginterval   : 0
+L-3090>brokerPid          : 698
+L-3090>localHost          : 192.168.1.4
+L-3090>os.name            : Windows NT
+L-3090>os.version         : 4.0
+L-3090>java.version       : 1.3.0
+L-3090>java.class.path    : e:\Progress\dlc91d\jre\lib\rt.jar;e:\Progress\dlc91d\jre\lib\i18n.jar;e:\Progress\dlc91d\java\progress.jar;e:\Progress\dlc91d\java\messages.jar;;e:\Progress\dlc91d\java\sonicMQ\lib\sonic_Client.jar;e:\Progress\dlc91d\java\sonicMQ\lib\activation.jar
+L-3090>user.dir           : f:\sistemas9\desarrollo\industria
+L-3090>Arrancando 5 threads de servidor ... (8053)
+S-0001>(21-nov-03 03:30:54:578) Arrancado servidor de thread: S-0001. (8101)
+S-0002>(21-nov-03 03:30:54:671) Arrancado servidor de thread: S-0002. (8101)
+S-0003>(21-nov-03 03:30:54:781) Arrancado servidor de thread: S-0003. (8101)
+S-0004>(21-nov-03 03:30:54:875) Arrancado servidor de thread: S-0004. (8101)
+S-0005>(21-nov-03 03:30:54:984) Arrancado servidor de thread: S-0005. (8101)
+L-3090>Activando 5 threads de servidor ... (8054)
+S-0001>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 698 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 1 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\bin\cr_appsvr.pf (8108)
+S-0002>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 698 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 2 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\bin\cr_appsvr.pf (8108)
+S-0003>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 698 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 3 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\bin\cr_appsvr.pf (8108)
+S-0004>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 698 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 4 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\bin\cr_appsvr.pf (8108)
+S-0001>(21-nov-03 03:30:58:406) Mensaje del servidor : Startup Procedure Failed (8113)
+S-0001>(21-nov-03 03:30:58:875) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0001>(21-nov-03 03:30:58:875) ERROR: no se puede arrancar el servidor. (8100)
+S-0001>(21-nov-03 03:30:58:875) Finalizando serverPool thread: S-0001. (8077)
+S-0005>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 698 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 5 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\bin\cr_appsvr.pf (8108)
+S-0002>(21-nov-03 03:30:59:390) Mensaje del servidor : Startup Procedure Failed (8113)
+S-0002>(21-nov-03 03:30:59:843) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0002>(21-nov-03 03:30:59:843) ERROR: no se puede arrancar el servidor. (8100)
+S-0002>(21-nov-03 03:30:59:843) Finalizando serverPool thread: S-0002. (8077)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+S-0003>(21-nov-03 03:31:00:390) Mensaje del servidor : Startup Procedure Failed (8113)
+S-0003>(21-nov-03 03:31:00:843) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0003>(21-nov-03 03:31:00:843) ERROR: no se puede arrancar el servidor. (8100)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+S-0003>(21-nov-03 03:31:00:843) Finalizando serverPool thread: S-0003. (8077)
+S-0004>(21-nov-03 03:31:01:390) Mensaje del servidor : Startup Procedure Failed (8113)
+S-0004>(21-nov-03 03:31:01:843) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0004>(21-nov-03 03:31:01:843) ERROR: no se puede arrancar el servidor. (8100)
+S-0004>(21-nov-03 03:31:01:843) Finalizando serverPool thread: S-0004. (8077)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+S-0005>(21-nov-03 03:31:02:390) Mensaje del servidor : Startup Procedure Failed (8113)
+S-0005>(21-nov-03 03:31:02:843) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0005>(21-nov-03 03:31:02:843) ERROR: no se puede arrancar el servidor. (8100)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+S-0005>(21-nov-03 03:31:02:843) Finalizando serverPool thread: S-0005. (8077)
+L-3090>(21-nov-03 03:31:02:843) asbroker1 puerto 3090 cerrado. (8065)
+L-3090>(21-nov-03 03:31:02:843) Desenlazando registro RMI ... (8066)
+L-3090>(21-nov-03 03:31:02:843) asbroker1 puerto 3090 cerrado. (8065)
+L-3090>NameServer mantener despierto al NameServer localhost:5162 : parado. (8064)
+L-3090>(21-nov-03 03:31:02:843) Desenlazando registro RMI ... (8066)
+L-3090>(21-nov-03 03:31:02:859) Excepción desconectando el broker (no conectado) : asbroker1 (8525)
+main>(21-nov-03 03:31:03:859) ubroker v91D (09-Apr-02) hecho. (8041)
+main>(21-nov-03 03:31:03:859) Log Closed
+main>======================================================================
+main>(21-nov-03 03:33:47:265) f:\sistemas9\desarrollo\industria\asbroker1.broker.log opened.
+main>(21-nov-03 03:33:47:343) versión ubroker: v91D (09-Apr-02) (8038)
+L-3090>(21-nov-03 03:33:47:484) Comenzado el thread de escucha: L-3090 (8043)
+L-3090>installDir         : e:\Progress\dlc91d
+L-3090>properties file    : e:\Progress\dlc91d\properties\ubroker.properties
+L-3090>Broker             : asbroker1
+L-3090>serverType         : AS
+L-3090>Port Number        : 3090
+L-3090>Registration Mode  : Register-IP
+L-3090>Host Name          : 
+L-3090>minServers         : 1
+L-3090>maxServers         : 10
+L-3090>maxIdleServers     : 10
+L-3090>minIdleServers     : 1
+L-3090>initialServers     : 5
+L-3090>maxClients         : 512
+L-3090>serverMode         : State-reset
+L-3090>serverParms        : -pf f:\sistemas9\bin\cr_appsvr.pf
+L-3090>serverExe          : "e:\Progress\dlc91d\bin\_proapsv.exe"
+L-3090>queueLimit         : 0
+L-3090>broker logfile     : f:\sistemas9\desarrollo\industria\asbroker1.broker.log
+L-3090>server logfile     : f:\sistemas9\desarrollo\industria\asbroker1.server.log
+L-3090>brkrLoggingLevel   : 3 (0x3)
+L-3090>brkrLogAppend      : 1
+L-3090>brkrLogThreshold   : 0
+L-3090>brkrLogEntries     : 0
+L-3090>srvrLoggingLevel   : 3
+L-3090>srvrLogAppend      : 1
+L-3090>srvrLogThreshold   : 0
+L-3090>srvrLogEntries     : 0
+L-3090>rmiURL             : rmi://tucuman1:20931/asbroker1
+L-3090>controllingNS      : NS1
+L-3090>registerNameServer : true
+L-3090>NameServer host    : localhost
+L-3090>NameServer port    : 5162
+L-3090>uuid               : 932.99.999.XXX:1ee77e:cf3bbe3d33:-8000
+L-3090>priorityWeight     : 0
+L-3090>Nameserver Retry   : 30
+L-3090>defaultService     : true
+L-3090>applServices       : asbroker1
+L-3090>soTimeout          : 0
+L-3090>srvrStartupTimeout : 3000
+L-3090>requestTimeout     : 15000
+L-3090>connectingTimeout  : 60000
+L-3090>autoTrimTimeout    : 1800000
+L-3090>watchdoginterval   : 0
+L-3090>brokerPid          : 694
+L-3090>localHost          : 192.168.1.4
+L-3090>os.name            : Windows NT
+L-3090>os.version         : 4.0
+L-3090>java.version       : 1.3.0
+L-3090>java.class.path    : e:\Progress\dlc91d\jre\lib\rt.jar;e:\Progress\dlc91d\jre\lib\i18n.jar;e:\Progress\dlc91d\java\progress.jar;e:\Progress\dlc91d\java\messages.jar;;e:\Progress\dlc91d\java\sonicMQ\lib\sonic_Client.jar;e:\Progress\dlc91d\java\sonicMQ\lib\activation.jar
+L-3090>user.dir           : f:\sistemas9\desarrollo\industria
+L-3090>Arrancando 5 threads de servidor ... (8053)
+S-0001>(21-nov-03 03:33:47:578) Arrancado servidor de thread: S-0001. (8101)
+S-0002>(21-nov-03 03:33:47:671) Arrancado servidor de thread: S-0002. (8101)
+S-0003>(21-nov-03 03:33:47:781) Arrancado servidor de thread: S-0003. (8101)
+S-0004>(21-nov-03 03:33:47:875) Arrancado servidor de thread: S-0004. (8101)
+S-0005>(21-nov-03 03:33:47:984) Arrancado servidor de thread: S-0005. (8101)
+L-3090>Activando 5 threads de servidor ... (8054)
+S-0001>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 694 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 1 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\bin\cr_appsvr.pf (8108)
+S-0002>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 694 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 2 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\bin\cr_appsvr.pf (8108)
+S-0003>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 694 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 3 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\bin\cr_appsvr.pf (8108)
+S-0001>(21-nov-03 03:33:50:421) Mensaje del servidor : Startup Procedure Failed (8113)
+S-0001>(21-nov-03 03:33:50:953) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0001>(21-nov-03 03:33:50:953) ERROR: no se puede arrancar el servidor. (8100)
+S-0001>(21-nov-03 03:33:50:968) Finalizando serverPool thread: S-0001. (8077)
+S-0004>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 694 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 4 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\bin\cr_appsvr.pf (8108)
+S-0002>(21-nov-03 03:33:51:406) Mensaje del servidor : Startup Procedure Failed (8113)
+S-0002>(21-nov-03 03:33:51:906) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0002>(21-nov-03 03:33:51:921) ERROR: no se puede arrancar el servidor. (8100)
+S-0002>(21-nov-03 03:33:51:921) Finalizando serverPool thread: S-0002. (8077)
+S-0005>Arrancado servidor: "e:\Progress\dlc91d\bin\_proapsv.exe" -ubpid 694 -Ms 1 -logname asbroker1 -logfile "f:\sistemas9\desarrollo\industria\asbroker1.server.log" -logginglevel 3 -logentrytypes 0 -ASID 5 -ubpropfile "e:\Progress\dlc91d\properties\ubroker.properties" -svrefresh  -pf f:\sistemas9\bin\cr_appsvr.pf (8108)
+S-0003>(21-nov-03 03:33:52:406) Mensaje del servidor : Startup Procedure Failed (8113)
+S-0003>(21-nov-03 03:33:52:906) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0003>(21-nov-03 03:33:52:921) ERROR: no se puede arrancar el servidor. (8100)
+S-0003>(21-nov-03 03:33:52:921) Finalizando serverPool thread: S-0003. (8077)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+S-0004>(21-nov-03 03:33:53:406) Mensaje del servidor : Startup Procedure Failed (8113)
+S-0004>(21-nov-03 03:33:53:921) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0004>(21-nov-03 03:33:53:921) ERROR: no se puede arrancar el servidor. (8100)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+S-0004>(21-nov-03 03:33:53:921) Finalizando serverPool thread: S-0004. (8077)
+S-0005>(21-nov-03 03:33:54:406) Mensaje del servidor : Startup Procedure Failed (8113)
+S-0005>(21-nov-03 03:33:54:921) IOException leyendo mensaje del servidor : java.io.EOFException: pipe to server broken (8117)
+S-0005>(21-nov-03 03:33:54:921) ERROR: no se puede arrancar el servidor. (8100)
+L-3090>recibida respuesta de error de administración: 2. (8067)
+S-0005>(21-nov-03 03:33:54:921) Finalizando serverPool thread: S-0005. (8077)
+L-3090>(21-nov-03 03:33:54:921) asbroker1 puerto 3090 cerrado. (8065)
+L-3090>(21-nov-03 03:33:54:921) Desenlazando registro RMI ... (8066)
+L-3090>(21-nov-03 03:33:54:921) asbroker1 puerto 3090 cerrado. (8065)
+L-3090>NameServer mantener despierto al NameServer localhost:5162 : parado. (8064)
+L-3090>(21-nov-03 03:33:54:921) Desenlazando registro RMI ... (8066)
+L-3090>(21-nov-03 03:33:54:937) Excepción desconectando el broker (no conectado) : asbroker1 (8525)
+main>(21-nov-03 03:33:55:937) ubroker v91D (09-Apr-02) hecho. (8041)
+main>(21-nov-03 03:33:55:937) Log Closed

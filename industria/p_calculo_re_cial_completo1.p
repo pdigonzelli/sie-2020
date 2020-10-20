@@ -1,0 +1,121 @@
+DEFINE INPUT PARAMETER p_cliente AS INTEGER.
+DEFINE INPUT PARAMETER p_fecha AS DATE.
+DEFINE INPUT PARAMETER v_semana_desde as integer.
+DEFINE INPUT PARAMETER v_anio_desde as integer.
+DEFINE INPUT PARAMETER v_semana_hasta as integer.
+DEFINE INPUT PARAMETER v_anio_hasta as integer.
+
+DEFINE VAR v_importe_fac AS DECIMAL.
+DEFINE VAR v_importe_item_fac AS DECIMAL.
+DEFINE VAR v_cantidad_contratos AS DECIMAL.
+DEFINE VAR v_importe_comision AS DECIMAL.
+DEFINE VAR v_porc_comision AS DECIMAL.
+DEFINE VAR v_cantidad_pl AS DECIMAL.
+DEFINE VAR v_factura AS CHAR.
+DEFINE VAR v_item_fac AS INTEGER.
+DEFINE VAR v_lotes AS CHAR.
+DEFINE VAR v_kilos_lotes AS DECIMAL.
+DEFINE VAR v_nro_pack_list AS CHAR.
+DEFINE VAR v_fecha_fac AS DATE.
+DEFINE VAR v_fecha_vto AS DATE.
+DEFINE VAR v_valor_fob AS DECIMAL.
+DEFINE VAR gall         AS DECIMAL.
+DEFINE VAR gallx        AS DECIMAL.
+DEFINE VAR v_kilos_envase AS DECIMAL.
+DEFINE VAR v_nro_contenedor AS CHAR.
+DEFINE VAR tiempo AS INTEGER.
+DEFINE VAR tiene-oe AS LOGICAL INITIAL FALSE.
+
+DEFINE VARIABLE hLibCom  AS HANDLE     NO-UNDO.
+DEFINE VARIABLE cFec     AS CHARACTER  NO-UNDO.
+DEFINE VARIABLE dFec1    AS DATE       NO-UNDO.
+DEFINE VARIABLE dFec2    AS DATE       NO-UNDO.
+
+
+FOR EACH re_cial_completo.
+    DELETE re_cial_completo.
+END.
+
+/*cambiar, que no filtre por semana, sino que extraiga las fechas rango de cada semana y que filtre con eso.*/
+RUN libCommonFunctions.p PERSISTENT SET hLibCom.
+
+cFec = DYNAMIC-FUNCTION('getFechasSemana' IN hLibCom, v_semana_desde, v_anio_desde).
+IF cFec NE ',' THEN DO:
+  ASSIGN dFec1 = DATE(ENTRY(1, cFec)).
+END.
+cFec = DYNAMIC-FUNCTION('getFechasSemana' IN hLibCom, v_semana_hasta, v_anio_hasta).
+IF cFec NE ',' THEN DO:
+  ASSIGN dFec2 = DATE(ENTRY(2, cFec)).
+END.
+
+
+IF (v_semana_desde > 0 AND v_semana_desde < 53) AND
+   (v_semana_hasta > 0 AND v_semana_hasta < 53) THEN DO:
+    IF v_anio_desde = v_anio_hasta THEN DO:
+        FOR EACH items_contratos NO-LOCK 
+                                 WHERE /*items_contratos.semana_entrega >= v_semana_desde
+                                   AND items_contratos.semana_entrega <= v_semana_hasta
+                                   AND items_contratos.anio_semana_entrega = v_anio_desde*/
+                                       items_contratos.c_fecha >= dFec1
+                                   AND items_contratos.c_fecha <= dFec2
+                                   AND items_contratos.id_tipo_contrato < 100
+                                   AND items_contratos.c_fecha >= p_fecha
+                                 BY items_contratos.anio_semana_entrega
+                                 BY items_contratos.semana_entrega
+                                 BY items_contratos.semana_entrega_hasta.
+
+            RUN prog-incluido.
+        END.
+    END.
+    ELSE DO:
+        FOR EACH items_contratos NO-LOCK  
+                                 WHERE /*((items_contratos.semana_entrega >= v_semana_desde
+                                     AND items_contratos.anio_semana_entrega = v_anio_desde) 
+                                   OR (items_contratos.semana_entrega <= v_semana_hasta
+                                    AND items_contratos.anio_semana_entrega = v_anio_hasta))*/
+                                       items_contratos.c_fecha >= dFec1
+                                   AND items_contratos.c_fecha <= dFec2
+                                   AND items_contratos.id_tipo_contrato < 100
+                                   AND items_contratos.c_fecha >= p_fecha
+                                 BY items_contratos.anio_semana_entrega
+                                 BY items_contratos.semana_entrega
+                                 BY items_contratos.semana_entrega_hasta.
+            
+            RUN prog-incluido.
+        END.
+    END.    
+END.
+ELSE DO:
+    FOR EACH items_contratos NO-LOCK WHERE items_contratos.id_tipo_contrato < 100
+                                       AND items_contratos.c_fecha >= p_fecha
+                         BY items_contratos.anio_semana_entrega
+                         BY items_contratos.semana_entrega
+                         BY items_contratos.semana_entrega_hasta.
+    
+        RUN prog-incluido.
+    END.
+END.
+
+PROCEDURE prog-incluido:
+    {..\industria\i_cal_re_cial_completo1_inc.i}
+END.
+
+/*control de repetidos 11/09/2006*/
+DEFINE VARIABLE cCon AS CHARACTER  NO-UNDO.
+DEFINE VARIABLE iPte AS INTEGER    NO-UNDO.
+
+
+FOR EACH re_cial_completo 
+      BY re_cial_completo.id_contrato BY re_cial_completo.ITEM.
+
+  IF cCon = re_cial_completo.id_contrato AND iPte = re_cial_completo.ITEM THEN DO: /*repetido*/
+    /*DISP id_contrato ITEM.*/
+    DELETE re_cial_completo.
+    NEXT.
+  END.
+
+  ASSIGN cCon = re_cial_completo.id_contrato
+         iPte = re_cial_completo.ITEM.
+END.
+
+

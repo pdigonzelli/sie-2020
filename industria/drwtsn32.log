@@ -1,0 +1,1109 @@
+
+Microsoft (R) Windows NT (TM) Version 4.00 DrWtsn32
+Copyright (C) 1985-1996 Microsoft Corp. All rights reserved.
+
+
+
+Application exception occurred:
+        App: \\ruddles/i_83b_nt/83b/nt/patch/18c/work/rx.exe (pid=1904)
+        When: 2/3/2003 @ 19:21:33.968
+        Exception number: c0000005 (access violation)
+
+*----> System Information <----*
+        Computer Name: META0
+        User Name: quimicosfam
+        Number of Processors: 2
+        Processor Type: x86 Family 6 Model 8 Stepping 6
+        Windows Version: 4.0
+        Current Build: 1381
+        Current Type: Multiprocessor Free
+        Registered Organization: S.A. San Miguel A.G.I.C y F
+        Registered Owner: S.A. San Miguel A.G.I.C y F
+
+*----> Task List <----*
+   0 Idle.exe
+   2 System.exe
+  42 SMSS.exe
+  50 CSRSS.exe
+  57 WINLOGON.exe
+  49 SERVICES.exe
+  65 LSASS.exe
+  89 RPCSS.exe
+  95 LEXBCES.exe
+ 103 SPOOLSS.exe
+ 105 LEXPPS.exe
+ 187 admsrvc.exe
+ 200 jview.exe
+ 206 cdmsvc.exe
+ 212 ctxxmlss.exe
+ 217 ENCSVC.exe
+ 222 LLSSRV.exe
+ 226 PSTORES.exe
+ 238 mstask.exe
+ 246 TERMSRV.exe
+ 259 LSERVER.exe
+ 267 ibrowser.exe
+ 271 pnsvc.exe
+ 359 jre.exe
+ 859 NDDEAGNT.exe
+ 964 EXPLORER.exe
+1069 NTACMON.exe
+1077 LOADWC.exe
+1024 icabar.exe
+ 869 FINDFAST.exe
+1348 OSA.exe
+1452 mfadmin.exe
+1601 appcfg.exe
+1928 CSRSS.exe
+ 756 WINLOGON.exe
+1802 SeMain20.exe
+2018 USERINIT.exe
+1774 NDDEAGNT.exe
+ 915 wfshell.exe
+1575 prowin32.exe
+1747 prowin32.exe
+1289 SpntSvc.exe
+2070 prowin32.exe
+1720 CSRSS.exe
+1527 WINLOGON.exe
+2043 prowin32.exe
+ 797 SeMain20.exe
+1425 USERINIT.exe
+1868 NDDEAGNT.exe
+1027 wfshell.exe
+1994 prowin32.exe
+1337 CSRSS.exe
+ 777 WINLOGON.exe
+ 539 SeMain20.exe
+ 983 USERINIT.exe
+1098 NDDEAGNT.exe
+1495 wfshell.exe
+1057 prowin32.exe
+1794 CSRSS.exe
+1529 WINLOGON.exe
+1665 prowin32.exe
+ 632 CSRSS.exe
+2062 WINLOGON.exe
+1667 SeMain20.exe
+2011 NDDEAGNT.exe
+ 520 wfshell.exe
+1520 EXCEL.exe
+1220 EXCEL.exe
+  81 EXCEL.exe
+1846 EXCEL.exe
+1423 EXCEL.exe
+ 503 SeMain20.exe
+ 801 USERINIT.exe
+ 588 NDDEAGNT.exe
+1155 wfshell.exe
+1125 prowin32.exe
+1786 EXCEL.exe
+ 694 NTVDM.exe
+1988 prowin32.exe
+1176 CSRSS.exe
+1980 WINLOGON.exe
+1323 CSRSS.exe
+1972 WINLOGON.exe
+1813 CSRSS.exe
+ 748 WINLOGON.exe
+1393 SeMain20.exe
+1105 USERINIT.exe
+ 653 NDDEAGNT.exe
+1041 wfshell.exe
+1893 prowin32.exe
+1862 OUTLOOK.exe
+1904 prowin32.exe
+2065 DRWTSN32.exe
+   0 _Total.exe
+
+(00400000 - 00827000) \\ruddles/i_83b_nt/83b/nt/patch/18c/work/rx.exe
+(77f60000 - 77fbf000) dll\ntdll.dbg
+(77ef0000 - 77f58000) dll\kernel32.dbg
+(71590000 - 71617000) COMCTL32.dbg
+(77ec0000 - 77eec000) dll\gdi32.dbg
+(77e60000 - 77eb2000) dll\user32.dbg
+(77da0000 - 77de4000) dll\advapi32.dbg
+(70520000 - 70574000) dll\rpcrt4.dbg
+(73940000 - 7394c000) dll\winsta.dbg
+(4cc80000 - 4cc9c000) drv\winspool.dbg
+(777e0000 - 7781a000) dll\netapi32.dbg
+(78000000 - 78040000) 
+(77820000 - 77829000) dll\NetRap.dbg
+(777c0000 - 777cd000) dll\samlib.dbg
+(77d60000 - 77d93000) dll\comdlg32.dbg
+(77c20000 - 77d60000) dll\shell32.dbg
+(5f400000 - 5f4f2000) 
+(65f00000 - 65fb1000) dll\ole32.dbg
+(703f0000 - 70485000) oleaut32.dbg
+(3fa60000 - 3fa6e000) dll\zlc_api.dbg
+(3fb60000 - 3fb6a000) dll\sehook20.dbg
+(77e00000 - 77e07000) dll\rpcltc1.dbg
+(776b0000 - 776b8000) dll\wsock32.dbg
+(77690000 - 776a4000) dll\ws2_32.dbg
+(77680000 - 77687000) dll\ws2help.dbg
+(743a0000 - 743ae000) dll\rnr20.dbg
+(77640000 - 7764f000) dll\msafd.dbg
+(77670000 - 77679000) dll\wshtcpip.dbg
+(10000000 - 10000000) 
+(704f0000 - 70519000) olepro32.dbg
+(27580000 - 27685000) mscomctl.dbg
+
+State Dump for Thread Id 0x3cc
+
+eax=20202020 ebx=7ffdf000 ecx=20202020 edx=01f76000 esi=00133633 edi=00000000
+eip=00650993 esp=0012fca4 ebp=0012fccc iopl=0         nv up ei ng nz na po cy
+cs=001b  ss=0023  ds=0023  es=0023  fs=0038  gs=0000             efl=00000287
+
+
+function: umFrmClassDisableAll
+        00650965 39481c           cmp     [eax+0x1c],ecx         ds:21550a26=????????
+        00650968 0f850a000000     jne     umFrmClassDisableAll+0x51 (00650978)
+        0065096e 837df400         cmp    dword ptr [ebp-0xc],0x0 ss:0147e6d2=????????
+        00650972 0f84c0000000     je      umFrmClassDisableAll+0x111 (00650a38)
+        00650978 8b45fc           mov     eax,[ebp-0x4]          ss:0147e6d2=????????
+        0065097b 3945e8           cmp     [ebp-0x18],eax         ss:0147e6d2=????????
+        0065097e 0f850c000000     jne     umFrmClassDisableAll+0x69 (00650990)
+        00650984 c745f400000000   mov    dword ptr [ebp-0xc],0x0 ss:0147e6d2=????????
+        0065098b e9c7ffffff       jmp     umFrmClassDisableAll+0x30 (00650957)
+        00650990 8b45fc           mov     eax,[ebp-0x4]          ss:0147e6d2=????????
+FAULT ->00650993 f6403402         test    byte ptr [eax+0x34],0x2      ds:21550a26=??
+        00650997 0f8505000000     jne     umFrmClassDisableAll+0x7b (006509a2)
+        0065099d e9b5ffffff       jmp     umFrmClassDisableAll+0x30 (00650957)
+        006509a2 8b45fc           mov     eax,[ebp-0x4]          ss:0147e6d2=????????
+        006509a5 83c064           add     eax,0x64
+        006509a8 8945ec           mov     [ebp-0x14],eax         ss:0147e6d2=????????
+        006509ab 8b45ec           mov     eax,[ebp-0x14]         ss:0147e6d2=????????
+        006509ae 8b00             mov     eax,[eax]              ds:20202020=????????
+        006509b0 8945f0           mov     [ebp-0x10],eax         ss:0147e6d2=????????
+        006509b3 e908000000       jmp     umFrmClassDisableAll+0x99 (006509c0)
+        006509b8 8b45f0           mov     eax,[ebp-0x10]         ss:0147e6d2=????????
+        006509bb 8b00             mov     eax,[eax]              ds:20202020=????????
+
+*----> Stack Back Trace <----*
+
+FramePtr ReturnAd Param#1  Param#2  Param#3  Param#4  Function Name
+0012fccc 00642fa1 01f76fa0 00000000 00133633 7ffdf000 rx!umFrmClassDisableAll 
+0012fd00 00642dbd 01f13864 01f2b878 00000000 00133633 rx!ioDeallocFrame 
+0012fd24 007502f9 01f2b878 00000000 00133633 7ffdf000 rx!ioDeallocMainProc 
+0012fd48 005ab128 014cbb70 0336b818 00000000 00000000 rx!rnWhackProcedure 
+0012fd74 00599c93 00000000 00133633 7ffdf000 ffffffff rx!rnpopproc 
+0012fdbc 005aacc3 00000000 00133633 7ffdf000 02019884 rx!rniproc_retn 
+0012fdd4 0063bf7b 00000000 00133633 7ffdf000 00000004 rx!rninterpret 
+0012fe64 0050801e 00000000 00000000 00000000 00000000 rx!umeDispatchEvent 
+0012fea4 007459a4 0148f04c 00000000 00133633 7ffdf000 rx!wwRunDispatcher 
+0012febc 00427447 00000000 00133633 7ffdf000 00000002 rx!iodispatch 
+0012fed4 0040b4e2 01cca5b4 00000000 00133633 7ffdf000 rx!rnrq 
+0012ff10 004552f6 00000009 014901a0 00000000 00133633 rx!drmain 
+0012ff2c 0077be6e 00400000 00000000 00133633 00000009 rx!WinMain 
+0012ffc0 77f11b93 00000000 00000000 7ffdf000 c0000005 rx!WinMainCRTStartup 
+0012fff0 00000000 0077bd10 00000000 000000b0 00000100 kernel32!GetProcessPriorityBoost 
+00000000 00000000 00000000 00000000 00000000 00000000 rx!<nosymbols> 
+
+*----> Raw Stack Dump <----*
+0012fca4  00 00 00 00 33 36 13 00 - 00 f0 fd 7f 9c fc 12 00  ....36..........
+0012fcb4  04 70 f7 01 b0 ff 12 00 - 00 20 f3 77 01 00 00 00  .p....... .w....
+0012fcc4  04 70 f7 01 20 20 20 20 - 00 fd 12 00 a1 2f 64 00  .p..    ...../d.
+0012fcd4  a0 6f f7 01 00 00 00 00 - 33 36 13 00 00 f0 fd 7f  .o......36......
+0012fce4  00 00 00 00 00 00 00 00 - 00 00 00 00 a0 6f f7 01  .............o..
+0012fcf4  00 20 f3 77 04 70 f7 01 - a0 38 f1 01 24 fd 12 00  . .w.p...8..$...
+0012fd04  bd 2d 64 00 64 38 f1 01 - 78 b8 f2 01 00 00 00 00  .-d.d8..x.......
+0012fd14  33 36 13 00 00 f0 fd 7f - 64 38 f1 01 18 b8 36 03  36......d8....6.
+0012fd24  48 fd 12 00 f9 02 75 00 - 78 b8 f2 01 00 00 00 00  H.....u.x.......
+0012fd34  33 36 13 00 00 f0 fd 7f - 00 f0 fd 7f b0 ff 12 00  36..............
+0012fd44  00 00 00 00 74 fd 12 00 - 28 b1 5a 00 70 bb 4c 01  ....t...(.Z.p.L.
+0012fd54  18 b8 36 03 00 00 00 00 - 00 00 00 00 00 00 00 00  ..6.............
+0012fd64  33 36 13 00 00 f0 fd 7f - 18 b8 36 03 90 22 4b 01  36........6.."K.
+0012fd74  bc fd 12 00 93 9c 59 00 - 00 00 00 00 33 36 13 00  ......Y.....36..
+0012fd84  00 f0 fd 7f ff ff ff ff - 00 00 00 00 00 36 13 00  .............6..
+0012fd94  00 f0 fd 7f 14 66 e9 01 - 48 66 e9 01 00 00 00 00  .....f..Hf......
+0012fda4  00 00 00 00 00 00 00 00 - dc d1 3a 03 00 00 00 00  ..........:.....
+0012fdb4  cc d2 4c 01 cc d2 4c 01 - d4 fd 12 00 c3 ac 5a 00  ..L...L.......Z.
+0012fdc4  00 00 00 00 33 36 13 00 - 00 f0 fd 7f 84 98 01 02  ....36..........
+0012fdd4  64 fe 12 00 7b bf 63 00 - 00 00 00 00 33 36 13 00  d...{.c.....36..
+
+State Dump for Thread Id 0x6af
+
+eax=00000120 ebx=02f0ff24 ecx=000000fc edx=00000000 esi=02f0ff2c edi=00000001
+eip=77f68603 esp=02f0ff00 ebp=02f0ff54 iopl=0         nv up ei pl nz ac pe cy
+cs=001b  ss=0023  ds=0023  es=0023  fs=0038  gs=0000             efl=00000213
+
+
+function: NtWaitForMultipleObjects
+        77f685f8 b8c4000000       mov     eax,0xc4
+        77f685fd 8d542404         lea     edx,[esp+0x4]          ss:0425e907=????????
+        77f68601 cd2e             int     2e
+        77f68603 c21400           ret     0x14
+        77f68606 8bc0             mov     eax,eax
+
+*----> Stack Back Trace <----*
+
+FramePtr ReturnAd Param#1  Param#2  Param#3  Param#4  Function Name
+02f0ff54 77f132b3 00000002 02f0ff98 00000000 ffffffff ntdll!NtWaitForMultipleObjects 
+02f0ff70 70403f41 00000002 02f0ff98 00000000 ffffffff kernel32!WaitForMultipleObjects 
+77f1329d 1475ff00 ff1075ff 75ff0c75 0004e808 c25d0000 oleaut32!VarI1FromBool 
+
+*----> Raw Stack Dump <----*
+02f0ff00  a6 33 f1 77 02 00 00 00 - 24 ff f0 02 01 00 00 00  .3.w....$.......
+02f0ff10  00 00 00 00 00 00 00 00 - 04 01 00 00 20 01 00 00  ............ ...
+02f0ff20  11 af db 77 fc 00 00 00 - 20 01 00 00 01 00 00 00  ...w.... .......
+02f0ff30  17 00 01 00 80 ad 2a f7 - 7b af db 77 04 01 00 00  ......*.{..w....
+02f0ff40  20 01 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00   ...............
+02f0ff50  00 00 00 00 70 ff f0 02 - b3 32 f1 77 02 00 00 00  ....p....2.w....
+02f0ff60  98 ff f0 02 00 00 00 00 - ff ff ff ff 00 00 00 00  ................
+02f0ff70  9d 32 f1 77 41 3f 40 70 - 02 00 00 00 98 ff f0 02  .2.wA?@p........
+02f0ff80  00 00 00 00 ff ff ff ff - 00 00 00 00 00 00 00 00  ................
+02f0ff90  ec ff f0 02 00 00 00 00 - fc 00 00 00 20 01 00 00  ............ ...
+02f0ffa0  b0 9a 26 82 8c 99 26 82 - 48 8f 11 80 04 9a 26 82  ..&...&.H.....&.
+02f0ffb0  20 99 26 82 80 9a 26 82 - e7 93 f6 77 54 4f ef 77   .&...&....wTO.w
+02f0ffc0  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+02f0ffd0  00 00 00 00 c4 ff f0 02 - 00 00 00 00 ff ff ff ff  ................
+02f0ffe0  00 20 f3 77 a8 4f f3 77 - 00 00 00 00 00 00 00 00  . .w.O.w........
+02f0fff0  00 00 00 00 d6 3e 40 70 - 00 00 00 00 00 00 00 00  .....>@p........
+02f10000  20 50 00 00 00 00 00 00 - 68 08 00 00 21 00 00 00   P......h...!...
+02f10010  00 00 00 00 0d 00 00 00 - 28 08 00 00 01 00 00 00  ........(.......
+02f10020  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+02f10030  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+
+
+
+Application exception occurred:
+        App: Y:/vobs_prgs/nt/dlcbld/bin/rx.exe (pid=1016)
+        When: 3/19/2003 @ 19:32:50.984
+        Exception number: c0000005 (access violation)
+
+*----> System Information <----*
+        Computer Name: META0
+        User Name: quimicosfam
+        Number of Processors: 2
+        Processor Type: x86 Family 6 Model 8 Stepping 6
+        Windows Version: 4.0
+        Current Build: 1381
+        Current Type: Multiprocessor Free
+        Registered Organization: S.A. San Miguel A.G.I.C y F
+        Registered Owner: S.A. San Miguel A.G.I.C y F
+
+*----> Task List <----*
+   0 Idle.exe
+   2 System.exe
+  42 SMSS.exe
+  50 CSRSS.exe
+  57 WINLOGON.exe
+  49 SERVICES.exe
+  65 LSASS.exe
+  89 RPCSS.exe
+  84 LEXBCES.exe
+ 102 SPOOLSS.exe
+ 104 LEXPPS.exe
+ 190 admsrvc.exe
+ 194 jview.exe
+ 197 cdmsvc.exe
+ 202 ctxxmlss.exe
+ 207 ENCSVC.exe
+ 212 LLSSRV.exe
+ 217 PSTORES.exe
+ 222 mstask.exe
+ 230 TERMSRV.exe
+ 243 LSERVER.exe
+ 251 ibrowser.exe
+ 255 pnsvc.exe
+ 340 jre.exe
+ 359 NDDEAGNT.exe
+  79 EXPLORER.exe
+ 187 NTACMON.exe
+  92 LOADWC.exe
+ 350 icabar.exe
+ 362 FINDFAST.exe
+ 368 OSA.exe
+1965 appcfg.exe
+1546 CMD.exe
+1459 NTVDM.exe
+1736 Remind32.exe
+1297 mfadmin.exe
+ 883 CSRSS.exe
+1468 WINLOGON.exe
+1449 SeMain20.exe
+1335 USERINIT.exe
+1882 NDDEAGNT.exe
+ 527 wfshell.exe
+ 797 prowin32.exe
+ 814 SpntSvc.exe
+1820 CSRSS.exe
+1746 WINLOGON.exe
+1008 SeMain20.exe
+ 723 USERINIT.exe
+1967 NDDEAGNT.exe
+1696 wfshell.exe
+1224 prowin32.exe
+1925 CSRSS.exe
+1792 WINLOGON.exe
+1685 SeMain20.exe
+1201 NDDEAGNT.exe
+1597 wfshell.exe
+1443 EXPLORER.exe
+1773 FINDFAST.exe
+ 435 OSA.exe
+1636 Remind32.exe
+1293 CSRSS.exe
+1606 WINLOGON.exe
+1809 SeMain20.exe
+1572 USERINIT.exe
+ 985 NDDEAGNT.exe
+1627 wfshell.exe
+ 460 prowin32.exe
+1315 CSRSS.exe
+ 482 WINLOGON.exe
+1772 SeMain20.exe
+1426 NDDEAGNT.exe
+1566 wfshell.exe
+1232 CSRSS.exe
+1432 WINLOGON.exe
+ 764 SeMain20.exe
+ 690 USERINIT.exe
+1373 NDDEAGNT.exe
+1405 wfshell.exe
+1189 prowin32.exe
+1024 prore32.exe
+1276 CSRSS.exe
+ 995 WINLOGON.exe
+ 707 SeMain20.exe
+ 603 USERINIT.exe
+1186 NDDEAGNT.exe
+ 968 wfshell.exe
+ 490 prowin32.exe
+1573 prowin32.exe
+1408 CSRSS.exe
+ 377 WINLOGON.exe
+ 790 SeMain20.exe
+1751 USERINIT.exe
+1050 NDDEAGNT.exe
+1416 wfshell.exe
+ 389 prowin32.exe
+1738 CSRSS.exe
+1194 WINLOGON.exe
+1298 CSRSS.exe
+ 724 WINLOGON.exe
+ 666 SeMain20.exe
+1136 USERINIT.exe
+1002 NDDEAGNT.exe
+ 903 wfshell.exe
+1855 prowin32.exe
+1651 CSRSS.exe
+ 437 WINLOGON.exe
+ 777 SeMain20.exe
+1787 USERINIT.exe
+1135 NDDEAGNT.exe
+1157 wfshell.exe
+1391 prowin32.exe
+ 557 prowin32.exe
+1216 SeMain20.exe
+1737 USERINIT.exe
+ 905 NDDEAGNT.exe
+1334 wfshell.exe
+ 791 prowin32.exe
+ 678 CSRSS.exe
+1143 WINLOGON.exe
+2000 SeMain20.exe
+2019 NDDEAGNT.exe
+2021 wfshell.exe
+1359 CSRSS.exe
+1985 WINLOGON.exe
+ 934 SeMain20.exe
+ 455 USERINIT.exe
+2157 NDDEAGNT.exe
+2125 wfshell.exe
+2133 prowin32.exe
+2166 CSRSS.exe
+2047 WINLOGON.exe
+1699 appcfg.exe
+2106 prowin32.exe
+1911 CSRSS.exe
+1600 WINLOGON.exe
+1889 NTVDM.exe
+1975 DRWTSN32.exe
+1166 prowin32.exe
+1016 prowin32.exe
+1533 DRWTSN32.exe
+   0 _Total.exe
+
+(00400000 - 00404000) Y:/vobs_prgs/nt/dlcbld/bin/rx.exe
+(77f60000 - 77fbf000) dll\ntdll.dbg
+(10000000 - 10488000) Y:/vobs_prgs/nt/dlcbld/bin/prow32.dll
+(78000000 - 78040000) 
+(77ef0000 - 77f58000) dll\kernel32.dbg
+(00230000 - 00230000) 
+(77e60000 - 77eb2000) dll\user32.dbg
+(77ec0000 - 77eec000) dll\gdi32.dbg
+(77da0000 - 77de4000) dll\advapi32.dbg
+(70520000 - 70574000) dll\rpcrt4.dbg
+(73940000 - 7394c000) dll\winsta.dbg
+(77c20000 - 77d60000) dll\shell32.dbg
+(71590000 - 71617000) COMCTL32.dbg
+(77d60000 - 77d93000) dll\comdlg32.dbg
+(776b0000 - 776b8000) dll\wsock32.dbg
+(77690000 - 776a4000) dll\ws2_32.dbg
+(77680000 - 77687000) dll\ws2help.dbg
+(4cc80000 - 4cc9c000) drv\winspool.dbg
+(5f400000 - 5f4f2000) 
+(65f00000 - 65fb1000) dll\ole32.dbg
+(703f0000 - 70485000) oleaut32.dbg
+(70200000 - 70271000) WININET.dbg
+(70bd0000 - 70c14000) SHLWAPI.dbg
+(3fa60000 - 3fa6e000) dll\zlc_api.dbg
+(3fb60000 - 3fb6a000) dll\sehook20.dbg
+(77e00000 - 77e07000) dll\rpcltc1.dbg
+(01480000 - 01480000) 
+(764d0000 - 764d5000) dll\imm32.dbg
+(743a0000 - 743ae000) dll\rnr20.dbg
+(77640000 - 7764f000) dll\msafd.dbg
+(77670000 - 77679000) dll\wshtcpip.dbg
+(019e0000 - 019e0000) 
+(10680000 - 10680000) 
+(01c50000 - 01c50000) 
+(704f0000 - 70519000) olepro32.dbg
+(27580000 - 27685000) mscomctl.dbg
+(764e0000 - 764fd000) dll\imagehlp.dbg
+
+State Dump for Thread Id 0x64d
+
+eax=00000091 ebx=00000000 ecx=00000003 edx=ffffffff esi=00133c23 edi=00000000
+eip=10097d6f esp=0012fa74 ebp=0012fac0 iopl=0         nv up ei pl nz na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=0038  gs=0000             efl=00000202
+
+
+function: profldx
+        10097d50 85c0             test    eax,eax
+        10097d52 740c             jz      profldx+0xba (10097d60)
+        10097d54 668b4518         mov     ax,[ebp+0x18]              ss:0147e4c7=0000
+        10097d58 660d0080         or      ax,0x8000
+        10097d5c 66894518         mov     [ebp+0x18],ax              ss:0147e4c7=0000
+        10097d60 8b4508           mov     eax,[ebp+0x8]          ss:0147e4c6=00000000
+        10097d63 83783c00         cmp   dword ptr [eax+0x3c],0x0 ds:0134ea97=????????
+        10097d67 7453             jz      profldx+0x116 (10097dbc)
+        10097d69 8b4508           mov     eax,[ebp+0x8]          ss:0147e4c6=00000000
+        10097d6c 8b403c           mov     eax,[eax+0x3c]         ds:0134ea97=????????
+FAULT ->10097d6f 83b8a000000000   cmp   dword ptr [eax+0xa0],0x0 ds:00000131=????????
+        10097d76 7431             jz      profldx+0x103 (10097da9)
+        10097d78 8b4508           mov     eax,[ebp+0x8]          ss:0147e4c6=00000000
+        10097d7b 8b403c           mov     eax,[eax+0x3c]         ds:0134ea97=????????
+        10097d7e 8b80a0000000     mov     eax,[eax+0xa0]         ds:00000131=????????
+        10097d84 83780400         cmp    dword ptr [eax+0x4],0x0 ds:0134ea97=????????
+        10097d88 741f             jz      profldx+0x103 (10097da9)
+        10097d8a 8b4508           mov     eax,[ebp+0x8]          ss:0147e4c6=00000000
+        10097d8d 8b403c           mov     eax,[eax+0x3c]         ds:0134ea97=????????
+        10097d90 8b80a0000000     mov     eax,[eax+0xa0]         ds:00000131=????????
+        10097d96 8b4d10           mov     ecx,[ebp+0x10]         ss:0147e4c6=00000000
+        10097d99 0fbf09           movsx   ecx,word ptr [ecx]         ds:00000003=????
+
+*----> Stack Back Trace <----*
+
+FramePtr ReturnAd Param#1  Param#2  Param#3  Param#4  Function Name
+0012fac0 1000dbff 02ee60d0 0138dbbc 0012fb40 00000000 prow32!profldx 
+0012fae0 10177d18 00000003 02ee60d0 0138dbbc 0012fb40 prow32!fdfldx 
+0012fb00 10031f9c 0138dbbc 02ea8bc4 0012fb40 00000000 prow32!fmfldx 
+0012fb5c 10012d18 00000022 0138dbbc 00000000 030a56d0 prow32!fmxfldo 
+0012fbe4 101fd74d 030a56cc 103790e0 00000000 030a56cc prow32!fmeval 
+0012fc40 101fd3a3 02ea9820 02f0547c 00000001 02ea88a0 prow32!umBrowseUpdateCurrentRow 
+0012fd60 1030b909 02f0547c 1016529c 0041382c 0012fd84 prow32!umBrowseDisplayStmt 
+0012fd80 10192571 02f0547c 02f0547c 01b2693c 00000000 prow32!rndisplay 
+0012fdd4 1017f0ab ffffffff 0012fe64 101e59ac 00000004 prow32!rnexec_entry 
+0012fde0 101e59ac 00000004 00000004 0065cd78 00000037 prow32!rninterpret 
+0012fe64 101068fb 00000000 00000000 00000000 013ab75c prow32!umeDispatchEvent 
+0012fec0 102e9fb7 013ab184 0012fed8 10019d5a 00000002 prow32!wwRunDispatcher 
+0012fecc 10019d5a 00000002 0012ff08 100060f4 0041899c prow32!iodispatch 
+0012fed8 100060f4 0041899c 00000000 00000000 00000000 prow32!rnrq 
+0012ff08 1004bca2 00000009 00410750 00000044 0012ff24 prow32!drmain 
+0012ff1c 00401008 0012ffc0 00401148 00400000 00000000 prow32!ProStartup 
+0012ff24 00401148 00400000 00000000 00133c23 00000009 rx!WinMain 
+0012ffc0 77f11b93 00000000 00000000 7ffdf000 c0000005 rx!WinMainCRTStartup 
+0012fff0 00000000 00401014 00000000 000000b0 00000100 kernel32!GetProcessPriorityBoost 
+00000000 00000000 00000000 00000000 00000000 00000000 rx!<nosymbols> 
+
+*----> Raw Stack Dump <----*
+0012fa74  b4 fa 12 00 5c 9a 48 00 - 5c 46 e6 77 0a 02 09 00  ....\.H.\F.w....
+0012fa84  c4 8b ea 02 00 00 00 00 - c4 db 38 01 0c 00 00 00  ..........8.....
+0012fa94  e4 24 ec 02 64 5e 50 00 - 68 5e 50 00 14 5c 50 00  .$..d^P.h^P..\P.
+0012faa4  4b 00 00 00 14 5c 50 00 - 00 00 00 00 1a 16 37 10  K....\P.......7.
+0012fab4  68 5e 50 00 00 00 00 00 - 04 00 00 00 e0 fa 12 00  h^P.............
+0012fac4  ff db 00 10 d0 60 ee 02 - bc db 38 01 40 fb 12 00  .....`....8.@...
+0012fad4  00 00 00 00 00 00 00 00 - d4 ad 41 00 00 fb 12 00  ..........A.....
+0012fae4  18 7d 17 10 03 00 00 00 - d0 60 ee 02 bc db 38 01  .}.......`....8.
+0012faf4  40 fb 12 00 00 00 00 00 - 00 00 00 00 5c fb 12 00  @...........\...
+0012fb04  9c 1f 03 10 bc db 38 01 - c4 8b ea 02 40 fb 12 00  ......8.....@...
+0012fb14  00 00 00 00 00 00 00 00 - ff ff ec 02 22 00 00 00  ............"...
+0012fb24  05 00 13 00 00 00 00 00 - 00 00 00 00 01 00 00 00  ................
+0012fb34  40 fb 12 00 23 3c 13 00 - 00 00 00 00 10 00 12 00  @...#<..........
+0012fb44  fa f5 17 10 34 fb 12 00 - f0 d8 e7 02 b0 ff 12 00  ....4...........
+0012fb54  c4 8b ea 02 68 4f f3 77 - e4 fb 12 00 18 2d 01 10  ....hO.w.....-..
+0012fb64  22 00 00 00 bc db 38 01 - 00 00 00 00 d0 56 0a 03  ".....8......V..
+0012fb74  00 00 00 00 00 00 00 00 - cc 56 0a 03 00 00 00 00  .........V......
+0012fb84  20 4c ea 02 00 00 00 00 - 00 00 00 00 00 00 00 00   L..............
+0012fb94  d0 56 0a 03 fc 0c 0b 03 - 00 00 12 00 03 29 37 10  .V...........)7.
+0012fba4  03 00 ea 02 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+
+State Dump for Thread Id 0x238
+
+eax=00000194 ebx=02a4ff24 ecx=00000154 edx=00000000 esi=02a4ff2c edi=00000001
+eip=77f68603 esp=02a4ff00 ebp=02a4ff54 iopl=0         nv up ei pl nz ac pe cy
+cs=001b  ss=0023  ds=0023  es=0023  fs=0038  gs=0000             efl=00000213
+
+
+function: NtWaitForMultipleObjects
+        77f685f8 b8c4000000       mov     eax,0xc4
+        77f685fd 8d542404         lea     edx,[esp+0x4]          ss:03d9e907=????????
+        77f68601 cd2e             int     2e
+        77f68603 c21400           ret     0x14
+        77f68606 8bc0             mov     eax,eax
+
+*----> Stack Back Trace <----*
+
+FramePtr ReturnAd Param#1  Param#2  Param#3  Param#4  Function Name
+02a4ff54 77f132b3 00000002 02a4ff98 00000000 ffffffff ntdll!NtWaitForMultipleObjects 
+02a4ff70 70403f41 00000002 02a4ff98 00000000 ffffffff kernel32!WaitForMultipleObjects 
+77f1329d 1475ff00 ff1075ff 75ff0c75 0004e808 c25d0000 oleaut32!VarI1FromBool 
+
+*----> Raw Stack Dump <----*
+02a4ff00  a6 33 f1 77 02 00 00 00 - 24 ff a4 02 01 00 00 00  .3.w....$.......
+02a4ff10  00 00 00 00 00 00 00 00 - 74 01 00 00 94 01 00 00  ........t.......
+02a4ff20  11 af db 77 54 01 00 00 - 94 01 00 00 01 00 00 00  ...wT...........
+02a4ff30  17 00 01 00 10 00 00 00 - 7b af db 77 74 01 00 00  ........{..wt...
+02a4ff40  94 01 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+02a4ff50  00 00 00 00 70 ff a4 02 - b3 32 f1 77 02 00 00 00  ....p....2.w....
+02a4ff60  98 ff a4 02 00 00 00 00 - ff ff ff ff 00 00 00 00  ................
+02a4ff70  9d 32 f1 77 41 3f 40 70 - 02 00 00 00 98 ff a4 02  .2.wA?@p........
+02a4ff80  00 00 00 00 ff ff ff ff - 73 4a 64 77 08 01 00 00  ........sJdw....
+02a4ff90  ec ff a4 02 00 00 00 00 - 54 01 00 00 94 01 00 00  ........T.......
+02a4ffa0  b0 01 75 82 8c 00 75 82 - 48 8f 11 80 04 01 75 82  ..u...u.H.....u.
+02a4ffb0  20 00 75 82 80 01 75 82 - e7 93 f6 77 54 4f ef 77   .u...u....wTO.w
+02a4ffc0  00 00 00 00 73 4a 64 77 - 08 01 00 00 00 00 00 00  ....sJdw........
+02a4ffd0  08 01 00 00 c4 ff a4 02 - 40 45 aa 00 ff ff ff ff  ........@E......
+02a4ffe0  00 20 f3 77 a8 4f f3 77 - 00 00 00 00 00 00 00 00  . .w.O.w........
+02a4fff0  00 00 00 00 d6 3e 40 70 - 00 00 00 00 00 00 00 00  .....>@p........
+02a50000  20 50 00 00 00 00 00 00 - 68 08 00 00 21 00 00 00   P......h...!...
+02a50010  00 00 00 00 0d 00 00 00 - 28 08 00 00 01 00 00 00  ........(.......
+02a50020  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+02a50030  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+
+
+
+
+Application exception occurred:
+        App: Y:/vobs_prgs/nt/dlcbld/bin/rx.exe (pid=659)
+        When: 7/28/2003 @ 17:55:2.109
+        Exception number: e0000003 
+()
+
+*----> System Information <----*
+        Computer Name: META1
+        User Name: quimicos_fam_aceite
+        Number of Processors: 1
+        Processor Type: x86 Family 15 Model 1 Stepping 2
+        Windows Version: 4.0
+        Current Build: 1381
+        Current Type: Uniprocessor Free
+        Registered Organization: SA SAN MIGUEL
+        Registered Owner: SA SAN MIGUEL
+
+*----> Task List <----*
+   0 Idle.exe
+   2 System.exe
+  42 SMSS.exe
+  50 CSRSS.exe
+  57 WINLOGON.exe
+  49 SERVICES.exe
+  65 LSASS.exe
+  88 SPOOLSS.exe
+ 108 admsrvc.exe
+ 101 cdmsvc.exe
+ 113 ctxxmlss.exe
+ 121 jview.exe
+ 119 ENCSVC.exe
+ 126 pmsvc.exe
+ 133 LLSSRV.exe
+ 140 RPCSS.exe
+ 155 TERMSRV.exe
+ 160 LSERVER.exe
+ 181 ibrowser.exe
+ 187 NMSSvc.exe
+ 200 pnsvc.exe
+ 218 PSTORES.exe
+ 223 mstask.exe
+ 243 NDDEAGNT.exe
+ 315 EXPLORER.exe
+ 306 LOADWC.exe
+ 149 PROMon.exe
+ 311 icabar.exe
+ 305 MSOFFICE.exe
+ 303 FINDFAST.exe
+ 318 OSA.exe
+ 974 NTVDM.exe
+ 461 tmlisten.exe
+ 775 ntrtscan.exe
+ 735 PccNTMon.exe
+ 765 CSRSS.exe
+ 389 WINLOGON.exe
+ 947 SeMain20.exe
+ 559 USERINIT.exe
+ 807 NDDEAGNT.exe
+ 362 wfshell.exe
+ 256 prowin32.exe
+  95 mfadmin.exe
+ 880 CSRSS.exe
+ 349 WINLOGON.exe
+ 870 SeMain20.exe
+ 439 USERINIT.exe
+1002 NDDEAGNT.exe
+ 835 wfshell.exe
+ 962 prowin32.exe
+ 496 CSRSS.exe
+ 578 WINLOGON.exe
+ 665 SeMain20.exe
+ 571 USERINIT.exe
+1071 NDDEAGNT.exe
+ 808 wfshell.exe
+ 251 prowin32.exe
+ 793 CSRSS.exe
+ 510 WINLOGON.exe
+ 622 SeMain20.exe
+ 861 NDDEAGNT.exe
+ 633 wfshell.exe
+1040 prowin32.exe
+ 961 CSRSS.exe
+ 386 WINLOGON.exe
+ 811 SeMain20.exe
+ 317 USERINIT.exe
+1055 NDDEAGNT.exe
+1028 wfshell.exe
+ 659 prowin32.exe
+ 355 CSRSS.exe
+ 494 WINLOGON.exe
+1004 CSRSS.exe
+ 457 WINLOGON.exe
+ 988 prowin32.exe
+1075 CSRSS.exe
+ 973 WINLOGON.exe
+ 906 SeMain20.exe
+ 580 NDDEAGNT.exe
+ 594 wfshell.exe
+1012 EXPLORER.exe
+ 324 LOADWC.exe
+ 592 PROMon.exe
+ 383 icabar.exe
+ 629 hkcmd.exe
+ 647 PccNTMon.exe
+ 470 MSOFFICE.exe
+ 415 FINDFAST.exe
+ 782 OSA.exe
+ 384 prowin32.exe
+ 867 DRWTSN32.exe
+   0 _Total.exe
+
+(00400000 - 00404000) Y:/vobs_prgs/nt/dlcbld/bin/rx.exe
+(77f60000 - 77fbf000) dll\ntdll.dbg
+(10000000 - 10488000) Y:/vobs_prgs/nt/dlcbld/bin/prow32.dll
+(78000000 - 78040000) 
+(77ef0000 - 77f58000) dll\kernel32.dbg
+(00230000 - 00230000) 
+(77e60000 - 77eb2000) dll\user32.dbg
+(77ec0000 - 77eec000) dll\gdi32.dbg
+(77da0000 - 77de4000) dll\advapi32.dbg
+(70520000 - 70574000) dll\rpcrt4.dbg
+(73940000 - 7394c000) dll\winsta.dbg
+(77c20000 - 77d60000) dll\shell32.dbg
+(71590000 - 71617000) COMCTL32.dbg
+(77d60000 - 77d93000) dll\comdlg32.dbg
+(776b0000 - 776b8000) dll\wsock32.dbg
+(77690000 - 776a4000) dll\ws2_32.dbg
+(77680000 - 77687000) dll\ws2help.dbg
+(4cc80000 - 4cc9c000) drv\winspool.dbg
+(5f400000 - 5f4f2000) 
+(65f00000 - 65fb1000) dll\ole32.dbg
+(703f0000 - 70485000) oleaut32.dbg
+(70200000 - 70271000) WININET.dbg
+(70bd0000 - 70c14000) SHLWAPI.dbg
+(3fb60000 - 3fb6a000) dll\sehook20.dbg
+(77e00000 - 77e07000) dll\rpcltc1.dbg
+(01440000 - 01440000) 
+(764d0000 - 764d5000) dll\imm32.dbg
+(704f0000 - 70519000) olepro32.dbg
+(10680000 - 10680000) 
+(770e0000 - 770e7000) dll\cxerror.dbg
+(764e0000 - 764fd000) dll\imagehlp.dbg
+
+State Dump for Thread Id 0x33c
+
+eax=0012f600 ebx=00000000 ecx=00000000 edx=00000000 esi=00133c23 edi=7394251a
+eip=77f139b4 esp=0012f5fc ebp=0012f650 iopl=0         nv up ei pl zr na po nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=0038  gs=0000             efl=00000246
+
+
+function: RaiseException
+        77f13997 83c604           add     esi,0x4
+        77f1399a 8bc1             mov     eax,ecx
+        77f1399c 49               dec     ecx
+        77f1399d 85c0             test    eax,eax
+        77f1399f 75ef             jnz     RaiseException+0x46 (77f13990)
+        77f139a1 eb07             jmp     RaiseException+0x60 (77f139aa)
+        77f139a3 c745c000000000   mov   dword ptr [ebp-0x40],0x0 ss:0143e056=05440199
+        77f139aa 8d45b0           lea     eax,[ebp-0x50]         ss:0143e056=05440199
+        77f139ad 50               push    eax
+        77f139ae ff153c34f377                                    ds:77f3343c=77f89818
+                                  call   dword ptr [GetDateFormatW+0x55ce (77f3343c)]
+FAULT ->77f139b4 5e               pop     esi
+        77f139b5 8be5             mov     esp,ebp
+        77f139b7 5d               pop     ebp
+        77f139b8 c21000           ret     0x10
+
+*----> Stack Back Trace <----*
+
+FramePtr ReturnAd Param#1  Param#2  Param#3  Param#4  Function Name
+0012f650 10380ffb e0000003 00000000 00000000 00000000 kernel32!RaiseException 
+0012f67c 1000b8fc ffffff38 00000004 ffffffff 10456e80 prow32!utcore 
+0012f698 10009799 00000002 00000002 004106e4 00000001 prow32!drexit 
+0012f6c0 1000935d 00007002 0012f6dc 00000010 004106e4 prow32!msgout 
+0012fa74 101789a0 00000010 000101be 0000000c 00000000 prow32!msgn 
+0012fa9c 10097cdd 02db4430 0134db54 00120010 00000000 prow32!fm_noundo_fldx 
+0012fb00 10031f06 02db7030 0134db54 0012fb40 00000000 prow32!profldx 
+0012fb5c 10012d18 00000022 0134db54 00000000 02f5b6e0 prow32!fmxfldo 
+0012fbe4 101fd74d 02f5b6dc 103790e0 7394251a 02f5b6dc prow32!fmeval 
+0012fc40 101fd3a3 02deec20 02e5dafc 00000001 02e07af0 prow32!umBrowseUpdateCurrentRow 
+0012fd60 1030b909 02e5dafc 1016529c 0041343c 0012fd84 prow32!umBrowseDisplayStmt 
+0012fd80 10192571 02e5dafc 02e5dafc 01a1c6f8 00000000 prow32!rndisplay 
+0012fdd4 1017f0ab ffffffff 0012fe64 101e59ac 00000004 prow32!rnexec_entry 
+0012fde0 101e59ac 00000004 00000004 0065dcf0 00000020 prow32!rninterpret 
+0012fe64 101068fb 00000000 00000000 00000000 0136b7dc prow32!umeDispatchEvent 
+0012fec0 102e9fb7 0136b184 0012fed8 10019d5a 00000002 prow32!wwRunDispatcher 
+0012fecc 10019d5a 00000002 0012ff08 100060f4 00418bdc prow32!iodispatch 
+0012fed8 100060f4 00418bdc 00000000 00000000 00000000 prow32!rnrq 
+0012ff08 1004bca2 00000007 004107e0 00000040 0012ff24 prow32!drmain 
+0012ff1c 00401008 0012ffc0 00401148 00400000 00000000 prow32!ProStartup 
+0012ff24 00401148 00400000 00000000 00133c23 0000000a rx!WinMain 
+0012ffc0 77f11b93 7394251a 00000000 7ffdf000 e0000003 rx!WinMainCRTStartup 
+0012fff0 00000000 00401014 00000000 000000b0 00000100 kernel32!GetProcessPriorityBoost 
+00000000 00000000 00000000 00000000 00000000 00000000 rx!<nosymbols> 
+
+*----> Raw Stack Dump <----*
+0012f5fc  23 3c 13 00 03 00 00 e0 - 00 00 00 00 00 00 00 00  #<..............
+0012f60c  b4 39 f1 77 00 00 00 00 - 00 00 00 00 b0 ff 12 00  .9.w............
+0012f61c  44 34 f9 77 68 e1 f9 77 - ff ff ff ff 50 f6 12 00  D4.wh..w....P...
+0012f62c  aa 9c f0 77 00 00 3f 70 - 00 00 00 00 56 ff f1 65  ...w..?p....V..e
+0012f63c  00 00 3f 70 00 00 00 00 - 74 f6 12 00 00 00 00 00  ..?p....t.......
+0012f64c  f0 79 13 00 7c f6 12 00 - fb 0f 38 10 03 00 00 e0  .y..|.....8.....
+0012f65c  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+0012f66c  00 00 00 00 00 00 00 00 - 00 00 00 00 03 00 00 e0  ................
+0012f67c  98 f6 12 00 fc b8 00 10 - 38 ff ff ff 04 00 00 00  ........8.......
+0012f68c  ff ff ff ff 80 6e 45 10 - 02 70 00 00 c0 f6 12 00  .....nE..p......
+0012f69c  99 97 00 10 02 00 00 00 - 02 00 00 00 e4 06 41 00  ..............A.
+0012f6ac  01 00 00 00 23 f7 12 00 - 00 00 00 00 00 02 00 00  ....#...........
+0012f6bc  47 00 00 00 74 fa 12 00 - 5d 93 00 10 02 70 00 00  G...t...]....p..
+0012f6cc  dc f6 12 00 10 00 00 00 - e4 06 41 00 02 70 00 00  ..........A..p..
+0012f6dc  53 59 53 54 45 4d 20 45 - 52 52 4f 52 3a 20 62 66  SYSTEM ERROR: bf
+0012f6ec  66 6c 64 3a 20 6e 78 74 - 66 6c 64 3a 20 65 78 70  fld: nxtfld: exp
+0012f6fc  6c 6f 72 61 63 69 6f 6e - 20 64 65 73 70 75 65 73  loracion despues
+0012f70c  20 64 65 6c 20 75 6c 74 - 69 6d 6f 20 63 61 6d 70   del ultimo camp
+0012f71c  6f 2e 20 28 31 36 29 00 - 5f 14 e6 77 b8 01 01 00  o. (16)._..w....
+0012f72c  60 77 03 78 11 01 00 00 - 3c fb 12 00 02 00 00 00  `w.x....<.......
+
+State Dump for Thread Id 0x36e
+
+eax=0000019c ebx=0297ff24 ecx=000000fc edx=00000000 esi=0297ff2c edi=00000001
+eip=77f68603 esp=0297ff00 ebp=0297ff54 iopl=0         nv up ei pl nz ac pe cy
+cs=001b  ss=0023  ds=0023  es=0023  fs=0038  gs=0000             efl=00000213
+
+
+function: NtWaitForMultipleObjects
+        77f685f8 b8c4000000       mov     eax,0xc4
+        77f685fd 8d542404         lea     edx,[esp+0x4]          ss:03c8e907=????????
+        77f68601 cd2e             int     2e
+        77f68603 c21400           ret     0x14
+        77f68606 8bc0             mov     eax,eax
+
+*----> Stack Back Trace <----*
+
+FramePtr ReturnAd Param#1  Param#2  Param#3  Param#4  Function Name
+0297ff54 77f132b3 00000002 0297ff98 00000000 ffffffff ntdll!NtWaitForMultipleObjects 
+0297ff70 70403f41 00000002 0297ff98 00000000 ffffffff kernel32!WaitForMultipleObjects 
+77f1329d 1475ff00 ff1075ff 75ff0c75 0004e808 c25d0000 oleaut32!VarI1FromBool 
+
+*----> Raw Stack Dump <----*
+0297ff00  a6 33 f1 77 02 00 00 00 - 24 ff 97 02 01 00 00 00  .3.w....$.......
+0297ff10  00 00 00 00 00 00 00 00 - 70 01 00 00 9c 01 00 00  ........p.......
+0297ff20  11 af db 77 fc 00 00 00 - 9c 01 00 00 01 00 00 00  ...w............
+0297ff30  17 00 01 00 80 dd 1f f8 - 7b af db 77 70 01 00 00  ........{..wp...
+0297ff40  9c 01 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+0297ff50  00 00 00 00 70 ff 97 02 - b3 32 f1 77 02 00 00 00  ....p....2.w....
+0297ff60  98 ff 97 02 00 00 00 00 - ff ff ff ff 00 00 00 00  ................
+0297ff70  9d 32 f1 77 41 3f 40 70 - 02 00 00 00 98 ff 97 02  .2.wA?@p........
+0297ff80  00 00 00 00 ff ff ff ff - 73 4a 64 77 20 01 00 00  ........sJdw ...
+0297ff90  ec ff 97 02 00 00 00 00 - fc 00 00 00 9c 01 00 00  ................
+0297ffa0  78 5f 7a 80 00 00 00 00 - ac 7d 11 80 5c d1 11 80  x_z......}..\...
+0297ffb0  c0 bd ba 80 20 bf ba 80 - e7 93 f6 77 54 4f ef 77  .... ......wTO.w
+0297ffc0  00 00 00 00 73 4a 64 77 - 20 01 00 00 00 00 00 00  ....sJdw .......
+0297ffd0  20 01 00 00 c4 ff 97 02 - f0 2f 14 00 ff ff ff ff   ......../......
+0297ffe0  00 20 f3 77 a8 4f f3 77 - 00 00 00 00 00 00 00 00  . .w.O.w........
+0297fff0  00 00 00 00 d6 3e 40 70 - 00 00 00 00 00 00 00 00  .....>@p........
+02980000  20 50 00 00 00 00 00 00 - 68 08 00 00 21 00 00 00   P......h...!...
+02980010  00 00 00 00 0d 00 00 00 - 28 08 00 00 01 00 00 00  ........(.......
+02980020  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+02980030  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+
+
+
+Application exception occurred:
+        App: Y:/vobs_prgs/nt/dlcbld/bin/rx.exe (pid=553)
+        When: 8/11/2003 @ 16:43:55.703
+        Exception number: c0000005 (access violation)
+
+*----> System Information <----*
+        Computer Name: META11
+        User Name: quimicosfam
+        Number of Processors: 1
+        Processor Type: x86 Family 6 Model 8 Stepping 6
+        Windows Version: 4.0
+        Current Build: 1381
+        Current Type: Uniprocessor Free
+        Registered Organization: sanmiguel
+        Registered Owner: meta11
+
+*----> Task List <----*
+   0 Idle.exe
+   2 System.exe
+  42 SMSS.exe
+  50 CSRSS.exe
+  57 WINLOGON.exe
+  49 SERVICES.exe
+  65 LSASS.exe
+  88 SPOOLSS.exe
+ 109 admsrvc.exe
+  95 cdmsvc.exe
+ 115 ctxxmlss.exe
+ 121 ENCSVC.exe
+ 123 jview.exe
+ 129 LLSSRV.exe
+ 137 RPCSS.exe
+ 151 TERMSRV.exe
+ 163 LSERVER.exe
+ 180 ibrowser.exe
+ 186 pnsvc.exe
+ 210 PSTORES.exe
+ 213 mstask.exe
+ 295 NDDEAGNT.exe
+ 317 EXPLORER.exe
+ 313 LOADWC.exe
+ 297 TTACMON.exe
+ 301 NTACMON.exe
+ 281 icabar.exe
+ 308 jre.exe
+ 876 CSRSS.exe
+ 997 WINLOGON.exe
+ 507 SeMain20.exe
+ 334 NDDEAGNT.exe
+ 632 wfshell.exe
+ 915 prowin32.exe
+ 850 CSRSS.exe
+ 917 WINLOGON.exe
+1026 SeMain20.exe
+  90 NDDEAGNT.exe
+ 801 wfshell.exe
+1024 prowin32.exe
+ 455 mfadmin.exe
+1088 CSRSS.exe
+1110 WINLOGON.exe
+ 548 prowin32.exe
+1021 SeMain20.exe
+ 501 NDDEAGNT.exe
+ 521 wfshell.exe
+ 809 prowin32.exe
+ 685 CSRSS.exe
+ 437 WINLOGON.exe
+ 559 CSRSS.exe
+ 610 WINLOGON.exe
+ 907 CSRSS.exe
+ 823 WINLOGON.exe
+1006 SeMain20.exe
+ 878 NDDEAGNT.exe
+ 671 wfshell.exe
+ 318 prowin32.exe
+1014 CSRSS.exe
+ 867 WINLOGON.exe
+ 364 SeMain20.exe
+ 929 NDDEAGNT.exe
+ 546 wfshell.exe
+ 553 prowin32.exe
+ 804 CSRSS.exe
+ 842 WINLOGON.exe
+ 624 SeMain20.exe
+ 572 NDDEAGNT.exe
+ 578 wfshell.exe
+ 805 prowin32.exe
+1000 CSRSS.exe
+ 538 WINLOGON.exe
+ 356 SeMain20.exe
+ 390 NDDEAGNT.exe
+ 853 wfshell.exe
+ 324 _progres.exe
+ 473 DRWTSN32.exe
+   0 _Total.exe
+
+(00400000 - 00404000) Y:/vobs_prgs/nt/dlcbld/bin/rx.exe
+(77f60000 - 77fbf000) dll\ntdll.dbg
+(10000000 - 10488000) Y:/vobs_prgs/nt/dlcbld/bin/prow32.dll
+(78000000 - 78040000) 
+(77ef0000 - 77f58000) dll\kernel32.dbg
+(00230000 - 00230000) 
+(77e60000 - 77eb2000) dll\user32.dbg
+(77ec0000 - 77eec000) dll\gdi32.dbg
+(77da0000 - 77de4000) dll\advapi32.dbg
+(70520000 - 70574000) dll\rpcrt4.dbg
+(73940000 - 7394c000) dll\winsta.dbg
+(77c20000 - 77d60000) dll\shell32.dbg
+(71590000 - 71617000) COMCTL32.dbg
+(77d60000 - 77d93000) dll\comdlg32.dbg
+(776b0000 - 776b8000) dll\wsock32.dbg
+(77690000 - 776a4000) dll\ws2_32.dbg
+(77680000 - 77687000) dll\ws2help.dbg
+(4cc80000 - 4cc9c000) drv\winspool.dbg
+(5f400000 - 5f4f2000) 
+(65f00000 - 65fb1000) dll\ole32.dbg
+(703f0000 - 70485000) oleaut32.dbg
+(70200000 - 70271000) WININET.dbg
+(70bd0000 - 70c14000) SHLWAPI.dbg
+(30300000 - 3030a000) dll\sehook20.dbg
+(77e00000 - 77e07000) dll\rpcltc1.dbg
+(01440000 - 01440000) 
+(764d0000 - 764d5000) dll\imm32.dbg
+(743a0000 - 743ae000) dll\rnr20.dbg
+(77640000 - 7764f000) dll\msafd.dbg
+(77670000 - 77679000) dll\wshtcpip.dbg
+(01920000 - 01920000) 
+(01b80000 - 01b80000) 
+(704f0000 - 70519000) olepro32.dbg
+(27580000 - 27685000) mscomctl.dbg
+(764e0000 - 764fd000) dll\imagehlp.dbg
+
+State Dump for Thread Id 0x201
+
+eax=00000000 ebx=00000000 ecx=004d76b8 edx=00000000 esi=00133c23 edi=005f0072
+eip=101bd332 esp=0012f998 ebp=0012f9a0 iopl=0         nv up ei pl nz na po nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=0038  gs=0000             efl=00000206
+
+
+function: rnbfsqrnxtWrtLoop
+        101bd317 833800           cmp     dword ptr [eax],0x0    ds:00000000=????????
+        101bd31a 7462             jz      rnbfsqrnxtWrtLoop+0xac (101bd37e)
+        101bd31c 8b45fc           mov     eax,[ebp-0x4]          ss:0143e3a6=00000000
+        101bd31f 8b00             mov     eax,[eax]              ds:00000000=????????
+        101bd321 83781400         cmp   dword ptr [eax+0x14],0x0 ds:0130ea06=????????
+        101bd325 7455             jz      rnbfsqrnxtWrtLoop+0xaa (101bd37c)
+        101bd327 8b45fc           mov     eax,[ebp-0x4]          ss:0143e3a6=00000000
+        101bd32a 8b00             mov     eax,[eax]              ds:00000000=????????
+        101bd32c 8b4014           mov     eax,[eax+0x14]         ds:0130ea06=????????
+        101bd32f 8b4034           mov     eax,[eax+0x34]         ds:0130ea06=????????
+FAULT ->101bd332 83781c00         cmp   dword ptr [eax+0x1c],0x0 ds:0130ea06=????????
+        101bd336 7544             jnz     rnbfsqrnxtWrtLoop+0xaa (101bd37c)
+        101bd338 8b45fc           mov     eax,[ebp-0x4]          ss:0143e3a6=00000000
+        101bd33b 8b00             mov     eax,[eax]              ds:00000000=????????
+        101bd33d 8b4014           mov     eax,[eax+0x14]         ds:0130ea06=????????
+        101bd340 0fb64041         movzx   eax,byte ptr [eax+0x41]      ds:0130ea07=??
+        101bd344 83e010           and     eax,0x10
+        101bd347 85c0             test    eax,eax
+        101bd349 7431             jz      rnbfsqrnxtWrtLoop+0xaa (101bd37c)
+        101bd34b 8b45fc           mov     eax,[ebp-0x4]          ss:0143e3a6=00000000
+        101bd34e ff30             push    dword ptr [eax]        ds:00000000=????????
+        101bd350 e8a6a7feff       call    rnhaswritetrig (101a7afb)
+
+*----> Stack Back Trace <----*
+
+FramePtr ReturnAd Param#1  Param#2  Param#3  Param#4  Function Name
+0012f9a0 1017f0ab ffffffff 0012f9c8 101bb561 019c9704 prow32!rnbfsqrnxtWrtLoop 
+0012f9ac 101bb561 019c9704 00000000 00000000 00000000 prow32!rninterpret 
+0012f9c8 101bae19 004d76b8 004e6c20 0000002a 10456e80 prow32!rnqget_rcsv 
+0012fa00 101bcf14 004e5fac 004d76b8 00000000 0012fa60 prow32!rnqgetc 
+0012fa14 101eedc8 004e5fac 004d76b8 00000001 0012fa94 prow32!rnbrqget 
+0012fa60 101edf81 004e6820 02db5a98 0012fa94 00000000 prow32!umBrowseGetNextRow 
+0012fb08 101ed3e6 004e6820 004e5f04 00000000 00000001 prow32!umBrowseGetPage 
+0012fb38 1010053a 004e6820 00000001 004e5f04 0000004b prow32!umBrowseFetchData 
+0012fb8c 100eba8b 013704e0 00000001 01370580 004e5f04 prow32!wwbrDoFetch 
+0012fba4 101fb28d 013704e0 00000000 00000014 004e5820 prow32!wwDisplayBrowse 
+0012fc10 1024c96d 004e6820 00000000 00000000 00000001 prow32!umBrowseDisplay 
+0012fc34 102f5849 004e6820 00000000 00000000 00000003 prow32!umFldClassDisplay 
+0012fc80 102f5788 004e6820 00419820 004e5e58 0012fca8 prow32!rnumrepaint 
+0012fcd0 101ba5ed 004d76b8 004e6820 0044b3e4 00000001 prow32!rnumstrtbrs 
+0012fd80 10192571 0044b0a8 0044b0a8 019c96e0 00000000 prow32!rnqopen 
+0012fdd4 1017f0ab ffffffff 0012fe64 101e59ac 00000004 prow32!rnexec_entry 
+0012fde0 101e59ac 00000004 00000004 0065cb38 00000020 prow32!rninterpret 
+0012fe64 101068fb 00000000 00000000 00000000 0136b73c prow32!umeDispatchEvent 
+0012fec0 102e9fb7 0136b184 0012fed8 10019d5a 00000002 prow32!wwRunDispatcher 
+0012fecc 10019d5a 00000002 0012ff08 100060f4 00418bdc prow32!iodispatch 
+0012fed8 100060f4 00418bdc 00000000 00000000 00000000 prow32!rnrq 
+0012ff08 1004bca2 00000007 00410d00 00000040 0012ff24 prow32!drmain 
+0012ff1c 00401008 0012ffc0 00401148 00400000 00000000 prow32!ProStartup 
+0012ff24 00401148 00400000 00000000 00133c23 00000005 rx!WinMain 
+0012ffc0 77f11b93 005f0072 006e0069 7ffdf000 c0000005 rx!WinMainCRTStartup 
+0012fff0 00000000 00401014 00000000 000000b0 00000100 kernel32!GetProcessPriorityBoost 
+00000000 00000000 00000000 00000000 00000000 00000000 rx!<nosymbols> 
+
+*----> Raw Stack Dump <----*
+0012f998  28 97 9c 01 7c 6c 4e 00 - ac f9 12 00 ab f0 17 10  (...|lN.........
+0012f9a8  ff ff ff ff c8 f9 12 00 - 61 b5 1b 10 04 97 9c 01  ........a.......
+0012f9b8  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+0012f9c8  00 fa 12 00 19 ae 1b 10 - b8 76 4d 00 20 6c 4e 00  .........vM. lN.
+0012f9d8  2a 00 00 00 80 6e 45 10 - 00 00 00 00 20 6c 4e 00  *....nE..... lN.
+0012f9e8  fc f9 12 00 00 00 00 00 - 80 6e 45 10 00 00 00 00  .........nE.....
+0012f9f8  00 00 00 00 00 00 12 00 - 14 fa 12 00 14 cf 1b 10  ................
+0012fa08  ac 5f 4e 00 b8 76 4d 00 - 00 00 00 00 60 fa 12 00  ._N..vM.....`...
+0012fa18  c8 ed 1e 10 ac 5f 4e 00 - b8 76 4d 00 01 00 00 00  ....._N..vM.....
+0012fa28  94 fa 12 00 b8 76 4d 00 - b0 3a 4f 00 96 01 41 00  .....vM..:O...A.
+0012fa38  00 00 37 01 96 01 41 00 - 00 00 12 00 6c 2e a2 01  ..7...A.....l...
+0012fa48  00 00 00 00 20 64 4e 00 - ac 5f 4e 00 00 00 00 00  .... dN.._N.....
+0012fa58  00 00 00 00 a5 5d 2f 10 - 08 fb 12 00 81 df 1e 10  .....]/.........
+0012fa68  20 68 4e 00 98 5a db 02 - 94 fa 12 00 00 00 00 00   hN..Z..........
+0012fa78  00 00 00 00 dc fa 12 00 - 6c 2e a2 01 94 fa 12 00  ........l.......
+0012fa88  20 58 e1 02 00 00 00 00 - b8 76 4d 00 c8 fa 12 00   X.......vM.....
+0012fa98  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+0012faa8  b8 76 4d 00 01 5e 4e 00 - 98 5a db 02 00 00 00 00  .vM..^N..Z......
+0012fab8  00 00 00 00 00 00 00 00 - 20 64 4e 00 ac 5f 4e 00  ........ dN.._N.
+0012fac8  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+
+State Dump for Thread Id 0x3db
+
+eax=00000194 ebx=0297ff24 ecx=000001b0 edx=00000000 esi=0297ff2c edi=00000001
+eip=77f68603 esp=0297ff00 ebp=0297ff54 iopl=0         nv up ei pl nz ac pe cy
+cs=001b  ss=0023  ds=0023  es=0023  fs=0038  gs=0000             efl=00000213
+
+
+function: NtWaitForMultipleObjects
+        77f685f8 b8c4000000       mov     eax,0xc4
+        77f685fd 8d542404         lea     edx,[esp+0x4]          ss:03c8e907=????????
+        77f68601 cd2e             int     2e
+        77f68603 c21400           ret     0x14
+        77f68606 8bc0             mov     eax,eax
+
+*----> Stack Back Trace <----*
+
+FramePtr ReturnAd Param#1  Param#2  Param#3  Param#4  Function Name
+0297ff54 77f132b3 00000002 0297ff98 00000000 ffffffff ntdll!NtWaitForMultipleObjects 
+0297ff70 70403f41 00000002 0297ff98 00000000 ffffffff kernel32!WaitForMultipleObjects 
+77f1329d 1475ff00 ff1075ff 75ff0c75 0004e808 c25d0000 oleaut32!VarI1FromBool 
+
+*----> Raw Stack Dump <----*
+0297ff00  a6 33 f1 77 02 00 00 00 - 24 ff 97 02 01 00 00 00  .3.w....$.......
+0297ff10  00 00 00 00 00 00 00 00 - b4 01 00 00 94 01 00 00  ................
+0297ff20  11 af db 77 b0 01 00 00 - 94 01 00 00 01 00 00 00  ...w............
+0297ff30  17 00 01 00 00 00 00 00 - 7b af db 77 b4 01 00 00  ........{..w....
+0297ff40  94 01 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+0297ff50  00 00 00 00 70 ff 97 02 - b3 32 f1 77 02 00 00 00  ....p....2.w....
+0297ff60  98 ff 97 02 00 00 00 00 - ff ff ff ff 00 00 00 00  ................
+0297ff70  9d 32 f1 77 41 3f 40 70 - 02 00 00 00 98 ff 97 02  .2.wA?@p........
+0297ff80  00 00 00 00 ff ff ff ff - 73 4a 64 77 28 01 00 00  ........sJdw(...
+0297ff90  ec ff 97 02 00 00 00 00 - b0 01 00 00 94 01 00 00  ................
+0297ffa0  a0 11 2a c0 a4 11 2a c0 - ac 7d 11 80 5c d1 11 80  ..*...*..}..\...
+0297ffb0  a0 44 68 82 00 46 68 82 - e7 93 f6 77 54 4f ef 77  .Dh..Fh....wTO.w
+0297ffc0  00 00 00 00 73 4a 64 77 - 28 01 00 00 00 00 00 00  ....sJdw(.......
+0297ffd0  28 01 00 00 c4 ff 97 02 - c0 31 14 00 ff ff ff ff  (........1......
+0297ffe0  00 20 f3 77 a8 4f f3 77 - 00 00 00 00 00 00 00 00  . .w.O.w........
+0297fff0  00 00 00 00 d6 3e 40 70 - 00 00 00 00 00 00 00 00  .....>@p........
+02980000  20 50 00 00 00 00 00 00 - 68 08 00 00 21 00 00 00   P......h...!...
+02980010  00 00 00 00 0d 00 00 00 - 28 08 00 00 01 00 00 00  ........(.......
+02980020  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+02980030  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+

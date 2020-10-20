@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbench progressCount="11" version="2.0">
+<workbenchAdvisor/>
+<window height="768" maximized="true" width="1024" x="427" y="427">
+<fastViewData fastViewLocation="1024">
+<orientation position="512" view="com.openedge.pdt.text.views.ClassBrowserView"/>
+</fastViewData>
+<perspectiveBar>
+<itemSize x="160"/>
+</perspectiveBar>
+<coolbarLayout locked="0">
+<coolItem id="group.file" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="125" y="22"/>
+<coolItem id="additions" itemType="typeGroupMarker"/>
+<coolItem id="com.openedge.pdt.text.OEActionSet" itemType="typeToolBarContribution" x="84" y="22"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="207" y="22"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="79" y="22"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="group.nav" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="294" y="22"/>
+<coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="group.help" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
+</coolbarLayout>
+<page focus="true" label="Workspace - OpenEdge Editor">
+<editors>
+<editorArea activeWorkbook="DefaultEditorWorkbook">
+<info part="DefaultEditorWorkbook">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+</editorArea>
+</editors>
+<views>
+<view id="com.progress.dbnavigator.plugin.views.DBView" partName="DB Structure"/>
+<view id="com.openedge.pdt.text.views.oeproblemview" partName="Problems"/>
+<view id="org.eclipse.ui.views.TaskList" partName="Tasks"/>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
+</view>
+<view id="com.openedge.pdt.text.views.ClassBrowserView" partName="Class Browser"/>
+<view id="org.eclipse.ui.views.PropertySheet" partName="Properties"/>
+<view id="com.openedge.pdt.text.explorer.OEExplorer" partName="Resources">
+<viewState LINK_NAVIGATOR_TO_EDITOR="0" sorter="1">
+<filters>
+<filter element="*.r" isEnabled="true"/>
+<filter element="*.pl" isEnabled="true"/>
+<filter element="*.ado" isEnabled="true"/>
+<filter element="CVS" isEnabled="true"/>
+<filter element="*.gif" isEnabled="false"/>
+<filter element="*.cld" isEnabled="true"/>
+<filter element="*.esboe" isEnabled="false"/>
+<filter element="*.resx" isEnabled="false"/>
+<filter element=".*" isEnabled="false"/>
+<filter element="*.class" isEnabled="false"/>
+</filters>
+</viewState>
+</view>
+</views>
+<perspectives activePart="com.openedge.pdt.text.explorer.OEExplorer" activePerspective="com.openedge.pdt.text.ProgressPerspective">
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="com.openedge.pdt.text.OEDevPerspective" id="com.openedge.pdt.text.ProgressPerspective" label="OpenEdge Editor"/>
+<alwaysOnActionSet id="com.openedge.pdt.extensibility.user.actionset"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="com.openedge.pdt.text.OEActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.debugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="com.openedge.pdt.extensibility.OEActionSet"/>
+<alwaysOnActionSet id="com.openedge.pdt.server.ServerActionSet"/>
+<alwaysOnActionSet id="com.openedge.pdt.ve.VEActionSet"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="com.openedge.pdt.text.views.oeproblemview"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="com.progress.dbnavigator.plugin.views.DBView"/>
+<show_view_action id="com.openedge.pdt.text.explorer.OEExplorer"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.ui.views.BookmarkView"/>
+<show_view_action id="com.openedge.pdt.text.views.OEWebspeedView"/>
+<show_view_action id="com.openedge.pdt.text.views.ClassBrowserView"/>
+<show_view_action id="com.openedge.pdt.text.views.preprocess"/>
+<show_view_action id="org.eclipse.ui.views.PropertySheet"/>
+<new_wizard_action id="com.openedge.pdt.text.wizards.NewProjectWizard"/>
+<new_wizard_action id="com.openedge.pdt.text.wizards.NewClassWizard"/>
+<new_wizard_action id="com.openedge.pdt.text.wizards.NewInterfaceWizard"/>
+<new_wizard_action id="com.openedge.pdt.text.wizards.NewCustomProcedureWizard"/>
+<new_wizard_action id="com.openedge.pdt.text.wizards.NewCustomIncludeWizard"/>
+<new_wizard_action id="com.openedge.pdt.text.wizards.AnnotationGenerationWizard"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<new_wizard_action id="com.openedge.pdt.ve.wizards.newform"/>
+<new_wizard_action id="com.openedge.pdt.ve.wizards.newdialog"/>
+<new_wizard_action id="com.openedge.pdt.ve.wizards.newmdiform"/>
+<new_wizard_action id="com.openedge.pdt.ve.wizards.newusercontrol"/>
+<new_wizard_action id="com.openedge.pdt.ve.wizards.newinheritedcontrol"/>
+<perspective_action id="com.openedge.pdt.debug.OEDebugPerspective"/>
+<perspective_action id="com.openedge.pdt.oestudio.OEStudioPerspective"/>
+<perspective_action id="com.openedge.pdt.server.appserverperspective"/>
+<perspective_action id="com.openedge.pdt.t4bl.editor.T4BLPerspective"/>
+<perspective_action id="com.openedge.pdt.ve.veperspective"/>
+<perspective_action id="com.progress.dbnavigator.plugin.perspectives.SQLExplorerPluginPerspective"/>
+<view id="com.openedge.pdt.text.explorer.OEExplorer"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="com.openedge.pdt.text.views.oeproblemview"/>
+<view id="org.eclipse.ui.views.TaskList"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<view id="com.progress.dbnavigator.plugin.views.DBView"/>
+<view id="org.eclipse.ui.views.PropertySheet"/>
+<fastViews>
+<view id="com.openedge.pdt.text.views.ClassBrowserView" ratio="0.95"/>
+</fastViews>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="left">
+<folder activePageID="com.openedge.pdt.text.explorer.OEExplorer" appearance="2" expanded="2">
+<page content="com.openedge.pdt.text.explorer.OEExplorer" label="Resources"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@904497" ratio="0.75" ratioLeft="738" ratioRight="246" relationship="2" relative="left">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.25" ratioLeft="246" ratioRight="738" relationship="2" relative="left"/>
+<info folder="true" part="bottom" ratio="0.7495327" ratioLeft="401" ratioRight="134" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="com.openedge.pdt.text.views.oeproblemview" label="Problems"/>
+<page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="outline" ratio="0.49906543" ratioLeft="267" ratioRight="268" relationship="4" relative="left">
+<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<page content="com.progress.dbnavigator.plugin.views.DBView" label="DB Structure"/>
+<page content="org.eclipse.ui.views.PropertySheet" label="Properties"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+</perspectives>
+<workingSets/>
+<navigationHistory/>
+<input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
+</page>
+<workbenchWindowAdvisor/>
+<actionBarAdvisor/>
+<trimLayout>
+<trimArea IMemento.internal.id="128">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
+</trimArea>
+<trimArea IMemento.internal.id="1024">
+<trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
+<trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+</trimArea>
+</trimLayout>
+</window>
+<mruList/>
+</workbench>

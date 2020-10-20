@@ -1,0 +1,637 @@
+/****************************************************************************/
+/*  NOMBRE PROGRAMA......:   s_login.p                                      */
+/****************************************************************************/
+/*  Programa inicial de arranque de los sistemas                            */
+/*     NOTA: Archivos de inclusi¢n {s_login._1} y {s_login._2}              */
+/*           Usuarios desarrolladores: reemplazar (_) por una (d)           */
+/*           Usuarios de sistemas:     reemplazar (_) por una (s)           */
+/*           Dependiendo del sistema operativo cambiar (../) por (..\)      */
+/****************************************************************************/
+/*  PROGRAMADOR..........:   Juan Carlos R¡os                               */
+/*  FECHA CREACION.......:   19/01/95                                       */
+/*  REVISION.............:   5.76                                           */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   21/07/96                                       */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os                               */
+/*  MODIFICACION.........:   Se agrega variable path para funcionalidad 7.3 */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   21/04/98                                       */
+/*  PROGRAMADOR..........:   Claudio Sandri                                 */
+/*  MODIFICACION.........:   Se agrego soporte para plataforma WIN32.       */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   09/01/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os                               */
+/*  MODIFICACION.........:   Se agreg¢ manejo de default propath de Progress*/
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   28/01/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os - Grupo Sƒuken S.A.           */
+/*  MODIFICACION.........:   Se agreg¢ el soporte a pantallas de hasta 80x60*/
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   31/01/2005 -nev¢ en el Champaqu¡-              */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os                               */
+/*  MODIFICACION.........:   Agregu‚ {modalidad.i}                          */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   31/01/2005 -nev¢ en el Champaqu¡-              */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os                               */
+/*  MODIFICACION.........:   Se agrega la validaci¢n de la existencia del   */
+/*                           usuario 'computos'                             */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   14/03/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os                               */
+/*  MODIFICACION.........:   Agregu‚ {sistema.i} - Cambio de T¡tulos        */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   15/03/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os                               */
+/*  MODIFICACION.........:   Se agreg¢ soporte a nuevo esquema de conexi¢n  */
+/*                           de bases de datos y ejecuci¢n de programas     */
+/*                           de inicio por m¢dulo                           */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   18/03/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os - Grupo Sƒuken S.A.           */
+/*  MODIFICACION.........:   Si el usuario tiene password por defecto, no   */
+/*                           necesita ingresarla. El sistema luego le pide  */
+/*                           que asigne una clave definitiva                */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   20/03/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os - Grupo Sƒuken S.A.           */
+/*  MODIFICACION.........:   Agregu‚ Combo-Box en selecci¢n de M¢dulo       */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   11/04/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os - Grupo Sƒuken S.A.           */
+/*  MODIFICACION.........:   El mensaje que muestra en selecci¢n de m¢dulo  */
+/*                           o sistema podr  tomarse del nombre (corto) o   */
+/*                           descripci¢n (larga) del mismo, en funci¢n de   */
+/*                           lo que se parametrice en 'par_estado'          */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   26/05/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os                               */
+/*  MODIFICACION.........:   BUG: Si a un m¢dulo se lo desea dividir en va- */
+/*                           rios menues usando distintas descripciones de  */
+/*                           de grupo bajo un mismo nombre (propath), la    */
+/*                           la cosa no funciona al armar el userid.        */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   26/10/2005                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os                               */
+/*  MODIFICACION.........:   Soporte a PAC-Core                             */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   19/02/2007                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os                               */
+/*  MODIFICACION.........:   Soporte a OpenEdge                             */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   10/08/2007                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os                               */
+/*  MODIFICACION.........:   Agregar a propath un m¢dulo (grupo)            */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:   12/10/2007                                     */
+/*  PROGRAMADOR..........:   Juan Carlos R¡os - Grupo Sauken S.A.           */
+/*  MODIFICACION.........:   Control de Licenciamiento                      */
+/****************************************************************************/
+/*  FECHA MODIFICACION...:                                                  */
+/*  PROGRAMADOR..........:                                                  */
+/*  MODIFICACION.........:                                                  */
+/*                                                                          */
+/****************************************************************************/
+
+/*--- SISTEMAS: (contacto, gessi, posmaster, nudelman, core) ---*/
+{../sistema.i}
+
+/*--- MODALIDAD: YES=desarrollo; NO=sistemas ---*/
+{../modalidad.i}
+
+
+/*--- VARIABLES GLOBALES DE TODOS LOS SISTEMAS ---*/
+define shared variable vlc_host          as character.
+define shared variable vlc_misc          as character no-undo initial ?.
+define shared variable vlc_file_server   as character.
+define shared variable vlc_print_server  as character.
+define shared variable vlc_dir_fuentes   as character.
+define shared variable vlc_dir_objetos   as character.
+define shared variable vlc_dir_spool     as character.
+define shared variable vlc_comando       as character.
+
+
+/*--- VARIABLES DEL PROGRAMA ---*/
+define variable vlc_archivo  as character.
+define variable vlc_datos    as character format "x(76)".
+define variable vli_contador as integer   initial 0.
+define variable vli_posicion as integer   initial 0.
+define variable vli_intentos as integer   no-undo initial 3.
+define variable vlc_basedato as character.
+define variable vlc_mensaje  as character.
+define variable vlc_formato  as character format "x(80)" extent 57.
+define variable vlc_grupo    as character format "x(32)" label " Sistema".
+define variable vlc_usuario  as character format "x(32)" label " Usuario".
+define variable vlc_clave    as character format "x(32)" label " Clave  ".
+define variable vlc_logueado as character format "x(32)".
+define variable vlc_tabla    as character extent 40.
+define variable salida       as logical.
+define variable path         as character.
+define variable defpropath   as character.
+define variable dirpro       as character.
+define variable letra        like par_grupos.letra_inicial.
+define variable stat         as logical.
+define variable auxstr       as character.
+define variable tipo_mensaje like par_estado.tipo_login.
+define variable id_grupo     like par_grupos.letra_inicial.
+define variable x_proversion as integer.
+define variable c1           as integer.
+define variable c2           as integer.
+define variable c3           as character.
+
+define temp-table auxlic like est_grupos.
+
+define variable respuesta    as logical   no-undo.
+define variable archivo      as character no-undo.
+define variable conexion     as character no-undo.
+define variable esdemo       as logical   no-undo.
+define variable contador     as integer   no-undo.
+define variable lista        as character no-undo.
+
+define variable c-sep        as char no-undo.
+define variable c-pan        as char no-undo.
+define variable c-tit        as char no-undo.
+
+define variable auxpwd as character no-undo initial "m71t134y51p28".
+
+define buffer xxx_grupos for par_grupos.
+
+DEFINE VARIABLE vcc_grupo AS CHARACTER FORMAT "X(32)":U 
+     LABEL " Sistema"
+     VIEW-AS COMBO-BOX SORT INNER-LINES 5
+     DROP-DOWN-LIST
+     SIZE 38 BY 1 TOOLTIP "Sistema, Grupo o M¢dulo sobre el cual desea operar" NO-UNDO.
+
+/*--- DEFINO CARACTERES DEPENDIENTES DE LA SESION Y EL SISTEMA OPERATIVO ---*/
+assign c-sep = (if opsys = "UNIX" then "/" else "~\") 
+       c-pan = "#".
+
+/*--- NORMALMENTE WINDOWS GUI Y TTY ---*/
+if session:cpstream = "IBM850" and session:cpterm = "IBM850" then
+  c-pan = "±".
+
+/*--- NORMALMENTE LINUX TTY (RESTO UNIX ENTRA POR DEFECTO) ---*/
+if session:cpstream = "IBM850" and session:cpterm = "ISO8859-1" then
+  c-pan = chr(169).    
+
+/*--- SE ESTA CORRIENDO EN MODALIDAD DEMO? ---*/
+find first par_estado no-lock.
+if par_estado.accesos = ? then esdemo = no. else esdemo = yes.
+tipo_mensaje = par_estado.tipo_login.
+release par_estado.
+
+/*--- DEFINO TITULO ---*/
+&IF "{&SISTEMA}" = "gessi" &THEN
+  c-tit = "PAC-ERP GESSI".
+&ENDIF
+&IF "{&SISTEMA}" = "posmaster" &THEN
+  c-tit = "PAC-ERP POS-MASTER".
+&ENDIF
+&IF "{&SISTEMA}" = "nudelman" &THEN
+  c-tit = "SAUKEN-LAW".
+&ENDIF
+&IF "{&SISTEMA}" = "contacto" &THEN
+  c-tit = "PAC-CRM".
+&ENDIF
+&IF "{&SISTEMA}" = "core" &THEN
+  c-tit = "PAC-Core".
+&ENDIF
+if esdemo then c-tit = "DEMO - " + c-tit.
+
+/*--- VERSION DE PROGRESS EJECUTµNDOSE ---*/
+x_proversion = integer(substring(proversion,1, index(proversion,".") - 1)).
+
+/*--- DEFAULT PROPATH PROGRESS (puede variar conforme a la versi¢n de Progress que se utilize) ---*/
+assign dirpro     = os-getenv("DLC")
+       defpropath = ?.
+if dirpro <> ? and x_proversion < 10 then
+  do:
+
+    if session:display-type = "GUI" then
+      do:
+        defpropath = dirpro + c-sep + "gui," +
+                     dirpro + c-sep + "gui" + c-sep + "adecomm.pl," +
+                     dirpro + c-sep + "gui" + c-sep + "adecomp.pl," +
+                     dirpro + c-sep + "gui" + c-sep + "adedesk.pl," +
+                     dirpro + c-sep + "gui" + c-sep + "adedict.pl," +
+                     dirpro + c-sep + "gui" + c-sep + "adeedit.pl," +
+                     dirpro + c-sep + "gui" + c-sep + "adeicon.pl," +
+                     dirpro + c-sep + "gui" + c-sep + "aderes.pl," +
+                     dirpro + c-sep + "gui" + c-sep + "adeshar.pl," +
+                     dirpro + c-sep + "gui" + c-sep + "adeuib.pl," +
+                     dirpro + c-sep + "gui" + c-sep + "adeweb.pl," +
+                     dirpro + c-sep + "gui" + c-sep + "adexml.pl," +
+                     dirpro + c-sep + "gui" + c-sep + "as4dict.pl," +
+                     dirpro + c-sep + "gui" + c-sep + "prodict.pl," +
+                     dirpro + c-sep + "gui" + c-sep + "protools.pl," +
+                     dirpro + "," +
+                     dirpro + c-sep + "bin," +
+                     dirpro + c-sep + "PROBUILD" + c-sep + "EUCAPP" + c-sep + "EUC.PL," +
+                     dirpro + c-sep + "PROBUILD" + c-sep + "EUCAPP".
+      end.
+    else
+      do:
+        if opsys = "UNIX" then
+          defpropath = dirpro + c-sep + "tty," +
+                       dirpro + c-sep + "tty" + c-sep + "as4dict.pl," +
+                       dirpro + c-sep + "tty" + c-sep + "adeedit.pl," +
+                       dirpro + c-sep + "tty" + c-sep + "adeshar.pl," +
+                       dirpro + c-sep + "tty" + c-sep + "prodict.pl," +
+                       dirpro + c-sep + "tty" + c-sep + "adecomm.pl," +
+                       dirpro + c-sep + "tty" + c-sep + "adecomp.pl," +
+                       dirpro + "," +
+                       dirpro + c-sep + "bin".
+        else
+          defpropath = dirpro + c-sep + "tty," +
+                       dirpro + c-sep + "tty" + c-sep + "adecomm.pl," +
+                       dirpro + c-sep + "tty" + c-sep + "adecomp.pl," +
+                       dirpro + c-sep + "tty" + c-sep + "adeedit.pl," +
+                       dirpro + c-sep + "tty" + c-sep + "adeshar.pl," +
+                       dirpro + c-sep + "tty" + c-sep + "as4dict.pl," +
+                       dirpro + c-sep + "tty" + c-sep + "prodict.pl," +
+                       dirpro + c-sep + "PROBUILD" + c-sep + "EUCAPP" + c-sep + "EUC.PL," +
+                       dirpro + c-sep + "PROBUILD" + c-sep + "EUCAPP," +
+                       dirpro + "," +
+                       dirpro + c-sep + "bin".
+      end.
+
+  end.
+
+&IF "{&MODALIDAD}" = "yes" AND "{&SISTEMA}" = "core" &THEN
+   defpropath = vlc_dir_fuentes + "supervisor" + c-sep + "core" + c-sep + "custom," +
+                vlc_dir_fuentes + "supervisor" + c-sep + "core" + c-sep + "gui," +
+                vlc_dir_fuentes + "supervisor" + c-sep + "core" + c-sep + "src," +
+                vlc_dir_fuentes + "supervisor" + c-sep + "core," +
+                vlc_dir_fuentes + "supervisor" + c-sep + "core" + c-sep + "supervisor," +
+                (if defpropath <> ? then defpropath else "").
+&ENDIF
+
+&IF "{&MODALIDAD}" = "no" AND "{&SISTEMA}" = "core" &THEN
+   defpropath = vlc_dir_objetos + "supervisor" + c-sep + "core" + c-sep + "custom," +
+                vlc_dir_objetos + "supervisor" + c-sep + "core" + c-sep + "gui," +
+                vlc_dir_objetos + "supervisor" + c-sep + "core" + c-sep + "src," +
+                vlc_dir_objetos + "supervisor" + c-sep + "core," + 
+                vlc_dir_objetos + "supervisor" + c-sep + "core" + c-sep + "supervisor," +
+                (if defpropath <> ? then defpropath else "").
+&ENDIF
+
+&IF "{&SISTEMA}" = "gessi" OR "{&SISTEMA}" = "posmaster" OR "{&SISTEMA}" = "core" OR "{&SISTEMA}" = "contacto" &THEN
+  defpropath = (if defpropath <> ? then defpropath + "," else "") + 
+               &IF "{&MODALIDAD}" = "yes" &THEN vlc_dir_fuentes &ELSE vlc_dir_objetos + "gui" + (if opsys = "UNIX" then "/" else "~\") &ENDIF
+               + "supervisor" + (if opsys = "UNIX" then "/" else "~\") + "triggers,".
+&ENDIF
+
+/*--- VERIFICO LA EXISTENCIA DEL USUARIO "computos" EN LA BASE DE DATOS DE USUARIOS ---*/
+if not can-find(first userdb._user where userdb._user._userid = "computos") then
+  do transaction:
+    create userdb._user.
+    assign userdb._user._userid    = "computos"
+           userdb._user._user-name = "Usuario para el desarrollo de sistemas"
+           userdb._user._password  = encode("wifaro").
+    release userdb._user.
+  end.
+
+/*--- PROGRAMA PRINCIPAL ---*/
+bell.
+do vli_contador = 1 to 57:
+  vlc_formato[vli_contador] = fill(c-pan, 80).
+end.
+vli_contador = screen-lines.
+case vli_contador:
+  when 21 then
+    display vlc_formato[1]  skip  vlc_formato[2]  skip  vlc_formato[3]  skip
+            vlc_formato[4]  skip  vlc_formato[5]  skip  vlc_formato[6]  skip
+            vlc_formato[7]  skip  vlc_formato[8]  skip  vlc_formato[9]  skip
+            vlc_formato[10] skip  vlc_formato[11] skip  vlc_formato[12] skip
+            vlc_formato[13] skip  vlc_formato[14] skip  vlc_formato[15] skip
+            vlc_formato[16] skip  vlc_formato[17] skip  vlc_formato[18] skip
+            vlc_formato[19] skip  vlc_formato[20] skip  vlc_formato[21] skip
+            vlc_formato[22]
+     with frame frame_inicial_1 no-box overlay no-labels row 1 column 1.
+  when 22 then
+    display vlc_formato[1]  skip  vlc_formato[2]  skip  vlc_formato[3]  skip
+            vlc_formato[4]  skip  vlc_formato[5]  skip  vlc_formato[6]  skip
+            vlc_formato[7]  skip  vlc_formato[8]  skip  vlc_formato[9]  skip
+            vlc_formato[10] skip  vlc_formato[11] skip  vlc_formato[12] skip
+            vlc_formato[13] skip  vlc_formato[14] skip  vlc_formato[15] skip
+            vlc_formato[16] skip  vlc_formato[17] skip  vlc_formato[18] skip
+            vlc_formato[19] skip  vlc_formato[20] skip  vlc_formato[21] skip
+            vlc_formato[22]
+     with frame frame_inicial_2 no-box overlay no-labels row 1 column 1.
+  when 31 then
+    display vlc_formato[1]  skip  vlc_formato[2]  skip  vlc_formato[3]  skip
+            vlc_formato[4]  skip  vlc_formato[5]  skip  vlc_formato[6]  skip
+            vlc_formato[7]  skip  vlc_formato[8]  skip  vlc_formato[9]  skip
+            vlc_formato[10] skip  vlc_formato[11] skip  vlc_formato[12] skip
+            vlc_formato[13] skip  vlc_formato[14] skip  vlc_formato[15] skip
+            vlc_formato[16] skip  vlc_formato[17] skip  vlc_formato[18] skip
+            vlc_formato[19] skip  vlc_formato[20] skip  vlc_formato[21] skip
+            vlc_formato[22] skip  vlc_formato[23] skip  vlc_formato[24] skip
+            vlc_formato[25] skip  vlc_formato[26] skip  vlc_formato[27] skip
+            vlc_formato[28] skip  vlc_formato[29] skip  vlc_formato[30] skip
+            vlc_formato[31]
+     with frame frame_inicial_3 no-box overlay no-labels row 1 column 1.
+  when 43 then
+    display vlc_formato[1]  skip  vlc_formato[2]  skip  vlc_formato[3]  skip
+            vlc_formato[4]  skip  vlc_formato[5]  skip  vlc_formato[6]  skip
+            vlc_formato[7]  skip  vlc_formato[8]  skip  vlc_formato[9]  skip
+            vlc_formato[10] skip  vlc_formato[11] skip  vlc_formato[12] skip
+            vlc_formato[13] skip  vlc_formato[14] skip  vlc_formato[15] skip
+            vlc_formato[16] skip  vlc_formato[17] skip  vlc_formato[18] skip
+            vlc_formato[19] skip  vlc_formato[20] skip  vlc_formato[21] skip
+            vlc_formato[22] skip  vlc_formato[23] skip  vlc_formato[24] skip
+            vlc_formato[25] skip  vlc_formato[26] skip  vlc_formato[27] skip
+            vlc_formato[28] skip  vlc_formato[29] skip  vlc_formato[30] skip
+            vlc_formato[31] skip  vlc_formato[32] skip  vlc_formato[33] skip
+            vlc_formato[34] skip  vlc_formato[35] skip  vlc_formato[36] skip
+            vlc_formato[37] skip  vlc_formato[38] skip  vlc_formato[39] skip
+            vlc_formato[40] skip  vlc_formato[41] skip  vlc_formato[42] skip
+            vlc_formato[43]
+     with frame frame_inicial_4 no-box overlay no-labels row 1 column 1.
+  when 57 then
+    display vlc_formato[1]  skip  vlc_formato[2]  skip  vlc_formato[3]  skip
+            vlc_formato[4]  skip  vlc_formato[5]  skip  vlc_formato[6]  skip
+            vlc_formato[7]  skip  vlc_formato[8]  skip  vlc_formato[9]  skip
+            vlc_formato[10] skip  vlc_formato[11] skip  vlc_formato[12] skip
+            vlc_formato[13] skip  vlc_formato[14] skip  vlc_formato[15] skip
+            vlc_formato[16] skip  vlc_formato[17] skip  vlc_formato[18] skip
+            vlc_formato[19] skip  vlc_formato[20] skip  vlc_formato[21] skip
+            vlc_formato[22] skip  vlc_formato[23] skip  vlc_formato[24] skip
+            vlc_formato[25] skip  vlc_formato[26] skip  vlc_formato[27] skip
+            vlc_formato[28] skip  vlc_formato[29] skip  vlc_formato[30] skip
+            vlc_formato[31] skip  vlc_formato[32] skip  vlc_formato[33] skip
+            vlc_formato[34] skip  vlc_formato[35] skip  vlc_formato[36] skip
+            vlc_formato[37] skip  vlc_formato[38] skip  vlc_formato[39] skip
+            vlc_formato[40] skip  vlc_formato[41] skip  vlc_formato[42] skip
+            vlc_formato[43] skip  vlc_formato[44] skip  vlc_formato[45] skip
+            vlc_formato[46] skip  vlc_formato[47] skip  vlc_formato[48] skip
+            vlc_formato[49] skip  vlc_formato[50] skip  vlc_formato[51] skip
+            vlc_formato[52] skip  vlc_formato[53] skip  vlc_formato[54] skip
+            vlc_formato[55] skip  vlc_formato[56] skip  vlc_formato[57] skip
+     with frame frame_inicial_5 no-box overlay no-labels row 1 column 1.
+end case.
+pause 0 no-message.
+
+find first par_usuario no-lock no-error.
+display 
+  space(2) 
+  fill(" ", integer((22 - length(trim(par_usuario.nombre_comercial))) / 2)) +
+  trim(par_usuario.nombre_comercial) 
+  format "x(22)"
+  space(2)
+  with frame frame_titulo no-labels overlay row 2 centered color reverse.
+  
+vlc_datos = par_usuario.nombre_legal + "-" +
+            par_usuario.direccion + " (" +
+            par_usuario.codigo_postal + ") " +
+            par_usuario.localidad + "-" +
+            par_usuario.provincia + "-" +
+            par_usuario.pais.
+vlc_datos = fill(" ", integer((76 - length(vlc_datos)) / 2)) + vlc_datos.
+release par_usuario.
+
+display vlc_datos skip
+        " Aplicaci¢n Propiedad de Grupo Sauken S.A. - Todos los Derechos Reservados  " skip
+        "           Desarrollado con Progress OpenEdge 10.1B - Julio 2008            "
+    with frame frame_textos no-labels overlay row 8 centered color reverse title " " + c-tit + " ".
+pause 0 no-message.
+
+if screen-lines = 31 then
+  do:
+    frame frame_titulo:row = 5.
+    frame frame_textos:row = 12.
+  end.
+if screen-lines = 43 then
+  do:
+    frame frame_titulo:row = 7.
+    frame frame_textos:row = 16.
+  end.
+if screen-lines >= 57 then
+  do:
+    frame frame_titulo:row = 10.
+    frame frame_textos:row = 22.
+  end.
+
+vli_contador = 0.
+for each par_grupos where &IF "{&MODALIDAD}" = "no" &THEN
+                            par_grupos.estado = yes and
+                          &ENDIF
+                          (par_grupos.id_entorno = 1 or par_grupos.id_entorno = 3) no-lock:
+  vli_contador = vli_contador + 1.
+  vlc_tabla[vli_contador] = (if par_grupos.letra_inicial <> " " then par_grupos.letra_inicial + "_," else ",")
+                            + par_grupos.nombre_grupo.
+end.
+release par_grupos.
+
+&IF "{&MODALIDAD}" = "no" &THEN
+  {../s_login.s3}
+&ELSE
+  {../s_login.d3}
+&ENDIF
+
+/*--- DEFINICION DE FORMULARIO ---*/
+form vcc_grupo   help " Grupo o Sistema al cual pertenece"          skip
+     vlc_usuario help " Nombre o Usuario con el cual se identifica" skip
+     vlc_clave   help " Clave o Contrase¤a para permitir su acceso"
+&IF integer(substring(proversion,1, index(proversion,".") - 1)) >= 10 &THEN
+   password-field
+&ELSE
+   blank
+&ENDIF
+  with frame login centered row 16 overlay side-labels.
+
+/*--- PROCESO MODULOS HABILITADOS ---*/
+for each par_grupos where (par_grupos.id_entorno = 1 or par_grupos.id_entorno = 3) and
+                           not can-find(first par_agrupados where par_agrupados.letra_grupo = par_grupos.letra_inicial)
+                           
+                           &IF "{&MODALIDAD}" = "no" &THEN
+                             and par_grupos.letra_inicial <> " " and par_grupos.estado = yes
+                           &ENDIF
+                           
+                    no-lock:
+  if tipo_mensaje = yes then
+    auxstr = par_grupos.nombre_grupo.
+  else
+    auxstr = par_grupos.descripcion_grupo.
+  if par_grupos.nombre_grupo = "Administrador" then
+    auxstr = "# " + auxstr.
+  stat = vcc_grupo:add-first(auxstr).
+end.
+
+ON VALUE-CHANGED OF vcc_grupo IN FRAME login /* Sistema */
+DO:
+  vlc_grupo = lc(trim(vcc_grupo:screen-value)).
+  if vlc_grupo begins "#" then
+    vlc_grupo = lc(substring(vlc_grupo,3)).
+  if tipo_mensaje = no then
+    do:
+      find first par_grupos where par_grupos.descripcion_grupo begins vlc_grupo no-lock.
+      assign vlc_grupo = trim(lc(par_grupos.nombre_grupo))
+             id_grupo  = trim(lc(par_grupos.letra_inicial)).
+    end.
+END.
+
+ON RETURN OF vcc_grupo IN FRAME login /* Sistema */
+DO:
+  apply "TAB" to vcc_grupo.
+END.
+
+_sale:
+do on endkey undo, leave on error undo, leave:
+  assign vlc_grupo = "" vlc_usuario = "" vlc_clave = "" vlc_misc = ? id_grupo = "".
+  if opsys <> "UNIX" then
+    message substring(" " + kblabel("GO") + "=confirma, " +
+                            kblabel("HELP") + "=ayuda, " +
+                            kblabel("END-ERROR") + "=sale" +
+                            " - Modos Soportados: 80x25, 80x34, 80x46, 80x60" +
+                            fill(" ",80), 1, 79).
+  else
+    message substring(" " + kblabel("GO") + "=confirma, " +
+                            kblabel("HELP") + "=ayuda, " +
+                            kblabel("END-ERROR") + "=sale" +
+                            fill(" ",80), 1, 79).
+  if screen-lines = 31 then
+    frame login:row = 23.
+  if screen-lines = 43 then
+    frame login:row = 31.
+  if screen-lines >= 57 then
+    frame login:row = 43.
+
+  display vcc_grupo vlc_usuario vlc_clave with frame login.
+
+  &IF "{&MODALIDAD}" = "yes" &THEN
+    vcc_grupo:screen-value = "# Administrador" no-error.
+  &ENDIF
+  
+  update vcc_grupo vlc_usuario vlc_clave with frame login
+    editing:
+      readkey pause 60.
+      if lastkey = -1 then
+        undo _sale, leave _sale.
+      apply lastkey.
+    end.
+
+  apply "VALUE-CHANGED" to vcc_grupo.
+  assign vlc_grupo    = lc(vlc_grupo)
+         vlc_usuario  = lc(vlc_usuario)
+         vlc_clave    = lc(vlc_clave)
+         vlc_logueado = lc(vlc_usuario)
+         vlc_misc     = ?.
+  if vlc_usuario <> "" or vlc_grupo <> "" then
+    do:
+      do vli_posicion = 1 to vli_contador:
+        if lc(vlc_grupo) = entry(2,vlc_tabla[vli_posicion]) then
+          do:
+            vlc_usuario = entry(1,vlc_tabla[vli_posicion]) + vlc_usuario.
+            leave.
+          end.
+      end.
+      if vli_posicion > vli_contador then
+        vlc_usuario = "".
+      if tipo_mensaje = no and vlc_usuario <> "computos" and id_grupo <> "" and substring(vlc_usuario,1,1) <> id_grupo then
+        assign vlc_usuario = id_grupo + substring(vlc_usuario,2).
+      if vlc_clave = "" then
+        do:
+          find userdb._user where userdb._user._userid = vlc_usuario no-lock no-error.
+          if available userdb._user then
+          if userdb._user._passw = encode(auxpwd) then
+            vlc_clave = auxpwd.
+          release userdb._user.
+        end.
+      if not setuserid(vlc_usuario,vlc_clave,"userdb") then
+        do:
+          bell.
+          input clear.
+          message substring(" Sistema, Usuario o Clave Incorrectas! Le quedan "
+                  + string(vli_intentos - 1, "9") + " intentos." +
+                  fill(" ",80), 1, 79).
+          vlc_misc = ?.
+          if vli_intentos = 1 then
+            do:
+              run s_inform.p (4, input vlc_logueado).
+              undo _sale, leave _sale.
+            end.
+          readkey pause 10.
+          hide message no-pause.
+          vli_intentos = vli_intentos - 1.
+          undo _sale, retry _sale.
+        end.
+      else
+        do:
+          vlc_misc = vlc_clave.
+          if userid("userdb") = "computos" then
+            do:
+              pause 0 no-message.
+              hide message no-pause.
+              hide all no-pause.
+              run s_mail.p.          /*--- VERIFICA SI EL USUARIO TIENE ALGéN CORREO INTERNO ---*/
+              {../s_login.iii}       /*--- CAMBIA USUARIO A BASES DE DATOS CONECTADAS DESDE EL ARRANQUE DEL SISTEMA */
+
+              &IF "{&MODALIDAD}" = "no" &THEN
+                {../s_login.s1}
+              &ELSE
+                {../s_login.d1}
+              &ENDIF
+
+            end.
+          else
+            do:
+              if can-find(first par_agrupados where par_agrupados.letra_grupo = substring(userid("userdb"),1,1)) then
+                do:
+                  bell.
+                  message "El Grupo seleccionado NO posee men£ compatible !!!".
+                  pause 5.
+                  undo _sale, retry _sale.
+                end.
+              else
+                do:
+                  hide all no-pause.
+                  {../s_entorno.i}       /*--- VERIFICA HABILITACIàN O NO DE UN MàDULO, POR SU ESTADO Y ENTORNO ---*/
+                  {../s_login.iii}       /*--- CAMBIA USUARIO A BASES DE DATOS CONECTADAS DESDE EL ARRANQUE DEL SISTEMA */
+
+                  &IF "{&MODALIDAD}" = "no" &THEN
+                     {../s_login.s2}
+                  &ELSE
+                     {../s_login.d2}
+                  &ENDIF
+                  
+                  {../s_login.ii}        /*--- CONECTA BASES DE DATOS, EJECUTA PROGRAMA INICIALES POR MàDULO Y
+                                               CARGA TABLA "par_usuarios_logueo" UTILIZADA POR TUCUMAN ---*/
+                  run s_mail.p.          /*--- VERIFICA SI EL USUARIO TIENE ALGéN CORREO INTERNO ---*/
+                  if vlc_misc = auxpwd then
+                    do:
+                      message "Debe Asignar una Contrase¤a a su Cuenta !!!" skip(1)
+                              "A continuaci¢n se le pedir  que escriba una contrase¤a." skip
+                              "Luego deber  reingresarla para verificar la misma." skip
+                              "Por favor, recuerde la contrase¤a ingresada."
+                              view-as alert-box information.
+                      run h_passwd.p.      /*--- SI LA PASSWORD ES LA POR DEFECTO OBLIGA A CAMBIARLA ---*/
+                    end.
+                  run s_menu.p.          /*--- MENU INTERFAZ CARACTER ---*/
+                  {../s_login.i}         /*--- DESCONECTA BASES DE DATOS ADICIONALES, CONECTADAS ARRIBA (Y sucursal.db EN GESSI) ---*/
+
+                  if screen-lines = 21 then
+                    view frame frame_inicial_1.
+                  if screen-lines = 22 then
+                    view frame frame_inicial_2.
+                  if screen-lines = 31 then
+                    view frame frame_inicial_3.
+                  if screen-lines = 43 then
+                    view frame frame_inicial_4.
+                  if screen-lines >= 57 then
+                    view frame frame_inicial_5.
+                  pause 0 no-message.
+                  view frame frame_titulo.
+                  view frame frame_textos.
+                  vli_intentos = 3.
+                  undo _sale, retry _sale.
+                end.  
+            end.
+        end.
+    end.
+  else
+    undo _sale, leave _sale.
+end.
+pause 0 no-message.
+hide message no-pause.
+hide all no-pause.
+quit.

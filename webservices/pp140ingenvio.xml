@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pp1="http://sanmiguel.com/PP141ING">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pp1:MT_Request>
+         <SYSID>DEV130</SYSID>
+         <momento1>
+            <sucursal>SPL</sucursal>
+            <partida>424966</partida>
+            <material_sap>50111010101</material_sap>
+            <lote_sap>0000000540</lote_sap>
+            <peso>20</peso>
+            <UM>KG</UM>
+            <almacen>1101</almacen>
+         </momento1>
+         <momento2>
+            <documentoMaterial>?</documentoMaterial>
+            <ejercicio>?</ejercicio>
+            <fechaContabilizacion>?</fechaContabilizacion>
+         </momento2>
+      </pp1:MT_Request>
+   </soapenv:Body>
+</soapenv:Envelope>

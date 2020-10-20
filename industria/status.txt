@@ -1,0 +1,4 @@
+[protocolo_jugo]
+RO-ERROR-CODE=N
+RO-ERROR-MESSAGE=
+RO-PAGES=1

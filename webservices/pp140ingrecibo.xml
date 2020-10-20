@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP:Envelope xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+   <SOAP:Header/>
+   <SOAP:Body xmlns:pp1="http://sanmiguel.com/PP141ING">
+      <ns0:MT_Response xmlns:ns0="http://sanmiguel.com/PP141ING">
+         <momento1>
+            <sucursal>SPL</sucursal>
+            <partida>424966</partida>
+            <material_sap>50111010101</material_sap>
+            <lote_sap>0000000540</lote_sap>
+            <peso>20</peso>
+            <UM>KG</UM>
+            <almacen>1101</almacen>
+            <documentoMaterial/>
+            <ejercicio/>
+            <ordenMTS/>
+            <mensaje>No se recupero ninguna orden para los datos de la interfase</mensaje>
+         </momento1>
+         <momento2>
+            <documentoMaterial/>
+            <ejercicio/>
+            <fechaContabilizacion/>
+            <mensaje/>
+         </momento2>
+      </ns0:MT_Response>
+   </SOAP:Body>
+</SOAP:Envelope>

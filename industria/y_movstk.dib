@@ -1,0 +1,11 @@
+DISPLAY  auxi.id_lote format ">>>>9"
+         auxi.anio column-label "A¤o"
+         auxi.id_articulo column-label "Articulo"
+         auxi.id_sucursal_ubicacion column-label "Ubic."
+         auxi.desde
+         auxi.hasta
+         auxi.tambores
+         auxi.marca   column-label "Marca"
+/*         auxi.id_sucursal_destino   column-label "Dest." */
+         WITH 10 DOWN  CENTERED color white/black
+         TITLE " Stock de Tambores". 

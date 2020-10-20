@@ -1,0 +1,89 @@
+#SIEMPRE
+5-FLETE;NOT es_fob > calcFlete
+
+# FOB
+#100-THC (ORIGEN); es_fob > calcZero
+#101-TOLL; es_fob > calcZero
+#102-HANDLING (GATE OUT); es_fob > calcZero
+#102-ADVANCED MANIFEST CARGO; es_fob > calcZero
+#103-COMISION; es_fob > calcZero
+#104-BILL OF LAINING; es_fob > calcZero
+
+
+
+# CFR 
+
+200-BUNKER; es_cfr > calcZero
+201-INBALANCE SURCHARGE; es_cfr > calcZero
+202-SECURITY CHARGE; es_cfr > calcZero
+203-PEAK SURCHARGE (EBAF); es_cfr > calc_Zero
+
+# CIF
+300-BUNKER; es_cif > calcZero
+301-INBALANCE SURCHARGE; es_cif > calcZero
+302-SECURITY CHARGE; es_cif > calcZero
+303-PEAK SURCHARGE (EBAF); es_cif > calc_Zero
+304-SEGURO; es_cif > calcZero
+
+
+# DDP
+
+400-THC DESTINO; es_ddp > calcZero
+401-DUTIES (ENTRY); es_ddp > calcZero
+402-DUTIES USA (JUGO); es_ddp > calcZero
+403-CUSTOM BROKER FEE; es_ddp > calcZero
+404-REPROCESO; es_ddp > calcZero
+405-CHASSIS FEE; es_ddp > calcZero
+406-VARIOS; es_ddp > calcZero
+407-IKS; es_ddp > calcZero
+408-DESTINATION SECURITY; es_ddp > calcZero
+409-PANAMA CANAL TOLL; es_ddp > calcZero
+410-B/L DESTINO; es_ddp > calcZero
+411-WHARFAGE; es_ddp > calcZero
+412-FCA COSTS; es_ddp > calcZero
+413-PALLETIZING; es_ddp > calcZero
+414-SERVICE FEE; es_ddp > calcZero
+415-WAREHOUSE; es_ddp > calcZero
+416-DELIVERY EN DESTINO; es_ddp > calcZero
+
+  
+
+  
+  
+  
+  
+ 
+  
+  
+  #GASTOS POR AGENCIAS
+#9-THC (ORIGEN);NOT es_cfr AND NOT es_fob > calcThcOrigen 
+12-VARIOS;siempre AND NOT es_cfr AND NOT es_fob > calcZero 
+#14-TOLL;siempre AND NOT es_cfr AND NOT es_fob > calcToll
+#15-HANDLING;siempre AND NOT es_cfr AND NOT es_fob > calcGateOut
+#16-INLAND;siempre AND NOT es_miami AND NOT es_fob > calcInland
+#19-BL;siempre AND NOT es_cfr AND NOT es_fob > calcBL
+#20-THC (DESTINO);siempre AND NOT es_cfr AND NOT es_fob > calcThcDestino
+26-INBALANCE;siempre AND NOT es_cfr AND NOT es_fob > calcInbalance
+29-AGP;siempre AND NOT es_cfr AND NOT es_fob > calcAgp
+30-T7;siempre AND NOT es_cfr AND NOT es_fob > calcZero
+#31-EBAF;siempre AND NOT es_cfr AND NOT es_fob > calcEbaf
+32-AMS;siempre AND NOT es_cfr AND NOT es_fob > calcAmc
+
+
+#GASTOS POR CLAUSULA (COND VTA) DDP, DDU, EDDP, CIF, FCA
+3-ENTRY (DUTTY DDP);es_ddp AND es_usa > calcEntry
+6-DELIVERY;es_ddp > calcDelivery
+11-SEGURO;es_ddp OR es_ddu OR es_cif OR es_fca > calcSeguro
+12-VARIOS;es_ddp OR es_ddu OR es_fca > calcZero
+16-CHASSIS FEE;NOT es_miami AND NOT es_canada AND es_ddp > calcInland
+17-BUNKER;es_ddp OR es_ddu > calcBunker
+20-THC (DESTINO);NOT es_canada AND es_ddp > calcThcDestino
+26-INBALANCE;es_ddp OR es_ddu > calcInbalance
+27-DCR;es_ddp AND NOT es_aceite > calcDcr
+31-EBAF;es_ddp > calcEbaf
+33-FCA (COSTS);es_ddp AND es_europa > calcZero
+34-SERVICE FEE;es_ddp AND es_europa > calcZero
+
+
+#CFR
+13-IKS;es_cfr > calcIks

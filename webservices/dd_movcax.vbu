@@ -1,0 +1,104 @@
+/* Variables generales*/
+
+DEFINE INPUT PARAMETER x_movsto AS INTEGER.
+DEFINE INPUT PARAMETER x_origen AS INTEGER.
+DEFINE INPUT PARAMETER x_destino AS INTEGER.
+
+define shared variable x_packing    as integer.
+
+define shared variable x_fecha_des  as date.
+define shared variable x_hora_des   as character.
+define shared variable x_fecha_has  as date.
+define shared variable x_hora_has   as character.
+define shared variable x_materia    like productos_terminados.id_articulo.
+define shared variable x_variedad   like variedades.id_variedad.
+
+define variable x_nombre            like sucursales.nombre      no-undo.
+define variable x_temporada         like periodo_cosecha.periodo_cosecha no-undo.
+define variable x_numero            like tipo_numero.nro        no-undo.
+define variable x_num_envio         like tipo_numero.nro        no-undo.
+define variable x_hora              as character format "x(5)"  no-undo.
+define variable x_peso_fruta        as integer initial 0        no-undo.
+define variable x_lleva_stock       as logical initial false    no-undo.
+define variable x_total_bdjas       as integer initial 0        no-undo.
+define variable x_campack           as integer                  no-undo.
+define variable x_partida           as integer                  no-undo.
+define variable x_suc_etiq          as integer                  no-undo.
+define variable x_etiqueta          as integer                  no-undo.
+define variable x_partida_s         as integer                  no-undo.
+define variable x_partida_o         as integer                  no-undo.
+define variable xUnion              as logical                  no-undo.
+define variable xHora               as character format "x(4)"  no-undo.
+
+define variable x_proveedor         like proveedores.id_proveedor no-undo.
+define variable x_nombprov          like proveedores.nombre     no-undo.
+define variable x_finca             like origenes.id_origen     no-undo.
+define variable x_nombfinc          like origenes.abreviatura   no-undo.
+define variable x_lote              like lote.id_lote           no-undo.
+define variable x_nomblote          like lote.abreviatura       no-undo.
+define variable x_uniprod           as character format "x(6)"  no-undo.
+define variable x_sucursal          like items_stock.id_sucursal no-undo.
+define variable x_suc_envio         like items_stock.id_suc_envio no-undo.
+
+DEFINE VARIABLE xclave AS CHARACTER FORMAT "X(10)":U 
+     LABEL "CLave"
+     VIEW-AS FILL-IN 
+     SIZE 14 BY 1 NO-UNDO.
+
+if x_destino = 106 then do:
+    x_suc_etiq  = 106.
+    x_campack   = 106.
+    x_sucursal  = 98.
+
+    if x_movsto = 72 or x_movsto = 77 then
+        x_suc_envio = 106.
+    else
+        x_suc_envio = 101.
+end.
+else do:
+    x_suc_etiq  = 114.
+    x_campack   = 114.
+    x_sucursal  = 97.
+
+    if x_movsto = 72 or x_movsto = 77 then
+        x_suc_envio = 114.
+    else
+        x_suc_envio = 111.
+end.
+
+
+find first periodo_cosecha no-lock.
+x_temporada = periodo_cosecha.periodo_cosecha.
+
+/* Variables de partida por remito */
+define variable x_partunica         like items_stock.nro_partida.
+define variable g_partida           like partidas_remitos.nro_partida_unica.
+define variable x_cantidad          like items_stock.cantidad1.
+
+/* Variables de busqueda cabecera*/
+define variable x1  like  movsucu.id_suc_envio.
+
+/* Variables de busqueda detalle*/
+define variable a3  like  items_stock.item.
+define variable x0  like  items_stock.id_tipo_cosecha.
+define variable x2  like  items_stock.codigo_trazabilidad.
+define variable x3  like  items_stock.id_variedad.
+define variable x4  like  items_stock.id_color.
+define variable x5  like  items_stock.id_articulo.
+define variable x7  like  items_stock.id_envase.
+define variable x8  like  items_stock.cantidad.
+define variable x9  like  items_stock.fecha.
+
+/* Buffer para movsucu */
+define buffer aux_movsucu for movsucu. 
+
+/* Buffer para items_stock correlativos por movsucu */
+define buffer aux_items for items_stock. 
+
+/* Buffer para partidas por remitos */
+define buffer aux_partidas for partidas_remitos. 
+
+/* Buffer para sucursales */
+define buffer aux_sucur for sucursales. 
+
+DEFINE VAR KEY AS CHARACTER NO-UNDO.

@@ -1,0 +1,64 @@
+/* Variables generales*/
+
+DEFINE INPUT PARAMETER x_movsto AS INTEGER.
+DEFINE INPUT PARAMETER x_origen AS INTEGER.
+DEFINE INPUT PARAMETER x_destino AS INTEGER.
+
+define shared variable x_packing    as integer.
+
+define shared variable x_fecha_des  as date.
+define shared variable x_hora_des   as character.
+define shared variable x_fecha_has  as date.
+define shared variable x_hora_has   as character.
+define shared variable x_materia    like productos_terminados.id_articulo.
+define shared variable x_variedad   like variedades.id_variedad.
+
+define variable x_nombre            like sucursales.nombre      no-undo.
+define variable x_temporada         like periodo_cosecha.periodo_cosecha no-undo.
+define variable x_numero            like tipo_numero.nro        no-undo.
+define variable x_num_envio         like tipo_numero.nro        no-undo.
+define variable x_partida           as integer                  no-undo.
+define variable x_hora              as character format "x(5)"  no-undo.
+define variable x_peso_fruta        as integer initial 0        no-undo.
+define variable x_lleva_stock       as logical initial false    no-undo.
+define variable x_total_bdjas       as integer initial 0        no-undo.
+define variable g_resto_bdjas       as integer initial 0        no-undo.
+define variable x_plapack           as integer                  no-undo.
+define variable x_finca_senasa      as character                no-undo.
+define variable x_borrar            as logical initial false    no-undo.
+define variable x_partunica         as integer                  no-undo.
+define variable x_sucursal          as integer                  no-undo.
+define variable x_partida_s         as integer                  no-undo.
+define variable xPartida            as integer format "9999999999" no-undo.
+define variable xUnion              as logical                  no-undo.
+define variable xHora               as character format "x(4)"  no-undo.
+define variable xCantidad           like items_stock.cantidad   no-undo.
+define variable xRemito             as character format "9999-99999999" no-undo.
+define variable xOrdenE             as integer                  no-undo.
+DEFINE VAR KEY                      AS CHARACTER NO-UNDO.
+
+DEFINE VARIABLE xclave AS CHARACTER FORMAT "X(10)":U 
+     LABEL "CLave"
+     VIEW-AS FILL-IN 
+     SIZE 14 BY 1 NO-UNDO.
+
+if x_packing = 1 then x_plapack = 101.
+if x_packing = 2 then x_plapack = 111.
+
+find first periodo_cosecha no-lock.
+x_temporada = periodo_cosecha.periodo_cosecha.
+
+/* Variables de busqueda cabecera*/
+define variable x1  like  movsucu.id_suc_envio.
+
+/* Variables de busqueda detalle*/
+define variable a3  like  items_stock.item.
+
+/* Buffers para movsucu */
+define buffer aux_movsucu for  movsucu. 
+
+/* Buffer para items_stock correlativos por movsucu */
+define buffer aux_items for  items_stock. 
+
+/* Buffers para sucursales */
+define buffer aux_sucur for  sucursales. 

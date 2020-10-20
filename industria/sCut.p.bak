@@ -1,0 +1,88 @@
+
+ FUNCTION createShortcut RETURNS LOGICAL
+ (INPUT pcShortcut          AS CHARACTER,
+  INPUT pcDescription       AS CHARACTER,
+  INPUT pcTargetPath        AS CHARACTER,
+  INPUT pcArguments         AS CHARACTER, 
+  INPUT pcWorkingDirectory  AS CHARACTER,
+  INPUT piWindowStyle       AS INTEGER,
+  INPUT pcHotkey            AS CHARACTER,
+  INPUT pcIconLocation      AS CHARACTER ) :
+ 
+  /*------------------------------------------------------------------------------
+  Purpose: creates a windows shortcut/snelkoppeling
+  Notes: rdb 7-10-2000
+  ------------------------------------------------------------------------------*/
+   DEF VAR WSHShell AS COM-HANDLE NO-UNDO.
+   DEF VAR ShortCut AS COM-HANDLE NO-UNDO.
+   DEF VAR lok AS LOG INIT FALSE NO-UNDO.
+  
+   IF "{&OPSYS}" = "WIN32" THEN DO:
+     CREATE "WScript.Shell" WSHShell NO-ERROR.
+     IF VALID-HANDLE(WSHShell) THEN DO:
+       ASSIGN ShortCut = WSHShell:CreateShortcut(pcShortcut)
+              Shortcut:Description      = pcDescription
+              ShortCut:TargetPath       = pcTargetPath
+              ShortCut:WorkingDirectory = pcWorkingdirectory
+              ShortCut:WindowStyle      = piWindowstyle
+              ShortCut:IconLocation     = pcIconLocation
+              ShortCut:Arguments        = pcArguments.
+       ShortCut:Save.
+       RELEASE OBJECT WSHShell NO-ERROR.
+       RELEASE OBJECT ShortCut NO-ERROR.
+       ASSIGN lok = TRUE.
+     END. /* IF */
+     ELSE 
+       MESSAGE "Please install Windows Scripting Host." VIEW-AS ALERT-BOX.
+     END. /* IF */
+   ELSE 
+     MESSAGE "Shortcut not supported" VIEW-AS ALERT-BOX.
+  
+   RETURN lok.
+
+ END FUNCTION.
+
+ FUNCTION getSpecialFolder RETURNS CHARACTER
+ ( INPUT pcFoldername AS CHARACTER ) :
+   /*------------------------------------------------------------------------------
+   ------------------------------------------------------------------------------*/
+   DEF VAR WSHShell AS COM-HANDLE NO-UNDO.
+   DEF VAR WshSpecialFolders AS COM-HANDLE NO-UNDO.
+   DEF VAR cRetval AS CHAR INIT "" NO-UNDO.
+  
+  
+   IF "{&OPSYS}" = "WIN32" THEN DO:
+     /*-- valid foldername ? --*/
+     CREATE "WScript.Shell" WSHShell NO-ERROR.
+     IF VALID-HANDLE(WSHShell) THEN DO:
+       WshSpecialFolders = WSHShell:SpecialFolders.
+     cRetval = WshSpecialFolders:Item(pcFoldername) NO-ERROR.
+    
+     RELEASE OBJECT WshSpecialFolders NO-ERROR.
+     RELEASE OBJECT WSHShell NO-ERROR.
+   END. /* IF */
+   ELSE 
+     MESSAGE "Please install Windows Scripting Host." VIEW-AS ALERT-BOX.
+   END. /* IF */
+  
+   RETURN cRetval.
+
+ END FUNCTION.
+
+
+ DEF VAR cTarget AS CHAR NO-UNDO.
+ cTarget = getSpecialFolder("desktop").
+ /*cTarget = "C:\Documents and Settings\facundoj\Menú Inicio\Menu Sistema\Actividades\Lotes --- Contrato\w_lotes_orden_fabricacion.w.lnk".*/
+ /*cTarget + "\MyApplication.lnk"*/
+ DEFINE VAR dbg AS LOGICAL.
+    dbg = DEBUGGER:INITIATE().
+    dbg = DEBUGGER:SET-BREAK().
+ IF createShortcut(cTarget, 
+                   "My Application", 
+                   'D:\progress\dlc91d\bin\prowin32.exe', 
+                   " -pf u:\cr_indust_desarrollo_run.pf -d dmy -s 120 -Wa -wpp", 
+                   'n:\industria', 
+                   1,
+                   "",
+                   'c:\test\iconfile.ico')
+ THEN MESSAGE "Created shortcut on your desktop." VIEW-AS ALERT-BOX INFORMATION.

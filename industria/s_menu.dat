@@ -1,0 +1,183 @@
+y  001  007  003  011           a  Actividades           Diversas actividades                                          Diversas actividades
+y    011  024  012  111           O  Lotes --- Contrato    Lotes --- Contrato                                            Lotes --- Contrato
+y      111  115  112  s_noinst.p    O  Lotes Jugo-Contratos  Lotes Jugo-Contratos                                          Lotes Jugo-Contratos
+y      112  111  113  s_noinst.p    O  Lot.Aceite-Contratos  Lot.Aceite-Contratos                                          Lot.Aceite-Contratos
+y      113  112  114  s_noinst.p    O  Tambores Items OE     Tambores Items OE                                             Tambores Items OE
+y      114  113  115  s_noinst.p    O  Lotes Jugo-ItemOE     Lotes Jugo-ItemOE                                             Lotes Jugo-ItemOE
+y      115  114  111  s_noinst.p    O  LotesAceite-ItemOE    LotesAceite-ItemOE                                            LotesAceite-ItemOE
+y    012  011  013  120           m  Movimientos Fisicos   Movimientos Fisicos                                           Movimientos Fisicos
+y      120  230  121  s_noinst.p    l  Locaciones            Locaciones                                                    Locaciones
+y      121  120  122  s_noinst.p    p  Posiciones            Posiciones                                                    Posiciones
+y      122  121  123  s_noinst.p    t  Tipos Movimientos     Tipos Movimientos                                             Tipos Movimientos
+y      123  122  124  s_noinst.p    f  Ubicaciones           Ubicaciones                                                   Ubicaciones
+y      124  123  125  s_noinst.p    x  Mov. Existentes       Mov. Existentes                                               Mov. Existentes
+y      125  124  126  s_noinst.p    s  Movimientos           Movimientos                                                   Movimientos
+y      126  125  127  s_noinst.p    u  Ubicacion Tambores    Ubicacion Tambores                                            Ubicacion Tambores
+y      127  126  128  s_noinst.p    I  Inventario            Inventario                                                    Inventario
+y      128  127  129  s_noinst.p    m  Mov. Manuales         Movimientos Manuales                                          Movimientos Manuales
+y      129  128  230  s_noinst.p    m  Transferencias        Transferencias                                                Transferencias
+y      230  129  120  s_noinst.p    m  Transf. Terpeno       Transf. Terpeno                                               Transf. Terpeno
+y    013  012  140  231           c  Control Calidad       Control Calidad                                               Control Calidad
+y      231  234  232  s_noinst.p    c  Ctrol Calidad Jugo    Ctrol Calidad Jugo                                            Ctrol Calidad Jugo
+y      232  231  233  s_noinst.p    c  Ctrol Calidad Aceite  Ctrol Calidad Aceite                                          Ctrol Calidad Aceite
+y      233  232  234  s_noinst.p    c  Ctrol Calidad Microb  Ctrol Calidad Microb                                          Ctrol Calidad Microb
+y      234  233  231  s_noinst.p    c  AprobacionProtocolos  AprobacionProtocolos                                          AprobacionProtocolos
+y    140  013  160  141           C  Contratos             Contratos                                                     Contratos
+y      141  148  142  s_noinst.p    o  Contratos             Contratos                                                     Contratos
+y      142  141  143  s_noinst.p    o  Contratos Consulta    Contratos Consulta                                            Contratos Consulta
+y      143  142  144  s_noinst.p    t  Tipos de Plazo        Tipos de Plazo                                                Tipos de Plazo
+y      144  143  145  s_noinst.p    n  Contactos             Contactos                                                     Contactos
+y      145  144  146  s_noinst.p    g  Gastos Ventas         Gastos Ventas                                                 Gastos Ventas
+y      146  145  147  s_noinst.p    b  Bancos                Bancos                                                        Bancos
+y      147  146  148  s_noinst.p    i  Tipos Contratos       Tipos Contratos                                               Tipos Contratos
+y      148  147  141  s_noinst.p    i  Instrumentos Pagos    Instrumentos Pagos                                            Instrumentos Pagos
+y    160  140  015  161           O  Aduana                Aduana                                                        Aduana
+y      161  169  162  s_noinst.p    o  Orden Entrega         Orden Entrega                                                 Orden Entrega
+y      162  161  163  s_noinst.p    o  Consulta OE Tambores  Consulta OE Tambores                                          Consulta OE Tambores
+y      163  162  164  s_noinst.p    o  Estados OE            Estados OE                                                    Estados OE
+y      164  163  165  s_noinst.p    o  Gastos Fijos          Gastos Fijos                                                  Gastos Fijos
+y      165  164  166  s_noinst.p    o  Gastos Fletes         Gastos Fletes                                                 Gastos Fletes
+y      166  165  167  s_noinst.p    o  Gastos Seguros        Gastos Seguros                                                Gastos Seguros
+y      167  166  168  s_noinst.p    o  Clausulas-Gastos      Clausulas-Gastos                                              Clausulas-Gastos
+y      168  167  169  s_noinst.p    p  LiberarPartesContrat  LiberarPartesContrat                                          LiberarPartesContrat
+y      169  168  294  s_noinst.p    p  OE Fruta Fresca       OE Fruta Fresca                                               OE Fruta Fresca
+y      294  169  161  s_noinst.p    p  Pedido Fondos OE      Pedido Fondos OE                                              Pedido Fondos OE
+y    015  160  027  150           p  Permisos Embarque     Permisos Embarque                                             Permisos Embarque
+y      150  155  151  s_noinst.p    p  PE Prod Elaborados    PE Prod Elaborados                                            PE Prod Elaborados
+y      151  150  152  s_noinst.p    p  PE Fruta Fresca       PE Fruta Fresca                                               PE Fruta Fresca
+y      152  151  153  s_noinst.p    p  Permisos Embarque     Permisos Embarque                                             Permisos Embarque
+y      153  152  154  s_noinst.p    p  Rep.EnvioTucxFecha    Rep.EnvioTucxFecha                                            Rep.EnvioTucxFecha
+y      154  153  155  s_noinst.p    p  Posicion Arancelaria  Posicion Arancelaria                                          Posicion Arancelaria
+y      155  154  156  s_noinst.p    p  Permisos Embarque 9   Permisos Embarque                                             Permiso Embarque
+y      156  155  150  s_noinst.p    p  Gestion de Cobranzas  Gestion de Cobranzas                                          Gestion de Cobranzas
+y    027  015  028  040           p  Remitos               Remitos                                                       Remitos
+y      040  043  041  s_noinst.p    j  Remito                Remito                                                        Remito
+y      041  040  042  s_noinst.p    j  ProcesamientoRemito   Procesamiento Remito                                          Procesamiento Remito
+y      042  041  043  s_noinst.p    j  Anulacion Remito      Anulacion Remito                                              Anulacion Remito
+y      043  042  040  s_noinst.p    j  Consulta Remitos      Consulta Remitos                                              Consulta Remitos
+y    028  027  026  170           p  Depositos Externos    Depositos Externos                                            Depositos Externos
+y      170  106  171  s_noinst.p      Ingreso Lote Dep Ext  Ingreso Lote Dep Ext                                          Ingreso Lote Dep Ext
+y      171  170  172  s_noinst.p      Release               Release                                                       Release
+y      172  171  173  s_noinst.p      Confirmacion Release  Confirmacion Release                                          Confirmacion Release
+y      173  172  175  s_noinst.p      Ajustes               Ajustes                                                       Ajustes
+y      175  173  174  s_noinst.p      Movimientos Stock     Movimiento Stock Lotes                                        Movimiento Stock Lotes
+y      174  175  177  s_noinst.p      Envios                Envios                                                        Envios
+y      177  174  178  s_noinst.p      Graficos Dist. Stock  Graficos Dist. Stock                                          Graficos Dist. Stock
+y      178  177  179  s_noinst.p      Cta. Lotes Rel        Cta. Lotes Rel                                                Cta. Lotes Rel
+y      179  178  105  s_noinst.p      Modif. Lote Deposito  Modif. Lote Deposito                                          Modif. Lote Deposito
+y      105  179  106  s_noinst.p      Facturas Provee Exte  Facturas Proveedores Externos                                 Facturas Proveedores Externos
+y      106  105  170  s_noinst.p      Calculo Gastos Relea  Calculo Gastos Release                                        Calculo Gastos Release
+y    026  028  016  190           p  Cascara               Sistema de Cascara                                            Sistema de Cascara
+y      190  192  191  s_noinst.p    a  Produccion Cascara    Produccion Cascara                                            Produccion Cascara
+y      191  190  192  s_noinst.p    a  Lotes Cascara         Lotes Cascara                                                 Lotes Cascara
+y      192  191  193  s_noinst.p    a  Asoc. Lotes a OEs     Asociar Lotes Cascara a OEs                                   Asociar Lotes Cascara a OEs
+y      193  192  194  s_noinst.p    a  Ctrl. Calidad Casc.   Ctrl Calidad Lotes Cascara                                    Ctrl Calidad Lotes Cascara
+y      194  193  196  s_noinst.p    a  Reprocesos Cascara    Reprocesos Cascara                                            Reprocesos Cascara
+y      196  194  195  s_noinst.p    a  Trazabilidad Lotes    Trazabilidad de Lotes                                         Trazabilidad de Lotes
+y      195  194  197  s_noinst.p    a  Reprocesos Produc.    Reprocesos Producciones Cascara                               Reprocesos Producciones Cascara
+y      197  194  190  s_noinst.p    a  Recepcion MTuc        Recepcion Devolucion MTuc                                     Recepcion Devolucion MTuc
+y    016  026  017  s_noinst.p    j  Lotes de Jugos        Lotes de Jugos                                                Lotes de Jugos
+y    017  016  018  s_noinst.p    a  Lotes de Aceites      Lotes de Aceites                                              Lotes de Aceites
+y    018  017  019  s_noinst.p    a  Produccion Aceite     Produccion Aceite                                             Produccion Aceite
+y    019  018  020  s_noinst.p    p  Produccion Jugos      Produccion Jugos                                              Produccion Jugos
+y    020  019  014  s_noinst.p    t  Productos Terceros    Productos Terceros                                            Productos Terceros
+y    014  020  021  s_noinst.p    c  Cargas                Cargas                                                        Cargas
+y    021  014  022  s_noinst.p    t  Foldeado              Foldeado                                                      Foldeado
+y    022  021  023  s_noinst.p    t  Protocolos            Protocolos                                                    Protocolos
+y    023  022  024  s_noinst.p    t  Muestras BUE          Muestras BUE                                                  Muestras BUE
+y    024  023  176  s_noinst.p    t  Muestras TUC          Muestras TUC                                                  Muestras TUC
+y    176  024  011  s_noinst.p      Competencia           Registro Actividad Competencia                                Registro Actividad Competencia
+y  003  001  005  031           m  Mantenimientos        Diversos mantenimientos                                       Diversos mantenimientos
+y    031  039  032  290           l  Varios                Varios                                                        Varios
+y      290  293  291  s_noinst.p    p  Listas de Correo      Listas de Correo                                              Listas de Correo
+y      291  290  292  s_noinst.p    p  Usuarios de Listas    Usuarios de Listas                                            Usuarios de Listas
+y      292  291  293  s_noinst.p    p  MoviTambAceite        MoviTambAceite                                                MoviTambAceite
+y      293  292  290  s_noinst.p    p  MoviTambAceiteStok    MoviTambAceiteStok                                            MoviTambAceiteStok
+y    032  031  033  241           c  Control Calidad       Control Calidad                                               Control Calidad
+y      241  241  241  s_noinst.p    q  Quimicos Ctrol Calid  Quimicos Ctrol Calid                                          Quimicos Ctrol Calid
+y    033  032  034  250           u  Comercial             Comercial                                                     Comercial
+y      250  254  251  s_noinst.p    c  Clausulas             Clausulas                                                     Clausulas
+y      251  250  252  s_noinst.p    i  clientes              clientes                                                      Clientes
+y      252  251  253  s_noinst.p    i  Contratos Modi        Contratos Modi                                                Contratos Modi
+y      253  252  254  s_noinst.p    n  Baja Contratos        Baja Contratos                                                Baja Contratos
+y      254  253  250  s_noinst.p    n  Tipos Contacto Ind    Tipos Contacto Ind                                            Tipos Contacto Ind
+y    034  033  035  260           u  Laboratorios          Laboratorios                                                  Laboratorios
+y      260  263  261  s_noinst.p    n  Estados Lotes         Estados Lotes                                                 Estados Lotes
+y      261  260  262  s_noinst.p    r  ProductosTerminados   ProductosTerminados                                           ProductosTerminados
+y      262  261  263  135           l  Calidades - Origenes  Calidades - Origenes                                          Calidades - Origenes
+y        135  139  136  s_noinst.p    a  Calidades             Calidades                                                     Calidades
+y        136  135  137  s_noinst.p    p  Rel.Prod.Calidades    Rel.Prod.Calidades                                            Rel.Prod.Calidades
+y        137  136  138  s_noinst.p      Rel.Prod.Cal.Env.     Rel.Prod.Cal.Env.                                             Rel.Prod.Cal.Env.
+y        138  137  139  s_noinst.p      Origenes MP           Origenes MP                                                   Origenes MP
+y        139  138  135  s_noinst.p      Tipos Origenes MP     Tipos Origenes MP                                             Tipos Origenes MP
+y      263  262  260  s_noinst.p    n  Envases               Envases                                                       Envases
+y    035  034  036  270           l  Logistica             Logistica                                                     Logistica
+y      270  282  271  s_noinst.p    n  LotesJ-Estado         LotesJ-Estado                                                 LotesJ-Estado
+y      271  270  272  s_noinst.p    a  Agencias Contenedor   Agencias Contenedor                                           Agencias Contenedor
+y      272  271  273  s_noinst.p    a  Agencias              Agencias                                                      Agencias
+y      273  272  274  s_noinst.p    p  Contenedores          Contenedores                                                  Contenedores
+y      274  273  275  s_noinst.p    p  Sucursales            Sucursales                                                    Sucursales
+y      275  274  276  s_noinst.p    p  Porc ReintegroArticu  Porc ReintegroArticu                                          Porc ReintegroArticu
+y      276  275  277  s_noinst.p    i  Destinos              Destinos                                                      Destinos
+y      277  276  278  s_noinst.p    i  Destinos Grupos       Destinos Grupos                                               Destinos Grupos
+y      278  277  279  s_noinst.p    a  Entry                 Entry                                                         Entry
+y      279  278  280  s_noinst.p    a  Lugar Descarga        Lugar Descarga                                                Lugar Descarga
+y      280  279  281  s_noinst.p    a  Vapores               Vapores                                                       Vapores
+y      281  280  282  s_noinst.p    p  Despachantes          Despachantes                                                  Despachantes
+y      282  281  283  s_noinst.p    p  Manejo Aduanas        Manejo Aduanas                                                Manejo Aduanas
+y      283  282  284  s_noinst.p    p  Manejo Compañias      Manejo Compañias                                              Manejo Compañias
+y      284  283  270  s_noinst.p    p  Insumos Lote          Insumos Lote                                                  Insumos Lote
+y    036  035  037  s_noinst.p    i  Reimp. Etiquetas      Reimp. Etiquetas                                              Reimp. Etiquetas
+y    037  036  038  s_noinst.p    c  Consulta Remitos      Consulta Remitos                                              Consulta Remitos
+y    038  037  039  243           c  Protocolos            Protocolos                                                    Protocolos
+y      243  249  244  s_noinst.p    q  Contramarcas          Contramarcas                                                  Contramarcas
+y      244  243  245  s_noinst.p    q  Chemical Characteris  Chemical Characteristics                                      Chemical Characteristics
+y      245  244  246  s_noinst.p    q  Relacion Char - Art   Relacion Characteristicas - Articulos                         Relacion Characteristicas - Articulos
+y      246  245  247  s_noinst.p    q  Colores Protocolos    Colores Protocolos                                            Colores Protocolos
+y      247  246  248  s_noinst.p    q  Body Protocolos       Body Protocolos                                               Body Protocolos
+y      248  247  249  s_noinst.p    q  Smell/FlavorProtocol  Smell/FlavorProtocol                                          Smell/FlavorProtocol
+y      249  248  243  s_noinst.p    q  Tipos Protocolos      Tipos Protocolos                                              Tipos Protocolos
+y    039  038  031  180           c  Muestras              Muestras                                                      Muestras
+y      180  184  181  s_noinst.p    n  Envases Muestras      Envases                                                       Envases
+y      181  180  182  s_noinst.p    n  Tipos Contactos       Tipos Contactos                                               Tipos Contactos
+y      182  181  183  s_noinst.p    n  Contactos Muestras    Contactos Muestras                                            Contactos Muestras
+y      183  182  184  s_noinst.p    n  Couriers              Couriers                                                      Couriers
+y      184  183  180  s_noinst.p    n  Prioridades           Prioridades                                                   Prioridades
+y  005  003  006  050           r  Reportes              Reportes                                                      Reportes
+y    050  059  051  082           s  Stock                 Stock                                                         Stock
+y      082  085  083  s_noinst.p    n  Reporte Stock         Reporte Stock                                                 Reporte Stock
+y      083  082  084  s_noinst.p    n  Stock a Fecha         Stock a Fecha                                                 Stock a Fecha
+y      084  083  085  s_noinst.p    n  Rp. Stock Filtros     Rp. Stock Filtros                                             Rp. Stock Filtros
+y      085  084  082  y_stock_f.p   s  Stock a Fecha N       Stock a Fecha (nuevo)                                         Stock a Fecha (nuevo)
+y    051  050  052  087           d  Despachos             Despachos                                                     Despachos
+y      087  087  087  s_noinst.p    n  Reporte Despachos     Reporte Despachos                                             Reporte Despachos
+y    052  051  053  090           c  Comercial             Comercial                                                     Comercial
+y      090  092  091  s_noinst.p    n  Reporte Contratos     Reporte Contratos                                             Reporte Contratos
+y      091  090  092  s_noinst.p    n  Reporte Suzzy         Reporte Suzzy                                                 Reporte Suzzy
+y      092  091  090  s_noinst.p    e  Reportes Excell       Reportes Excell                                               Reportes Excell
+y    053  052  054  096           c  Finanzas              Finanzas                                                      Finanzas
+y      096  097  097  s_noinst.p    p  Estado Contratos      Estado Contratos                                              Estado Contratos
+y      097  096  096  s_noinst.p    p  Exporta PE            Exporta PE                                                    Exporta PE
+y    054  053  059  101           l  Logistica             Logistica                                                     Logistica
+y      101  102  102  s_noinst.p    n  Despachos Martin      Despachos Martin                                              Despachos Martin
+y      102  101  101  s_noinst.p    n  Presupuesto Finanzas  Presupuesto Finanzas                                          Presupuesto Finanzas
+y    059  054  050  s_noinst.p    n  Parte Produccion      Parte Produccion                                              Parte Produccion
+y  006  005  007  061           C  Consultas             Consultas                                                     Consultas
+y    061  069  067  299           n  Despacho              Despacho                                                      Despacho
+y      299  299  299  s_noinst.p    n  LotesJ-Estado         LotesJ-Estado                                                 LotesJ-Estado
+y    067  061  068  220           n  Comercial             Comercial                                                     Comercial
+y      220  223  221  s_noinst.p    c  Contratos - OE        Contratos - OE                                                Contratos - OE
+y      221  220  222  s_noinst.p    i  OE - Contratos        OE - Contratos                                                OE - Contratos
+y      222  221  223  s_noinst.p    i  Muestras - Lotes      Muestras - Lotes                                              Muestras - Lotes
+y      223  222  220  s_noinst.p    i  Contratos - Release   Contratos - Release                                           Contratos - Release
+y    068  067  062  s_noinst.p    n  Consulta Stock        Consulta Stock                                                Consulta Stock
+y    062  068  063  s_noinst.p    n  Consulta Gall/Drum    Consulta Gall/Drum                                            Consulta Gall/Drum
+y    063  062  064  s_noinst.p    n  Lotes Jugo(Todos)     Lotes Jugo(Todos)                                             Lotes Jugo(Todos)
+y    064  063  065  s_noinst.p    n  Lotes Aceite(Todos)   Lotes Aceite(Todos)                                           Lotes Aceite(Todos)
+y    065  064  066  s_noinst.p    n  L.Ac.-Oe-Todos        L.Ac.-Oe-Todos                                                L.Ac.-Oe-Todos
+y    066  065  069  s_noinst.p    n  L.Ju.-Oe-Todos        L.Ju.-Oe-Todos                                                L.Ju.-Oe-Todos
+y    069  066  061  s_noinst.p    n  Nuevo Lotes Aceite    Nuevo Lotes Aceite                                            Nuevo Lotes Aceite
+y  007  006  001  071           y  Ayuda                 Ayuda                                                         Ayuda
+y    071  070  072  s_noinst.p    t  Teclado               Teclado                                                       Teclado
+y    072  071  070  s_noinst.p    u  Utilidades            Utilidades                                                    Utilidades
+y    070  072  071  s_noinst.p    S  Sistema               Sistema                                                       Sistema

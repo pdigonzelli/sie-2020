@@ -1,0 +1,1179 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER AB_v9r12 GUI ADM2
+&ANALYZE-RESUME
+/* Connected Databases 
+          general          PROGRESS
+*/
+&Scoped-define WINDOW-NAME CURRENT-WINDOW
+{adecomm/appserv.i}
+DEFINE VARIABLE h_asindustria              AS HANDLE          NO-UNDO.
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS dTables 
+/*------------------------------------------------------------------------
+
+  File:  
+
+  Description: from DATA.W - Template For SmartData objects in the ADM
+
+  Input Parameters:
+      <none>
+
+  Output Parameters:
+      <none>
+
+  Modified:     February 24, 1999
+------------------------------------------------------------------------*/
+/*          This .W file was created with the Progress AppBuilder.      */
+/*----------------------------------------------------------------------*/
+
+/* Create an unnamed pool to store all the widgets created 
+     by this procedure. This is a good default which assures
+     that this procedure's triggers and internal procedures 
+     will execute in this procedure's storage, and that proper
+     cleanup will occur on deletion of the procedure. */
+
+CREATE WIDGET-POOL.
+
+/* ***************************  Definitions  ************************** */
+
+/* Parameters Definitions ---                                           */
+
+/* Local Variable Definitions ---                                       */
+
+{adm2/support/customColors.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE SmartDataObject
+&Scoped-define DB-AWARE yes
+
+&Scoped-define ADM-SUPPORTED-LINKS Data-Source,Data-Target,Navigation-Target,Update-Target,Commit-Target,Filter-Target
+
+
+/* Db-Required definitions. */
+&IF DEFINED(DB-REQUIRED) = 0 &THEN
+    &GLOBAL-DEFINE DB-REQUIRED TRUE
+&ENDIF
+&GLOBAL-DEFINE DB-REQUIRED-START   &IF {&DB-REQUIRED} &THEN
+&GLOBAL-DEFINE DB-REQUIRED-END     &ENDIF
+
+&Scoped-define QUERY-NAME Query-Main
+
+/* Internal Tables (found by Frame, Query & Browse Queries)             */
+&Scoped-define INTERNAL-TABLES balanza_tickets balanza_pesadas
+
+/* Definitions for QUERY Query-Main                                     */
+&Scoped-Define ENABLED-FIELDS  cant_env_entrada certificado codigo_trazabilidad c_fecha c_hora c_usuario~
+ fecha_cosecha fecha_entrada fecha_operativa fecha_remito fecha_salida~
+ hora_entrada hora_salida id_balanza id_calidad id_descarte~
+ id_destino_packing id_detalle_transporte id_envase id_etiqueta~
+ id_finca_senasa id_lote id_lote_senasa id_materia_prima id_origen~
+ id_origen_origen id_pesada id_proveedor id_proveedor_origen id_sucursal~
+ id_sucursal_etiqueta id_sucursal_packing id_ticket_quincena id_tipo_cosecha~
+ id_tipo_servicio id_variedad nro_partida id_pesada_ctf nro_partida_general~
+ nro_remito nro_ticket nro_ticket_ctf periodo_cosecha peso_descarte~
+ peso_envases_entrada peso_neto_ticket porc_silo1 porc_silo2 porc_silo3~
+ porc_silo4 renspa silo1 silo2 silo3 silo4 union_europea peso_entrada~
+ peso_salida
+&Scoped-define ENABLED-FIELDS-IN-balanza_tickets cant_env_entrada ~
+certificado codigo_trazabilidad c_fecha c_hora c_usuario fecha_cosecha ~
+fecha_entrada fecha_operativa fecha_remito fecha_salida hora_entrada ~
+hora_salida id_balanza id_calidad id_descarte id_destino_packing ~
+id_detalle_transporte id_envase id_etiqueta id_finca_senasa id_lote ~
+id_lote_senasa id_materia_prima id_origen id_origen_origen id_pesada ~
+id_proveedor id_proveedor_origen id_sucursal id_sucursal_etiqueta ~
+id_sucursal_packing id_ticket_quincena id_tipo_cosecha id_tipo_servicio ~
+id_variedad nro_partida nro_partida_general nro_remito nro_ticket ~
+nro_ticket_ctf periodo_cosecha peso_descarte peso_envases_entrada ~
+peso_neto_ticket porc_silo1 porc_silo2 porc_silo3 porc_silo4 renspa silo1 ~
+silo2 silo3 silo4 union_europea 
+&Scoped-define ENABLED-FIELDS-IN-balanza_pesadas id_pesada_ctf peso_entrada ~
+peso_salida 
+&Scoped-Define DATA-FIELDS  cant_env_entrada certificado codigo_trazabilidad c_fecha c_hora c_usuario~
+ fecha_cosecha fecha_entrada fecha_operativa fecha_remito fecha_salida~
+ hora_entrada hora_salida id_balanza id_calidad id_descarte~
+ id_destino_packing id_detalle_transporte id_envase id_etiqueta~
+ id_finca_senasa id_lote id_lote_senasa id_materia_prima id_origen~
+ id_origen_origen id_pesada id_proveedor id_proveedor_origen id_sucursal~
+ id_sucursal_etiqueta id_sucursal_packing id_ticket_quincena id_tipo_cosecha~
+ id_tipo_servicio id_variedad nro_partida id_pesada_ctf nro_partida_general~
+ nro_remito nro_ticket nro_ticket_ctf periodo_cosecha peso_descarte~
+ peso_envases_entrada peso_neto_ticket porc_silo1 porc_silo2 porc_silo3~
+ porc_silo4 renspa silo1 silo2 silo3 silo4 union_europea Producto~
+ peso_entrada Origen peso_salida Proveedor Calidad Linea
+&Scoped-define DATA-FIELDS-IN-balanza_tickets cant_env_entrada certificado ~
+codigo_trazabilidad c_fecha c_hora c_usuario fecha_cosecha fecha_entrada ~
+fecha_operativa fecha_remito fecha_salida hora_entrada hora_salida ~
+id_balanza id_calidad id_descarte id_destino_packing id_detalle_transporte ~
+id_envase id_etiqueta id_finca_senasa id_lote id_lote_senasa ~
+id_materia_prima id_origen id_origen_origen id_pesada id_proveedor ~
+id_proveedor_origen id_sucursal id_sucursal_etiqueta id_sucursal_packing ~
+id_ticket_quincena id_tipo_cosecha id_tipo_servicio id_variedad nro_partida ~
+nro_partida_general nro_remito nro_ticket nro_ticket_ctf periodo_cosecha ~
+peso_descarte peso_envases_entrada peso_neto_ticket porc_silo1 porc_silo2 ~
+porc_silo3 porc_silo4 renspa silo1 silo2 silo3 silo4 union_europea 
+&Scoped-define DATA-FIELDS-IN-balanza_pesadas id_pesada_ctf peso_entrada ~
+peso_salida 
+&Scoped-Define MANDATORY-FIELDS 
+&Scoped-Define APPLICATION-SERVICE 
+&Scoped-Define ASSIGN-LIST 
+&Scoped-Define DATA-FIELD-DEFS "dBalanzaTickets.i"
+&Scoped-define QUERY-STRING-Query-Main FOR EACH balanza_tickets ~
+      WHERE balanza_tickets.id_balanza = 3 ~
+ NO-LOCK, ~
+      EACH balanza_pesadas OF balanza_tickets  NO-LOCK INDEXED-REPOSITION
+{&DB-REQUIRED-START}
+&Scoped-define OPEN-QUERY-Query-Main OPEN QUERY Query-Main FOR EACH balanza_tickets ~
+      WHERE balanza_tickets.id_balanza = 3 ~
+ NO-LOCK, ~
+      EACH balanza_pesadas OF balanza_tickets  NO-LOCK INDEXED-REPOSITION.
+{&DB-REQUIRED-END}
+&Scoped-define TABLES-IN-QUERY-Query-Main balanza_tickets balanza_pesadas
+&Scoped-define FIRST-TABLE-IN-QUERY-Query-Main balanza_tickets
+&Scoped-define SECOND-TABLE-IN-QUERY-Query-Main balanza_pesadas
+
+
+/* Custom List Definitions                                              */
+/* List-1,List-2,List-3,List-4,List-5,List-6                            */
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* ************************  Function Prototypes ********************** */
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getCalidad dTables  _DB-REQUIRED
+FUNCTION getCalidad RETURNS CHARACTER
+  ( /* parameter-definitions */ )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getDatosGraficoProduccion dTables  _DB-REQUIRED
+FUNCTION getDatosGraficoProduccion RETURNS CHARACTER
+  (piLin AS INTEGER)  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getDesglosePesado dTables  _DB-REQUIRED
+FUNCTION getDesglosePesado RETURNS CHARACTER
+  ( /* parameter-definitions */ )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getLinea dTables  _DB-REQUIRED
+FUNCTION getLinea RETURNS CHARACTER
+  ( /* parameter-definitions */ )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getNetoLimon dTables  _DB-REQUIRED
+FUNCTION getNetoLimon RETURNS DECIMAL
+  (piLin AS INTEGER, 
+   pdFec AS DATE)  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getNetoPesado dTables  _DB-REQUIRED
+FUNCTION getNetoPesado RETURNS DECIMAL
+  (piLin AS INTEGER)  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getOrigen dTables  _DB-REQUIRED
+FUNCTION getOrigen RETURNS CHARACTER
+  ( /* parameter-definitions */ )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getPesoDescarte dTables  _DB-REQUIRED
+FUNCTION getPesoDescarte RETURNS DECIMAL
+  ( /* parameter-definitions */ )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getPesoNetoMolido dTables  _DB-REQUIRED
+FUNCTION getPesoNetoMolido RETURNS DECIMAL
+  (piLin AS INTEGER, 
+   pdFec AS DATE)  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getProducto dTables  _DB-REQUIRED
+FUNCTION getProducto RETURNS CHARACTER
+  ( /* parameter-definitions */ )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getProveedor dTables  _DB-REQUIRED
+FUNCTION getProveedor RETURNS CHARACTER
+  ( /* parameter-definitions */ )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+
+/* ***********************  Control Definitions  ********************** */
+
+{&DB-REQUIRED-START}
+
+/* Query definitions                                                    */
+&ANALYZE-SUSPEND
+DEFINE QUERY Query-Main FOR 
+      balanza_tickets, 
+      balanza_pesadas SCROLLING.
+&ANALYZE-RESUME
+{&DB-REQUIRED-END}
+
+
+/* ************************  Frame Definitions  *********************** */
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: SmartDataObject
+   Allow: Query
+   Frames: 0
+   Add Fields to: Neither
+   Other Settings: PERSISTENT-ONLY COMPILE APPSERVER DB-AWARE
+ */
+
+/* This procedure should always be RUN PERSISTENT.  Report the error,  */
+/* then cleanup and return.                                            */
+IF NOT THIS-PROCEDURE:PERSISTENT THEN DO:
+  MESSAGE "{&FILE-NAME} should only be RUN PERSISTENT.":U
+          VIEW-AS ALERT-BOX ERROR BUTTONS OK.
+  RETURN.
+END.
+
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+/* DESIGN Window definition (used by the UIB) 
+  CREATE WINDOW dTables ASSIGN
+         HEIGHT             = 1.62
+         WIDTH              = 46.6.
+/* END WINDOW DEFINITION */
+                                                                        */
+&ANALYZE-RESUME
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _INCLUDED-LIB dTables 
+/* ************************* Included-Libraries *********************** */
+
+{src/adm2/data.i}
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+
+
+/* ***********  Runtime Attributes and AppBuilder Settings  *********** */
+
+&ANALYZE-SUSPEND _RUN-TIME-ATTRIBUTES
+/* SETTINGS FOR WINDOW dTables
+  VISIBLE,,RUN-PERSISTENT                                               */
+/* _RUN-TIME-ATTRIBUTES-END */
+&ANALYZE-RESUME
+
+
+/* Setting information for Queries and Browse Widgets fields            */
+
+&ANALYZE-SUSPEND _QUERY-BLOCK QUERY Query-Main
+/* Query rebuild information for SmartDataObject Query-Main
+     _TblList          = "general.balanza_tickets,general.balanza_pesadas OF general.balanza_tickets "
+     _Options          = "NO-LOCK INDEXED-REPOSITION"
+     _Where[1]         = "general.balanza_tickets.id_balanza = 3
+"
+     _FldNameList[1]   > general.balanza_tickets.cant_env_entrada
+"cant_env_entrada" "cant_env_entrada" ? ? "decimal" ? ? ? ? ? ? yes ? no 9.4 yes
+     _FldNameList[2]   > general.balanza_tickets.certificado
+"certificado" "certificado" ? ? "character" ? ? ? ? ? ? yes ? no 11.6 yes
+     _FldNameList[3]   > general.balanza_tickets.codigo_trazabilidad
+"codigo_trazabilidad" "codigo_trazabilidad" ? ? "character" ? ? ? ? ? ? yes ? no 7 yes
+     _FldNameList[4]   > general.balanza_tickets.c_fecha
+"c_fecha" "c_fecha" ? ? "date" ? ? ? ? ? ? yes ? no 9.2 yes
+     _FldNameList[5]   > general.balanza_tickets.c_hora
+"c_hora" "c_hora" ? ? "character" ? ? ? ? ? ? yes ? no 8 yes
+     _FldNameList[6]   > general.balanza_tickets.c_usuario
+"c_usuario" "c_usuario" ? ? "character" ? ? ? ? ? ? yes ? no 12 yes
+     _FldNameList[7]   > general.balanza_tickets.fecha_cosecha
+"fecha_cosecha" "fecha_cosecha" ? ? "date" ? ? ? ? ? ? yes ? no 15 yes
+     _FldNameList[8]   > general.balanza_tickets.fecha_entrada
+"fecha_entrada" "fecha_entrada" ? ? "date" ? ? ? ? ? ? yes ? no 14 yes
+     _FldNameList[9]   > general.balanza_tickets.fecha_operativa
+"fecha_operativa" "fecha_operativa" ? ? "date" ? ? ? ? ? ? yes ? no 13.4 yes
+     _FldNameList[10]   > general.balanza_tickets.fecha_remito
+"fecha_remito" "fecha_remito" ? ? "date" ? ? ? ? ? ? yes ? no 11.6 yes
+     _FldNameList[11]   > general.balanza_tickets.fecha_salida
+"fecha_salida" "fecha_salida" ? ? "date" ? ? ? ? ? ? yes ? no 12.4 yes
+     _FldNameList[12]   > general.balanza_tickets.hora_entrada
+"hora_entrada" "hora_entrada" ? ? "character" ? ? ? ? ? ? yes ? no 12.6 yes
+     _FldNameList[13]   > general.balanza_tickets.hora_salida
+"hora_salida" "hora_salida" ? ? "character" ? ? ? ? ? ? yes ? no 11 yes
+     _FldNameList[14]   > general.balanza_tickets.id_balanza
+"id_balanza" "id_balanza" ? ? "integer" ? ? ? ? ? ? yes ? no 7.6 yes
+     _FldNameList[15]   > general.balanza_tickets.id_calidad
+"id_calidad" "id_calidad" ? ? "integer" ? ? ? ? ? ? yes ? no 5.2 yes
+     _FldNameList[16]   > general.balanza_tickets.id_descarte
+"id_descarte" "id_descarte" ? ? "integer" ? ? ? ? ? ? yes ? no 5.6 yes
+     _FldNameList[17]   > general.balanza_tickets.id_destino_packing
+"id_destino_packing" "id_destino_packing" ? ? "integer" ? ? ? ? ? ? yes ? no 12.8 yes
+     _FldNameList[18]   > general.balanza_tickets.id_detalle_transporte
+"id_detalle_transporte" "id_detalle_transporte" ? ? "integer" ? ? ? ? ? ? yes ? no 4.4 yes
+     _FldNameList[19]   > general.balanza_tickets.id_envase
+"id_envase" "id_envase" ? ? "integer" ? ? ? ? ? ? yes ? no 4.4 yes
+     _FldNameList[20]   > general.balanza_tickets.id_etiqueta
+"id_etiqueta" "id_etiqueta" ? ? "integer" ? ? ? ? ? ? yes ? no 11.8 yes
+     _FldNameList[21]   > general.balanza_tickets.id_finca_senasa
+"id_finca_senasa" "id_finca_senasa" ? ? "integer" ? ? ? ? ? ? yes ? no 4.8 yes
+     _FldNameList[22]   > general.balanza_tickets.id_lote
+"id_lote" "id_lote" ? ? "integer" ? ? ? ? ? ? yes ? no 4.2 yes
+     _FldNameList[23]   > general.balanza_tickets.id_lote_senasa
+"id_lote_senasa" "id_lote_senasa" ? ? "integer" ? ? ? ? ? ? yes ? no 4.8 yes
+     _FldNameList[24]   > general.balanza_tickets.id_materia_prima
+"id_materia_prima" "id_materia_prima" ? ? "integer" ? ? ? ? ? ? yes ? no 10.8 yes
+     _FldNameList[25]   > general.balanza_tickets.id_origen
+"id_origen" "id_origen" ? ? "integer" ? ? ? ? ? ? yes ? no 6.6 yes
+     _FldNameList[26]   > general.balanza_tickets.id_origen_origen
+"id_origen_origen" "id_origen_origen" ? ? "integer" ? ? ? ? ? ? yes ? no 6.6 yes
+     _FldNameList[27]   > general.balanza_tickets.id_pesada
+"id_pesada" "id_pesada" ? ? "integer" ? ? ? ? ? ? yes ? no 11.8 yes
+     _FldNameList[28]   > general.balanza_tickets.id_proveedor
+"id_proveedor" "id_proveedor" ? ? "integer" ? ? ? ? ? ? yes ? no 7.8 yes
+     _FldNameList[29]   > general.balanza_tickets.id_proveedor_origen
+"id_proveedor_origen" "id_proveedor_origen" ? ? "integer" ? ? ? ? ? ? yes ? no 7.8 yes
+     _FldNameList[30]   > general.balanza_tickets.id_sucursal
+"id_sucursal" "id_sucursal" ? ? "integer" ? ? ? ? ? ? yes ? no 5 yes
+     _FldNameList[31]   > general.balanza_tickets.id_sucursal_etiqueta
+"id_sucursal_etiqueta" "id_sucursal_etiqueta" ? ? "integer" ? ? ? ? ? ? yes ? no 5 yes
+     _FldNameList[32]   > general.balanza_tickets.id_sucursal_packing
+"id_sucursal_packing" "id_sucursal_packing" ? ? "integer" ? ? ? ? ? ? yes ? no 5 yes
+     _FldNameList[33]   > general.balanza_tickets.id_ticket_quincena
+"id_ticket_quincena" "id_ticket_quincena" ? ? "integer" ? ? ? ? ? ? yes ? no 14 yes
+     _FldNameList[34]   > general.balanza_tickets.id_tipo_cosecha
+"id_tipo_cosecha" "id_tipo_cosecha" ? ? "integer" ? ? ? ? ? ? yes ? no 3.8 yes
+     _FldNameList[35]   > general.balanza_tickets.id_tipo_servicio
+"id_tipo_servicio" "id_tipo_servicio" ? ? "integer" ? ? ? ? ? ? yes ? no 3.8 yes
+     _FldNameList[36]   > general.balanza_tickets.id_variedad
+"id_variedad" "id_variedad" ? ? "integer" ? ? ? ? ? ? yes ? no 8.4 yes
+     _FldNameList[37]   > general.balanza_tickets.nro_partida
+"nro_partida" "nro_partida" ? ? "decimal" ? ? ? ? ? ? yes ? no 14.2 yes
+     _FldNameList[38]   > general.balanza_pesadas.id_pesada_ctf
+"id_pesada_ctf" "id_pesada_ctf" ? ? "integer" ? ? ? ? ? ? yes ? no 16.4 yes
+     _FldNameList[39]   > general.balanza_tickets.nro_partida_general
+"nro_partida_general" "nro_partida_general" ? ? "decimal" ? ? ? ? ? ? yes ? no 14.6 yes
+     _FldNameList[40]   > general.balanza_tickets.nro_remito
+"nro_remito" "nro_remito" ? ? "character" ? ? ? ? ? ? yes ? no 13 yes
+     _FldNameList[41]   > general.balanza_tickets.nro_ticket
+"nro_ticket" "nro_ticket" ? ? "integer" ? ? ? ? ? ? yes ? no 9.6 yes
+     _FldNameList[42]   > general.balanza_tickets.nro_ticket_ctf
+"nro_ticket_ctf" "nro_ticket_ctf" ? ? "integer" ? ? ? ? ? ? yes ? no 10.6 yes
+     _FldNameList[43]   > general.balanza_tickets.periodo_cosecha
+"periodo_cosecha" "periodo_cosecha" ? ? "logical" ? ? ? ? ? ? yes ? no 16.2 yes
+     _FldNameList[44]   > general.balanza_tickets.peso_descarte
+"peso_descarte" "peso_descarte" ? ? "decimal" ? ? ? ? ? ? yes ? no 11 yes
+     _FldNameList[45]   > general.balanza_tickets.peso_envases_entrada
+"peso_envases_entrada" "peso_envases_entrada" ? ? "decimal" ? ? ? ? ? ? yes ? no 11.2 yes
+     _FldNameList[46]   > general.balanza_tickets.peso_neto_ticket
+"peso_neto_ticket" "peso_neto_ticket" ? ? "decimal" ? ? ? ? ? ? yes ? no 10 yes
+     _FldNameList[47]   > general.balanza_tickets.porc_silo1
+"porc_silo1" "porc_silo1" ? ? "integer" ? ? ? ? ? ? yes ? no 3.6 yes
+     _FldNameList[48]   > general.balanza_tickets.porc_silo2
+"porc_silo2" "porc_silo2" ? ? "integer" ? ? ? ? ? ? yes ? no 3.6 yes
+     _FldNameList[49]   > general.balanza_tickets.porc_silo3
+"porc_silo3" "porc_silo3" ? ? "integer" ? ? ? ? ? ? yes ? no 3.6 yes
+     _FldNameList[50]   > general.balanza_tickets.porc_silo4
+"porc_silo4" "porc_silo4" ? ? "integer" ? ? ? ? ? ? yes ? no 3.6 yes
+     _FldNameList[51]   > general.balanza_tickets.renspa
+"renspa" "renspa" ? ? "character" ? ? ? ? ? ? yes ? no 21 yes
+     _FldNameList[52]   > general.balanza_tickets.silo1
+"silo1" "silo1" ? ? "integer" ? ? ? ? ? ? yes ? no 3.2 yes
+     _FldNameList[53]   > general.balanza_tickets.silo2
+"silo2" "silo2" ? ? "integer" ? ? ? ? ? ? yes ? no 3.2 yes
+     _FldNameList[54]   > general.balanza_tickets.silo3
+"silo3" "silo3" ? ? "integer" ? ? ? ? ? ? yes ? no 3.2 yes
+     _FldNameList[55]   > general.balanza_tickets.silo4
+"silo4" "silo4" ? ? "integer" ? ? ? ? ? ? yes ? no 3.2 yes
+     _FldNameList[56]   > general.balanza_tickets.union_europea
+"union_europea" "union_europea" ? ? "logical" ? ? ? ? ? ? yes ? no 4.2 yes
+     _FldNameList[57]   > "_<CALC>"
+"getProducto()" "Producto" "Producto" "x(20)" "character" ? ? ? ? ? ? no ? no 20 no
+     _FldNameList[58]   > general.balanza_pesadas.peso_entrada
+"peso_entrada" "peso_entrada" ? ? "decimal" ? ? ? ? ? ? yes ? no 12.8 yes
+     _FldNameList[59]   > "_<CALC>"
+"getOrigen()" "Origen" "Origen" "x(15)" "character" ? ? ? ? ? ? no ? no 15 no
+     _FldNameList[60]   > general.balanza_pesadas.peso_salida
+"peso_salida" "peso_salida" ? ? "decimal" ? ? ? ? ? ? yes ? no 11.2 yes
+     _FldNameList[61]   > "_<CALC>"
+"getProveedor()" "Proveedor" "Proveedor" "x(20)" "character" ? ? ? ? ? ? no ? no 20 no
+     _FldNameList[62]   > "_<CALC>"
+"getCalidad()" "Calidad" "Calidad" "x(15)" "character" ? ? ? ? ? ? no ? no 15 no
+     _FldNameList[63]   > "_<CALC>"
+"getLinea()" "Linea" "Linea" "x(8)" "character" ? ? ? ? ? ? no ? no 8 no
+     _Design-Parent    is WINDOW dTables @ ( 1.14 , 2.6 )
+*/  /* QUERY Query-Main */
+&ANALYZE-RESUME
+
+ 
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK dTables 
+
+
+/* ***************************  Main Block  *************************** */
+
+  &IF DEFINED(UIB_IS_RUNNING) <> 0 &THEN          
+    RUN initializeObject.
+  &ENDIF
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE beginTransactionValidate dTables  _DB-REQUIRED
+PROCEDURE beginTransactionValidate :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+FIND LAST RowObjUpd NO-ERROR.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE DATA.CALCULATE dTables  DATA.CALCULATE _DB-REQUIRED
+PROCEDURE DATA.CALCULATE :
+/*------------------------------------------------------------------------------
+  Purpose:     Calculate all the Calculated Expressions found in the
+               SmartDataObject.
+  Parameters:  <none>
+------------------------------------------------------------------------------*/
+      ASSIGN 
+         rowObject.Calidad = (getCalidad())
+         rowObject.Linea = (getLinea())
+         rowObject.Origen = (getOrigen())
+         rowObject.Producto = (getProducto())
+         rowObject.Proveedor = (getProveedor())
+      .
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE disable_UI dTables  _DEFAULT-DISABLE
+PROCEDURE disable_UI :
+/*------------------------------------------------------------------------------
+  Purpose:     DISABLE the User Interface
+  Parameters:  <none>
+  Notes:       Here we clean-up the user-interface by deleting
+               dynamic widgets we have created and/or hide 
+               frames.  This procedure is usually called when
+               we are ready to "clean-up" after running.
+------------------------------------------------------------------------------*/
+  /* Hide all frames. */
+  IF THIS-PROCEDURE:PERSISTENT THEN DELETE PROCEDURE THIS-PROCEDURE.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE endTransactionValidate dTables  _DB-REQUIRED
+PROCEDURE endTransactionValidate :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+FIND LAST RowObjUpd NO-ERROR.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE especialPosUpdate dTables  _DB-REQUIRED
+PROCEDURE especialPosUpdate :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE INPUT PARAMETER hBuffer AS HANDLE NO-UNDO.
+DEFINE INPUT PARAMETER  xCase   AS CHARACTER NO-UNDO.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE especialPreCreate dTables  _DB-REQUIRED
+PROCEDURE especialPreCreate :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE INPUT PARAMETER xCase AS CHARACTER NO-UNDO.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE especialPreUpdate dTables  _DB-REQUIRED
+PROCEDURE especialPreUpdate :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE INPUT PARAMETER hBuffer AS HANDLE    NO-UNDO.
+DEFINE INPUT PARAMETER xCase   AS CHARACTER NO-UNDO.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE fieldsWithProblems dTables  _DB-REQUIRED
+PROCEDURE fieldsWithProblems :
+/*------------------------------------------------------------------------------
+  Purpose: In this procedure we check all conditions of BUssines Logic that the
+  RowObject can give us.Returns a comma separated list in wich each element is a
+  pair of field + chr(3)+  color we want to mark as irregular ones
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE OUTPUT PARAMETER cList AS CHARACTER NO-UNDO.
+
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE getField dTables  _DB-REQUIRED
+PROCEDURE getField :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE INPUT PARAMETER xFieldName AS CHARACTER NO-UNDO.
+
+DEFINE VAR hBuffer AS HANDLE NO-UNDO.
+DEFINE VAR hField  AS HANDLE NO-UNDO.
+
+hBuffer = BUFFER RowObject:HANDLE.
+IF VALID-HANDLE(hBuffer) THEN
+DO:
+    hField = hBuffer:BUFFER-FIELD(xFieldName).
+    IF VALID-HANDLE(hField) THEN
+    DO:
+        RETURN hField:BUFFER-VALUE().
+    END.
+END.
+
+RETURN.
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE initializeObject dTables  _DB-REQUIRED
+PROCEDURE initializeObject :
+/*------------------------------------------------------------------------------
+  Purpose:     Super Override
+  Parameters:  
+  Notes:       
+------------------------------------------------------------------------------*/
+
+
+
+  /* Code placed here will execute PRIOR to standard behavior. */
+  
+  RUN SUPER.
+
+  /* Code placed here will execute AFTER standard behavior.    */
+  /*
+  DEFINE VAR xDataSource AS CHARACTER NO-UNDO.
+  {get DataSource xDataSource}.
+  IF xDataSource <> ? THEN
+  DO:
+      {set AutoCommit NO}.
+      {set CommitSource xDataSource}.
+  END.
+  */
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE postTransactionValidate dTables  _DB-REQUIRED
+PROCEDURE postTransactionValidate :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+FIND LAST RowObjUpd NO-ERROR.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE postUpdate dTables  _DB-REQUIRED
+PROCEDURE postUpdate :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE INPUT PARAMETER hBuffer   AS HANDLE NO-UNDO.
+DEFINE VAR hField                AS HANDLE NO-UNDO.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE preCreate dTables  _DB-REQUIRED
+PROCEDURE preCreate :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE INPUT PARAMETER hBuffer AS HANDLE NO-UNDO.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE preTransactionValidate dTables  _DB-REQUIRED
+PROCEDURE preTransactionValidate :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE preUpdate dTables  _DB-REQUIRED
+PROCEDURE preUpdate :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+DEFINE INPUT PARAMETER hBuffer AS HANDLE NO-UNDO.
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+/* ************************  Function Implementations ***************** */
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getCalidad dTables  _DB-REQUIRED
+FUNCTION getCalidad RETURNS CHARACTER
+  ( /* parameter-definitions */ ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+
+  DEFINE VARIABLE cRet AS CHARACTER  NO-UNDO.
+
+  FOR FIRST calidades_balanza
+      WHERE calidades_balanza.id_calidad = rowObject.id_calidad
+      NO-LOCK.
+    cRet = calidades_balanza.abreviatura.
+  END.
+
+
+  RETURN cRet.
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getDatosGraficoProduccion dTables  _DB-REQUIRED
+FUNCTION getDatosGraficoProduccion RETURNS CHARACTER
+  (piLin AS INTEGER) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE cRet AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE k    AS DECIMAL    NO-UNDO.
+  DEFINE BUFFER buRow FOR rowObject.
+
+  FOR EACH buRow
+      WHERE buRow.id_materia_prima = 1
+        AND (IF piLin NE 0 THEN buRow.id_pesada_ctf = piLin ELSE TRUE)
+      BREAK BY buRow.fecha_operativa.
+
+    k = k +  buRow.peso_neto_ticket.
+    IF LAST-OF(buRow.fecha_operativa) THEN DO:
+      cRet = cRet + STRING(buRow.fecha_operativa) + "," + STRING(k) + CHR(10).
+      k    = 0.
+    END.
+  END.
+
+  cRet = SUBSTRING(cRet, 1, LENGTH(cRet) - 1).
+
+  RETURN cRet.
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getDesglosePesado dTables  _DB-REQUIRED
+FUNCTION getDesglosePesado RETURNS CHARACTER
+  ( /* parameter-definitions */ ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE fPes AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE cRet AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE crlf AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cArt AS CHARACTER  NO-UNDO.
+
+  crlf = CHR(13) + CHR(10).
+
+  DEFINE BUFFER buRo FOR rowObject.
+
+  FOR EACH buRo
+      BREAK BY buRo.id_materia_prima.
+    fPes = fPes + buRo.peso_neto_ticket.
+
+    IF LAST-OF(buRo.id_materia_prima) THEN DO:
+
+      FIND FIRST productos_terminados 
+          WHERE productos_terminados.id_articulo = buRo.id_materia_prima
+          NO-LOCK NO-ERROR.
+      cArt = IF AVAILABLE productos_terminados THEN productos_terminados.descripcion ELSE "".
+      cRet = cRet + 
+             STRING(buRo.id_materia_prima) + ".- " + 
+             cArt + ": " + 
+             STRING(fPes, ">>>,>>>,>>9.99") + " Kgs" + 
+             crlf.
+      fPes = 0.             
+    END.
+  END.
+
+  RETURN cRet.
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getLinea dTables  _DB-REQUIRED
+FUNCTION getLinea RETURNS CHARACTER
+  ( /* parameter-definitions */ ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE cRet AS CHARACTER  NO-UNDO.
+
+  IF rowObject.id_pesada_ctf = 1 THEN
+    cRet = "F".
+
+  IF rowObject.id_pesada_ctf = 2 THEN
+    cRet = "L".
+
+
+  RETURN cRet.
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getNetoLimon dTables  _DB-REQUIRED
+FUNCTION getNetoLimon RETURNS DECIMAL
+  (piLin AS INTEGER, 
+   pdFec AS DATE) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE fNet AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fPes AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fDPk AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fDIn AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fSiA AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fSiH AS DECIMAL    NO-UNDO.
+
+  DEFINE BUFFER buRo FOR balanza_tickets.
+
+
+  FOR EACH buRo
+      WHERE buRo.id_balanza       = 3
+        AND buRo.id_materia_prima = 1
+        AND buRo.fecha_operativa  = pdFec
+        AND (IF piLin <> 0 THEN buRo.id_pesada_ctf = piLin ELSE TRUE)
+      NO-LOCK,
+      EACH balanza_pesadas OF balanza_tickets
+      NO-LOCK.
+      fPes = fPes + buRo.peso_neto_ticket.
+  END.
+
+  RETURN fPes.
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getNetoPesado dTables  _DB-REQUIRED
+FUNCTION getNetoPesado RETURNS DECIMAL
+  (piLin AS INTEGER) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE fNet AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fPes AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fDPk AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fDIn AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fSiA AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fSiH AS DECIMAL    NO-UNDO.
+
+  DEFINE BUFFER buRo FOR rowObject.
+
+
+  FOR EACH buRo
+      WHERE (IF piLin <> 0 THEN buRo.id_pesada_ctf = piLin ELSE TRUE)
+      NO-LOCK.
+      fPes = fPes + buRo.peso_neto_ticket.
+  END.
+
+  RETURN fPes.
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getOrigen dTables  _DB-REQUIRED
+FUNCTION getOrigen RETURNS CHARACTER
+  ( /* parameter-definitions */ ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+
+  DEFINE VARIABLE cRet AS CHARACTER  NO-UNDO.
+
+  FOR FIRST origenes
+      WHERE origenes.id_proveedor = rowObject.id_proveedor
+        AND origenes.id_origen    = rowObject.id_origen
+      NO-LOCK.
+    cRet = origenes.descripcion.
+  END.
+
+
+  RETURN cRet.
+
+  
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getPesoDescarte dTables  _DB-REQUIRED
+FUNCTION getPesoDescarte RETURNS DECIMAL
+  ( /* parameter-definitions */ ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE fDes AS DECIMAL    NO-UNDO.
+
+  DEFINE BUFFER buRo FOR rowObject.
+
+  FOR EACH buRo.
+      NO-LOCK.
+      fDes = fDes + buRo.peso_descarte.
+  END.
+
+  RETURN fDes.
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getPesoNetoMolido dTables  _DB-REQUIRED
+FUNCTION getPesoNetoMolido RETURNS DECIMAL
+  (piLin AS INTEGER, 
+   pdFec AS DATE) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE fNet AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fPes AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fDPk AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fDIn AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fSiA AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fSiH AS DECIMAL    NO-UNDO.
+
+  DEFINE BUFFER buAy FOR subd_produccion.
+  DEFINE BUFFER buHy FOR subd_produccion.
+
+
+  fPes = getNetoLimon(piLin, pdFec).
+
+  FOR FIRST buAy
+      WHERE buAy.fecha = pdFec - 1 /* cuidado aqui porque tiene que buscar el ultimo dato encontrado puede ser antes de ayer */
+      NO-LOCK.
+    fSiA = buAy.stock_silos_famailla + buAy.stock_silos_lavalle.
+    fDpk = buAy.descarte_packing.
+
+  END.
+
+  FOR FIRST buHy
+      WHERE buHy.fecha = pdFec
+      NO-LOCK.
+    fSiH = buHy.stock_silos_lavalle + buHy.stock_silos_famailla.
+    fDpk = buHy.descarte_packing.
+    fDIn = buHy.descarte_industria.
+  END.
+
+  fPes = fPes + fSiA + fDpk - fDIn - fSiH.
+
+  RETURN fPes.
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getProducto dTables  _DB-REQUIRED
+FUNCTION getProducto RETURNS CHARACTER
+  ( /* parameter-definitions */ ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE cRet AS CHARACTER  NO-UNDO.
+
+  FOR FIRST productos_terminados
+      WHERE productos_terminados.id_articulo = rowObject.id_materia_prima
+      NO-LOCK.
+    cRet = productos_terminados.descripcion.
+  END.
+
+  RETURN cRet.
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+
+{&DB-REQUIRED-START}
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getProveedor dTables  _DB-REQUIRED
+FUNCTION getProveedor RETURNS CHARACTER
+  ( /* parameter-definitions */ ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE cRet AS CHARACTER  NO-UNDO.
+
+  FOR FIRST proveedores
+      WHERE proveedores.id_proveedor = rowObject.id_proveedor
+      NO-LOCK.
+    cRet = proveedores.razon_social.
+  END.
+
+
+  RETURN cRet.
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+{&DB-REQUIRED-END}
+

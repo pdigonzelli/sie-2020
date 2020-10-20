@@ -1,0 +1,63 @@
+  FIELD cant_env_entrada LIKE balanza_tickets.cant_env_entrada VALIDATE ~
+  FIELD certificado LIKE balanza_tickets.certificado VALIDATE ~
+  FIELD codigo_trazabilidad LIKE balanza_tickets.codigo_trazabilidad VALIDATE ~
+  FIELD c_fecha LIKE balanza_tickets.c_fecha VALIDATE ~
+  FIELD c_hora LIKE balanza_tickets.c_hora VALIDATE ~
+  FIELD c_usuario LIKE balanza_tickets.c_usuario VALIDATE ~
+  FIELD fecha_cosecha LIKE balanza_tickets.fecha_cosecha VALIDATE ~
+  FIELD fecha_entrada LIKE balanza_tickets.fecha_entrada VALIDATE ~
+  FIELD fecha_operativa LIKE balanza_tickets.fecha_operativa VALIDATE ~
+  FIELD fecha_remito LIKE balanza_tickets.fecha_remito VALIDATE ~
+  FIELD fecha_salida LIKE balanza_tickets.fecha_salida VALIDATE ~
+  FIELD hora_entrada LIKE balanza_tickets.hora_entrada VALIDATE ~
+  FIELD hora_salida LIKE balanza_tickets.hora_salida VALIDATE ~
+  FIELD id_balanza LIKE balanza_tickets.id_balanza VALIDATE ~
+  FIELD id_calidad LIKE balanza_tickets.id_calidad VALIDATE ~
+  FIELD id_descarte LIKE balanza_tickets.id_descarte VALIDATE ~
+  FIELD id_destino_packing LIKE balanza_tickets.id_destino_packing VALIDATE ~
+  FIELD id_detalle_transporte LIKE balanza_tickets.id_detalle_transporte VALIDATE ~
+  FIELD id_envase LIKE balanza_tickets.id_envase VALIDATE ~
+  FIELD id_etiqueta LIKE balanza_tickets.id_etiqueta VALIDATE ~
+  FIELD id_finca_senasa LIKE balanza_tickets.id_finca_senasa VALIDATE ~
+  FIELD id_lote LIKE balanza_tickets.id_lote VALIDATE ~
+  FIELD id_lote_senasa LIKE balanza_tickets.id_lote_senasa VALIDATE ~
+  FIELD id_materia_prima LIKE balanza_tickets.id_materia_prima VALIDATE ~
+  FIELD id_origen LIKE balanza_tickets.id_origen VALIDATE ~
+  FIELD id_origen_origen LIKE balanza_tickets.id_origen_origen VALIDATE ~
+  FIELD id_pesada LIKE balanza_tickets.id_pesada VALIDATE ~
+  FIELD id_proveedor LIKE balanza_tickets.id_proveedor VALIDATE ~
+  FIELD id_proveedor_origen LIKE balanza_tickets.id_proveedor_origen VALIDATE ~
+  FIELD id_sucursal LIKE balanza_tickets.id_sucursal VALIDATE ~
+  FIELD id_sucursal_etiqueta LIKE balanza_tickets.id_sucursal_etiqueta VALIDATE ~
+  FIELD id_sucursal_packing LIKE balanza_tickets.id_sucursal_packing VALIDATE ~
+  FIELD id_ticket_quincena LIKE balanza_tickets.id_ticket_quincena VALIDATE ~
+  FIELD id_tipo_cosecha LIKE balanza_tickets.id_tipo_cosecha VALIDATE ~
+  FIELD id_tipo_servicio LIKE balanza_tickets.id_tipo_servicio VALIDATE ~
+  FIELD id_variedad LIKE balanza_tickets.id_variedad VALIDATE ~
+  FIELD nro_partida LIKE balanza_tickets.nro_partida VALIDATE ~
+  FIELD id_pesada_ctf LIKE balanza_pesadas.id_pesada_ctf VALIDATE ~
+  FIELD nro_partida_general LIKE balanza_tickets.nro_partida_general VALIDATE ~
+  FIELD nro_remito LIKE balanza_tickets.nro_remito VALIDATE ~
+  FIELD nro_ticket LIKE balanza_tickets.nro_ticket VALIDATE ~
+  FIELD nro_ticket_ctf LIKE balanza_tickets.nro_ticket_ctf VALIDATE ~
+  FIELD periodo_cosecha LIKE balanza_tickets.periodo_cosecha VALIDATE ~
+  FIELD peso_descarte LIKE balanza_tickets.peso_descarte VALIDATE ~
+  FIELD peso_envases_entrada LIKE balanza_tickets.peso_envases_entrada VALIDATE ~
+  FIELD peso_neto_ticket LIKE balanza_tickets.peso_neto_ticket VALIDATE ~
+  FIELD porc_silo1 LIKE balanza_tickets.porc_silo1 VALIDATE ~
+  FIELD porc_silo2 LIKE balanza_tickets.porc_silo2 VALIDATE ~
+  FIELD porc_silo3 LIKE balanza_tickets.porc_silo3 VALIDATE ~
+  FIELD porc_silo4 LIKE balanza_tickets.porc_silo4 VALIDATE ~
+  FIELD renspa LIKE balanza_tickets.renspa VALIDATE ~
+  FIELD silo1 LIKE balanza_tickets.silo1 VALIDATE ~
+  FIELD silo2 LIKE balanza_tickets.silo2 VALIDATE ~
+  FIELD silo3 LIKE balanza_tickets.silo3 VALIDATE ~
+  FIELD silo4 LIKE balanza_tickets.silo4 VALIDATE ~
+  FIELD union_europea LIKE balanza_tickets.union_europea VALIDATE ~
+  FIELD Producto AS CHARACTER FORMAT "x(20)" LABEL "Producto"~
+  FIELD peso_entrada LIKE balanza_pesadas.peso_entrada VALIDATE ~
+  FIELD Origen AS CHARACTER FORMAT "x(15)" LABEL "Origen"~
+  FIELD peso_salida LIKE balanza_pesadas.peso_salida VALIDATE ~
+  FIELD Proveedor AS CHARACTER FORMAT "x(20)" LABEL "Proveedor"~
+  FIELD Calidad AS CHARACTER FORMAT "x(15)" LABEL "Calidad"~
+  FIELD Linea AS CHARACTER FORMAT "x(8)" LABEL "Linea"

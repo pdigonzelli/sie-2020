@@ -1,0 +1,186 @@
+  DEFINE VAR r_remito AS ROWID NO-UNDO.
+  DEFINE VAR v_nro_comp AS INTEGER NO-UNDO.
+  DEFINE VAR v_punto_venta AS INTEGER NO-UNDO.
+  DEFINE VAR v_fecha_remito AS DATE NO-UNDO.
+  DEFINE VAR v_nro_comprobante AS CHAR NO-UNDO.
+  DEFINE VAR v_sucursal_ubicacion AS INTEGER NO-UNDO.
+  DEFINE VAR v_nrocopia AS INTEGER NO-UNDO.
+  DEFINE VAR wpanta AS LOGICAL NO-UNDO.
+  DEFINE VAR v_respuesta AS LOGICAL NO-UNDO.
+  DEFINE VAR v_tipo_remito AS LOGICAL NO-UNDO.
+  
+
+  RUN get-rowid1 IN h_b_procesamiento_remitos (OUTPUT r_remito).
+  FIND FIRST remitos WHERE ROWID(remitos) = r_remito NO-ERROR.
+  IF AVAILABLE remitos THEN 
+  DO:
+    DO TRANSACTION ON ERROR UNDO , LEAVE:
+      FIND FIRST tipo_numero WHERE tipo_numero.id_sucursal      = remitos.id_sucursal
+                               AND tipo_numero.id_tipo_movsto   = remitos.id_tipo_movsto
+                                NO-ERROR.
+      IF AVAILABLE tipo_numero THEN DO:
+        
+        v_punto_venta   = tipo_numero.id_punto_venta.
+
+        IF remitos.id_tipo_movsto = 123 THEN DO:  /***  AUTOMATICO  ***/
+            v_nro_comp      = tipo_numero.nro_comprobante + 1.
+            ASSIGN tipo_numero.nro_comprobante = v_nro_comp.
+            v_tipo_remito = TRUE.
+            v_fecha_remito = remitos.fecha.
+        END.
+        ELSE DO:    /*** MANUAL  ***/
+            RUN wc_nro_remito_manual.w (OUTPUT v_nro_comp,
+                                        OUTPUT v_punto_venta,
+                                        OUTPUT v_fecha_remito).
+            IF v_nro_comp = 0 OR v_punto_venta = 0  OR v_fecha_remito = ? THEN DO:
+                MESSAGE "No eligio un numero de comprobante, punto de venta o fecha de remito valido." VIEW-AS ALERT-BOX.
+                UNDO , LEAVE.
+            END.
+            v_tipo_remito = FALSE.
+        END.
+        
+        v_nro_comprobante = STRING(v_punto_venta,"9999") + STRING(v_nro_comp,"99999999").
+        IF remitos.mercado = 1 THEN DO:  /* MERCADO EXTERNO */
+            v_sucursal_ubicacion = 85.
+        END.
+        ELSE DO:  /* MERCADO INTERNO  */
+            FIND FIRST lugar_descarga OF remitos NO-LOCK NO-ERROR.
+            IF AVAILABLE lugar_descarga THEN DO:
+                v_sucursal_ubicacion = lugar_descarga.id_sucursal.
+            END.
+            ELSE DO:
+                v_sucursal_ubicacion = 85.
+                /***********  PREGUNARRRRRRRRRRRRRRRRRRRRRR ********************************/
+            END.
+        END.
+        
+        FOR EACH items_factura OF remitos.
+            FIND FIRST tipostambor OF items_factura NO-LOCK NO-ERROR.
+            FOR EACH tambores_industria WHERE tambores_industria.id_sucursal_remito = items_factura.id_sucursal
+                                          AND tambores_industria.id_tipo_movsto     = items_factura.id_tipo_movsto
+                                          AND tambores_industria.nro_remito         = items_factura.nro
+                                          AND tambores_industria.ITEM_factura       = items_factura.ITEM
+                                          .
+                IF tambores_industria.id_sucursal_ubicacion <> remitos.id_sucursal OR
+                   tambores_industria.id_locacion_ubicacion <> 4 THEN DO:
+                    MESSAGE "El tambor " tambores_industria.id_tambor 
+                            " del lote " tambores_industria.id_lote 
+                            " del año " tambores_industria.anio 
+                            " con articulo " tambores_industria.id_articulo
+                            " no esta disponible para despachar!." VIEW-AS ALERT-BOX.
+                    RETURN "ADM-ERROR".
+                END.
+                ASSIGN tambores_industria.id_sucursal_ubicacion = v_sucursal_ubicacion.
+
+                IF tipostambor.tabla = "tambores_industria" THEN DO:
+                    RUN ../industria/y_gstkrprod.p (input tambores_industria.id_empresa,
+                                                    input tambores_industria.id_sucursal,
+                                                    input tambores_industria.id_tipotambor,
+                                                    input tambores_industria.nromov,
+                                                    input tambores_industria.id_tambor,
+                                                    input tambores_industria.id_tambor,
+                                                    input remitos.id_sucursal,
+                                                    input tambores_industria.id_sucursal_ubicacion,
+                                                    input 3).
+                    IF RETURN-VALUE <> "" THEN DO:
+                        MESSAGE "Error en el Procesamiento de Remitos" VIEW-AS ALERT-BOX.
+                        UNDO , LEAVE.
+                    END.
+                END.
+            END.
+            IF tipostambor.tabla <> "tambores_industria" THEN DO:
+                RUN ../industria/y_gstkrem_nuevo.p (INPUT remitos.id_sucursal,
+                                              INPUT remitos.id_tipo_movsto,
+                                              INPUT remitos.nro,
+                                              INPUT items_factura.item,
+                                              INPUT 3) "items_factura".
+                IF RETURN-VALUE <> "" THEN DO:
+                    MESSAGE "Error en el Procesamiento de Remitos" VIEW-AS ALERT-BOX.
+                    UNDO , LEAVE.
+                END.
+            END.
+        END.
+        FIND FIRST items_orden_entrega WHERE items_orden_entrega.id_orden_entrega = remitos.id_orden_entrega 
+                                         AND items_orden_entrega.item_oe          = remitos.item_oe
+                                        NO-ERROR.
+        IF AVAILABLE items_orden_entrega THEN 
+            ASSIGN items_orden_entrega.id_estado = 2.
+        
+        ASSIGN remitos.fecha_proceso = remitos.fecha
+               remitos.fecha         = v_fecha_remito
+               remitos.impresion     = 0
+               remitos.nro_comp      = v_nro_comprobante
+               remitos.tipo_remito   = v_tipo_remito.
+      END.
+      /***********RUTINA DE IMPRESION ********************************************************/
+      FIND FIRST clientes of remitos NO-LOCK NO-ERROR. 
+      /*-- general. UNICAMENTE SE IMPRIMEN REMITOS AUTOMATICO --*/
+      IF remitos.tipo_remito THEN DO:
+        IF remitos.id_sucursal <> 96 AND
+           remitos.id_sucursal <> 95 THEN 
+            ASSIGN v_nrocopia = 6.
+        ELSE
+            ASSIGN v_nrocopia = 5.
+
+    END.
+    _impresion:
+
+    DO TRANSACTION ON ERROR UNDO _impresion , RETRY _impresion:
+        RUN ..\ventas\r_imprto2-a_new.p(remitos.id_sucursal, 
+                                        remitos.id_tipo_movsto,
+                                        remitos.nro,
+                                        v_nrocopia, 
+                                        0, 
+                                        wpanta) NO-ERROR.
+
+        IF ERROR-STATUS:ERROR THEN
+        DO:
+            MESSAGE 'Error de impresion de remito' VIEW-AS ALERT-BOX ERROR.
+            UNDO _impresion, RETRY _impresion.
+        END.
+
+    
+         /*--- PARA LA GENERACION DE LA ORDEN DE ENTREGA, HASTA AHORA FUNCIO-
+            NANDO EN BUENOS AIRES ------------------------------------------*/
+    
+          IF remitos.id_sucursal <> 96 and
+             remitos.id_sucursal <> 95 THEN DO:
+             assign v_respuesta = false.
+             MESSAGE "GENERA LA ORDEN DE ENTREGA DEL REMITO ?" VIEW-AS ALERT-BOX QUESTION BUTTONS YES-NO 
+                        UPDATE v_respuesta.
+               IF v_respuesta THEN 
+                    RUN r_impoent.p (remitos.id_sucursal,
+                                    remitos.id_tipo_movsto,
+                                    remitos.nro,
+                                    2) NO-ERROR.
+                   IF ERROR-STATUS:ERROR THEN
+                   DO:
+                       MESSAGE 'Error de impresion de orden de Entrega' VIEW-AS ALERT-BOX ERROR.
+                       UNDO _impresion, RETRY _impresion.
+                   END.
+             END.
+          END.
+          ELSE
+            IF remitos.id_sucursal <> 92 THEN  
+                RUN r_imprto2-am_new.p(remitos.id_sucursal, 
+                                       remitos.id_tipo_movsto, 
+                                       remitos.nro, 
+                                       1, 
+                                       wpanta) NO-ERROR.
+            ELSE                
+                RUN r_imprto2-am1.p(remitos.id_sucursal, 
+                                    remitos.id_tipo_movsto, 
+                                    remitos.nro, 
+                                    1, 
+                                    wpanta) NO-ERROR.
+                IF ERROR-STATUS:ERROR THEN
+                  DO:
+                      MESSAGE 'Error de impresion de Orden de Entrega ####1' VIEW-AS ALERT-BOX ERROR.
+                      UNDO _impresion, RETRY _impresion.
+                  END.
+
+          ASSIGN remitos.impresion = remitos.impresion + 1.
+          MESSAGE "Se ha procesado satisfactoriamente el remito" VIEW-AS ALERT-BOX INFORMATION.
+    END.
+    RUN dispatch IN h_b_procesamiento_remitos ('open_query':U).
+  END.

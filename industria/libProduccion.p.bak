@@ -1,0 +1,794 @@
+&ANALYZE-SUSPEND _VERSION-NUMBER UIB_v9r12
+&ANALYZE-RESUME
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _DEFINITIONS Procedure 
+/*------------------------------------------------------------------------
+    File        : 
+    Purpose     :
+
+    Syntax      :
+
+    Description :
+
+    Author(s)   :
+    Created     :
+    Notes       :
+  ----------------------------------------------------------------------*/
+/*          This .W file was created with the Progress AppBuilder.      */
+/*----------------------------------------------------------------------*/
+
+/* ***************************  Definitions  ************************** */
+
+DEFINE VARIABLE selectedNode AS COM-HANDLE     NO-UNDO.
+
+DEFINE TEMP-TABLE ttContratos
+  RCODE-INFORMATION
+  FIELD id_contrato         AS CHARACTER COLUMN-LABEL "Contrato"
+  FIELD semana_entrega      AS INTEGER COLUMN-LABEL "Semana"
+  FIELD anio_semana_entrega AS INTEGER COLUMN-LABEL "Anio"
+  FIELD articulo            AS CHARACTER COLUMN-LABEL "Producto"
+  FIELD calidad             AS CHARACTER COLUMN-LABEL "Calidad"
+  FIELD cliente             AS CHARACTER COLUMN-LABEL "Cliente"
+  FIELD orden_fabricacion   AS INTEGER COLUMN-LABEL "OF"
+  FIELD destino             AS CHARACTER COLUMN-LABEL "Destino"
+  FIELD cantidad            AS INTEGER COLUMN-LABEL "Tbs Pedidos" 
+  FIELD kilos               AS DECIMAL COLUMN-LABEL "Kgs Pedidos"
+  FIELD kilos400            AS DECIMAL COLUMN-LABEL "Kgs 400 Pedidos"
+  FIELD cantidad_fab        AS INTEGER COLUMN-LABEL "Tbs Producidos"
+  FIELD kilos_fab           AS DECIMAL COLUMN-LABEL "Kgs Producidos"
+  FIELD kilos400_fab        AS DECIMAL COLUMN-LABEL "Kgs 400 Producidos"
+  FIELD tbs_faltantes       AS INTEGER COLUMN-LABEL "Tbs Diferencia"
+  FIELD kgs_faltantes       AS DECIMAL COLUMN-LABEL "Kgs Diferencia"
+  FIELD kgs400_faltantes    AS DECIMAL COLUMN-LABEL "Kgs 400 Diferencia"
+  FIELD orden_entrega       AS INTEGER COLUMN-LABEL "OE"
+  FIELD lotes               AS CHARACTER COLUMN-LABEL "Lotes"
+  FIELD condicion           AS CHARACTER COLUMN-LABEL "Condicion"
+  FIELD cond_vta            AS CHARACTER  COLUMN-LABEL "Incoterm"
+  FIELD estado              AS CHARACTER COLUMN-LABEL "Estado"
+  FIELD id_envase_pedido    AS INTEGER COLUMN-LABEL "id_envase"
+  .
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+&ANALYZE-SUSPEND _UIB-PREPROCESSOR-BLOCK 
+
+/* ********************  Preprocessor Definitions  ******************** */
+
+&Scoped-define PROCEDURE-TYPE Procedure
+&Scoped-define DB-AWARE no
+
+
+
+/* _UIB-PREPROCESSOR-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* ************************  Function Prototypes ********************** */
+
+&IF DEFINED(EXCLUDE-faltanteProduccion) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD faltanteProduccion Procedure 
+FUNCTION faltanteProduccion RETURNS INTEGER
+  (pcCon AS CHARACTER, 
+   piTip AS INTEGER,
+   piAno AS INTEGER,
+   piPte AS INTEGER)  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-getLibName) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getLibName Procedure 
+FUNCTION getLibName RETURNS CHARACTER
+  ( /* parameter-definitions */ )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-getPopupMenu) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getPopupMenu Procedure 
+FUNCTION getPopupMenu RETURNS HANDLE
+  (phMenu AS HANDLE)  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-getUsuario) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION-FORWARD getUsuario Procedure 
+FUNCTION getUsuario RETURNS CHARACTER
+  ( /* parameter-definitions */ )  FORWARD.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+
+/* *********************** Procedure Settings ************************ */
+
+&ANALYZE-SUSPEND _PROCEDURE-SETTINGS
+/* Settings for THIS-PROCEDURE
+   Type: Procedure
+   Allow: 
+   Frames: 0
+   Add Fields to: Neither
+   Other Settings: CODE-ONLY COMPILE
+ */
+&ANALYZE-RESUME _END-PROCEDURE-SETTINGS
+
+/* *************************  Create Window  ************************** */
+
+&ANALYZE-SUSPEND _CREATE-WINDOW
+/* DESIGN Window definition (used by the UIB) 
+  CREATE WINDOW Procedure ASSIGN
+         HEIGHT             = 15
+         WIDTH              = 60.
+/* END WINDOW DEFINITION */
+                                                                        */
+&ANALYZE-RESUME
+
+ 
+
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _CUSTOM _MAIN-BLOCK Procedure 
+
+
+/* ***************************  Main Block  *************************** */
+
+DEFINE VARIABLE hLib AS HANDLE     NO-UNDO.
+
+RUN libToDos.p PERSISTENT SET hLib.
+THIS-PROCEDURE:ADD-SUPER-PROCEDURE(hLib, SEARCH-SELF).
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+
+/* **********************  Internal Procedures  *********************** */
+
+&IF DEFINED(EXCLUDE-buttonAction1) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE buttonAction1 Procedure 
+PROCEDURE buttonAction1 :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER pcArgs AS CHARACTER  NO-UNDO.
+
+  RUN generateExcel.p (INPUT TABLE ttContratos,
+                       " Contratos por Semana",
+                       ""  ,
+                       7,
+                       8,
+                       "Arial",
+                       8).
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-fillTreeView) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE fillTreeView Procedure 
+PROCEDURE fillTreeView :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER phTree AS COM-HANDLE     NO-UNDO.
+  DEFINE INPUT  PARAMETER pcArgs AS CHARACTER  NO-UNDO.
+
+  RUN SUPER (phTree, pcArgs).
+
+  DEFINE VARIABLE dDesde  AS DATE       NO-UNDO.
+  DEFINE VARIABLE dHasta  AS DATE       NO-UNDO.
+  DEFINE VARIABLE cRgo    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cKey    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cTxt    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cIco    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cTag    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cCli    AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE cFlia   AS CHARACTER  NO-UNDO.
+  DEFINE VARIABLE hLibCom AS HANDLE.
+  DEFINE VARIABLE hTam    AS HANDLE     NO-UNDO.
+  DEFINE VARIABLE pchTree AS COM-HANDLE     NO-UNDO.
+  DEFINE VARIABLE chOpen  AS COM-HANDLE     NO-UNDO.
+  DEFINE VARIABLE chClose AS COM-HANDLE     NO-UNDO.
+  DEFINE VARIABLE chOE    AS COM-HANDLE     NO-UNDO.
+  DEFINE VARIABLE chNode  AS COM-HANDLE     NO-UNDO.
+  DEFINE VARIABLE chAux   AS COM-HANDLE     NO-UNDO.
+  DEFINE VARIABLE i       AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE iWeek   AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE iAnio   AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE iTip    AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE k       AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE iSemDes AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE iSemHas AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE fKil    AS DECIMAL    NO-UNDO.
+  DEFINE VARIABLE fDes    AS DECIMAL    NO-UNDO.
+
+  
+  
+  RUN libCommonFunctions.p PERSISTENT SET hLibCom.
+  hTam   = DYNAMIC-FUNCTION('getPersistentLib' IN hLibCom, 'libTamboresIndustria.p'). 
+
+
+  iSemDes = INTEGER(ENTRY(1, pcArgs)).
+  iSemHas = INTEGER(ENTRY(2, pcArgs)).
+  iAnio   = INTEGER(ENTRY(3, pcArgs)).
+  cFlia   = ENTRY(4, pcArgs).
+  iWeek   = iSemDes.
+  pchTree = phTree.
+
+
+  /*pchTree:NODES:CLEAR().*/
+
+  cRgo   = DYNAMIC-FUNCTION('getFechasSemana' IN hLibCom, iSemDes, iAnio).
+  dDesde = DATE(ENTRY(1, cRgo)).
+  cRgo   = DYNAMIC-FUNCTION('getFechasSemana' IN hLibCom, iSemHas, iAnio).
+  dHasta = DATE(ENTRY(2, cRgo)).
+
+  i = 1.
+
+  cTxt    = "Produccion para Semana "  + STRING(iSemDes) + " a Semana " + STRING(iSemHas) + " de " + STRING(iAnio).
+  chNode  = pchTree:Nodes:ADD(, , "Produccion Semana" + STRING(iWeek), cTxt, "semana").  
+  chOpen  = pchTree:Nodes:ADD(chNode:KEY, 4, "PendientesProd", "Pendientes", "pendientes").
+  chClose = pchTree:Nodes:ADD(chNode:KEY, 4, "CerradasProd", "Cumplidos", "cerradas").
+
+   
+  /* ingreso de fruta */
+  FOR EACH balanza_tickets
+      WHERE balanza_tickets.id_balanza       = 3
+        AND balanza_tickets.id_materia_prima = 1
+        AND balanza_tickets.fecha_operativa >= dDesde
+        AND balanza_tickets.fecha_operativa <= dHasta
+      NO-LOCK.
+    fKil = fKil + balanza_tickets.peso_neto_ticket.
+  END.
+
+  cTxt = "Fruta Ingresada por Balanza Industria: " + STRING(fKil) + " Kgs.".
+  cKey = "netopesadolimon" .
+  cIco = "limon".
+
+  chNode  = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt, cIco). 
+  chNode:TAG = STRING(iWeek).
+
+  /* molienda */
+  FOR EACH items_molienda_silo
+      WHERE items_molienda_silo.fecha >= dDesde
+        AND items_molienda_silo.fecha <= dHasta
+      NO-LOCK.
+    fKil = fKil + items_molienda_silo.kilos.
+    fDes = fDes + items_molienda_silo.kilos_descarte_packing.
+  END.
+
+  cTxt = "Total Molienda Silos: " + STRING(fKil) + " Kgs. Total Molido Descarte Packing: " + STRING(fDes) + " Kgs.".
+  cKey = "totalMolienda".
+  cIco = "molienda".
+  
+  chNode = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt, cIco).
+  chNode:Tag = STRING(iWeek).
+
+
+  /* produccion industria */
+  FOR EACH ttContratos.
+    DELETE ttContratos.
+  END.
+
+  FOR EACH items_contratos
+      WHERE /*items_contratos.semana_entrega      >= iSemDes /*ojo aqui, deshabilitar esta linea para que traiga todos los contratos desde principio del año*/
+        AND*/ items_contratos.semana_entrega      <= iSemHas
+        AND items_contratos.anio_semana_entrega  = iAnio
+        AND items_contratos.id_tipo_contrato    < 100        
+      NO-LOCK.
+
+    /* compruebo flia de producto */
+    IF cFlia = "jugos" THEN DO:
+      IF INDEX("30,52,53,71,54,55", STRING(items_contratos.id_articulo)) <= 0 THEN NEXT.
+    END.
+
+    IF cFlia = "aceites" THEN DO:
+      IF INDEX("50,51,57,58,74,96", STRING(items_contratos.id_articulo)) <= 0 THEN NEXT.
+    END.
+
+    FIND FIRST contratos OF items_contratos NO-LOCK NO-ERROR.
+    FIND FIRST clientes_ventas OF contratos NO-LOCK NO-ERROR.
+    FIND FIRST productos_terminados OF items_contratos NO-LOCK NO-ERROR.
+    FIND FIRST calidades OF items_contratos NO-LOCK NO-ERROR.
+    FIND FIRST destinos OF items_contratos NO-LOCK NO-ERROR.
+    FIND FIRST tipo_venta OF items_contratos NO-LOCK NO-ERROR.
+    FIND FIRST clausulas OF items_contratos NO-LOCK NO-ERROR.
+    FIND FIRST envases_prod OF items_contratos NO-LOCK NO-ERROR.
+    FIND FIRST r_kilos_envase WHERE r_kilos_envase.id_envase = items_contratos.id_envase NO-LOCK NO-ERROR.
+
+    IF contratos.orden_fabricacion = 0 THEN NEXT.
+    
+    cKey = "parte" + items_contratos.id_contrato + "-" + STRING(items_contratos.ITEM).
+    cTxt = items_contratos.id_contrato + " Parte: " + STRING(items_contratos.ITEM) + 
+           " Cliente: " + clientes.razon_social + 
+           " OF: " + STRING(contratos.orden_fabricacion).
+    cTag = STRING(items_contratos.id_tipo_contrato) + "," + 
+           STRING(items_contratos.anio) + "," + 
+           STRING(items_contratos.id_contrato).
+    
+    iTip = DYNAMIC-FUNCTION('getTipoTamborFromArticulo' IN hTam, items_contratos.id_articulo).
+
+    CREATE ttContratos.
+    ASSIGN  ttContratos.id_contrato         = items_contratos.id_contrato
+            ttContratos.semana_entrega      = items_contratos.semana_entrega
+            ttContratos.anio_semana_entrega = items_contratos.anio_semana_entrega
+            ttContratos.articulo            = productos_terminados.descripcion
+            ttContratos.calidad             = calidades.descripcion
+            ttContratos.cliente             = clientes.razon_social
+            ttContratos.orden_fabricacion   = contratos.orden_fabricacion
+            ttContratos.destino             = destinos.descripcion
+            ttContratos.cantidad            = items_contratos.cantidad
+            ttContratos.kilos               = IF AVAILABLE r_kilos_envase THEN r_kilos_envase.kilos * items_contratos.cantidad ELSE 0
+            ttContratos.kilos400            = DYNAMIC-FUNCTION('getKilos400' IN hTam, iTip, items_contratos.id_articulo, items_contratos.id_calidad, ttContratos.kilos)
+            ttContratos.tbs_faltantes       = ttContratos.cantidad
+            ttContratos.kgs_faltantes       = ttContratos.kilos
+            ttContratos.kgs400_faltantes    = ttContratos.kilos400
+            ttContratos.condicion           = IF AVAILABLE tipo_venta THEN tipo_venta.descripcion ELSE "NO-INFO"
+            ttContratos.cond_vta            = IF AVAILABLE clausulas THEN clausulas.descripcion ELSE "NO-INFO"
+            ttContratos.id_envase_pedido    = items_contratos.id_envase
+            ttContratos.lotes               = "'" 
+            .
+            
+
+    IF faltanteProduccion(items_contratos.id_contrato, items_contratos.id_tipo_contrato, items_contratos.anio, items_contratos.ITEM) > 0 THEN DO:      
+      
+      chNode = pchTree:Nodes:ADD(chOpen:KEY, 4, cKey, cTxt, "not").
+      chNode:Tag = cTag.
+      
+      cKey   = cKey + "-" + STRING(items_contratos.id_articulo).
+      cTxt   = "Producto: " + STRING(items_contratos.id_articulo) + " - " + productos_terminados.descripcion.
+      chAux  = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt, "data").
+      cKey   = cKey + "-" + STRING(items_contratos.id_calidad).
+      cTxt   = "Calidad: " + calidades.descripcion.
+      chAux  = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt , "data").
+      cKey   = cKey + "-" + STRING(items_contratos.c_usuario).
+      cTxt   = "Comercial: " + replace(items_contratos.c_usuario, "y_", "").
+      chAux  = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt , "data").
+      cKey   = cKey + "-" + STRING(items_contratos.fecha).
+      cTxt   = "Fecha: " + STRING(items_contratos.fecha).
+      chAux  = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt , "data").
+      cKey   = cKey + "-" + STRING(items_contratos.cantidad).
+      cTxt   = "Cantidad Pedida: " + STRING(items_contratos.cantidad) + " tbs por " + STRING(ttContratos.kilos) + " Kgs".
+      chAux  = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt , "data").
+      cKey   = cKey + "-" + "comprometidos".
+      cTxt   = "Producto Comprometido al Contrato - 0".
+      chAux  = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt , "lotes").
+
+      ASSIGN ttContratos.estado = "Pendiente".
+     
+      FOR EACH tambores_industria
+          WHERE tambores_industria.id_contrato_of      = items_contratos.id_contrato
+            AND tambores_industria.id_tipocontrato_of  = items_contratos.id_tipo_contrato
+            AND tambores_industria.anio_of             = items_contratos.anio
+            AND tambores_industria.ITEM_of             = 0
+            AND tambores_industria.id_estado          <> 2 
+            AND tambores_industria.id_estado          <> 3
+            AND tambores_industria.id_estado          <> 8
+            AND tambores_industria.id_estado          <> 9
+            AND tambores_industria.id_estado          <> 10
+          BREAK BY tambores_industria.nromov.
+        i = i + 1.
+        k = k + tambores_industria.kilos_tambor.
+        IF LAST-OF(tambores_industria.nromov) THEN DO:
+
+          FIND FIRST productos_terminados OF tambores_industria NO-LOCK NO-ERROR.
+          FIND FIRST calidades OF tambores_industria NO-LOCK NO-ERROR.
+          FIND FIRST envases_prod OF tambores_industria NO-LOCK NO-ERROR.
+
+          cKey = "lote" + items_contratos.id_contrato + "-" + STRING(items_contratos.item) + "-" + STRING(tambores_industria.nromov) + "-" + STRING(tambores_industria.nromov).
+          cTxt = "Lote " + STRING(tambores_industria.id_lote) + "/" + 
+                 STRING(tambores_industria.anio) + " (" + 
+                 STRING(i) + " tbs) " + 
+                 STRING(k) + " Kgs " +
+                 productos_terminados.descripcion + " " + 
+                 calidades.descripcion + " " + 
+                 envases_prod.descripcion + " "
+                 .
+          cTag = STRING(tambores_industria.id_empresa) + "," +
+                 STRING(tambores_industria.id_sucursal) + "," + 
+                 STRING(tambores_industria.id_tipotambor) + "," + 
+                 STRING(tambores_industria.nromov).
+
+          chOE = pchTree:Nodes:ADD(chAux:KEY, 4, cKey, cTxt, "lote").
+          chOE:Tag = cTag. 
+          chAux:TEXT = "Producto Comprometido al Contrato - " + STRING(INTEGER(ENTRY(2, chAux:TEXT, "-")) + i).
+          chNode:IMAGE = "adm".
+          
+          ASSIGN ttContratos.cantidad_fab     = ttContratos.cantidad_fab + i
+                 ttContratos.kilos_fab        = ttContratos.kilos_fab + k
+                 ttContratos.kilos400_fab     = ttContratos.kilos400_fab + DYNAMIC-FUNCTION('getKilos400' IN hTam, tambores_industria.id_tipotambor, tambores_industria.id_articulo, tambores_industria.id_calidad, k)
+                 ttContratos.tbs_faltantes    = ttContratos.cantidad - ttContratos.cantidad_fab
+                 ttContratos.kgs_faltantes    = ttContratos.kilos - ttContratos.kilos_fab 
+                 ttContratos.kgs400_faltantes = ttContratos.kilos400 - ttContratos.kilos400_fab
+                 ttContratos.lotes            = ttContratos.lotes + STRING(tambores_industria.id_lote) + "/" + STRING(tambores_industria.anio) + ", " 
+                 .
+          i = 0.
+          k = 0.
+        END.
+      END.  /* each tambores_industria*/
+      
+    END.
+    ELSE DO: /*faltante de produccion */
+
+      chNode = pchTree:Nodes:ADD(chClose:KEY, 4, cKey, cTxt, "yes").
+      chNode:Tag = cTag.
+  
+      cKey   = cKey + "-" + STRING(items_contratos.id_articulo).
+      cTxt   = "Producto: " + productos_terminados.descripcion.
+      chAux  = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt, "data").
+      cKey   = cKey + "-" + STRING(items_contratos.id_calidad).
+      cTxt   = "Calidad: " + calidades.descripcion.
+      chAux  = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt , "data").
+      cKey   = cKey + "-" + STRING(items_contratos.c_usuario).
+      cTxt   = "Comercial: " + replace(items_contratos.c_usuario, "y_", "").
+      chAux  = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt , "data").
+      cKey   = cKey + "-" + STRING(items_contratos.fecha).
+      cTxt   = "Fecha: " + STRING(items_contratos.fecha).
+      chAux  = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt , "data").
+      cKey   = cKey + "-" + STRING(items_contratos.cantidad).
+      cTxt   = "Cantidad Pedida: " + STRING(items_contratos.cantidad) + " tbs por " + STRING(ttContratos.kilos) + " Kgs".
+      chAux  = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt , "data").
+      cKey   = cKey + "-" + "cumplido".
+      cTxt   = "Contrato Cumplido con".
+      chAux  = pchTree:Nodes:ADD(chNode:KEY, 4, cKey, cTxt , "lotes").
+
+      ASSIGN ttContratos.estado = "Cumplido".
+     
+      FOR EACH tambores_industria
+          WHERE tambores_industria.id_contrato_of      = items_contratos.id_contrato
+            AND tambores_industria.id_tipocontrato_of  = items_contratos.id_tipo_contrato
+            AND tambores_industria.anio_of             = items_contratos.anio
+            AND tambores_industria.ITEM_of             = items_contratos.ITEM
+            AND tambores_industria.id_orden_entrega   <> 0      
+          BREAK BY tambores_industria.nromov.
+        i = i + 1.
+        k = k + tambores_industria.kilos_tambor.
+        IF LAST-OF(tambores_industria.nromov) THEN DO:
+
+          FIND FIRST productos_terminados OF tambores_industria NO-LOCK NO-ERROR.
+          FIND FIRST calidades OF tambores_industria NO-LOCK NO-ERROR.
+          FIND FIRST envases_prod OF tambores_industria NO-LOCK NO-ERROR.
+
+          cKey = "lote" + STRING(tambores_industria.nromov) + STRING(tambores_industria.id_tambor).
+          cTxt = "Lote " + STRING(tambores_industria.id_lote) + "/" + 
+                 STRING(tambores_industria.anio) + " (" + 
+                 STRING(i) + " tbs) " + 
+                 STRING(k) + " Kgs " +
+                 productos_terminados.descripcion + " " + 
+                 calidades.descripcion + " " + 
+                 envases_prod.descripcion + " "
+                 .
+          cTag = STRING(tambores_industria.id_empresa) + "," +
+                 STRING(tambores_industria.id_sucursal) + "," + 
+                 STRING(tambores_industria.id_tipotambor) + "," + 
+                 STRING(tambores_industria.nromov).
+
+          chOE = pchTree:Nodes:ADD(chAux:KEY, 4, cKey, cTxt, "lote").
+          chOE:TAG = cTag.
+
+          ASSIGN ttContratos.cantidad_fab     = ttContratos.cantidad_fab + i
+                 ttContratos.kilos_fab        = ttContratos.kilos_fab + k
+                 ttContratos.kilos400_fab     = ttContratos.kilos400_fab + DYNAMIC-FUNCTION('getKilos400' IN hTam, tambores_industria.id_tipotambor, tambores_industria.id_articulo, tambores_industria.id_calidad, k)
+                 ttContratos.tbs_faltantes    = ttContratos.cantidad - ttContratos.cantidad_fab
+                 ttContratos.kgs_faltantes    = ttContratos.kilos - ttContratos.kilos_fab 
+                 ttContratos.kgs400_faltantes = ttContratos.kilos400_fab - ttContratos.kilos400
+                 ttContratos.orden_entrega    = tambores_industria.id_orden_entrega
+                 ttContratos.lotes            = ttContratos.lotes + STRING(tambores_industria.id_lote) + "/" + STRING(tambores_industria.anio) + ", " 
+                 .
+          i = 0.
+          k = 0.
+        END.
+      END.  /* each tambores_industria*/
+    END.  
+
+    ttContratos.lotes = SUBSTRING(ttContratos.lotes, 1, LENGTH(ttContratos.lotes) - 2).
+
+  END. /*items_contratos*/
+
+   
+
+
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-nodeClick) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE nodeClick Procedure 
+PROCEDURE nodeClick :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER phNode AS COM-HANDLE     NO-UNDO.
+  DEFINE INPUT  PARAMETER pcArgs AS CHARACTER  NO-UNDO.
+
+  RUN SUPER (phNode, pcArgs).
+
+  selectedNode = phNode.
+
+
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-nodeDoubleClick) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE nodeDoubleClick Procedure 
+PROCEDURE nodeDoubleClick :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE INPUT  PARAMETER phNode AS COM-HANDLE     NO-UNDO.
+  DEFINE INPUT  PARAMETER pcArgs AS CHARACTER  NO-UNDO.
+
+  RUN SUPER (phNode, pcArgs).
+
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-openContrato) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE openContrato Procedure 
+PROCEDURE openContrato :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+
+  DEFINE VARIABLE hWin AS HANDLE     NO-UNDO.
+  DEFINE VARIABLE hPnt AS HANDLE     NO-UNDO.
+
+  IF selectedNode:TAG = "" THEN RETURN.
+
+  hPnt = CURRENT-WINDOW:HANDLE.
+
+  RUN wItemsContratos.w PERSISTENT SET hWin (INTEGER(ENTRY(1, selectedNode:TAG)), 
+                                             INTEGER(ENTRY(2, selectedNode:TAG)), 
+                                             ENTRY(3, selectedNode:TAG)).
+
+  hWin:CURRENT-WINDOW:PARENT = hPnt:PARENT.
+  RUN initializeObject IN hWin .
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-openLote) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _PROCEDURE openLote Procedure 
+PROCEDURE openLote :
+/*------------------------------------------------------------------------------
+  Purpose:     
+  Parameters:  <none>
+  Notes:       
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE hLib AS HANDLE     NO-UNDO.
+  DEFINE VARIABLE hWin AS HANDLE     NO-UNDO.
+  DEFINE VARIABLE hPnt AS HANDLE     NO-UNDO.
+
+   IF selectedNode:TAG = "" THEN RETURN.
+
+  DEFINE VARIABLE hLibCom AS HANDLE.
+  RUN libCommonFunctions.p PERSISTENT SET hLibCom.
+  hLib   = DYNAMIC-FUNCTION('getPersistentLib' IN hLibCom, 'libTamboresIndustria.p'). 
+  DELETE OBJECT hLibCom.
+
+  RUN saveParamsFile IN hLib (INTEGER(ENTRY(1, selectedNode:TAG)),
+                              INTEGER(ENTRY(2, selectedNode:TAG)),
+                              INTEGER(ENTRY(3, selectedNode:TAG)),
+                              INTEGER(ENTRY(4, selectedNode:TAG))).
+  hPnt = CURRENT-WINDOW:HANDLE.
+
+  IF ENTRY(3, selectedNode:TAG) = "3" THEN
+    RUN wLotesJugo.w PERSISTENT SET hWin.
+
+  IF ENTRY(3, selectedNode:TAG) = "6" THEN
+    RUN wLotesAceite.w PERSISTENT SET hWin.
+
+  hWin:CURRENT-WINDOW:PARENT = hPnt:PARENT.
+  RUN initializeObject IN hWin .
+
+
+
+END PROCEDURE.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+/* ************************  Function Implementations ***************** */
+
+&IF DEFINED(EXCLUDE-faltanteProduccion) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION faltanteProduccion Procedure 
+FUNCTION faltanteProduccion RETURNS INTEGER
+  (pcCon AS CHARACTER, 
+   piTip AS INTEGER,
+   piAno AS INTEGER,
+   piPte AS INTEGER) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+  DEFINE VARIABLE iPed AS INTEGER    NO-UNDO.
+  DEFINE VARIABLE iFab AS INTEGER    NO-UNDO.
+
+
+  /* tambores asociados a la parte de contrato  */
+  FOR EACH tambores_industria
+      WHERE tambores_industria.id_contrato_of     = pcCon
+        AND tambores_industria.id_tipocontrato_of = piTip
+        AND tambores_industria.anio_of            = piAno
+        AND tambores_industria.ITEM_of            = piPte
+        AND tambores_industria.id_estado          <> 2 
+        AND tambores_industria.id_estado          <> 3
+        AND tambores_industria.id_estado          <> 8
+        AND tambores_industria.id_estado          <> 9
+        AND tambores_industria.id_estado          <> 10
+      NO-LOCK.
+    iFab = iFab + 1.
+
+  END.
+
+  FOR FIRST items_contratos
+      WHERE items_contratos.id_contrato       = pcCon
+        AND items_contratos.id_tipo_contrato  = piTip
+        AND items_contratos.anio              = piAno
+        AND items_contratos.ITEM              = piPte
+      NO-LOCK.
+    iPed = items_contratos.cantidad.
+  END.
+
+  RETURN iPed - iFab.
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-getLibName) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getLibName Procedure 
+FUNCTION getLibName RETURNS CHARACTER
+  ( /* parameter-definitions */ ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+
+  RETURN "Produccion".   /* Function return value. */
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-getPopupMenu) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getPopupMenu Procedure 
+FUNCTION getPopupMenu RETURNS HANDLE
+  (phMenu AS HANDLE) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+
+  DEFINE VARIABLE hMenu     AS HANDLE     NO-UNDO.
+  DEFINE VARIABLE hMenuItem AS HANDLE     NO-UNDO.
+
+  IF VALID-HANDLE(phMenu) THEN DO:
+     hMenu = phMenu.
+     CREATE MENU-ITEM hMenu
+     ASSIGN PARENT  = hMenu
+            SUBTYPE = "RULE".
+  END.
+  ELSE DO:
+    CREATE MENU hMenu
+    ASSIGN POPUP-ONLY = TRUE
+           TITLE      = "Popup Menu".
+  END.
+
+  /* item contrato */
+  CREATE MENU-ITEM hMenuItem
+  ASSIGN PARENT      = hMenu
+         NAME        = "m_Contrato"
+         LABEL       = "Ver Contrato"       
+         ACCELERATOR = "C"    
+         SENSITIVE   = TRUE
+  TRIGGERS:
+    ON CHOOSE PERSISTENT RUN openContrato IN TARGET-PROCEDURE.
+  END TRIGGERS.
+
+  /* rule */
+  CREATE MENU-ITEM hMenuItem
+  ASSIGN PARENT      = hMenu
+         SUBTYPE     = "RULE".
+
+  /* lotes */
+  CREATE MENU-ITEM hMenuItem
+  ASSIGN PARENT      = hMenu
+         NAME        = "m_Lote"
+         LABEL       = "Abrir Lote"       
+         ACCELERATOR = "L"    
+         SENSITIVE   = TRUE
+  TRIGGERS:
+    ON CHOOSE PERSISTENT RUN openLote IN TARGET-PROCEDURE.
+  END TRIGGERS.
+
+  RETURN hMenu.
+
+  
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+
+&IF DEFINED(EXCLUDE-getUsuario) = 0 &THEN
+
+&ANALYZE-SUSPEND _UIB-CODE-BLOCK _FUNCTION getUsuario Procedure 
+FUNCTION getUsuario RETURNS CHARACTER
+  ( /* parameter-definitions */ ) :
+/*------------------------------------------------------------------------------
+  Purpose:  
+    Notes:  
+------------------------------------------------------------------------------*/
+
+  RETURN SUPER().
+
+END FUNCTION.
+
+/* _UIB-CODE-BLOCK-END */
+&ANALYZE-RESUME
+
+&ENDIF
+

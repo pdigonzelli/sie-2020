@@ -1,0 +1,26 @@
+  FIELD estado LIKE subd_vtas.estado VALIDATE ~
+  FIELD estado_subd_vtas LIKE subd_vtas.estado_subd_vtas VALIDATE ~
+  FIELD fecha LIKE subd_vtas.fecha VALIDATE ~
+  FIELD fecha_acreditacion LIKE subd_vtas.fecha_acreditacion VALIDATE ~
+  FIELD fecha_comp LIKE subd_vtas.fecha_comp VALIDATE ~
+  FIELD id_cliente LIKE subd_vtas.id_cliente VALIDATE ~
+  FIELD importe_base LIKE subd_vtas.importe_base VALIDATE ~
+  FIELD importe_local LIKE subd_vtas.importe_local VALIDATE ~
+  FIELD Importe_neto_base LIKE subd_vtas.Importe_neto_base VALIDATE ~
+  FIELD importe_neto_local LIKE subd_vtas.importe_neto_local VALIDATE ~
+  FIELD importe_neto_origen LIKE subd_vtas.importe_neto_origen VALIDATE ~
+  FIELD importe_origen LIKE subd_vtas.importe_origen VALIDATE ~
+  FIELD proforma LIKE subd_vtas.proforma VALIDATE ~
+  FIELD vencimiento LIKE subd_vtas.vencimiento VALIDATE ~
+  FIELD transito LIKE subd_vtas.transito VALIDATE ~
+  FIELD saldo_base LIKE subd_vtas.saldo_base VALIDATE ~
+  FIELD saldo_local LIKE subd_vtas.saldo_local VALIDATE ~
+  FIELD saldo_origen LIKE subd_vtas.saldo_origen VALIDATE ~
+  FIELD id_operacion LIKE subd_vtas.id_operacion VALIDATE ~
+  FIELD id_punto_venta LIKE subd_vtas.id_punto_venta VALIDATE ~
+  FIELD id_tipocomp LIKE subd_vtas.id_tipocomp VALIDATE ~
+  FIELD nro_comp LIKE subd_vtas.nro_comp VALIDATE ~
+  FIELD nro_asiento LIKE subd_vtas.nro_asiento VALIDATE ~
+  FIELD nro_proforma LIKE subd_vtas.nro_proforma VALIDATE ~
+  FIELD nromov LIKE subd_vtas.nromov VALIDATE ~
+  FIELD nombre LIKE clientes.nombre VALIDATE 

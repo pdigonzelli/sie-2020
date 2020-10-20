@@ -1,0 +1,104 @@
+DEFINE VAR v_total_kgs_contratos AS DECIMAL.
+DEFINE VAR v_total_tambores_contratos AS INTEGER.
+DEFINE VAR v_kgs_items AS DECIMAL.
+DEFINE VAR v_kgs_asignados AS DECIMAL.
+DEFINE VAR v_kgs_acum_asignados AS DECIMAL.
+DEFINE VAR v_kgs_pendientes AS DECIMAL.
+DEFINE VAR v_lotes AS CHAR.
+DEFINE VAR v_kgs_asignados_of AS DECIMAL.
+DEFINE VAR v_kgs_acum_asignados_of AS DECIMAL.
+DEFINE VAR v_kgs_pendientes_of AS DECIMAL.
+DEFINE VAR v_lotes_of AS CHAR.
+DEFINE VAR tiene-oe AS LOGICAL INITIAL FALSE.
+define var v_semana_desde as integer.
+define var v_anio_desde as integer.
+define var v_semana_hasta as integer.
+define var v_anio_hasta as integer.
+DEFINE BUFFER b_cont FOR contratos.
+DEFINE BUFFER b_item_cont FOR items_contratos.
+
+FOR EACH prog_produccion.
+    DELETE prog_produccion.
+END.
+
+run wc_sel_rango_semana.w (output v_semana_desde,
+                           output v_anio_desde,
+                           output v_semana_hasta,
+                           output v_anio_hasta).
+
+DEFINE VAR dbg AS LOGICAL.
+dbg = DEBUGGER:INITIATE().
+dbg = DEBUGGER:SET-BREAK().
+
+
+FOR EACH contratos NO-LOCK WHERE contratos.id_tipo_contrato < 100 AND contratos.id_contrato = "SOT004".
+    FOR EACH b_item_cont OF contratos NO-LOCK.
+        v_total_tambores_contratos = v_total_tambores_contratos + b_item_cont.cantidad.
+        
+        IF b_item_cont.id_articulo = 51 THEN DO:
+            FIND r_envases_prod OF b_item_cont NO-LOCK NO-ERROR.
+            IF AVAILABLE r_envases_prod THEN DO:
+                v_total_kgs_contratos =  v_total_kgs_contratos + (b_item_cont.cantidad * 
+                                                                  r_envases_prod.kilos).
+            END.
+        END.
+        ELSE
+        DO:
+            FIND r_productos_calidad_envase OF b_item_cont NO-LOCK NO-ERROR.
+            IF AVAILABLE r_productos_calidad_envase THEN DO:
+                v_total_kgs_contratos =  v_total_kgs_contratos + (b_item_cont.cantidad * 
+                                                                  r_productos_calidad_envase.kilos).
+            END.
+        END.
+    END.
+    
+    if (v_semana_desde > 0 and v_semana_desde < 53) and
+       (v_semana_hasta > 0 and v_semana_hasta < 53) then
+        do:
+            if v_anio_desde = v_anio_hasta then
+                do:
+                    FOR EACH items_contratos NO-LOCK 
+                                             OF contratos
+                                             where items_contratos.semana_entrega >= v_semana_desde
+                                             and items_contratos.semana_entrega <= v_semana_hasta
+                                             and items_contratos.anio_semana_entrega = v_anio_desde
+                                         BY items_contratos.anio_semana_entrega
+                                         BY items_contratos.semana_entrega
+                                         BY items_contratos.semana_entrega_hasta.
+                    
+                        {..\industria\i_calculo_prog_produccion1.i}
+                    END.
+                END.
+            else
+            do:
+                for each items_contratos NO-LOCK 
+                                         OF contratos
+                                           where ((items_contratos.semana_entrega >= v_semana_desde
+                                                    and items_contratos.anio_semana_entrega = v_anio_desde) 
+                                              or (items_contratos.semana_entrega <= v_semana_hasta
+                                                    and items_contratos.anio_semana_entrega = v_anio_hasta))
+                                              BY items_contratos.anio_semana_entrega
+                                              BY items_contratos.semana_entrega
+                                              BY items_contratos.semana_entrega_hasta.
+            
+                        {..\industria\i_calculo_prog_produccion1.i}
+                end.
+            end.
+        END.
+    else
+    DO:
+        FOR EACH items_contratos NO-LOCK 
+                                 OF contratos
+                                 BY items_contratos.anio_semana_entrega
+                                 BY items_contratos.semana_entrega
+                                 BY items_contratos.semana_entrega_hasta.
+    
+            {..\industria\i_calculo_prog_produccion1.i}
+        END.
+    END.
+
+    v_total_kgs_contratos = 0.
+    v_kgs_acum_asignados = 0.
+    v_kgs_acum_asignados_of = 0.
+END.
+

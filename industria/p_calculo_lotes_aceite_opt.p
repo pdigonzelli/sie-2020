@@ -1,0 +1,150 @@
+define input parameter p_suc as integer.
+
+define var v_tambores as integer.
+define var v_tam_pedidos as integer.
+define var v_kilos_pedidos as decimal format ">>>,>>>,>>9.99".
+define var v_kilos_prod as decimal format ">>>,>>>,>>9.99".
+define var v_kilos_despachados as decimal format ">>>,>>>,>>9.99".
+define var v_kilos_stock as decimal format ">>>,>>>,>>9.99".
+define var v_kilos_faltantes as decimal format ">>>,>>>,>>9.99".
+define var v_kilos as integer.
+define var h_con as handle.
+define var v_total_tambores_of as integer.
+define var v_total_kilos_of as decimal.
+define var v_envase as integer.
+define VAR v_articulo as integer.
+define VAR v_orden as integer.
+
+DEFINE VAR v_lista_articulo AS CHARACTER INITIAL "50,51,512,513,514,517,518,519,520,41,57,90,58,61,74,76,761,762,763,582".
+DEFINE VAR v_lista_orden    AS CHARACTER INITIAL "73,74,75,80,81,90,91,92,93,100,110,111,105,130,170,180,190,193,195,196".
+
+
+
+
+define buffer b_tam for tambores_industria.
+
+find comercial.sucursales where comercial.sucursales.id_sucursal = p_suc no-lock no-error.
+
+/******************** TAMBORES DE LOTE JUGO CON OF **********************************/
+
+FOR EACH contratos NO-LOCK.
+    FOR EACH tambores_industria NO-LOCK WHERE tambores_industria.id_sucursal_ubicacion  = p_suc
+                                      AND tambores_industria.id_locacion_ubicacion  = 4
+                                      AND tambores_industria.id_tipotambor          = 3
+                                      AND contratos.id_contrato      = tambores_industria.id_contrato_of
+                                      AND contratos.id_tipo_contrato = tambores_industria.id_tipocontrato_of
+                                      AND contratos.anio             = tambores_industria.anio_of,
+                             FIRST lotes_aceite OF tambores_industria NO-LOCK WHERE lotes_aceite.estado_lote >= 2
+                                      BREAK   
+                                      BY tambores_industria.nromov.
+
+
+                                      ACCUMULATE tambores_industria.id_lote (count by tambores_industria.nromov) .
+                                      v_tambores = v_tambores + 1.
+                                      v_tam_pedidos = v_tam_pedidos + 1.
+                                      v_kilos_pedidos = v_kilos_pedidos + tambores_industria.kilos_tambor.
+
+                                      ACCUMULATE tambores_industria.kilos_tambor (total by tambores_industria.nromov).
+                                      FIND FIRST clientes of contratos no-lock no-error.
+
+                                      
+                                      v_kilos_prod = v_kilos_prod + tambores_industria.kilos_tambor.
+                                      if tambores_industria.id_tipo_movsto > 0 and tambores_industria.nro_remito > 0 then 
+                                          v_kilos_despachados = v_kilos_despachados + tambores_industria.kilos_tambor.
+                                      
+                                      
+                                      IF LAST-OF(tambores_industria.nromov) THEN DO:
+
+                                          FIND FIRST estados_lotes where estados_lotes.id_estado_lote = lotes_aceite.estado_lote no-lock no-error.      
+                                          {i_calculo_lotes_jugo_opt.i}
+
+                                          /**************** SECTOR DE DATOS DE CONTRATOS *********************************************/
+
+                                          v_total_tambores_of = 0.
+                                          v_total_kilos_of = 0.
+
+                                          FOR EACH items_contratos of contratos no-lock.
+                                              v_total_tambores_of = v_total_tambores_of + items_contratos.cantidad.
+                                          END.
+
+
+                                          IF AVAILABLE contratos THEN DO:
+                                              ASSIGN stock_tambores.orden_fabricacion   = string(contratos.orden_fabricacion) 
+                                                     stock_tambores.id_contrato         = contratos.id_contrato
+                                                     stock_tambores.anio                = contratos.anio
+                                                     stock_tambores.id_cliente          = contratos.id_cliente
+                                                     stock_tambores.id_tipo_contrato    = contratos.id_tipo_contrato
+                                                     stock_tambores.cantidad_total_of   = v_total_tambores_of
+                                                     stock_tambores.kilos_total_of      = v_total_tambores_of * tambores_industria.kilos_tambor
+                                                     stock_tambores.anio_contrato       = integer(substring(string(year(contrato.fecha)),3,2)).
+
+                                              v_kilos_stock = v_kilos_stock + (v_total_tambores_of * tambores_industria.kilos_tambor).
+
+                                              IF AVAILABLE clientes THEN ASSIGN stock_tambores.cliente             = clientes.nombre.
+                                              ELSE ASSIGN stock_tambores.cliente             = "SIN CLIENTE ASIGNADO".
+
+                                          END.
+                                          /*************************************************************************************************/
+                                          v_tambores = 0.
+
+
+                                      END.
+
+                                      
+    END.
+
+                                      
+                                          create info_contrato.
+                                          assign info_contrato.orden_fabricacion  = string(contratos.orden_fabricacion)
+                                                 info_contrato.anio_corto         = integer(substring(string(contratos.anio),3,2))
+                                                 info_contrato.id_contrato        = contratos.id_contrato
+                                                 info_contrato.id_tipo_contrato   = contratos.id_tipo_contrato
+                                                 info_contrato.anio               = INTEGER(SUBSTRING(STRING(contratos.anio),3,2))
+                                                 info_contrato.id_cliente         = clientes.id_cliente
+                                                 info_contrato.cliente            = contratos.nombre.
+                                          
+                                          
+    
+    
+                                           v_kilos_faltantes = v_kilos_pedidos - v_kilos_prod.
+        
+    
+                                          ASSIGN
+                                            info_contrato.tambores_pedidos   = v_tam_pedidos
+                                            info_contrato.kilos_pedidos      = v_kilos_pedidos
+                                            info_contrato.kilos_producidos   = v_kilos_prod
+                                            info_contrato.kilos_despachados  = v_kilos_despachados
+                                            info_contrato.kilos_stock        = v_kilos_stock
+                                            info_contrato.kilos_faltante    = v_kilos_faltantes.
+                                          
+                                          v_tam_pedidos = 0.
+                                          v_kilos_pedidos = 0.
+                                          v_kilos_prod = 0.
+                                          v_kilos_despachados = 0.
+                                          v_kilos_stock = 0.
+                                          v_kilos_faltantes = 0.
+
+                                      
+END.
+
+
+/******************** TAMBORES DE LOTE JUGO SIN OF **********************************/
+FOR EACH tambores_industria NO-LOCK WHERE tambores_industria.id_sucursal_ubicacion  = p_suc
+                                      AND tambores_industria.id_locacion_ubicacion  = 4
+                                      AND tambores_industria.id_tipotambor          = 3
+                                      AND tambores_industria.id_contrato_of         = ""
+                                      AND tambores_industria.id_tipocontrato_of     = 0
+                                      AND tambores_industria.anio_of                = 0,
+                                    FIRST lotes_aceite of tambores_industria where lotes_aceite.estado_lote >= 2
+                                    BREAK BY tambores_industria.nromov.
+
+    ACCUMULATE tambores_industria.id_lote (count by tambores_industria.nromov).
+    v_tambores = v_tambores + 1.
+    ACCUMULATE tambores_industria.kilos_tambor (total by tambores_industria.nromov).
+        
+    IF LAST-OF(tambores_industria.nromov) THEN DO:
+        FIND FIRST estados_lotes where estados_lotes.id_estado_lote = lotes_aceite.estado_lote no-lock no-error.
+        {i_calculo_lotes_jugo_opt.i}  
+        v_tambores = 0.
+    END.
+END.

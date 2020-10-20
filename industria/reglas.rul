@@ -1,0 +1,36 @@
+#SIEMPRE
+5-FLETE;NOT es_fob > calcFlete
+
+#GASTOS POR AGENCIAS
+#9-THC (ORIGEN);NOT es_cfr AND NOT es_fob > calcThcOrigen 
+12-VARIOS;siempre AND NOT es_cfr AND NOT es_fob > calcZero 
+#14-TOLL;siempre AND NOT es_cfr AND NOT es_fob > calcToll
+#15-HANDLING;siempre AND NOT es_cfr AND NOT es_fob > calcGateOut
+#16-INLAND;siempre AND NOT es_miami AND NOT es_fob > calcInland
+#19-BL;siempre AND NOT es_cfr AND NOT es_fob > calcBL
+#20-THC (DESTINO);siempre AND NOT es_cfr AND NOT es_fob > calcThcDestino
+26-INBALANCE;siempre AND NOT es_cfr AND NOT es_fob > calcInbalance
+29-AGP;siempre AND NOT es_cfr AND NOT es_fob > calcAgp
+30-T7;siempre AND NOT es_cfr AND NOT es_fob > calcZero
+#31-EBAF;siempre AND NOT es_cfr AND NOT es_fob > calcEbaf
+32-AMS;siempre AND NOT es_cfr AND NOT es_fob > calcAmc
+
+
+#GASTOS POR CLAUSULA (COND VTA) DDP, DDU, EDDP, CIF, FCA
+3-ENTRY (DUTTY DDP);es_ddp AND es_usa > calcEntry
+6-DELIVERY;es_ddp > calcDelivery
+11-SEGURO;es_ddp OR es_ddu OR es_cif OR es_fca > calcSeguro
+12-VARIOS;es_ddp OR es_ddu OR es_fca > calcZero
+16-CHASSIS FEE;NOT es_miami AND NOT es_canada AND es_ddp > calcInland
+17-BUNKER;es_ddp OR es_ddu > calcBunker
+20-THC (DESTINO);NOT es_canada AND es_ddp > calcThcDestino
+26-INBALANCE;es_ddp OR es_ddu > calcInbalance
+27-DCR;es_ddp AND NOT es_aceite > calcDcr
+31-EBAF;es_ddp > calcEbaf
+33-FCA (COSTS);es_ddp AND es_europa > calcZero
+34-SERVICE FEE;es_ddp AND es_europa > calcZero
+
+
+#CFR
+13-IKS;es_cfr > calcIks
+

@@ -1,0 +1,96 @@
+Database created from Empty on Tue Apr 08 16:35:58 2003
+
+                Tue Apr 08 16:36:00 2003
+16:36:00 Inicio de sesión Single-user para dreyna en CON:. (451)
+16:36:00 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+16:36:00 BI File Threshold size (-bithold): 0. (6550)
+18:35:10 Fin de sesión Single-user. (334)
+
+                Wed Apr 09 12:11:13 2003
+12:11:13 Inicio de sesión Single-user para dreyna en CON:. (451)
+12:11:13 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+12:11:13 BI File Threshold size (-bithold): 0. (6550)
+18:15:04 Fin de sesión Single-user. (334)
+
+                Thu Apr 10 12:55:22 2003
+12:55:22 Inicio de sesión Single-user para dreyna en CON:. (451)
+12:55:22 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+12:55:22 BI File Threshold size (-bithold): 0. (6550)
+18:27:05 Fin de sesión Single-user. (334)
+
+                Fri Apr 11 13:07:55 2003
+13:07:55 Inicio de sesión Single-user para dreyna en CON:. (451)
+13:07:55 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+13:07:55 BI File Threshold size (-bithold): 0. (6550)
+17:34:19 Fin de sesión Single-user. (334)
+
+                Mon Apr 21 10:23:49 2003
+10:23:49 Inicio de sesión Single-user para dreyna en CON:. (451)
+10:23:49 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+10:23:49 BI File Threshold size (-bithold): 0. (6550)
+12:17:43 Fin de sesión Single-user. (334)
+
+                Tue Apr 22 10:49:07 2003
+10:49:07 Inicio de sesión Single-user para dreyna en CON:. (451)
+10:49:07 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+10:49:07 BI File Threshold size (-bithold): 0. (6550)
+18:39:55 Fin de sesión Single-user. (334)
+
+                Wed Apr 23 09:53:11 2003
+09:53:11 Inicio de sesión Single-user para dreyna en CON:. (451)
+09:53:11 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+09:53:11 BI File Threshold size (-bithold): 0. (6550)
+18:14:25 Fin de sesión Single-user. (334)
+
+                Mon Apr 28 09:55:19 2003
+09:55:19 Inicio de sesión Single-user para dreyna en CON:. (451)
+09:55:19 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+09:55:19 BI File Threshold size (-bithold): 0. (6550)
+12:19:14 El idusuario es ahora a_cacha. (708)
+
+                Mon Apr 28 14:42:49 2003
+14:42:49 Inicio de sesión Single-user para dreyna en CON:. (451)
+14:42:49 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+14:42:49 ** La última sesión ha terminado anormalmente. (852)
+14:42:49 ** Las transacciones incompletas se están restituyendo. (459)
+14:42:49 ** Recuperación de la base de datos terminada. Vuelva a ejecutar todas las transacciones activas. (36)
+14:42:49 ** Se ha cancelado una sesión -r anterior, la base de datos puede estar dañada. (514)
+14:42:49 BI File Threshold size (-bithold): 0. (6550)
+14:45:00 Fin de sesión Single-user. (334)
+
+                Wed Jul 16 15:45:01 2003
+15:45:01 Inicio de sesión Single-user para dreyna en CON:. (451)
+15:45:01 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+15:45:01 ** Se ha cancelado una sesión -r anterior, la base de datos puede estar dañada. (514)
+15:45:01 BI File Threshold size (-bithold): 0. (6550)
+18:14:31 Fin de sesión Single-user. (334)
+
+                Wed Jul 16 18:15:47 2003
+18:15:47 Inicio de sesión Single-user para dreyna en WIN3. (451)
+18:15:47 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+18:15:47 ** Se ha cancelado una sesión -r anterior, la base de datos puede estar dañada. (514)
+18:15:48 BI File Threshold size (-bithold): 0. (6550)
+
+                Wed Jul 16 18:25:17 2003
+18:25:17 Inicio de sesión Single-user para dreyna en WIN3. (451)
+18:25:17 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+18:25:17 ** La última sesión ha terminado anormalmente. (852)
+18:25:17 ** Las transacciones incompletas se están restituyendo. (459)
+18:25:17 ** Recuperación de la base de datos terminada. Vuelva a ejecutar todas las transacciones activas. (36)
+18:25:17 ** Se ha cancelado una sesión -r anterior, la base de datos puede estar dañada. (514)
+18:25:17 BI File Threshold size (-bithold): 0. (6550)
+18:33:21 Fin de sesión Single-user. (334)
+
+                Wed Jul 16 18:34:41 2003
+18:34:41 Inicio de sesión Single-user para dreyna en WIN3. (451)
+18:34:41 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+18:34:41 ** Se ha cancelado una sesión -r anterior, la base de datos puede estar dañada. (514)
+18:34:41 BI File Threshold size (-bithold): 0. (6550)
+18:37:58 Fin de sesión Single-user. (334)
+
+                Wed Jul 16 18:38:59 2003
+18:38:59 Inicio de sesión Single-user para dreyna en WIN3. (451)
+18:38:59 ** Esta sesión se está ejecutando con el parámetro de no raw (-r). (515)
+18:39:00 ** Se ha cancelado una sesión -r anterior, la base de datos puede estar dañada. (514)
+18:39:00 BI File Threshold size (-bithold): 0. (6550)
+18:41:33 Fin de sesión Single-user. (334)

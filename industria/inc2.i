@@ -1,0 +1,1 @@
+ strDate[1]                          = string(year(c_fecha),"9999") + "-"                          + string(month(c_fecha),"99")                          + "-" + string(day(c_fecha),"99"). strDate[2]                          = string(year(Fecha),"9999") + "-"                          + string(month(Fecha),"99")                          + "-" + string(day(Fecha),"99").
